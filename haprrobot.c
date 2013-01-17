@@ -14,3 +14,9 @@
 #include "math.h"
 
 #define DEBUG 1
+
+
+void main(void)
+{
+	
+}
