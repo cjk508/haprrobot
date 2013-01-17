@@ -1,3 +1,5 @@
+#include "debug_frmwrk.h"
+
 const int analogSensorPins = {15, 16, 17, 19};
 const unsigned long frontSensor = 1<<12;
 
@@ -9,8 +11,9 @@ const unsigned long frontSensor = 1<<12;
 */
 void initialiseSensors()
 {
+	// Sets up the counter and the pin config so that the analogue pins can be set
 	PINSEL_CFG_Type PinCfg;
-	int i = 0;
+	int i;
 	for(i=0;i<5;i++)
 	{
 		PinCfg.FuncNum = 2;
@@ -19,6 +22,8 @@ void initialiseSensors()
 		PinCf.Pinnum = analogSensorPins[i];
 		PINSEL_ConfigPin(&PinCfg);
 	}
+	//Initialises the DAC so it can analyse the input
+	DAC_Init(LPC_DAC);
 	GPIO_SetDir(1, frontSensor, 1);
 	GPIO_ClearValue(1, frontSensor);
 }
@@ -31,5 +36,8 @@ void initialiseSensors()
 */
 void main()
 {
+	debug_frmwrk_init();
 	initialiseSensors();
+	_DBG_("Sensors Initialised");
+	
 }
