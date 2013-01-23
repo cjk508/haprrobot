@@ -16,7 +16,7 @@
 
 uint8_t sig = 0x81;
 
-void main(void) {
+void serial test(void) {
   debug_frmwrk_init();
   _DBG_("Magic!");
   initSerial();
@@ -25,7 +25,7 @@ void main(void) {
   _DBG_(buf);
 
   serialSend(&sig,4);
-//  serialRecv(buf,6);
+  serialRecv(&buf,6);
 
   _DBG_(buf);
 }
