@@ -14,7 +14,8 @@ void speedCheck(int speed) {
 }
 
 
-void setLeft(int left) {
+void se
+tLeftMotor(int left) {
 	current_motor_speed_left = left;
 	if(left < 0 ) {
 		left = left*-1;
@@ -27,10 +28,10 @@ void setLeft(int left) {
 	}
 }
 
-void setRight(int right) {
+void setRightMotor(int right) {
 	current_motor_speed_right = right;
 	if(right < 0 ) {
-		left = left*-1;
+		right = right*-1;
 		speedCheck(right);
 		robotCommand(0xC2, right);
 	}
@@ -41,22 +42,29 @@ void setRight(int right) {
 }
 
 void setMotors(int lm, int rm) {
-	setLeft(lm);
-	setRight(rm);
+	setLeftMotor(lm);
+	setRightMotor(rm);
 	//uart.c stuff to do here
-	
 }
 
-void forwards(int lm, int rm) {
-	setMotors(lm, rm);
+void forwards(int s) {
+	setMotors(s, s);
 
 }
 
-void backwards(int lm, int rm) {
-	setMotors(lm, rm);
+void backwards(int s) {
+	setMotors(s, s);
 }
 
 void slowDown() {
+	int lm, rm, s;
+	lm = current_motor_speed_left;
+	rm = current_motor_speed_right;
+	if(rm == lm) s = lm;
+	else s = ((lm+rm)/2);
+	brake();
+	fowards(s);
+}
 
 void right() {
 	setMotors(15, 0);
@@ -77,5 +85,9 @@ void spinLeft() {
 
 void spinRight() {
 	setMotors(25, -25);
+}
+
+void delay() {
+	20000*20000;
 }
 
