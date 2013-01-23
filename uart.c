@@ -1,5 +1,8 @@
 #include "lpc17xx_uart.h"
 
+#include "lpc17xx_pinsel.h"
+#include "lpc_types.h"
+#include "debug_frmwrk.h"
 /**
  * Abstraction layer for robot commands
  * Takes in hex command, hex data
@@ -76,3 +79,19 @@ void serial_init(void) {
 	UART_TxCmd((LPC_UART_TypeDef *)LPC_UART3, ENABLE);			// Enable UART Transmit
 	
 }
+
+void main(void) {
+  debug_frmwrk_init();
+  _DBG_("Magic!");
+  serial_init();
+  
+  char* buf[6];
+  
+  write_usb_serial_blocking("0x81",4);
+  read_usb_serial_none_blocking(buf,6);
+  _DBG_(buf);
+}
+
+
+
+
