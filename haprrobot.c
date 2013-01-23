@@ -11,12 +11,21 @@
 #include "lpc17xx_dac.h"
 
 #include "lpc17xx.h"
-#include "math.h"
 
-#define DEBUG 1
+#include "uart.c"
 
+uint8_t sig = 0x81;
 
-void main(void)
-{
-	
+void main(void) {
+  debug_frmwrk_init();
+  _DBG_("Magic!");
+  initSerial();
+  
+  char buf[6];
+  _DBG_(buf);
+
+  serialSend(&sig,4);
+//  serialRecv(buf,6);
+
+  _DBG_(buf);
 }
