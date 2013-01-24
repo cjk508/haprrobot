@@ -12,7 +12,7 @@
 
 #include "lpc17xx.h"
 
-#include "uart.c"
+//#include "uart.c"
 #include "sensors.c"
 
 uint8_t sig = 0x81;
@@ -30,11 +30,11 @@ void serialTest() {
 
 void sensorsTest() {
   initialiseSensors();
-	_DBG_("Sensors Initialised");
 }
 
 void main(void) {
   debug_frmwrk_init();
   _DBG_("Magic!");
   
+  serialTest();
 }
