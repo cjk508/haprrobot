@@ -1,6 +1,6 @@
-int analogSensorPins[] = {23, 24, 25, 30};
+int analogSensorPins[] = {23, 24, 25, 30}; // FL, BL, BR, FR
 const unsigned long frontSensor = 0<<17;
-uint16_t currentReadings[] = {0,0,0,0,0};
+uint16_t currentReadings[] = {0,0,0,0,0}; // initialised readings
 
 /*
 * This struct is the return value of the get sensor function
@@ -37,7 +37,12 @@ void pinConfSetup(uint8_t p_Portnum, uint8_t p_Pinnum, uint8_t p_Funcnum, uint8_
 	PinCfg.Pinnum 	 = p_Pinnum;
 	PINSEL_ConfigPin(&PinCfg);
 }
-
+/**
+*	returns the value of the left sensors, both front and rear
+*
+* @author Christopher King
+* @return returns a SensorPair which contains .FrontSensor and .RearSensor 
+*/ 
 struct SensorPair getLeftSensorValues()
 {
 	struct SensorPair returnValue;
@@ -45,7 +50,12 @@ struct SensorPair getLeftSensorValues()
 	returnValue.RearSensor = currentReadings[2];	
 	return returnValue;
 }
-
+/**
+*	returns the value of the right sensors, both front and rear
+*
+* @author Christopher King
+* @return returns a SensorPair which contains .FrontSensor and .RearSensor 
+*/ 
 struct SensorPair getRightSensorValues()
 {
 	struct SensorPair returnValue;
@@ -53,7 +63,12 @@ struct SensorPair getRightSensorValues()
 	returnValue.RearSensor = currentReadings[3];	
 	return returnValue;
 }
-
+/**
+*	returns the value of the from sensor
+*
+* @author Christopher King
+* @return returns the current value of the front sensor
+*/ 
 uint16_t getFrontSensorValue()
 {
 	return currentReadings[4];
