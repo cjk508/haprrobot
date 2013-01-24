@@ -1,32 +1,12 @@
-int analogSensorPins[] = {23, 24, 25, 30}; // FL, BL, BR, FR
-const unsigned long frontSensor = 0<<17;
-uint16_t currentReadings[] = {0,0,0,0,0}; // initialised readings
+#include "sensors.h"
+//----------------------------------------------------------------
+//constants
+private const unsigned long frontSensor = 0<<17;
 
-/*
-* This struct is the return value of the get sensor function
-* it will contain values for the sensor pair that are called.
-* If only the fron sensor is needed then it'll return the value 
-* in the frontsensor variable.
-*
-* @author Christopher King
-*/
-struct SensorPair {
-	uint16_t FrontSensor;
-	uint16_t RearSensor;
-};
-
-
-/**
-* This method initialises the Sensors by setting 
-* up the pins on the MBED board
-*
-* @author Christopher King
-* @param p_Portnum		The port number of the Pin (between 0 and 4)
-* @param p_Pinnum 		The pin number of the Pin
-* @param p_Funcnum		The function of the pin (between 0 and 3)
-* @param p_Pinmode 		The mode of the pin (PULLUP, Tristate or pulldown)
-* @param p_OpenDrain	Whether the pin is in open drain mode or not
-*/
+//Variables
+private int analogSensorPins[] = {23, 24, 25, 30}; // FL, BL, BR, FR
+private uint16_t currentReadings[] = {0,0,0,0,0}; // initialised readings
+//----------------------------------------------------------------
 void pinConfSetup(uint8_t p_Portnum, uint8_t p_Pinnum, uint8_t p_Funcnum, uint8_t p_Pinmode, uint8_t p_OpenDrain)
 {
 	PINSEL_CFG_Type PinCfg;
@@ -37,12 +17,7 @@ void pinConfSetup(uint8_t p_Portnum, uint8_t p_Pinnum, uint8_t p_Funcnum, uint8_
 	PinCfg.Pinnum 	 = p_Pinnum;
 	PINSEL_ConfigPin(&PinCfg);
 }
-/**
-*	returns the value of the left sensors, both front and rear
-*
-* @author Christopher King
-* @return returns a SensorPair which contains .FrontSensor and .RearSensor 
-*/ 
+
 struct SensorPair getLeftSensorValues()
 {
 	struct SensorPair returnValue;
@@ -50,12 +25,7 @@ struct SensorPair getLeftSensorValues()
 	returnValue.RearSensor = currentReadings[2];	
 	return returnValue;
 }
-/**
-*	returns the value of the right sensors, both front and rear
-*
-* @author Christopher King
-* @return returns a SensorPair which contains .FrontSensor and .RearSensor 
-*/ 
+
 struct SensorPair getRightSensorValues()
 {
 	struct SensorPair returnValue;
@@ -63,22 +33,12 @@ struct SensorPair getRightSensorValues()
 	returnValue.RearSensor = currentReadings[3];	
 	return returnValue;
 }
-/**
-*	returns the value of the from sensor
-*
-* @author Christopher King
-* @return returns the current value of the front sensor
-*/ 
+
 uint16_t getFrontSensorValue()
 {
 	return currentReadings[4];
 }
-/**
-* This method initialises the Sensors by setting 
-* up the pins on the MBED board
-*
-* @author Christopher King
-*/ 
+
 void initialiseSensors()
 {
 	// configures the analogue pins

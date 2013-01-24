@@ -1,10 +1,8 @@
+//----------------------------------------------------------------
 #ifndef Sensors
 #define Sensors
-int analogSensorPins[] = {23, 24, 25, 30}; // FL, BL, BR, FR
-const unsigned long frontSensor = 0<<17;
-uint16_t currentReadings[] = {0,0,0,0,0}; // initialised readings
-
-/*
+//----------------------------------------------------------------
+/**
 * This struct is the return value of the get sensor function
 * it will contain values for the sensor pair that are called.
 * If only the fron sensor is needed then it'll return the value 
@@ -16,7 +14,7 @@ struct SensorPair {
 	uint16_t FrontSensor;
 	uint16_t RearSensor;
 };
-
+//----------------------------------------------------------------
 /**
 * This method initialises the Sensors by setting 
 * up the pins on the MBED board
@@ -29,7 +27,7 @@ struct SensorPair {
 * @param p_OpenDrain	Whether the pin is in open drain mode or not
 */
 void pinConfSetup(uint8_t p_Portnum, uint8_t p_Pinnum, uint8_t p_Funcnum, uint8_t p_Pinmode, uint8_t p_OpenDrain);
-
+//----------------------------------------------------------------
 /**
 *	returns the value of the left sensors, both front and rear
 *
@@ -37,6 +35,7 @@ void pinConfSetup(uint8_t p_Portnum, uint8_t p_Pinnum, uint8_t p_Funcnum, uint8_
 * @return returns a SensorPair which contains .FrontSensor and .RearSensor 
 */ 
 struct SensorPair getLeftSensorValues();
+//----------------------------------------------------------------
 /**
 *	returns the value of the Right sensors, both front and rear
 *
@@ -44,6 +43,7 @@ struct SensorPair getLeftSensorValues();
 * @return returns a SensorPair which contains .FrontSensor and .RearSensor 
 */ 
 struct SensorPair getRightSensorValues();
+//----------------------------------------------------------------
 /**
 *	returns the value of the from sensor
 *
@@ -51,6 +51,7 @@ struct SensorPair getRightSensorValues();
 * @return returns the current value of the front sensor
 */
 uint16_t getFrontSensorValue();
+//----------------------------------------------------------------
 /**
 * This method initialises the Sensors by setting 
 * up the pins on the MBED board
@@ -58,7 +59,8 @@ uint16_t getFrontSensorValue();
 * @author Christopher King
 */ 
 void initialiseSensors();
-/*
+//----------------------------------------------------------------
+/**
 * This method is called whenever there is a change in the ADC values
 * it is then converted and sent to a dummy USB terminal. This is here purely for testing,
 * it will not be part of the final program.
@@ -66,4 +68,6 @@ void initialiseSensors();
 * @author Christopher King.
 */
 void ADC_IRQHandler();
+//----------------------------------------------------------------
 #endif
+//----------------------------------------------------------------
