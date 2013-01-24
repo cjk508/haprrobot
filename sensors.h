@@ -10,10 +10,10 @@
 *
 * @author Christopher King
 */
-struct SensorPair {
+typedef struct SensorPair {
 	uint16_t FrontSensor;
 	uint16_t RearSensor;
-};
+}SensorPair;
 //----------------------------------------------------------------
 /**
 * This method initialises the Sensors by setting 

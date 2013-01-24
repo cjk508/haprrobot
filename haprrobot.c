@@ -12,12 +12,12 @@
 
 #include "lpc17xx.h"
 
-#include "uart.c"
+//#include "uart.c"
 #include "sensors.c"
 
 uint8_t sig = 0x81;
 
-void serialTest() {
+/*void serialTest() {
   initSerial();
   char buf[6];
   _DBG_(buf);
@@ -26,7 +26,7 @@ void serialTest() {
   serialRecv(&buf,6);
 
   _DBG_(buf);
-}
+}*/
 
 void sensorsTest() {
   initialiseSensors();

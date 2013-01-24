@@ -1,11 +1,11 @@
 #include "sensors.h"
 //----------------------------------------------------------------
 //constants
-private const unsigned long frontSensor = 0<<17;
+const unsigned long frontSensor = 0<<17;
 
 //Variables
-private int analogSensorPins[] = {23, 24, 25, 30}; // FL, BL, BR, FR
-private uint16_t currentReadings[] = {0,0,0,0,0}; // initialised readings
+int analogSensorPins[] = {23, 24, 25, 30}; // FL, BL, BR, FR
+uint16_t currentReadings[] = {0,0,0,0,0}; // initialised readings
 //----------------------------------------------------------------
 void pinConfSetup(uint8_t p_Portnum, uint8_t p_Pinnum, uint8_t p_Funcnum, uint8_t p_Pinmode, uint8_t p_OpenDrain)
 {
@@ -19,7 +19,7 @@ void pinConfSetup(uint8_t p_Portnum, uint8_t p_Pinnum, uint8_t p_Funcnum, uint8_
 	PINSEL_ConfigPin(&PinCfg);
 }
 
-struct SensorPair getLeftSensorValues()
+SensorPair getLeftSensorValues()
 {
 	
 	struct SensorPair returnValue;
@@ -32,7 +32,7 @@ struct SensorPair getLeftSensorValues()
 	return returnValue;
 }
 
-struct SensorPair getRightSensorValues()
+SensorPair getRightSensorValues()
 {
 	// creates the return value
 	struct SensorPair returnValue;
