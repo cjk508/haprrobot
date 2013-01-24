@@ -1,14 +1,42 @@
-// want 2 integers to track movement of usb mouse
+#include <KeyboardHost.h>
 
-int mouse_left_right;
-int mouse_up_down;
+int32_t x_move;
+int32_t y_move;
 
-void intialize_USB_mouse() {
-	PINSEL_CFG_Type PinCfg;
-	PinCfg.Funcnum = 1;
-	PinCfg.Portnum = 0;
-	PinCfg.Pinnum = 0;
-	PINSEL_ConfigPin(&PinCfg);
-	PinCfg.Pinnum = 1;
-	PINSEL_ConfigPin(&PinCfg);
+void cb(uint8_t buttons, int8_t X, int8_t Y) {
+	if(X != 0) {
+		x_move += X;
+	}
+	if(Y != 0) {
+		y_move += Y;
+	}
+	
+}
+
+void attach() {
+	
+}
+
+void detach() {
+	
+}
+
+int32_t give_x_move() {	
+	return x_move;
+}
+
+int32_t give_y_move() {
+	return y_move;
+}
+
+void TIMER0_IRQHandler() {
+	if(TIM_GetIntStatus(LPC_TIM0, TIM_MR0_INT) == SET)
+    {
+        mouse_poll();
+    }
+    TIM_ClearIntPending(LPC_TIM0, TIM_MR0_INT);
+}
+
+int main() {
+	mouse_init(cb, attach, detach);
 }

@@ -56,7 +56,6 @@ void moveStop() {
 
 void sensorsTest() {
   initialiseSensors();
-	_DBG_("Sensors Initialised");
 }
 
 void main(void) {
@@ -68,4 +67,6 @@ void main(void) {
 //  _DBG_("Music Stop");
   moveStop();
   
+  serialTest();
+ // sensorsTest();
 }

@@ -1,34 +1,15 @@
-int analogSensorPins[] = {23, 24, 25, 30};
+#include "sensors.h"
+//----------------------------------------------------------------
+//constants
 const unsigned long frontSensor = 0<<17;
-uint16_t currentReadings[] = {0,0,0,0,0};
 
-/*
-* This struct is the return value of the get sensor function
-* it will contain values for the sensor pair that are called.
-* If only the fron sensor is needed then it'll return the value 
-* in the frontsensor variable.
-*
-* @author Christopher King
-*/
-struct SensorPair {
-	uint16_t FrontSensor;
-	uint16_t RearSensor;
-};
-
-
-/**
-* This method initialises the Sensors by setting 
-* up the pins on the MBED board
-*
-* @author Christopher King
-* @param p_Portnum		The port number of the Pin (between 0 and 4)
-* @param p_Pinnum 		The pin number of the Pin
-* @param p_Funcnum		The function of the pin (between 0 and 3)
-* @param p_Pinmode 		The mode of the pin (PULLUP, Tristate or pulldown)
-* @param p_OpenDrain	Whether the pin is in open drain mode or not
-*/
+//Variables
+int analogSensorPins[] = {23, 24, 25, 30}; // FL, BL, BR, FR
+uint16_t currentReadings[] = {0,0,0,0,0}; // initialised readings
+//----------------------------------------------------------------
 void pinConfSetup(uint8_t p_Portnum, uint8_t p_Pinnum, uint8_t p_Funcnum, uint8_t p_Pinmode, uint8_t p_OpenDrain)
 {
+	//Sets up the pin to the spec that has been passed to it
 	PINSEL_CFG_Type PinCfg;
 	PinCfg.Funcnum   = p_Funcnum;
 	PinCfg.OpenDrain = p_OpenDrain;
@@ -38,35 +19,57 @@ void pinConfSetup(uint8_t p_Portnum, uint8_t p_Pinnum, uint8_t p_Funcnum, uint8_
 	PINSEL_ConfigPin(&PinCfg);
 }
 
-struct SensorPair getSensorValues(int sensors[])
+SensorPair getLeftSensorValues()
 {
+	
 	struct SensorPair returnValue;
-	returnValue.FrontSensor = 0;
-	returnValue.RearSensor = 0;	
+	
+	//assigns the FL and BL to the SensorPair
+	returnValue.FrontSensor = currentReadings[0];
+	returnValue.RearSensor = currentReadings[2];	
+
+	// returns the SensorPair
 	return returnValue;
 }
-/**
-* This method initialises the Sensors by setting 
-* up the pins on the MBED board
-*
-* @author Christopher King
-*/
+
+SensorPair getRightSensorValues()
+{
+	// creates the return value
+	struct SensorPair returnValue;
+	
+	//assigns the FL and BL to the SensorPair
+	returnValue.FrontSensor = currentReadings[1];
+	returnValue.RearSensor = currentReadings[3];
+
+	// returns the SensorPair	
+	return returnValue;
+}
+
+uint16_t getFrontSensorValue()
+{
+	//returns the front sensor reading
+	return currentReadings[4];
+}
+
 void initialiseSensors()
 {
 	// configures the analogue pins
 	pinConfSetup(PINSEL_PORT_0, analogSensorPins[0], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);
 	pinConfSetup(PINSEL_PORT_0, analogSensorPins[1], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	
 	pinConfSetup(PINSEL_PORT_0, analogSensorPins[2], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	
-	pinConfSetup(PINSEL_PORT_0, analogSensorPins[3], PINSEL_FUNC_3, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	
-
+	pinConfSetup(PINSEL_PORT_1, analogSensorPins[3], PINSEL_FUNC_3, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	
+	// sets the direction of the GPIO pin and clears the value.
 	GPIO_SetDir(0, frontSensor, 0);
 	GPIO_ClearValue(1, frontSensor);
 
 	// Set up the ADC sampling at 200kHz (maximum rate).
 	ADC_Init(LPC_ADC, 200000);
-
-	// Enable ADC channel 1.
+	
+	//Allows the channels to communicate
+	ADC_ChannelCmd(LPC_ADC, ADC_CHANNEL_0, ENABLE);
 	ADC_ChannelCmd(LPC_ADC, ADC_CHANNEL_1, ENABLE);
+	ADC_ChannelCmd(LPC_ADC, ADC_CHANNEL_2, ENABLE);
+	ADC_ChannelCmd(LPC_ADC, ADC_CHANNEL_4, ENABLE);
 
 	// Set ADC to continuously sample.
 	ADC_StartCmd (LPC_ADC, ADC_START_CONTINUOUS);
@@ -83,46 +86,25 @@ void initialiseSensors()
 
 void ADC_IRQHandler(void)
 {
-	// changed value means that if anything has changed since the last reading then it'll print out the changes
-	int changed = 0;
-	if(currentReadings[0] != ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0))
+	// counter made to refresh the readings.
+	int counter = 0;
+	// captures the readings at the point the interrupt is called
+	uint16_t newReadings[] = {ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_4),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_2),GPIO_ReadValue(frontSensor)};
+
+	// refreshes the old readings
+	while(counter < 5)
 	{
-		currentReadings[0] = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0);
-		changed = 1;
+		currentReadings[counter] = newReadings[counter];
+		counter = counter+1;
 	}
-	
-	if(currentReadings[1] != ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_3))
-	{
-		currentReadings[1] = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_3);
-		changed = 1;
-	}
-	
-	if(currentReadings[2] != ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1))
-	{
-		currentReadings[2] = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1);
-		changed = 1;
-	}
-	
-	if(currentReadings[3] != ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_2))
-	{
-		currentReadings[3] = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_2);
-		changed = 1;
-	}				
-	if (currentReadings[4] != GPIO_ReadValue(frontSensor))
-	{
-		currentReadings[4] = GPIO_ReadValue(frontSensor);
-		changed = 1;
-	}	
-	
-	if(changed == 1)
-	{
-		_DBG_("#################");
-		_DBG("FL:");	_DBD16(currentReadings[0]); _DBG_("");
-		_DBG("BL:");	_DBD16(currentReadings[2]); _DBG_("");
-		_DBG("FR:");	_DBD16(currentReadings[1]); _DBG_("");
-		_DBG("BR:");	_DBD16(currentReadings[3]); _DBG_("");			
-		_DBG("F:");	_DBD16(currentReadings[4]);_DBG_("");	
-		_DBG_("#################");	
-	}
+
+	//outputs the readings to a dummy terminal
+	_DBG_("#################");
+	_DBG("FL:");	_DBD16(currentReadings[0]); _DBG_("");
+	_DBG("BL:");	_DBD16(currentReadings[2]); _DBG_("");
+	_DBG("FR:");	_DBD16(currentReadings[1]); _DBG_("");
+	_DBG("BR:");	_DBD16(currentReadings[3]); _DBG_("");			
+	_DBG("F:");	_DBD16(currentReadings[4]);_DBG_("");	
+	//clears the GPIO sensor.
 	GPIO_ClearValue(1, frontSensor);			
 }
