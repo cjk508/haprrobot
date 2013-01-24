@@ -15,17 +15,43 @@
 #include "uart.c"
 #include "sensors.c"
 
-uint8_t sig = 0x81;
+uint8_t sig;
 
 void serialTest() {
   initSerial();
   char buf[6];
-  _DBG_(buf);
-
-  serialSend(&sig,4);
+//  _DBG_(buf);
+  sig = 0x81;
+  serialSend(&sig,1);
   serialRecv(&buf,6);
-
   _DBG_(buf);
+}
+
+void music() {
+  sig = 0xB3;
+  serialSend(&sig,1);
+  _DBG_("Sent Play");
+  /*
+  uint8_t buf[16] = {'c','d','e','f','g','a','b','>','c','b','a','g','f','e','d','c'};
+  sig = sizeof(buf);
+  serialSend(&sig,4);
+  _DBG_("Sent Length");
+  serialSend(&buf,sizeof(buf));
+  _DBG_("Sent Music");
+  */
+  sig = 4;
+  serialSend(&sig,1);
+  _DBG_("Sent Length");
+  sig = 'c';
+  serialSend(&sig,1);
+  _DBG_("Sent C");
+}
+
+void moveStop() {
+  sig = 0xC1;
+  serialSend(&sig,1);
+  sig = 0x0A;
+  serialSend(&sig,1);
 }
 
 void sensorsTest() {
@@ -36,5 +62,10 @@ void sensorsTest() {
 void main(void) {
   debug_frmwrk_init();
   _DBG_("Magic!");
+  serialTest();
+//  _DBG_("Music Start");
+//  music();
+//  _DBG_("Music Stop");
+  moveStop();
   
 }
