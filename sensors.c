@@ -1,6 +1,21 @@
 int analogSensorPins[] = {23, 24, 25, 30};
 const unsigned long frontSensor = 0<<17;
 uint16_t currentReadings[] = {0,0,0,0,0};
+
+/*
+* This struct is the return value of the get sensor function
+* it will contain values for the sensor pair that are called.
+* If only the fron sensor is needed then it'll return the value 
+* in the frontsensor variable.
+*
+* @author Christopher King
+*/
+struct SensorPair {
+	uint16_t FrontSensor;
+	uint16_t RearSensor;
+};
+
+
 /**
 * This method initialises the Sensors by setting 
 * up the pins on the MBED board
@@ -23,6 +38,13 @@ void pinConfSetup(uint8_t p_Portnum, uint8_t p_Pinnum, uint8_t p_Funcnum, uint8_
 	PINSEL_ConfigPin(&PinCfg);
 }
 
+struct SensorPair getSensorValues(int sensors[])
+{
+	struct SensorPair returnValue;
+	returnValue.FrontSensor = 0;
+	returnValue.RearSensor = 0;	
+	return returnValue;
+}
 /**
 * This method initialises the Sensors by setting 
 * up the pins on the MBED board
