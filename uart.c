@@ -1,3 +1,5 @@
+#include "uart.h"
+
 
 uint8_t sig;
 uint32_t ret;
@@ -11,19 +13,31 @@ uint32_t cmdSig() {
 
 
 uint32_t cmdLeftMFw(int speed) {
+  sig = M1_FORWARD;
+  ret = serialSend(&sig,1);
   
+  return ret;
 }
 
 uint32_t cmdLeftMBw(int speed) {
+  sig = M1_BACKWARD;
+  ret = serialSend(&sig,1);
   
+  return ret;
 }
 
 uint32_t cmdRightMFw(int speed) {
+  sig = M2_FORWARD;
+  ret = serialSend(&sig,1);
   
+  return ret;
 }
 
 uint32_t cmdRightMBw(int speed) {
+  sig = M2_BACKWARD;
+  ret = serialSend(&sig,1);
   
+  return ret;
 }
 
 

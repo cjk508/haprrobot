@@ -24,18 +24,19 @@ void serialTest() {
   _DBG_(buf);
 }
 
+/*
 void music() {
   sig = 0xB3;
   serialSend(&sig,1);
   _DBG_("Sent Play");
-  /*
+
   uint8_t buf[16] = {'c','d','e','f','g','a','b','>','c','b','a','g','f','e','d','c'};
   sig = sizeof(buf);
   serialSend(&sig,4);
   _DBG_("Sent Length");
   serialSend(&buf,sizeof(buf));
   _DBG_("Sent Music");
-  */
+
   sig = 4;
   serialSend(&sig,1);
   _DBG_("Sent Length");
@@ -43,13 +44,7 @@ void music() {
   serialSend(&sig,1);
   _DBG_("Sent C");
 }
-
-void moveStop() {
-  sig = 0xC1;
-  serialSend(&sig,1);
-  sig = 0x0A;
-  serialSend(&sig,1);
-}
+*/
 
 void sensorsTest() {
   initialiseSensors();
