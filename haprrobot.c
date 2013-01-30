@@ -12,8 +12,7 @@
 
 #include "lpc17xx.h"
 
-#include "uart.c"
-#include "sensors.c"
+#include "uart.h"
 
 uint8_t sig;
 
@@ -21,9 +20,7 @@ void serialTest() {
   initSerial();
   char buf[6];
 //  _DBG_(buf);
-  sig = 0x81;
-  serialSend(&sig,1);
-  serialRecv(&buf,6);
+  cmdSig(buf);
   _DBG_(buf);
 }
 
@@ -65,8 +62,6 @@ void main(void) {
 //  _DBG_("Music Start");
 //  music();
 //  _DBG_("Music Stop");
-  moveStop();
   
-  serialTest();
  // sensorsTest();
 }

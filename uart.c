@@ -1,4 +1,30 @@
 
+uint8_t sig;
+uint32_t ret;
+
+uint32_t cmdSig() {
+  sig = SEND_SIGNATURE;
+  ret = serialSend(&sig,1);
+  ret = serialRecv(&buf,6);
+  return ret;
+}
+
+
+uint32_t cmdLeftMFw(int speed) {
+  
+}
+
+uint32_t cmdLeftMBw(int speed) {
+  
+}
+
+uint32_t cmdRightMFw(int speed) {
+  
+}
+
+uint32_t cmdRightMBw(int speed) {
+  
+}
 
 
 uint32_t serialRecv(uint8_t* rxbuf, uint32_t len) {
