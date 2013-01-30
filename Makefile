@@ -43,6 +43,9 @@ all: 	haprrobot
 haprrobot: $(OBJ) uart.o
 	$(CC) -o $(EXECNAME) $(OBJ) $(LDFLAGS)
 	$(OBJCOPY) -I elf32-little -O binary $(EXECNAME) $(EXECNAME).bin
+  
+uart.o: uart.c
+	$(CC) -c uart.c $(LDFLAGS) $(CMSISINCLUDES)
 
 uart.o : uart.c uart.h
 	$(CC) -c uart.c $(CMSISINCLUDES)
