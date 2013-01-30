@@ -4,7 +4,7 @@
 uint8_t sig;
 uint32_t ret;
 
-uint32_t cmdSig() {
+uint32_t cmdSig(char* buf[6]) {
   sig = SEND_SIGNATURE;
   ret = serialSend(&sig,1);
   ret = serialRecv(&buf,6);
