@@ -30,7 +30,7 @@ LDFLAGS=$(CMSISFL) -static -mcpu=cortex-m3 -mthumb -mthumb-interwork \
            -lc -lg -lstdc++ -lsupc++  -lgcc -lm  -Wl,--end-group \
 	   -Xlinker -Map -Xlinker bin/lpc1700.map -Xlinker -T $(LDSCRIPT)
 
-LDFLAGS+=-L$(CMSIS)/lib -lDriversLPC17xxgnu -LUSB -lnxpUSBlib -lBSP -lCDL
+LDFLAGS+=-L$(CMSIS)/lib -lDriversLPC17xxgnu
 
 EXECNAME	= bin/haprrobot
 
@@ -41,7 +41,7 @@ all: 	haprrobot
 
 
 haprrobot: $(OBJ)
-	$(CC) -o $(EXECNAME) $(OBJ) KeyboardHost.o$(LDFLAGS)
+	$(CC) -o $(EXECNAME) $(OBJ) $(LDFLAGS)
 	$(OBJCOPY) -I elf32-little -O binary $(EXECNAME) $(EXECNAME).bin
 
 # clean out the source tree ready to re-build
