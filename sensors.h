@@ -68,6 +68,8 @@ void initialiseSensors();
 * @author Christopher King.
 */
 void ADC_IRQHandler();
+
+void GPIO_IRQHandler();
 //----------------------------------------------------------------
 #endif
 //----------------------------------------------------------------
