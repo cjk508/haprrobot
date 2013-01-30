@@ -23,10 +23,9 @@ SensorPair getLeftSensorValues()
 {
 	
 	struct SensorPair returnValue;
-	
 	//assigns the FL and BL to the SensorPair
-	returnValue.FrontSensor = currentReadings[0];
-	returnValue.RearSensor = currentReadings[2];	
+	returnValue.FrontSensor = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0);
+	returnValue.RearSensor = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1);	
 
 	// returns the SensorPair
 	return returnValue;
@@ -38,17 +37,28 @@ SensorPair getRightSensorValues()
 	struct SensorPair returnValue;
 	
 	//assigns the FL and BL to the SensorPair
-	returnValue.FrontSensor = currentReadings[1];
-	returnValue.RearSensor = currentReadings[3];
+	returnValue.FrontSensor = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_4);
+	returnValue.RearSensor = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_2);
 
 	// returns the SensorPair	
 	return returnValue;
 }
-
+void delay(void)
+{
+	int i = 0;
+	while(i<1000000)
+	{
+		i=i+1;
+	}
+	_DBG_("");
+	_DBD16(GPIO_ReadValue(0));
+	_DBG_("");
+	delay();
+}
 uint16_t getFrontSensorValue()
 {
 	//returns the front sensor reading
-	return currentReadings[4];
+	return GPIO_ReadValue(0);
 }
 
 void initialiseSensors()
@@ -60,8 +70,7 @@ void initialiseSensors()
 	pinConfSetup(PINSEL_PORT_1, analogSensorPins[3], PINSEL_FUNC_3, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	
 	// sets the direction of the GPIO pin and clears the value.
 	GPIO_SetDir(0, frontSensor, 0);
-	GPIO_ClearValue(1, frontSensor);
-
+	GPIO_IntCmd(0, frontSensor, 0);
 	// Set up the ADC sampling at 200kHz (maximum rate).
 	ADC_Init(LPC_ADC, 200000);
 	
@@ -76,12 +85,16 @@ void initialiseSensors()
 
 	// Set ADC to start converting.
 	ADC_BurstCmd (LPC_ADC, ENABLE);
-
+	_DBG_("dlkgnsdl");
 	// Enable interrupts for ADC conversion completing.
-	NVIC_EnableIRQ(ADC_IRQn);
-
+	//NVIC_EnableIRQ(ADC_IRQn);
+	NVIC_EnableIRQ(EINT3_IRQn);
+		_DBG_("Waiting for Interrupt 1");
 	// Enable interrupts globally.
 	__enable_irq();
+		_DBG_("Waiting for Interrupt 2");
+		delay();	
+		
 }
 
 void ADC_IRQHandler(void)
@@ -92,12 +105,17 @@ void ADC_IRQHandler(void)
 	uint16_t newReadings[] = {ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_4),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_2),GPIO_ReadValue(frontSensor)};
 
 	// refreshes the old readings
-	while(counter < 5)
+	while(counter < 4)
 	{
 		currentReadings[counter] = newReadings[counter];
 		counter = counter+1;
 	}
+}
 
+// Not Working!
+void EINT3_IRQHandler(void)
+{
+	currentReadings[4]=GPIO_ReadValue(0);
 	//outputs the readings to a dummy terminal
 	_DBG_("#################");
 	_DBG("FL:");	_DBD16(currentReadings[0]); _DBG_("");
@@ -105,6 +123,6 @@ void ADC_IRQHandler(void)
 	_DBG("FR:");	_DBD16(currentReadings[1]); _DBG_("");
 	_DBG("BR:");	_DBD16(currentReadings[3]); _DBG_("");			
 	_DBG("F:");	_DBD16(currentReadings[4]);_DBG_("");	
-	//clears the GPIO sensor.
-	GPIO_ClearValue(1, frontSensor);			
+	GPIO_ClearInt(0, frontSensor);
 }
+
