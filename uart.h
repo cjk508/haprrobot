@@ -9,6 +9,7 @@
 #define UART_INC
 
 #include "lpc17xx_uart.h"
+#include "lpc17xx_pinsel.h"
 
 // m3pi hex commands
 #define SEND_SIGNATURE 0x81
