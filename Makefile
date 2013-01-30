@@ -40,9 +40,12 @@ all: 	haprrobot
 	@echo "Build finished"
 
 
-haprrobot: $(OBJ)
+haprrobot: $(OBJ) uart.o
 	$(CC) -o $(EXECNAME) $(OBJ) $(LDFLAGS)
 	$(OBJCOPY) -I elf32-little -O binary $(EXECNAME) $(EXECNAME).bin
+  
+uart.o: uart.c
+	$(CC) -c uart.c $(LDFLAGS) $(CMSISINCLUDES)
 
 # clean out the source tree ready to re-build
 clean:
