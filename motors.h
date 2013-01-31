@@ -36,8 +36,6 @@ void forwards(int s);
 
 void backwards(int s);
 
-void slowDown();
-
 void right();
 
 void left();

@@ -1,4 +1,5 @@
 #include "sensors.h"
+#include "debug_frmwrk.h"
 //----------------------------------------------------------------
 //constants
 const unsigned long frontSensor = 0<<17;

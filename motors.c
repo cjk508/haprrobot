@@ -17,7 +17,7 @@ int speedCheck(int speed) {
 void setLeftMotor(int left) {
 	current_motor_speed_left = left;
 	if(left < 0 ) {
-		left = left*(-1);
+		left *= -1;
 		cmdLeftMBw(speedCheck(left));
 		cmdLeftMFw(0);
 	}
@@ -30,7 +30,7 @@ void setLeftMotor(int left) {
 void setRightMotor(int right) {
 	current_motor_speed_right = right;
 	if(right < 0 ) {
-		right = right*(-1);
+		right *= -1;
 		cmdRightMBw(speedCheck(left));
 		cmdRightMFw(0);
 	}
@@ -51,18 +51,8 @@ void forwards(int s) {
 }
 
 void backwards(int s) {
-  s = s*(-1);
+  s = s * (-1);
 	setMotors(s, s);
-}
-
-void slowDown() {
-	int lm, rm, s;
-	lm = current_motor_speed_left;
-	rm = current_motor_speed_right;
-	if(rm == lm) s = lm;
-	else s = ((lm+rm)/2);
-	brake();
-	fowards(s);
 }
 
 void right() {

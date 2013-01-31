@@ -13,29 +13,36 @@
 #include "lpc17xx.h"
 
 #include "uart.h"
-#include "sensors.c"
+#include "sensors.h"
+#include "motors.h"
 
 uint8_t sig;
 
 void serialTest() {
   _DBG_("Init Serial");
   initSerial(); 
-  _DBG_("Init Serial2"); 
   char buf[6];
   cmdSig(buf);
-  _DBG_((char)buf);
+  _DBG_((char*)buf);
 }
 
 void sensorsTest() {
   initialiseSensors();
 }
 
+void motorTest() {
+  cmdLeftMFw(25);
+}
 
 void main(void) {
   debug_frmwrk_init();
   _DBG_("Magic!");
 
-  serialTest();
+  motorTest();
+
+  _DBG_("Done");
+
+ // serialTest();
   
  // sensorsTest();
 }
