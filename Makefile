@@ -44,9 +44,6 @@ haprrobot: $(OBJ)
 	$(CC) -o $(EXECNAME) $(OBJ) $(LDFLAGS)
 	$(OBJCOPY) -I elf32-little -O binary $(EXECNAME) $(EXECNAME).bin
   
-uart.o: uart.c
-	$(CC) -c uart.c $(CMSISINCLUDES)
-
 # clean out the source tree ready to re-build
 clean:
 	rm -f `find . | grep \~`
