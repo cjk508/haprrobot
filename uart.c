@@ -15,30 +15,34 @@ uint32_t cmdSig(char* buf) {
 
 
 uint32_t cmdLeftMFw(int speed) {
+  int data = (speed > 127) ? 127 : speed;
   sig = M1_FORWARD;
   ret = serialSend(&sig,1);
-  
+  ret = serialSend(&data,1);
   return ret;
 }
 
 uint32_t cmdLeftMBw(int speed) {
+  int data = (speed > 127) ? 127 : speed;
   sig = M1_BACKWARD;
   ret = serialSend(&sig,1);
-  
+  ret = serialSend(&data,1);
   return ret;
 }
 
 uint32_t cmdRightMFw(int speed) {
+  int data = (speed > 127) ? 127 : speed;
   sig = M2_FORWARD;
   ret = serialSend(&sig,1);
-  
+  ret = serialSend(&data,1);
   return ret;
 }
 
 uint32_t cmdRightMBw(int speed) {
+  int data = (speed > 127) ? 127 : speed;
   sig = M2_BACKWARD;
   ret = serialSend(&sig,1);
-  
+  ret = serialSend(&data,1);
   return ret;
 }
 

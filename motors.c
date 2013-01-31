@@ -10,8 +10,7 @@ int current_motor_speed_right;
 
 
 int speedCheck(int speed) {
-	if(speed > MAX_SPEED) speed = MAX_SPEED;
-	return speed;
+	return (speed > MAX_SPEED) ? MAX_SPEED : speed;
 }
 
 void setLeftMotor(int left) {
@@ -31,12 +30,12 @@ void setRightMotor(int right) {
 	current_motor_speed_right = right;
 	if(right < 0 ) {
 		right *= -1;
-		cmdRightMBw(speedCheck(left));
+		cmdRightMBw(speedCheck(right));
 		cmdRightMFw(0);
 	}
 	else {
 		speedCheck(right);
-		cmdRightMFw(speedCheck(left));
+		cmdRightMFw(speedCheck(right));
 		cmdRightMBw(0);
 	}
 }

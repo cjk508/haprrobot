@@ -31,18 +31,19 @@ void sensorsTest() {
 }
 
 void motorTest() {
-  cmdLeftMFw(25);
+  setMotors(25, -25);
 }
 
 void main(void) {
   debug_frmwrk_init();
   _DBG_("Magic!");
 
+  serialTest();
+
   motorTest();
 
   _DBG_("Done");
 
- // serialTest();
   
  // sensorsTest();
 }
