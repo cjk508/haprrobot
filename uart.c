@@ -1,11 +1,13 @@
 #include "uart.h"
-
+#include "debug_frmwrk.h"
 
 uint8_t sig;
 uint32_t ret;
 
 uint32_t cmdSig(char* buf[6]) {
+  _DBH(SEND_SIGNATURE);_DBG_("");
   sig = SEND_SIGNATURE;
+  _DBH(sig);_DBG_("");
   ret = serialSend(&sig,1);
   ret = serialRecv(&buf,6);
   return ret;
@@ -50,6 +52,7 @@ uint32_t serialSend(uint8_t* txbuf, uint32_t len) {
 }
 
 void initSerial() {
+  _DBG_("Starting UART Initialisation");
 // UART Configuration structure variable
 	UART_CFG_Type uartConfig;
 // UART FIFO configuration Struct variable
@@ -57,6 +60,8 @@ void initSerial() {
 // Pin configuration for UART
 	PINSEL_CFG_Type PinCfg;
 
+  _DBG_("Structs assigned");
+  
 // Initialize UART pin connect
 	PinCfg.Funcnum = PINSEL_FUNC_2;
 	PinCfg.OpenDrain = PINSEL_PINMODE_NORMAL;
@@ -66,6 +71,8 @@ void initSerial() {
 	PINSEL_ConfigPin(&PinCfg);
 	PinCfg.Pinnum = 1; //Out pin 10
 	PINSEL_ConfigPin(&PinCfg);
+	
+	_DBG_("Pins Configured");
 	
 	/* Initialize UART Configuration parameter structure:
 	 * - Baudrate = 115200bps
@@ -79,6 +86,8 @@ void initSerial() {
     uartConfig.Stopbits = UART_STOPBIT_1;
     uartConfig.Baud_rate = 115200;
 	
+	_DBG_("UART Configured");
+	
 	/* Initialize FIFOConfigStruct to default state:
 	 * - FIFO_DMAMode = DISABLE
 	 * - FIFO_Level = UART_FIFO_TRGLEV0
@@ -87,13 +96,18 @@ void initSerial() {
 	 * - FIFO_State = ENABLE
 	 */
 	UART_FIFOConfigStructInit(&uartFifoConfig);
-
+  
+  _DBG_("FIFO Configured");
+  
 // Initialize UART3
-	UART_Init(LPC_UART3, &uartConfig);	
+	UART_Init(LPC_UART3, &uartConfig);
+	_DBG_("UART Initialised");
 // Initialize FIFO for UART3
 	UART_FIFOConfig(LPC_UART3, &uartFifoConfig);
+	_DBG_("FIFO Initialised");
 // Enable UART Transmit
 	UART_TxCmd(LPC_UART3, ENABLE);
+	_DBG_("UART Started");
 }
 
 

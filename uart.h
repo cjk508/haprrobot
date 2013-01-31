@@ -10,6 +10,8 @@
 
 #include "lpc17xx_uart.h"
 #include "lpc17xx_pinsel.h"
+#include "lpc_types.h"
+#include "lpc17xx.h"
 
 // m3pi hex commands
 #define SEND_SIGNATURE 0x81
