@@ -25,18 +25,64 @@ int current_motor_speed_right;
  * @return int restricted speed
  */
 int speedCheck(int speed);
-
+/**
+* Sets the left motor speed  
+*
+* @author Jed Warwick-Mooney
+* @author Andrew Durant
+* @param int input speed for left motor
+*/
 void setLeftMotor(int left);
+/**
+* Sets the right motor speed  
+*
+* @author Jed Warwick-Mooney
+* @author Andrew Durant
+* @param int input speed for right motor
+*/
 
 void setRightMotor(int right);
 
+/**
+* Allows the setting of the left and right motors in one call
+*
+* @author Jed Warwick-Mooney
+* @param int speed to set left motor at, int speed to set right motor at
+*/
+
 void setMotors(int lm, int rm);
+
+/**
+* Sets the speed the motors will go in the forwards direction
+*
+* @author Jed Warwick-Mooney
+* @param int speed
+*/
 
 void forwards(int s);
 
+/**
+* Sets speed of motors in the backwards direction
+*
+* @author Jed Warwick-Mooney
+* @param int speed
+*/
+
 void backwards(int s);
 
+/**
+* Sets right motor low and left motor high to turn right
+*
+* @author Jed Warwick-Mooney
+*/
+
 void right();
+
+/**
+* Sets left motor low and right motor high to turn left
+*
+* @author Jed Warwick-Mooney
+*/
 
 void left();
 
@@ -56,8 +102,23 @@ void freewheel();
  */
 void brake();
 
+/**
+* 
+*
+*
+* @author Jed Warwick-Mooney
+*/
+
 void spinLeft();
 
+/**
+*
+*
+*
+* @author Jed Warwick-Mooney
+*/
+
 void spinRight();
+
 
 #endif
