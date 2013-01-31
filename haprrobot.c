@@ -18,6 +18,7 @@
 uint8_t sig;
 
 void serialTest() {
+  _DBG_("Init Serial");
   initSerial();
   char buf[6];
   cmdSig(buf);
