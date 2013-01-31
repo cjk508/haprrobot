@@ -2,6 +2,13 @@
 #ifndef Sensors
 #define Sensors
 //----------------------------------------------------------------
+//CMSIS Includes
+#include "lpc17xx_nvic.h"
+#include "lpc17xx_gpio.h"
+#include "lpc17xx_adc.h"
+#include "lpc17xx_pinsel.h"
+//Project Includes
+//----------------------------------------------------------------
 /**
 * This struct is the return value of the get sensor function
 * it will contain values for the sensor pair that are called.
@@ -11,8 +18,8 @@
 * @author Christopher King
 */
 typedef struct SensorPair {
-	uint16_t FrontSensor;
-	uint16_t RearSensor;
+  uint16_t FrontSensor;
+  uint16_t RearSensor;
 }SensorPair;
 //----------------------------------------------------------------
 /**
@@ -34,7 +41,7 @@ void pinConfSetup(uint8_t p_Portnum, uint8_t p_Pinnum, uint8_t p_Funcnum, uint8_
 * @author Christopher King
 * @return returns a SensorPair which contains .FrontSensor and .RearSensor 
 */ 
-struct SensorPair getLeftSensorValues();
+SensorPair getLeftSensorValues();
 //----------------------------------------------------------------
 /**
 *	returns the value of the Right sensors, both front and rear
@@ -42,7 +49,7 @@ struct SensorPair getLeftSensorValues();
 * @author Christopher King
 * @return returns a SensorPair which contains .FrontSensor and .RearSensor 
 */ 
-struct SensorPair getRightSensorValues();
+SensorPair getRightSensorValues();
 //----------------------------------------------------------------
 /**
 *	returns the value of the from sensor
@@ -51,6 +58,9 @@ struct SensorPair getRightSensorValues();
 * @return returns the current value of the front sensor
 */
 uint16_t getFrontSensorValue();
+// Test routine
+
+void delay(void);
 //----------------------------------------------------------------
 /**
 * This method initialises the Sensors by setting 
@@ -68,8 +78,5 @@ void initialiseSensors();
 * @author Christopher King.
 */
 void ADC_IRQHandler();
-
-void GPIO_IRQHandler();
 //----------------------------------------------------------------
 #endif
-//----------------------------------------------------------------
