@@ -44,7 +44,7 @@
  * @param address to write to @todo uint8_t* name and version should be "3pi1.1" (6)
  * @return uint32_t status
  */
-uint32_t cmdSig(char* buf[6]);
+uint32_t cmdSig(char* buf);
 
 /**
  * Reads all five IR sensors and sends the

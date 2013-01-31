@@ -4,12 +4,12 @@
 uint8_t sig;
 uint32_t ret;
 
-uint32_t cmdSig(char* buf[6]) {
+uint32_t cmdSig(char* buf) {
   _DBH(SEND_SIGNATURE);_DBG_("");
   sig = SEND_SIGNATURE;
   _DBH(sig);_DBG_("");
   ret = serialSend(&sig,1);
-  ret = serialRecv(&buf,6);
+  ret = serialRecv(buf,6);
   return ret;
 }
 
@@ -52,7 +52,7 @@ uint32_t serialSend(uint8_t* txbuf, uint32_t len) {
 }
 
 void initSerial() {
-  _DBG_("Starting UART Initialisation");
+  _DBG_("Starting");
 // UART Configuration structure variable
 	UART_CFG_Type uartConfig;
 // UART FIFO configuration Struct variable

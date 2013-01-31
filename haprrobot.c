@@ -19,10 +19,11 @@ uint8_t sig;
 
 void serialTest() {
   _DBG_("Init Serial");
-  initSerial();
+  initSerial(); 
+  _DBG_("Init Serial2"); 
   char buf[6];
   cmdSig(buf);
-  _DBG_(buf);
+  _DBG_((char)buf);
 }
 
 void sensorsTest() {
