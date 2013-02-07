@@ -15,6 +15,7 @@
 #include "uart.h"
 #include "sensors.h"
 #include "motors.h"
+#include "correctmotion.h"
 
 uint8_t sig;
 
@@ -32,6 +33,11 @@ void sensorsTest() {
 
 void motorTest() {
   setMotors(25, -25);
+}
+
+void motorCorrectTest() {
+  motorTest();
+  while (1) {correctForwardMotion();}
 }
 
 void main(void) {
