@@ -18,11 +18,9 @@ void setLeftMotor(int left) {
 	if(left < 0 ) {
 		left *= -1;
 		cmdLeftMBw(speedCheck(left));
-		cmdLeftMFw(0);
 	}
 	else {
 		cmdLeftMFw(speedCheck(left));
-		cmdLeftMBw(0);
 	}
 }
 
@@ -31,12 +29,10 @@ void setRightMotor(int right) {
 	if(right < 0 ) {
 		right *= -1;
 		cmdRightMBw(speedCheck(right));
-		cmdRightMFw(0);
 	}
 	else {
 		speedCheck(right);
 		cmdRightMFw(speedCheck(right));
-		cmdRightMBw(0);
 	}
 }
 
@@ -67,11 +63,7 @@ void freewheel() {
 }
 
 void brake() {
-  int brakeSpeed = speedCheck(127);
-	cmdLeftMFw(brakeSpeed);
-	cmdRightMFw(brakeSpeed);
-	cmdLeftMBw(brakeSpeed);
-	cmdRightMBw(brakeSpeed);
+  freewheel();
 }
 
 void spinLeft() {
