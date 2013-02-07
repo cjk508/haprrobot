@@ -68,7 +68,7 @@ void delay(void);
 *
 * @author Christopher King
 */ 
-void initialiseSensors();
+void initSensors();
 //----------------------------------------------------------------
 /**
 * This method is called whenever there is a change in the ADC values

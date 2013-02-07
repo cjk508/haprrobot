@@ -16,6 +16,7 @@
 // m3pi hex commands
 #define SEND_SIGNATURE 0x81
 #define SEND_RAW_SENSOR_VALUES 0x86
+#define SEND_CAL_SENSOR_VALUES 0x87
 #define SEND_TRIMPOT 0xB0
 #define SEND_BATTERY_MILLIVOLTS 0xB1
 #define DO_PLAY 0xB3
@@ -44,7 +45,7 @@
  * @param address to write to @todo uint8_t* name and version should be "3pi1.1" (6)
  * @return uint32_t status
  */
-uint32_t cmdSig(char* buf);
+uint32_t cmdSig(unsigned char *buf);
 
 /**
  * Reads all five IR sensors and sends the
@@ -52,10 +53,10 @@ uint32_t cmdSig(char* buf);
  * in the range 0-2000
  *
  * @author Andrew Durant
- * @param address to write to @todo not sure at the moment (10)
+ * @param uint16_t *sens array size 5 (10 bytes) this is where is writes the values to
  * @return uint32_t status
  */
-//uint32_t cmdRawSens();
+uint32_t cmdRawSens(uint16_t *sens);
 
 /**
  * Reads all five IR sensors and sends
@@ -63,10 +64,10 @@ uint32_t cmdSig(char* buf);
  * two-byte ints, in the range 0-1000
  *
  * @author Andrew Durant
- * @param address to write to @todo not sure at the moment (10)
+ * @param uint16_t *sens array size 5 (10 bytes) this is where is writes the values to
  * @return uint32_t status
  */
-//uint32_t cmdCalSens();
+uint32_t cmdCalSens(uint16_t *sens);
 
 /**
  * Sends the voltage output of the trimpot
@@ -178,13 +179,12 @@ uint32_t cmdSig(char* buf);
 /**
  * Turns the robot left and right while
  * calibrating. For use when the robot
- * it positioned over a line. Returns
- * the character ‘c’ when complete.
+ * it positioned over a line.
  *
  * @author Andrew Durant
  * @return uint32_t status
  */
-//uint32_t cmdAutoCal();
+uint32_t cmdAutoCal();
 
 /**
  * Sets up PID parameters and begins

@@ -10,8 +10,7 @@ int current_motor_speed_right;
 
 
 int speedCheck(int speed) {
-	if(speed > MAX_SPEED) speed = MAX_SPEED;
-	return speed;
+	return (speed > MAX_SPEED) ? MAX_SPEED : speed;
 }
 
 void setLeftMotor(int left) {
@@ -19,11 +18,9 @@ void setLeftMotor(int left) {
 	if(left < 0 ) {
 		left *= -1;
 		cmdLeftMBw(speedCheck(left));
-		cmdLeftMFw(0);
 	}
 	else {
 		cmdLeftMFw(speedCheck(left));
-		cmdLeftMBw(0);
 	}
 }
 
@@ -31,13 +28,11 @@ void setRightMotor(int right) {
 	current_motor_speed_right = right;
 	if(right < 0 ) {
 		right *= -1;
-		cmdRightMBw(speedCheck(left));
-		cmdRightMFw(0);
+		cmdRightMBw(speedCheck(right));
 	}
 	else {
 		speedCheck(right);
-		cmdRightMFw(speedCheck(left));
-		cmdRightMBw(0);
+		cmdRightMFw(speedCheck(right));
 	}
 }
 
@@ -68,11 +63,7 @@ void freewheel() {
 }
 
 void brake() {
-  int brakeSpeed = speedCheck(127);
-	cmdLeftMFw(brakeSpeed);
-	cmdRightMFw(brakeSpeed);
-	cmdLeftMBw(brakeSpeed);
-	cmdRightMBw(brakeSpeed);
+  freewheel();
 }
 
 void spinLeft() {

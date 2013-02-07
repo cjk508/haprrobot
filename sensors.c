@@ -2,7 +2,7 @@
 #include "debug_frmwrk.h"
 //----------------------------------------------------------------
 //constants
-const unsigned long frontSensor = 0<<17;
+const unsigned long frontSensor = 1<<17;
 
 //Variables
 int analogSensorPins[] = {23, 24, 25, 30}; // FL, BL, BR, FR
@@ -46,25 +46,13 @@ SensorPair getRightSensorValues()
 }
 // Test routine
 
-void delay(void)
-{
-	int i = 0;
-	while(i<1000000)
-	{
-		i=i+1;
-	}
-	_DBG_("");
-	_DBD16(GPIO_ReadValue(0));
-	_DBG_("");
-	delay();
-}
 uint16_t getFrontSensorValue()
 {
 	//returns the front sensor reading
-	return GPIO_ReadValue(0);
+	return GPIO_ReadValue(frontSensor);
 }
 
-void initialiseSensors()
+void initSensors()
 {
 	// configures the analogue pins
 	pinConfSetup(PINSEL_PORT_0, analogSensorPins[0], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);
@@ -73,7 +61,6 @@ void initialiseSensors()
 	pinConfSetup(PINSEL_PORT_1, analogSensorPins[3], PINSEL_FUNC_3, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	
 	// sets the direction of the GPIO pin and clears the value.
 	GPIO_SetDir(0, frontSensor, 0);
-	//GPIO_IntCmd(0, frontSensor, 0);
 	// Set up the ADC sampling at 200kHz (maximum rate).
 	ADC_Init(LPC_ADC, 200000);
 	
@@ -88,14 +75,11 @@ void initialiseSensors()
 
 	// Set ADC to start converting.
 	ADC_BurstCmd (LPC_ADC, ENABLE);
-	_DBG_("dlkgnsdl");
 	// Enable interrupts for ADC conversion completing.
   NVIC_EnableIRQ(ADC_IRQn);
 
-  _DBG_("Waiting for Interrupt 1");
   // Enable interrupts globally.
   __enable_irq();
-  _DBG_("Waiting for Interrupt 2");
 }
 
 void ADC_IRQHandler(void)
@@ -112,10 +96,10 @@ void ADC_IRQHandler(void)
 		counter = counter+1;
 	}
 	_DBG_("#################");
-	_DBG("FL:");	_DBD16(currentReadings[0]); _DBG_("");
+	/*_DBG("FL:");	_DBD16(currentReadings[0]); _DBG_("");
 	_DBG("BL:");	_DBD16(currentReadings[2]); _DBG_("");
 	_DBG("FR:");	_DBD16(currentReadings[1]); _DBG_("");
-	_DBG("BR:");	_DBD16(currentReadings[3]); _DBG_("");			
+	_DBG("BR:");	_DBD16(currentReadings[3]); _DBG_("");*/			
 	_DBG("F:");	_DBD16(currentReadings[4]);_DBG_("");		
 }
 
