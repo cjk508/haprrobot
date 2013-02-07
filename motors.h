@@ -120,5 +120,6 @@ void spinLeft();
 
 void spinRight();
 
+void motorStateMachine(int state);
 
 #endif

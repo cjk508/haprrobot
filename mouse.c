@@ -1,5 +1,4 @@
-#include <KeyboardHost.h>
-#include "math.h"
+
 #include "mouse.h"
 
 int32_t x_move;
