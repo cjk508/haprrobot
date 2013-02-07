@@ -46,13 +46,13 @@ SensorPair getRightSensorValues()
 }
 // Test routine
 
-uint32_t getFrontSensorValue()
+int getFrontSensorValue()
 {
 
-  uint32_t temp = GPIO_ReadValue(0);
-  temp = frontSensor & temp;
+  unsigned temp = GPIO_ReadValue(0);
+  int temp17 =  (temp >> 17) & 1;	
 	//returns the front sensor reading
-	return temp;
+	return temp17;
 }
 
 void initSensors()
