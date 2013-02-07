@@ -43,12 +43,12 @@ void main(void) {
   debug_frmwrk_init();
   _DBG_("Magic!");
 
-  //serialTest();
+  serialTest();
 
- // motorTest();
-
-  //_DBG_("Done");
+//  motorTest();
 
   
   sensorsTest();
+  
+  _DBG_("Done");
 }
