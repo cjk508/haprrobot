@@ -2,7 +2,7 @@
 #include "debug_frmwrk.h"
 //----------------------------------------------------------------
 //constants
-const unsigned long frontSensor = 1<<17;
+const unsigned long frontSensor = 0<<17;
 
 //Variables
 int analogSensorPins[] = {23, 24, 25, 30}; // FL, BL, BR, FR
@@ -29,7 +29,7 @@ SensorPair getLeftSensorValues()
 	returnValue.RearSensor = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1);	
 
 	// returns the SensorPair
-	return returnValue;
+	return returnValue;	
 }
 
 SensorPair getRightSensorValues()
@@ -49,7 +49,7 @@ SensorPair getRightSensorValues()
 uint16_t getFrontSensorValue()
 {
 	//returns the front sensor reading
-	return GPIO_ReadValue(frontSensor);
+	return GPIO_ReadValue(0);
 }
 
 void initSensors()
