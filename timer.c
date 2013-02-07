@@ -1,6 +1,7 @@
-#include "haprrobot.c"
 #include "lpc17xx_timer.h"
 #include "lpc17xx_clkpwr.h"
+
+#include "motors.h"
 
 int motorState = 0;
 void init_TIMER(int timer)
@@ -23,7 +24,7 @@ void init_TIMER(int timer)
 }
 
 void TIMER0_IRQHandler() {
-	motorTest(motorState);
+	motorStateMachine(motorState);
 	motorState++;
 	TIM_ClearIntPending(LPC_TIM0, TIM_MR0_INT);
 	NVIC_ClearPendingIRQ(TIMER0_IRQn);

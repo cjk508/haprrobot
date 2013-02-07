@@ -21,8 +21,6 @@
 #include "sensors.h"
 #include "motors.h"
 #include "correctmotion.h"
-#include "mouse.h"
-#include "timer.h"
 
 uint8_t sig;
 
@@ -38,27 +36,9 @@ void sensorsTest() {
   initSensors();
 }
 
-void motorTest(int state) {
-switch(state) {
-	case 1 :
-		forwards(25);
-		break;
-	case 2 :
-		right();
-		break;
-	case 3 :
-  	left();
-  	break;
-	case 4 :
-		brake();
-		break;
-	default	:
-    break;
-	}
-}
-
-void mouseTest() {
-	mouse_init(cb, attach, detach);
+//void mouseTest() {
+//	mouse_init(cb, attach, detach);
+//}
 
 void motorTest() {
   setMotors(25, -25);
@@ -74,9 +54,6 @@ void main(void) {
   _DBG_("Magic!");
 	serialTest();
 
-	init_TIMER(10000);
-
-	mouseTest();
 
 //  motorTest();
 

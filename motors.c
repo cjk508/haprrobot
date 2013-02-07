@@ -74,4 +74,21 @@ void spinRight() {
 	setMotors(25, -25);
 }
 
-
+void motorStateMachine(int state) {
+switch(state) {
+	case 1 :
+		forwards(25);
+		break;
+	case 2 :
+		right();
+		break;
+	case 3 :
+  	left();
+  	break;
+	case 4 :
+		brake();
+		break;
+	default	:
+    break;
+	}
+}
