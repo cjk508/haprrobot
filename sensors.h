@@ -57,7 +57,7 @@ SensorPair getRightSensorValues();
 * @author Christopher King
 * @return returns the current value of the front sensor
 */
-uint32_t getFrontSensorValue();
+int getFrontSensorValue();
 // Test routine
 
 void delay(void);
