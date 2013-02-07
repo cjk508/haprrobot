@@ -17,6 +17,28 @@ uint32_t cmdSig(unsigned char *buf) {
 }
 
 
+uint32_t cmdRawSens(uint16_t *sens) {
+  sig = SEND_RAW_SENSOR_VALUES;
+  ret = serialSend(&sig,1);
+  ret = serialRecv((uint8_t*)sens,10);
+  return ret;
+}
+uint32_t cmdCalSens(uint16_t *sens) {
+  sig = SEND_CAL_SENSOR_VALUES;
+  ret = serialSend(&sig,1);
+  ret = serialRecv((uint8_t*)sens,10);
+  return ret;
+}
+
+uint32_t cmdAutoCal() {
+  sig = AUTO_CALIBRATE;
+  uint8_t check;
+  ret = serialSend(&sig,1);
+  ret = serialRecv(&check,10);
+  if (check != (uint8_t)'c') return 1;
+  else return ret;
+}
+
 uint32_t cmdLeftMFw(int speed) {
   uint8_t data = (speed > 127) ? 127 : speed;
   sig = M1_FORWARD;
