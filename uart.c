@@ -1,21 +1,46 @@
 #include "uart.h"
 #include "debug_frmwrk.h"
 
+// DBG Levels
+// 1 - Basic
+// 2 - Verbose
+#define DBG_LEVEL 1
+
 uint8_t sig;
 uint32_t ret;
 
-uint32_t cmdSig(char* buf) {
-  _DBH(SEND_SIGNATURE);_DBG_("");
+uint32_t cmdSig(unsigned char *buf) {
   sig = SEND_SIGNATURE;
-  _DBH(sig);_DBG_("");
   ret = serialSend(&sig,1);
   ret = serialRecv(buf,6);
   return ret;
 }
 
 
+uint32_t cmdRawSens(uint16_t *sens) {
+  sig = SEND_RAW_SENSOR_VALUES;
+  ret = serialSend(&sig,1);
+  ret = serialRecv((uint8_t*)sens,10);
+  return ret;
+}
+uint32_t cmdCalSens(uint16_t *sens) {
+  sig = SEND_CAL_SENSOR_VALUES;
+  ret = serialSend(&sig,1);
+  ret = serialRecv((uint8_t*)sens,10);
+  return ret;
+}
+
+uint32_t cmdAutoCal() {
+  sig = AUTO_CALIBRATE;
+  uint8_t check;
+  ret = serialSend(&sig,1);
+  ret = serialRecv(&check,10);
+  if (check != (uint8_t)'c') return 1;
+  else return ret;
+}
+
 uint32_t cmdLeftMFw(int speed) {
-  int data = (speed > 127) ? 127 : speed;
+  uint8_t data = (speed > 127) ? 127 : speed;
   sig = M1_FORWARD;
   ret = serialSend(&sig,1);
   ret = serialSend(&data,1);
@@ -23,7 +48,7 @@ uint32_t cmdLeftMFw(int speed) {
 }
 
 uint32_t cmdLeftMBw(int speed) {
-  int data = (speed > 127) ? 127 : speed;
+  uint8_t data = (speed > 127) ? 127 : speed;
   sig = M1_BACKWARD;
   ret = serialSend(&sig,1);
   ret = serialSend(&data,1);
@@ -31,7 +56,7 @@ uint32_t cmdLeftMBw(int speed) {
 }
 
 uint32_t cmdRightMFw(int speed) {
-  int data = (speed > 127) ? 127 : speed;
+  uint8_t data = (speed > 127) ? 127 : speed;
   sig = M2_FORWARD;
   ret = serialSend(&sig,1);
   ret = serialSend(&data,1);
@@ -39,7 +64,7 @@ uint32_t cmdRightMFw(int speed) {
 }
 
 uint32_t cmdRightMBw(int speed) {
-  int data = (speed > 127) ? 127 : speed;
+  uint8_t data = (speed > 127) ? 127 : speed;
   sig = M2_BACKWARD;
   ret = serialSend(&sig,1);
   ret = serialSend(&data,1);
@@ -56,7 +81,9 @@ uint32_t serialSend(uint8_t* txbuf, uint32_t len) {
 }
 
 void initSerial() {
-  _DBG_("Starting");
+
+  if (DBG_LEVEL >= 2) _DBG_("Starting Serial Init");
+  
 // UART Configuration structure variable
 	UART_CFG_Type uartConfig;
 // UART FIFO configuration Struct variable
@@ -64,7 +91,7 @@ void initSerial() {
 // Pin configuration for UART
 	PINSEL_CFG_Type PinCfg;
 
-  _DBG_("Structs assigned");
+  if (DBG_LEVEL >= 2) _DBG_("Structs assigned");
   
 // Initialize UART pin connect
 	PinCfg.Funcnum = PINSEL_FUNC_2;
@@ -76,7 +103,7 @@ void initSerial() {
 	PinCfg.Pinnum = 1; //Out pin 10
 	PINSEL_ConfigPin(&PinCfg);
 	
-	_DBG_("Pins Configured");
+	if (DBG_LEVEL >= 2) _DBG_("Pins Configured");
 	
 	/* Initialize UART Configuration parameter structure:
 	 * - Baudrate = 115200bps
@@ -90,7 +117,7 @@ void initSerial() {
     uartConfig.Stopbits = UART_STOPBIT_1;
     uartConfig.Baud_rate = 115200;
 	
-	_DBG_("UART Configured");
+	if (DBG_LEVEL >= 2) _DBG_("UART Configured");
 	
 	/* Initialize FIFOConfigStruct to default state:
 	 * - FIFO_DMAMode = DISABLE
@@ -101,17 +128,22 @@ void initSerial() {
 	 */
 	UART_FIFOConfigStructInit(&uartFifoConfig);
   
-  _DBG_("FIFO Configured");
+  if (DBG_LEVEL >= 2) _DBG_("FIFO Configured");
   
 // Initialize UART3
 	UART_Init(LPC_UART3, &uartConfig);
-	_DBG_("UART Initialised");
+	
+	if (DBG_LEVEL >= 2) _DBG_("UART Initialised");
+	
 // Initialize FIFO for UART3
 	UART_FIFOConfig(LPC_UART3, &uartFifoConfig);
-	_DBG_("FIFO Initialised");
+	
+	if (DBG_LEVEL >= 2) _DBG_("FIFO Initialised");
+	
 // Enable UART Transmit
 	UART_TxCmd(LPC_UART3, ENABLE);
-	_DBG_("UART Started");
+	
+	if (DBG_LEVEL >= 2) _DBG_("UART Started");
 }
 
 

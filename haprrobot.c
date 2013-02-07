@@ -1,4 +1,4 @@
-//#include "lpc17xx_uart.h"		// Central include files
+// Central include files
 #include "debug_frmwrk.h"
 #include "lpc17xx_pinsel.h"
 #include "lpc17xx_nvic.h"
@@ -12,6 +12,11 @@
 
 #include "lpc17xx.h"
 
+// DBG Levels
+// 1 - Basic
+// 2 - Verbose
+#define DBG_LEVEL 1
+
 #include "uart.h"
 #include "sensors.h"
 #include "motors.h"
@@ -20,9 +25,9 @@
 uint8_t sig;
 
 void serialTest() {
-  _DBG_("Init Serial");
+  if (DBG_LEVEL >= 1) _DBG_("Init Serial");
   initSerial(); 
-  char buf[6];
+  unsigned char buf[6];
   cmdSig(buf);
   _DBG_((char*)buf);
 }
@@ -44,12 +49,12 @@ void main(void) {
   debug_frmwrk_init();
   _DBG_("Magic!");
 
-  //serialTest();
+  serialTest();
 
- // motorTest();
-
-  //_DBG_("Done");
+//  motorTest();
 
   
   sensorsTest();
+  
+  _DBG_("Done");
 }
