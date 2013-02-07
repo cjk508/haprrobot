@@ -29,7 +29,7 @@ SensorPair getLeftSensorValues()
 	returnValue.RearSensor = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1);	
 
 	// returns the SensorPair
-	return returnValue;
+	return returnValue;	
 }
 
 SensorPair getRightSensorValues()
@@ -46,10 +46,13 @@ SensorPair getRightSensorValues()
 }
 // Test routine
 
-uint16_t getFrontSensorValue()
+uint32_t getFrontSensorValue()
 {
+
+  uint32_t temp = GPIO_ReadValue(0);
+  temp = frontsensor & temp;
 	//returns the front sensor reading
-	return GPIO_ReadValue(frontSensor);
+	return temp;
 }
 
 void initSensors()
