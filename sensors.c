@@ -6,7 +6,7 @@ const unsigned long frontSensor = 1<<17;
 
 //Variables
 int analogSensorPins[] = {23, 24, 25, 30}; // FL, BL, BR, FR
-uint16_t currentReadings[] = {0,0,0,0,0}; // initialised readings
+uint32_t currentReadings[] = {0,0,0,0,0}; // initialised readings
 //----------------------------------------------------------------
 void pinConfSetup(uint8_t p_Portnum, uint8_t p_Pinnum, uint8_t p_Funcnum, uint8_t p_Pinmode, uint8_t p_OpenDrain)
 {
@@ -50,7 +50,7 @@ uint32_t getFrontSensorValue()
 {
 
   uint32_t temp = GPIO_ReadValue(0);
-  temp = frontsensor & temp;
+  temp = frontSensor & temp;
 	//returns the front sensor reading
 	return temp;
 }
@@ -89,8 +89,10 @@ void ADC_IRQHandler(void)
 {
 	// counter made to refresh the readings.
 	int counter = 0;
+  uint32_t temp = GPIO_ReadValue(0);
+  temp = frontSensor & temp;	
 	// captures the readings at the point the interrupt is called
-	uint16_t newReadings[] = {ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_4),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_2),GPIO_ReadValue(frontSensor)};
+	uint16_t newReadings[] = {ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_4),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_2),temp};
 
 	// refreshes the old readings
 	while(counter < 5)
@@ -103,7 +105,7 @@ void ADC_IRQHandler(void)
 	_DBG("BL:");	_DBD16(currentReadings[2]); _DBG_("");
 	_DBG("FR:");	_DBD16(currentReadings[1]); _DBG_("");
 	_DBG("BR:");	_DBD16(currentReadings[3]); _DBG_("");*/			
-	_DBG("F:");	_DBD16(currentReadings[4]);_DBG_("");		
+	_DBG("F:");	_DBD32(currentReadings[4]);_DBG_("");		
 }
 
 // Not Working!
