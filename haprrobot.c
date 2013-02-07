@@ -21,6 +21,7 @@
 #include "sensors.h"
 #include "motors.h"
 #include "correctmotion.h"
+#include "timer.h"
 
 uint8_t sig;
 
