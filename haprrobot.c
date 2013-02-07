@@ -38,7 +38,7 @@ void sensorsTest() {
   initSensors();
 }
 
-void motorTest(int state) {
+void motorStateMachine(int state) {
 switch(state) {
 	case 1 :
 		forwards(25);
@@ -59,6 +59,7 @@ switch(state) {
 
 void mouseTest() {
 	mouse_init(cb, attach, detach);
+}
 
 void motorTest() {
   setMotors(25, -25);
