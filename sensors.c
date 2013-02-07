@@ -89,10 +89,10 @@ void ADC_IRQHandler(void)
 {
 	// counter made to refresh the readings.
 	int counter = 0;
-  uint32_t temp = GPIO_ReadValue(0);
-  temp = frontSensor & temp;	
+  unsigned temp = GPIO_ReadValue(0);
+  int temp17 =  (temp >> 17) & 1;	
 	// captures the readings at the point the interrupt is called
-	uint16_t newReadings[] = {ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_4),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_2),temp};
+	uint16_t newReadings[] = {ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_4),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_2),temp17};
 
 	// refreshes the old readings
 	while(counter < 5)
@@ -100,25 +100,13 @@ void ADC_IRQHandler(void)
 		currentReadings[counter] = newReadings[counter];
 		counter = counter+1;
 	}
-	_DBG_("#################");
-	/*_DBG("FL:");	_DBD16(currentReadings[0]); _DBG_("");
-	_DBG("BL:");	_DBD16(currentReadings[2]); _DBG_("");
-	_DBG("FR:");	_DBD16(currentReadings[1]); _DBG_("");
-	_DBG("BR:");	_DBD16(currentReadings[3]); _DBG_("");*/			
-	_DBG("F:");	_DBD32(currentReadings[4]);_DBG_("");		
-}
-
-// Not Working!
-/*void EINT3_IRQHandler(void)
-{
-	currentReadings[4]=GPIO_ReadValue(0);
-	//outputs the readings to a dummy terminal
-	_DBG_("#################");
+	/*_DBG_("#################");
 	_DBG("FL:");	_DBD16(currentReadings[0]); _DBG_("");
 	_DBG("BL:");	_DBD16(currentReadings[2]); _DBG_("");
 	_DBG("FR:");	_DBD16(currentReadings[1]); _DBG_("");
-	_DBG("BR:");	_DBD16(currentReadings[3]); _DBG_("");			
-	_DBG("F:");	_DBD16(currentReadings[4]);_DBG_("");	
-	GPIO_ClearInt(0, frontSensor);
-}*/
-
+	_DBG("BR:");	_DBD16(currentReadings[3]); _DBG_("");*/			
+	  if (currentReadings[4] > 0)
+	    _DBG_("I see nothing");	 
+	   else  
+	   	    _DBG_("Front sensor has sensed something");
+}
