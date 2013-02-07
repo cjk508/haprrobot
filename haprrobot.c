@@ -40,19 +40,19 @@ void sensorsTest() {
 //	mouse_init(cb, attach, detach);
 //}
 
-void motorTest() {
+/*void motorTest() {
   setMotors(25, -25);
 }
 
 void motorCorrectTest() {
   motorTest();
   while (1) {correctForwardMotion();}
-}
+}*/
 
 void main(void) {
   debug_frmwrk_init();
   _DBG_("Magic!");
-	serialTest();
+	//serialTest();
 
 
 //  motorTest();
