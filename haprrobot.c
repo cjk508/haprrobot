@@ -27,7 +27,7 @@ void serialTest() {
 }
 
 void sensorsTest() {
-  initialiseSensors();
+  initSensors();
 }
 
 void motorTest() {
@@ -38,12 +38,12 @@ void main(void) {
   debug_frmwrk_init();
   _DBG_("Magic!");
 
-  serialTest();
+  //serialTest();
 
-  motorTest();
+ // motorTest();
 
-  _DBG_("Done");
+  //_DBG_("Done");
 
   
- // sensorsTest();
+  sensorsTest();
 }
