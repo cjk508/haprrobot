@@ -103,7 +103,7 @@ void freewheel();
 void brake();
 
 /**
-* 
+* Sets the left motor to backwards and right forwards in order to spin left
 *
 *
 * @author Jed Warwick-Mooney
@@ -112,7 +112,7 @@ void brake();
 void spinLeft();
 
 /**
-*
+* Sets the right motor to backwards and left forwards in order to spin right
 *
 *
 * @author Jed Warwick-Mooney

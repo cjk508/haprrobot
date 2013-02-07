@@ -1,5 +1,6 @@
 #include <KeyboardHost.h>
-#include <Math.h>
+#include "math.h"
+#include "mouse.h"
 
 int32_t x_move;
 int32_t y_move;
@@ -23,7 +24,7 @@ void cb(uint8_t buttons, int8_t X, int8_t Y) {
 		_DBG_("The Mouse has moved Forward/Backward by: ");
 		_DBC(X);
 		_DBG_("\n");
-		x_move += X;
+		x_move += (X*y_direction_change);
 		_DBG_("Value of x_move is: ");
 		_DBC(x_move);
 		_DBG_("\n");
@@ -58,13 +59,13 @@ void set_y_move(int8_t y) {
 	y_move = y;
 }
 
-int distanceMoved(int x, int y) {
+void distanceMoved(int x, int y) {
+	//
 	int d;
 	d = ((x^2) + (y^2));
 	d = sqrt(d);
 	_DBG_("the Distance moved by the Polulu robot is: ");
 	_DBC(d);
-	return d;
 }
 
 //interrupt handler for mouse sensor, interrupts every 50ms to see change in values on the robot
@@ -74,9 +75,4 @@ void TIMER0_IRQHandler() {
         mouse_poll();
     }
     TIM_ClearIntPending(LPC_TIM0, TIM_MR0_INT);
-}
-
-int main() {
-	//Initialises mouse and runs the cb
-	mouse_init(cb, attach, detach);
 }

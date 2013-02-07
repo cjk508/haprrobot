@@ -15,6 +15,8 @@
 #include "uart.h"
 #include "sensors.h"
 #include "motors.h"
+#include "mouse.h"
+#include "timer.h"
 
 uint8_t sig;
 
@@ -30,16 +32,30 @@ void sensorsTest() {
   initialiseSensors();
 }
 
-void motorTest() {
-  cmdLeftMFw(25);
+void motorTest(int state) {
+switch(state) {
+	case 1 :
+		forwards(25);
+	case 2 :
+		right();
+	case 3 :
+  	left();
+	case 4 :
+		brake();
+	default		:
+			return(0);
+	}
+}
+
+void mouseTest() {
+	mouse_init(cb, attach, detach);
 }
 
 void main(void) {
   debug_frmwrk_init();
   _DBG_("Magic!");
-
-  motorTest();
-
+	init_TIMER(10000)
+	mouseTest()
   _DBG_("Done");
 
  // serialTest();
