@@ -1,5 +1,6 @@
-
 #include "mouse.h"
+#include "math.h"
+#include "debug_frmwrk.h"
 
 int32_t x_move;
 int32_t y_move;
@@ -37,7 +38,7 @@ void attach() {
 }
 
 void detach() {
-	distanceMoved(x_move, y _move);
+	distanceMoved(x_move, y_move);
 }
 
 int32_t give_x_move() {	
@@ -64,14 +65,5 @@ void distanceMoved(int x, int y) {
 	d = ((x^2) + (y^2));
 	d = sqrt(d);
 	_DBG_("the Distance moved by the Polulu robot is: ");
-	_DBC(d);
-}
-
-//interrupt handler for mouse sensor, interrupts every 50ms to see change in values on the robot
-void TIMER0_IRQHandler() {
-	if(TIM_GetIntStatus(LPC_TIM0, TIM_MR0_INT) == SET)
-    {
-        mouse_poll();
-    }
-    TIM_ClearIntPending(LPC_TIM0, TIM_MR0_INT);
+	_DBC(d); _DBG_("");
 }

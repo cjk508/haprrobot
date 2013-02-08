@@ -5,8 +5,7 @@
 #ifndef MOUSE
 #define MOUSE
 
-#include <KeyboardHost.h>
-#include "math.h"
+#include "KeyboardHost.h"
 
 
 
