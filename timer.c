@@ -1,27 +1,30 @@
-#include "lpc17xx_timer.h"
-#include "lpc17xx_clkpwr.h"
-
-#include "motors.h"
+#include "timer.h"
+#include "KeyboardHost.h"
 
 int motorState = 0;
-void init_TIMER(int timer)
-{
+
+void initTimer(LPC_TIM_TypeDef *TIMx, IRQn_Type IRQn, int time) {
 	TIM_TIMERCFG_Type TimerConf = {
 	.PrescaleOption = TIM_PRESCALE_USVAL, 
-	.PrescaleValue = timer};
-	
-	TIM_Init(LPC_TIM0, TIM_TIMER_MODE, &TimerConf);
-	
+	.PrescaleValue = time};
+
+	TIM_Init(TIMx, TIM_TIMER_MODE, &TimerConf);
+
 	TIM_MATCHCFG_Type MatchConf = {
 	.MatchChannel = 0,
 	.IntOnMatch = ENABLE,
 	.ResetOnMatch = ENABLE,
 	.MatchValue = 1};
-	TIM_ConfigMatch(LPC_TIM0,&MatchConf);
-	NVIC_EnableIRQ(TIMER0_IRQn);
-	__enable_irq();
-	TIM_Cmd(LPC_TIM0, ENABLE);
+	TIM_ConfigMatch(TIMx,&MatchConf);
+	NVIC_EnableIRQ(IRQn);
+	TIM_Cmd(TIMx, ENABLE);
 }
+
+void initTimers() {
+	initTimer(LPC_TIM0, TIMER0_IRQn, 10000);
+	initTimer(LPC_TIM2, TIMER2_IRQn, 50);
+}
+
 
 void TIMER0_IRQHandler() {
 	motorStateMachine(motorState);
@@ -29,5 +32,16 @@ void TIMER0_IRQHandler() {
 	TIM_ClearIntPending(LPC_TIM0, TIM_MR0_INT);
 	NVIC_ClearPendingIRQ(TIMER0_IRQn);
 }
+
+//interrupt handler for mouse sensor, interrupts every 50ms to see change in values on the robot
+void TIMER2_IRQHandler() {
+	if(TIM_GetIntStatus(LPC_TIM2, TIM_MR2_INT) == SET)
+    {
+//        mouse_poll(); Need to edit make file to get the keyboard host to work
+    }
+    TIM_ClearIntPending(LPC_TIM2, TIM_MR2_INT);
+}
+
+
 
 
