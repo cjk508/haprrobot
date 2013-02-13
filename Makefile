@@ -30,11 +30,11 @@ LDFLAGS=$(CMSISFL) -static -mcpu=cortex-m3 -mthumb -mthumb-interwork \
            -lc -lg -lstdc++ -lsupc++  -lgcc -lm  -Wl,--end-group \
 	   -Xlinker -Map -Xlinker bin/lpc1700.map -Xlinker -T $(LDSCRIPT)
 
-LDFLAGS+=-L$(CMSIS)/lib -lDriversLPC17xxgnu
+LDFLAGS+=-L$(CMSIS)/lib -lDriversLPC17xxgnu -lBSP -lCDL -lnxpUSBlib
 
 EXECNAME	= bin/haprrobot
 
-OBJ		= haprrobot.o uart.o motors.o sensors.o correctmotion.o timer.o mouse.o
+OBJ		= haprrobot.o uart.o motors.o sensors.o correctmotion.o timer.o mouse.o KeyboardHost.o
 
 all: 	haprrobot
 	@echo "Build finished"
@@ -45,11 +45,13 @@ haprrobot: $(OBJ)
   
 # clean out the source tree ready to re-build
 clean:
+	mv KeyboardHost.o KeyboardHost.save
 	rm -f `find . | grep \~`
 	rm -f *.swp *.o */*.o */*/*.o  *.log
 	rm -f *.d */*.d *.srec */*.a bin/*.map
 	rm -f *.elf *.wrn bin/*.bin log *.hex
 	rm -f $(EXECNAME)
+	mv KeyboardHost.save KeyboardHost.o
 # install software to board, remember to sync the file systems
 install:
 	@echo "Copying " $(EXECNAME) "to the MBED file system"
