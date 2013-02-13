@@ -7,8 +7,6 @@
 
 #include "KeyboardHost.h"
 
-
-
 /**
 * Records what movement has occured in the robot on every interrupt
 *
@@ -18,6 +16,7 @@
 * 
 */
 void cb(uint8_t buttons, int8_t X, int8_t Y);
+
 /**
 * When USB mouse is attached to the integers 
 * x_move and y_move are set to 0
@@ -26,6 +25,7 @@ void cb(uint8_t buttons, int8_t X, int8_t Y);
 * 
 */
 void attach();
+
 /**
 * When the USB is detahced form the Polulu 
 * robot the x_move nd y_move ints are sent to 
@@ -35,6 +35,7 @@ void attach();
 * 
 */
 void detach();
+
 /**
 * Returns the value of x_move
 *
@@ -42,6 +43,7 @@ void detach();
 * 
 */
 int32_t give_x_move();
+
 /**
 * Returns the value of y_move
 *
@@ -49,6 +51,7 @@ int32_t give_x_move();
 * 
 */
 int32_t give_y_move();
+
 /**
 * Sets the value of x_move to the value of the param x
 *
@@ -57,6 +60,7 @@ int32_t give_y_move();
 * 
 */
 void set_x_move(int8_t x);
+
 /**
 * Sets the value of x_move to the value of the param y
 * 
@@ -65,6 +69,7 @@ void set_x_move(int8_t x);
 * 
 */
 void set_y_move(int8_t y);
+
 /**
 * Works out the distance the robot has moved 
 * from it's orignal starting position 
@@ -74,6 +79,7 @@ void set_y_move(int8_t y);
 * @param int x, int y
 */
 void distanceMoved(int x, int y);
+
 /**
 * Interrupts the USB mouse every 50ms to take X and Y values
 *
@@ -81,6 +87,7 @@ void distanceMoved(int x, int y);
 * 
 */
 void TIMER0_IRQHandler();
+
 /**
 * Runs the mouse_init which sets up the mouse
 *
