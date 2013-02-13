@@ -42,20 +42,20 @@ void setMotors(int lm, int rm) {
 }
 
 void forwards(int s) {
-	setMotors(s, s);
+	setMotors(s+2, s);
 }
 
 void backwards(int s) {
   s = s * (-1);
-	setMotors(s, s);
+	setMotors(s, s+2);
 }
 
 void right() {
-	setMotors(15, 0);
+	setMotors(25, 0);
 }
 
 void left() {
-	setMotors(0, 15);
+	setMotors(0, 25);
 }
 
 void freewheel() {
@@ -76,16 +76,22 @@ void spinRight() {
 
 void motorStateMachine(int state) {
 switch(state) {
-	case 1 :
+	case 0 :
 		forwards(25);
 		break;
-	case 2 :
+	case 1 :
 		right();
 		break;
-	case 3 :
+	case 2 :
   	left();
   	break;
-	case 4 :
+  case 3:
+    spinLeft();
+    break;
+  case 4 :
+     spinRight();
+     break;
+	case 5 :
 		brake();
 		break;
 	default	:
