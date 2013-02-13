@@ -60,7 +60,7 @@ void motorTest() {
   _DBG_("State 5");    
   motorStateMachine(5);
   waitMotor();      */
-  motorStateMachine(0);
+ // motorStateMachine(0);
   /*while(getFrontSensorValue() == 1)
   {
     _DBD(getFrontSensorValue());
@@ -80,7 +80,7 @@ void main(void) {
 	serialTest();
 
   sensorsTest();
-  motorCorrectTest();
+  //motorCorrectTest();
 
 
   
