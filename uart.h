@@ -21,11 +21,11 @@
 #define SEND_BATTERY_MILLIVOLTS 0xB1
 #define DO_PLAY 0xB3
 #define PI_CALIBRATE 0xB4
+#define LINE_SENSORS_RESET_CALIBRATION 0xB5
+#define SEND_LINE_POSITION 0xB6
 #define DO_CLEAR 0xB7
 #define DO_PRINT 0xB8
 #define DO_LCD_GOTO_XY 0xB9
-#define LINE_SENSORS_RESET_CALIBRATION 0xB5
-#define SEND_LINE_POSITION 0xB6
 #define AUTO_CALIBRATE 0xBA
 #define SET_PID 0xBB
 #define STOP_PID 0xBC
@@ -152,7 +152,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  * @author Andrew Durant
  * @return uint32_t status
  */
-//void cmdLcdClear();
+uint32_t cmdLcdClear();
 
 /**
  * Prints 1-8 characters to the LCD.
@@ -164,7 +164,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  * @param string of characters (8 + first bit is length)
  * @return uint32_t status
  */
-//uint32_t cmdLcdPrint();
+uint32_t cmdLcdPrint(char *buf);
 
 /**
  * Moves the LCD cursor to x-y coordinates

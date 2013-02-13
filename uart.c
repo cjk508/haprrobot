@@ -1,4 +1,5 @@
 #include "uart.h"
+#include "string.h"
 #include "debug_frmwrk.h"
 
 // DBG Levels
@@ -27,6 +28,24 @@ uint32_t cmdCalSens(uint16_t *sens) {
   sig = SEND_CAL_SENSOR_VALUES;
   ret = serialSend(&sig,1);
   ret = serialRecv((uint8_t*)sens,10);
+  return ret;
+}
+
+uint32_t cmdLcdClear() {
+  sig = DO_CLEAR;
+  ret = serialSend(&sig,1);
+  return ret;
+}
+uint32_t cmdLcdPrint(char *buf) {
+  uint8_t length = strlen(buf);
+  if (length > 8) {
+    buf[9] = '\0';
+    length = 8;
+  }
+  sig = DO_PRINT;
+  ret = serialSend(&sig,1);
+  ret = serialSend(&length,1);
+  ret = serialSend((unsigned char*)buf,length);
   return ret;
 }
 
