@@ -41,24 +41,48 @@ void sensorsTest() {
 //	mouse_init(cb, attach, detach);
 //}
 
-/*void motorTest() {
-  setMotors(25, -25);
+void motorTest() {
+  /*_DBG_("State 0");
+  motorStateMachine(0);
+  waitMotor();
+  _DBG_("State 1");
+  motorStateMachine(1);
+  waitMotor();
+  _DBG_("State 2");  
+  motorStateMachine(2);
+  waitMotor();  
+  _DBG_("State 3");    
+  motorStateMachine(3);
+  waitMotor();  
+  _DBG_("State 4");    
+  motorStateMachine(4);
+  waitMotor();    
+  _DBG_("State 5");    
+  motorStateMachine(5);
+  waitMotor();      */
+  motorStateMachine(0);
+  /*while(getFrontSensorValue() == 1)
+  {
+    _DBD(getFrontSensorValue());
+    _DBG_("");
+   }
+   motorStateMachine(5);*/
 }
 
 void motorCorrectTest() {
   motorTest();
   while (1) {correctForwardMotion();}
-}*/
+}
 
 void main(void) {
   debug_frmwrk_init();
   _DBG_("Magic!");
-	//serialTest();
-
-
-//  motorTest();
+	serialTest();
 
   sensorsTest();
+  motorCorrectTest();
+
+
   
   _DBG_("Done");
 }
