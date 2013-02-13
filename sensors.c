@@ -51,8 +51,11 @@ int getFrontSensorValue()
 
   unsigned temp = GPIO_ReadValue(0);
   int temp17 =  (temp >> 17) & 1;	
-	//returns the front sensor reading
-	return temp17;
+  currentReadings[4] = temp17 ;
+  if (currentReadings[4] > 0)
+  	return 1;
+  else
+    return 0;
 }
 
 void initSensors()
@@ -79,10 +82,10 @@ void initSensors()
 	// Set ADC to start converting.
 	ADC_BurstCmd (LPC_ADC, ENABLE);
 	// Enable interrupts for ADC conversion completing.
-  NVIC_EnableIRQ(ADC_IRQn);
+  //NVIC_EnableIRQ(ADC_IRQn);
 
   // Enable interrupts globally.
-  __enable_irq();
+ // __enable_irq();
 }
 
 void ADC_IRQHandler(void)
