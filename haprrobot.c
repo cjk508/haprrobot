@@ -23,60 +23,27 @@
 #include "correctmotion.h"
 #include "timer.h"
 
-uint8_t sig;
+// This is a file for your test functions
+#include "tests.c"
 
-void serialTest() {
-  if (DBG_LEVEL >= 1) _DBG_("Init Serial");
-  initSerial(); 
-  unsigned char buf[6];
-  cmdSig(buf);
-  _DBG_((char*)buf);
-}
 
-void sensorsTest() {
+/**
+ * Runs all the initialisations that are needed
+ * Please put them in here.
+ */
+void initialise() {
+  debug_frmwrk_init();
+  initSerial();
   initSensors();
+  
 }
 
-//void mouseTest() {
-//	mouse_init(cb, attach, detach);
-//}
 
-void motorTest() {
-  /*_DBG_("State 0");
-  motorStateMachine(0);
-  waitMotor();
-  _DBG_("State 1");
-  motorStateMachine(1);
-  waitMotor();
-  _DBG_("State 2");  
-  motorStateMachine(2);
-  waitMotor();  
-  _DBG_("State 3");    
-  motorStateMachine(3);
-  waitMotor();  
-  _DBG_("State 4");    
-  motorStateMachine(4);
-  waitMotor();    
-  _DBG_("State 5");    
-  motorStateMachine(5);
-  waitMotor();      */
- // motorStateMachine(0);
-  /*while(getFrontSensorValue() == 1)
-  {
-    _DBD(getFrontSensorValue());
-    _DBG_("");
-   }
-   motorStateMachine(5);*/
-}
-
-void motorCorrectTest() {
-  motorTest();
-  while (1) {correctForwardMotion();}
-}
 
 void main(void) {
-  debug_frmwrk_init();
   _DBG_("Magic!");
+  initialise();
+  
 	serialTest();
 
   sensorsTest();
