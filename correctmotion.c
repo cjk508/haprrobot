@@ -22,7 +22,7 @@ void correctForwardMotion() {
   * A higher sensor value means closer to an object
   */
   if ((left.FrontSensor + left.RearSensor) / 2 >=
-       (right.FrontSensor + right.RearSensor) /2) {
+       (right.FrontSensor + right.RearSensor) /2 || 1) {
     //The Left is closer to something, use that from now on
     x = getLeftSensorValues();
     use_left = 1;
@@ -42,8 +42,7 @@ void correctForwardMotion() {
       && (left.FrontSensor + left.RearSensor)/2 - (x.FrontSensor + x.RearSensor)/2 > 100)
       //If using right and moving away, turn right
       || (!use_left
-      && (right.FrontSensor + right.RearSensor)/2 - (x.FrontSensor + x.RearSensor) /2 < -100)
-      || 1) {
+      && (right.FrontSensor + right.RearSensor)/2 - (x.FrontSensor + x.RearSensor) /2 < -100)) {
      
        //Adjust right a bit, decide whether to speed up left or slow down right
        if (current_motor_speed_left > current_motor_speed_right) {
