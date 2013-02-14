@@ -80,7 +80,7 @@ void main(void) {
 	serialTest();
 
   sensorsTest();
-  //motorCorrectTest();
+  motorCorrectTest();
 
 
   
