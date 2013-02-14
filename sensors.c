@@ -83,10 +83,10 @@ void initSensors()
 	// Set ADC to start converting.
 	ADC_BurstCmd (LPC_ADC, ENABLE);
 	// Enable interrupts for ADC conversion completing.
-  NVIC_EnableIRQ(ADC_IRQn);
+//  NVIC_EnableIRQ(ADC_IRQn);
 
   // Enable interrupts globally.
-  __enable_irq();
+//  __enable_irq();
 }
 
 void ADC_IRQHandler(void)
