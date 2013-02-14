@@ -26,7 +26,11 @@ void initTimers();
 * @author Jed Warwick-Mooney
 */
 void TIMER0_IRQHandler();
-
+/**
+* Interrrupt handler for the tracking of the robots movement
+* from its original position
+*
+*/
 void TIMER2_IRQHandler();
 
 #endif
