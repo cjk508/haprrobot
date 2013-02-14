@@ -2,6 +2,9 @@
 #include "debug_frmwrk.h"
 //----------------------------------------------------------------
 //constants
+#define DESIRED_DISTANCE = 1500
+#define VERY_CLOSE = 2700
+#define NO_WALL = 2500
 const unsigned long frontSensor = 1<<16;
 
 //Variables
@@ -29,8 +32,13 @@ SensorPair getLeftSensorValues()
 	returnValue.FrontSensor = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0);
 	returnValue.RearSensor = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1);	
 
-	// returns the SensorPair
-	return returnValue;	
+  if ((returnValue.FrontSensor > NO_WALL)&& (returnValue.RearSensor > NO_WALL))
+    // returns the SensorPair
+	  return returnValue;	
+	else if (returnValue.FrontSensor < NO_WALL)
+	  returnValue.FrontSensor = 0;
+	else if (returnValue.RearSensor < NO_WALL)
+	  returnValue.FrontSensor = 0;	 
 }
 
 SensorPair getRightSensorValues()
@@ -41,9 +49,14 @@ SensorPair getRightSensorValues()
 	//assigns the FL and BL to the SensorPair
 	returnValue.FrontSensor = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_4);
 	returnValue.RearSensor = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_2);
-
-	// returns the SensorPair	
-	return returnValue;
+ 
+  if ((returnValue.FrontSensor > NO_WALL)&& (returnValue.RearSensor > NO_WALL))
+    // returns the SensorPair
+	  return returnValue;	
+	else if (returnValue.FrontSensor < NO_WALL)
+	  returnValue.FrontSensor = 0;
+	else if (returnValue.RearSensor < NO_WALL)
+	  returnValue.FrontSensor = 0;	
 }
 // Test routine
 

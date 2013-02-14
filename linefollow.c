@@ -4,10 +4,12 @@
 
 void useRawSensors(void)
 {
-  cmdRawSens();
+  unsigned char *buf[10];
+  uint32_t status = cmdRawSens(*buf);
 }
 
 void useCalibratedSensors(void)
 {
-  cmdCalSens();
+  unsigned char *buf[10];
+  uint32_t status = cmdCalSens(*buf);
 }
