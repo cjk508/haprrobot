@@ -65,7 +65,7 @@ void initSensors()
 	pinConfSetup(PINSEL_PORT_0, analogSensorPins[0], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);
 	pinConfSetup(PINSEL_PORT_0, analogSensorPins[1], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	
 	pinConfSetup(PINSEL_PORT_0, analogSensorPins[2], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	
-	pinConfSetup(PINSEL_PORT_1, analogSensorPins[3], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	
+	pinConfSetup(PINSEL_PORT_0, analogSensorPins[3], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	
 	// sets the direction of the GPIO pin and clears the value.
 	GPIO_SetDir(0, frontSensor, 0);
 	// Set up the ADC sampling at 200kHz (maximum rate).
@@ -75,7 +75,7 @@ void initSensors()
 	ADC_ChannelCmd(LPC_ADC, ADC_CHANNEL_0, ENABLE);
 	ADC_ChannelCmd(LPC_ADC, ADC_CHANNEL_1, ENABLE);
 	ADC_ChannelCmd(LPC_ADC, ADC_CHANNEL_2, ENABLE);
-	ADC_ChannelCmd(LPC_ADC, ADC_CHANNEL_4, ENABLE);
+	ADC_ChannelCmd(LPC_ADC, ADC_CHANNEL_3, ENABLE);
 
 	// Set ADC to continuously sample.
 	ADC_StartCmd (LPC_ADC, ADC_START_CONTINUOUS);
@@ -83,20 +83,21 @@ void initSensors()
 	// Set ADC to start converting.
 	ADC_BurstCmd (LPC_ADC, ENABLE);
 	// Enable interrupts for ADC conversion completing.
-  //NVIC_EnableIRQ(ADC_IRQn);
+  NVIC_EnableIRQ(ADC_IRQn);
 
   // Enable interrupts globally.
- // __enable_irq();
+  __enable_irq();
 }
 
 void ADC_IRQHandler(void)
 {
 	// counter made to refresh the readings.
+
 	int counter = 0;
   unsigned temp = GPIO_ReadValue(0);
   int temp17 =  (temp >> 17) & 1;	
 	// captures the readings at the point the interrupt is called
-	uint16_t newReadings[] = {ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_4),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_2),temp17};
+	uint16_t newReadings[] = {ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_3),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_2),temp17};
 
 	// refreshes the old readings
 	while(counter < 5)
