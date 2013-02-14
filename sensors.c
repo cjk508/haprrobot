@@ -103,13 +103,13 @@ void ADC_IRQHandler(void)
 		currentReadings[counter] = newReadings[counter];
 		counter = counter+1;
 	}
-	/*_DBG_("#################");
+	_DBG_("#################");
 	_DBG("FL:");	_DBD16(currentReadings[0]); _DBG_("");
 	_DBG("BL:");	_DBD16(currentReadings[2]); _DBG_("");
 	_DBG("FR:");	_DBD16(currentReadings[1]); _DBG_("");
-	_DBG("BR:");	_DBD16(currentReadings[3]); _DBG_("");*/			
-	  if (currentReadings[4] > 0)
+	_DBG("BR:");	_DBD16(currentReadings[3]); _DBG_("");
+/*	  if (currentReadings[4] > 0)
 	    _DBG_("I see nothing");	 
 	   else  
-	   	    _DBG_("Front sensor has sensed something");
+	   	    _DBG_("Front sensor has sensed something");*/
 }
