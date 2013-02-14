@@ -34,7 +34,7 @@ void correctForwardMotion() {
 
   /**
   * Compare the two sets of values, and decide
-  * whether and adjustment left or right is needed
+  * whether an adjustment left or right is needed
   */
   if (
       //If using left and moving toward object, turn right (move away a bit)
@@ -43,7 +43,7 @@ void correctForwardMotion() {
       //If using right and moving away, turn right
       || (!use_left
       && (right.FrontSensor + right.RearSensor)/2 - (x.FrontSensor + x.RearSensor) /2 < -100)
-     ) {
+      || 1) {
      
        //Adjust right a bit, decide whether to speed up left or slow down right
        if (current_motor_speed_left > current_motor_speed_right) {
