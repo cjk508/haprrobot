@@ -2,9 +2,9 @@
 #include "debug_frmwrk.h"
 //----------------------------------------------------------------
 //constants
-#define DESIRED_DISTANCE = 1500
-#define VERY_CLOSE = 2700
-#define NO_WALL = 2500
+const uint16_t DESIRED_DISTANCE = 1500;
+const uint16_t VERY_CLOSE = 2700;
+const uint16_t NO_WALL = 2500;
 const unsigned long frontSensor = 1<<16;
 
 //Variables
