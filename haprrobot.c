@@ -32,7 +32,6 @@
  * Please put them in here.
  */
 void initialise() {
-  debug_frmwrk_init();
   initSerial();
   initSensors();
   
@@ -41,12 +40,12 @@ void initialise() {
 
 
 void main(void) {
+  debug_frmwrk_init();
   _DBG_("Magic!");
   initialise();
   
 	serialTest();
 
-  sensorsTest();
   motorCorrectTest();
 
 
