@@ -22,7 +22,7 @@ void correctForwardMotion() {
   * A higher sensor value means closer to an object
   */
   if ((left.FrontSensor + left.RearSensor) / 2 >=
-       (right.FrontSensor + right.RearSensor) /2 && 0) {
+       (right.FrontSensor + right.RearSensor) /2 && 1) {
     //The Left is closer to something, use that from now on
     x = getLeftSensorValues();
     use_left = 1;
