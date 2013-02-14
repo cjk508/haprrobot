@@ -2,10 +2,11 @@
 #include "debug_frmwrk.h"
 //----------------------------------------------------------------
 //constants
-const unsigned long frontSensor = 1<<17;
+const unsigned long frontSensor = 1<<16;
 
 //Variables
-int analogSensorPins[] = {23, 24, 25, 30}; // FL, BL, BR, FR
+//int analogSensorPins[] = {23, 24, 25, 30}; // FL, BL, BR, FR
+int analogSensorPins[] = {25, 26, 23, 24}; // FL, BL, BR, FR
 uint32_t currentReadings[] = {0,0,0,0,0}; // initialised readings
 //----------------------------------------------------------------
 void pinConfSetup(uint8_t p_Portnum, uint8_t p_Pinnum, uint8_t p_Funcnum, uint8_t p_Pinmode, uint8_t p_OpenDrain)
@@ -50,7 +51,7 @@ int getFrontSensorValue()
 {
 
   unsigned temp = GPIO_ReadValue(0);
-  int temp17 =  (temp >> 17) & 1;	
+  int temp17 =  (temp >> 16) & 1;	
   currentReadings[4] = temp17 ;
   if (currentReadings[4] > 0)
   	return 1;
@@ -64,7 +65,7 @@ void initSensors()
 	pinConfSetup(PINSEL_PORT_0, analogSensorPins[0], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);
 	pinConfSetup(PINSEL_PORT_0, analogSensorPins[1], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	
 	pinConfSetup(PINSEL_PORT_0, analogSensorPins[2], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	
-	pinConfSetup(PINSEL_PORT_1, analogSensorPins[3], PINSEL_FUNC_3, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	
+	pinConfSetup(PINSEL_PORT_1, analogSensorPins[3], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	
 	// sets the direction of the GPIO pin and clears the value.
 	GPIO_SetDir(0, frontSensor, 0);
 	// Set up the ADC sampling at 200kHz (maximum rate).

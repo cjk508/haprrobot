@@ -11,7 +11,7 @@
 
 void serialTest() {
   if (DBG_LEVEL >= 1) _DBG_("Init Serial");
-  initSerial(); 
+//  initSerial(); 
   unsigned char buf[6];
   cmdSig(buf);
   _DBG_((char*)buf);
@@ -44,7 +44,7 @@ void motorTest() {
   _DBG_("State 5");    
   motorStateMachine(5);
   waitMotor();      */
- // motorStateMachine(0);
+// motorStateMachine(0);
   /*while(getFrontSensorValue() == 1)
   {
     _DBD(getFrontSensorValue());
@@ -54,6 +54,6 @@ void motorTest() {
 }
 
 void motorCorrectTest() {
-  motorTest();
+  forwards(10);
   while (1) {correctForwardMotion();}
 }
