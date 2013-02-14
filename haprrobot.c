@@ -46,7 +46,7 @@ void main(void) {
   
 	serialTest();
 
-  motorCorrectTest();
+  //motorCorrectTest();
 
 
   
