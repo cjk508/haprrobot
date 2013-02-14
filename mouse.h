@@ -79,20 +79,13 @@ void set_y_move(int8_t y);
 * @param int x, int y
 */
 void distanceMoved(int x, int y);
-
 /**
-* Interrupts the USB mouse every 50ms to take X and Y values
-*
-* @author Jed Warwick-Mooney
+* Prints the distance the robot has moved from
+* its start point to the LCD
 * 
+* @author Jed Warwick-Mooney
 */
-void TIMER0_IRQHandler();
+void printToLCD()
 
-/**
-* Runs the mouse_init which sets up the mouse
-*
-* @author Jed Warwick-Mooney
-* 
-*/
 
 #endif
