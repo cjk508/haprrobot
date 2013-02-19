@@ -8,7 +8,16 @@
 #include "KeyboardHost.h"
 
 /**
-* Records what movement has occured in the robot on every interrupt
+* Records what movement has occured in the robot on every interrupt.
+* A change in the t value only means the robot is spinning, the angle
+* the robot faces is worked out usnig the spin() method and returned to
+* added to theta.
+* A change in the x value only means the robot is moving either forwards
+* or backwards and the value is added to x_move or y_move depending on
+* direction the robot is facing.
+* A change in both t and x values at the same time means the robot is
+* moving in an arc like shape. The method curve() is called to manipulate
+* the recieved values and add the results to x_move and y_move 
 *
 * @author Jed Warwick-Mooney
 * @param unsigned int button pressed(not used), int movement in the forward
@@ -16,6 +25,25 @@
 * 
 */
 void cb(uint8_t buttons, int8_t X, int8_t Y);
+
+/**
+* Manipulates integers t and x using trigonometry, to work out the actual
+* distance travelled by the robot when it moves in an arc like way.
+*
+* @author Jed Warwick-Mooney
+* @param integer x indicating the forward/backward movement distance 
+* of the robot
+*/
+void curve( int x)
+
+/**
+* Works out the angle of direction the robot faces 
+*
+* @author Jed Warwick-Mooney
+* @param integer l being the value of the arc length, and integer r 
+* being the radius of the circle
+*/
+int spin(int l, int r)
 
 /**
 * When USB mouse is attached to the integers 
@@ -29,7 +57,7 @@ void attach();
 /**
 * When the USB is detahced form the Polulu 
 * robot the x_move nd y_move ints are sent to 
-* the method distanceMoved()
+* the method printLCD()
 *
 * @author Jed Warwick-Mooney
 * 
@@ -59,7 +87,7 @@ int32_t give_y_move();
 * @param 8 bit int x
 * 
 */
-void set_x_move(int8_t x);
+void add_to_x(int8_t x);
 
 /**
 * Sets the value of x_move to the value of the param y
@@ -68,20 +96,21 @@ void set_x_move(int8_t x);
 * @param 8 bit int y
 * 
 */
-void set_y_move(int8_t y);
+void add_to_y(int8_t y);
 
 /**
 * Works out the distance the robot has moved 
 * from it's orignal starting position 
-* and prints the value to the debug screen
+* and prints the value to the debug screen.
 *
 * @author Jed Warwick-Mooney
 * @param int x, int y
 */
-void distanceMoved(int x, int y);
+int distanceMoved(int x, int y);
+
 /**
-* Prints the distance the robot has moved from
-* its start point to the LCD
+* Prints the distance the robot has moved from its start point
+* by calling distanceMoved(x, y) and sending the result to the LCD.
 * 
 * @author Jed Warwick-Mooney
 */

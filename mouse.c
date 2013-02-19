@@ -6,51 +6,68 @@
 #define r 10
 int32_t x_move;
 int32_t y_move;
+int theta;
 
-void cb(uint8_t buttons, int8_t X, int8_t Theta) {
-	//if there is a change in the Y value it is added to the integer y_move;
-	if(Theta != 0) {
+void cb(uint8_t buttons, int8_t x, int8_t t) {
+	//if there is a change in the t value only then the robot is spinning;
+	if(t != 0 && x = 0) {
 		_DBG_("The Mouse has moved Left/right by: ");
-		_DBC(Theta);
+		_DBC(t);
 		_DBG_("\n");
-		_DBG_("Value of y_move is: ");
-		_DBC(y_move);
+		theta += spin(t, r);
+		_DBG_("Value of theta is: ");
+		_DBC(theta);
 		_DBG_("\n");
 	}
 	
-	//If there is a change in the X value it is added to the integer x_move;
-	if(X != 0) {
+	//If there is a change in the x value only then the robot is moving forward;
+	if(x != 0 && t = 0) {
 		_DBG_("The Mouse has moved Forward/Backward by: ");
-		_DBC(X);
+		_DBC(x);
 		_DBG_("\n");
-		x_move += X;
+		add_to_x(x);
+		add_to_y(x)
 		_DBG_("Value of x_move is: ");
 		_DBC(x_move);
 		_DBG_("\n");
 	}
 
+	if(t != 0 && x != 0) {
+	_DBG_("Moving in a curve");
+	_DBG_("\n");
+	curve(x);
+	_DBG_("Value of x_move is: ");
+	_DBC(x_move);
+	_DBG_("\n");
+  _DBG_("Value of y_move is: ");
+	_DBC(y_move);
+	_DBG_("\n");
+	}
+
 }
 
-int spin(int y) {
-	y = y*r;
-	return y;
+void curve(int x) {
+	t = spin(x, r);
+	int hyp_y = r(sin(t));
+	int hyp_z = r(cos(t));
+	int y2 = hyp_y(sin(t));
+	int x2 = hyp_y(cos(t));
+	int hyp_x = r - hyp_z;
+	int x1 = hyp_x(sin(t));
+	int y1 = hyp_x(cos(t));
+	theta += t;
+	add_to_x(x1 + x2);
+	add_to_y(y2 - y1);
 }
 
-int change_in_y(int O) {
-	y = r(1 - cos(O));
-}
-
-int change_in_x(int O) {
-	x = r(sin(O));
-}
-
-void save_values() {
-	{{Y}, {X}} = {{cos(Theta), -sin(Theta)}, {sin(Theta), cos(Theta)}}*{{x}, {y}};
+int spin(int l, int r) {
+	int th = l/r;
+	return th;
 }
 
 void attach() {
-	set_x_move(0);
-	set_y_move(0);
+	x_move = 0;
+	y_move = 0;
 	_DBG_("I'm attached, YAY!");
 }
 
@@ -69,16 +86,15 @@ int32_t get_y_move() {
 	return y_move;
 }
 
-void set_x_move(int8_t x) {
-	x_move = x;
+void add_to_x(int8_t x) {
+	x_move += (x(cos(theta));
 }
 
-void set_y_move(int8_t y) {
-	y_move = y;
+void add_to_y(int8_t y) {
+	y_move += (y(sin(theta));
 }
 
 int distanceMoved(int x, int y) {
-	//
 	int d;
 	d = ((x^2) + (y^2));
 	d = sqrt(d);
