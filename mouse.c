@@ -39,11 +39,13 @@ int spin(int y) {
 int change_in_y(int O) {
 	// @todo fix your code Jed - stop breaking everything
 	//y = r(1 - cos(O));
+	return 0; // keep compiler happy
 }
 
 int change_in_x(int O) {
 	// @todo fix your code Jed - stop breaking everything
 	//x = r(sin(O));
+	return 0; // keep compiler happy
 }
 
 void save_values() {
