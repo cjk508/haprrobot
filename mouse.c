@@ -37,7 +37,7 @@ int spin(int y) {
 }
 
 int change_in_y(int O) {
-	// @todo fix your code Jed - stop breaking everything
+	// @todo fix your code Jed - stop breaking everything, try to define variables
 	//y = r(1 - cos(O));
 	return 0; // keep compiler happy
 }
