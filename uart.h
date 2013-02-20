@@ -216,7 +216,7 @@ uint32_t cmdAutoCal();
  * 0 (off) up to 127 (full speed).
  *
  * @author Andrew Durant
- * @param int speed motor speed 0-127
+ * @param speed motor speed 0-127
  * @return uint32_t status
  */
 uint32_t cmdLeftMFw(int speed);
@@ -226,7 +226,7 @@ uint32_t cmdLeftMFw(int speed);
  * 0 (off) up to 127 (full reverse).
  *
  * @author Andrew Durant
- * @param int speed motor speed 0-127
+ * @param speed motor speed 0-127
  * @return uint32_t status
  */
 uint32_t cmdLeftMBw(int speed);
