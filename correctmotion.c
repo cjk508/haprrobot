@@ -38,6 +38,7 @@ void correctForwardMotion() {
   */
   if (
       //If using left and moving toward object, turn right (move away a bit)
+	  // @todo check these boolean expressions, I'm not sure they are correct ~Andy
       (use_left
       && (left.FrontSensor + left.RearSensor)/2 - (x.FrontSensor + x.RearSensor)/2 > 250)
       //If using right and moving away, turn right
