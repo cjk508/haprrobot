@@ -56,7 +56,7 @@ void attach() {
 
 void detach() {
 	_DBG_("I'm detached, BOO!");
-	printToLCD();
+//	printToLCD();
 }
 
 int32_t get_x_move() {	
@@ -86,10 +86,11 @@ int distanceMoved(int x, int y) {
 	_DBC(d); _DBG_("");
 	return d;
 }
-
+/*
 void printToLCD() {
 	int x = get_x_move();
 	int y = get_y_move();
  	int	distance = distanceMoved(x, y);
 	print(x);
 }
+*/

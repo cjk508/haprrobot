@@ -85,7 +85,7 @@ void distanceMoved(int x, int y);
 * 
 * @author Jed Warwick-Mooney
 */
-void printToLCD()
+//void printToLCD()
 
 
 #endif
