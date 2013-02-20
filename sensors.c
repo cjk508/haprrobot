@@ -38,7 +38,8 @@ SensorPair getLeftSensorValues()
 	else if (returnValue.FrontSensor < NO_WALL)
 	  returnValue.FrontSensor = 0;
 	else if (returnValue.RearSensor < NO_WALL)
-	  returnValue.FrontSensor = 0;	 
+	  returnValue.FrontSensor = 0;	
+	return returnValue; 
 }
 
 SensorPair getRightSensorValues()
@@ -57,6 +58,8 @@ SensorPair getRightSensorValues()
 	  returnValue.FrontSensor = 0;
 	else if (returnValue.RearSensor < NO_WALL)
 	  returnValue.FrontSensor = 0;	
+
+	return returnValue;
 }
 // Test routine
 
