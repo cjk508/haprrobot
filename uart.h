@@ -53,7 +53,7 @@ uint32_t cmdSig(unsigned char *buf);
  * in the range 0-2000
  *
  * @author Andrew Durant
- * @param uint16_t *sens array size 5 (10 bytes) this is where is writes the values to
+ * @param uint16_t sens array size 5 (10 bytes) this is where is writes the values to
  * @return uint32_t status
  */
 uint32_t cmdRawSens(uint16_t *sens);
@@ -64,7 +64,7 @@ uint32_t cmdRawSens(uint16_t *sens);
  * two-byte ints, in the range 0-1000
  *
  * @author Andrew Durant
- * @param uint16_t *sens array size 5 (10 bytes) this is where is writes the values to
+ * @param uint16_t sens array size 5 (10 bytes) this is where is writes the values to
  * @return uint32_t status
  */
 uint32_t cmdCalSens(uint16_t *sens);
@@ -216,7 +216,7 @@ uint32_t cmdAutoCal();
  * 0 (off) up to 127 (full speed).
  *
  * @author Andrew Durant
- * @param int motor speed 0-127
+ * @param int speed motor speed 0-127
  * @return uint32_t status
  */
 uint32_t cmdLeftMFw(int speed);
@@ -226,7 +226,7 @@ uint32_t cmdLeftMFw(int speed);
  * 0 (off) up to 127 (full reverse).
  *
  * @author Andrew Durant
- * @param int motor speed 0-127
+ * @param int speed motor speed 0-127
  * @return uint32_t status
  */
 uint32_t cmdLeftMBw(int speed);
