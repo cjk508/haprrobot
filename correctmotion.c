@@ -14,12 +14,14 @@ void correctForwardMotion() {
   * @todo Better way of doing this (e.g. interrupt/other sleep method)?
   */
   int i;
-  for (i = 0; i < 1000000; i++);
+  for (i = 0; i < 1000000000; i++);
 
   /**
   * Comparing the sets of values, choose either left or right
   * as a calibration pair - the closest one preferably
   * A higher sensor value means closer to an object
+  *
+  * Currently forced to always choose Right
   */
   if ((left.FrontSensor + left.RearSensor) / 2 >=
        (right.FrontSensor + right.RearSensor) /2 && 0) {
@@ -37,13 +39,13 @@ void correctForwardMotion() {
   * whether an adjustment left or right is needed
   */
   if (
-      //If using left and moving toward object, turn right (move away a bit)
+      //If using left and moving away from object, turn left (move away a bit)
 	  // @todo check these boolean expressions, I'm not sure they are correct ~Andy
       (use_left
-      && (left.FrontSensor + left.RearSensor)/2 - (x.FrontSensor + x.RearSensor)/2 > 250)
-      //If using right and moving away, turn right
+      && ((left.FrontSensor + left.RearSensor)/2 - (x.FrontSensor + x.RearSensor))/2 > 250)
+      //If using right and moving toward, turn left
       || (!use_left
-      && (right.FrontSensor + right.RearSensor)/2 - (x.FrontSensor + x.RearSensor) /2 < -250)) {
+      && ((right.FrontSensor + right.RearSensor)/2 - (x.FrontSensor + x.RearSensor)) /2 < -250)) {
      
        //Adjust right a bit, decide whether to speed up left or slow down right
        if (current_motor_speed_left > current_motor_speed_right) {
@@ -56,10 +58,10 @@ void correctForwardMotion() {
        
        
      } else if (
-      //If using left and moving away from object, turn left (move toward a bit)
+      //If using left and moving toward an object, turn right (move toward a bit)
       (use_left
       && (left.FrontSensor + left.RearSensor)/2 - (x.FrontSensor + x.RearSensor)/2 < -250)
-      //If using right and moving toward, turn left
+      //If using right and moving away, turn right
       || (!use_left
       && (right.FrontSensor + right.RearSensor)/2 - (x.FrontSensor + x.RearSensor) /2 > 250)
      ) {
