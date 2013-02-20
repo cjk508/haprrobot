@@ -53,7 +53,7 @@ uint32_t cmdSig(unsigned char *buf);
  * in the range 0-2000
  *
  * @author Andrew Durant
- * @param sens array size 5 (10 bytes) this is where is writes the values to
+ * @param[out] sens array size 5 (10 bytes) this is where is writes the values to
  * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdRawSens(uint16_t *sens);
@@ -64,7 +64,7 @@ uint32_t cmdRawSens(uint16_t *sens);
  * two-byte ints, in the range 0-1000
  *
  * @author Andrew Durant
- * @param sens array size 5 (10 bytes) this is where is writes the values to
+ * @param[out] sens array size 5 (10 bytes) this is where is writes the values to
  * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdCalSens(uint16_t *sens);
@@ -161,7 +161,7 @@ uint32_t cmdLcdClear();
  * as with the play command above.
  *
  * @author Andrew Durant
- * @param buf string of characters (8 + first bit is length)
+ * @param[in] buf string of characters (8 + first bit is length)
  * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdLcdPrint(char *buf);
@@ -216,7 +216,7 @@ uint32_t cmdAutoCal();
  * 0 (off) up to 127 (full speed).
  *
  * @author Andrew Durant
- * @param speed motor speed 0-127
+ * @param[in] speed motor speed 0-127
  * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdLeftMFw(int speed);
@@ -226,7 +226,7 @@ uint32_t cmdLeftMFw(int speed);
  * 0 (off) up to 127 (full reverse).
  *
  * @author Andrew Durant
- * @param speed motor speed 0-127
+ * @param[in] speed motor speed 0-127
  * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdLeftMBw(int speed);
@@ -236,7 +236,7 @@ uint32_t cmdLeftMBw(int speed);
  * 0 (off) up to 127 (full speed).
  *
  * @author Andrew Durant
- * @param speed motor speed 0-127
+ * @param[in] speed motor speed 0-127
  * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdRightMFw(int speed);
@@ -246,7 +246,7 @@ uint32_t cmdRightMFw(int speed);
  * 0 (off) up to 127 (full reverse).
  *
  * @author Andrew Durant
- * @param speed motor speed 0-127
+ * @param[in] speed motor speed 0-127
  * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdRightMBw(int speed);
@@ -256,8 +256,8 @@ uint32_t cmdRightMBw(int speed);
  * Read Serial Data
  * 
  * @author Andrew Durant
- * @param rxbuf buffer for received data to be placed into
- * @param len the length of the data (number of chars in string)
+ * @param[out] rxbuf buffer for received data to be placed into
+ * @param[in] len the length of the data (number of chars in string)
  * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t serialRecv(uint8_t* rxbuf, uint32_t len);
@@ -266,8 +266,8 @@ uint32_t serialRecv(uint8_t* rxbuf, uint32_t len);
  * Write Serial Data
  * 
  * @author Andrew Durant
- * @param txbuf string of data to write
- * @param len the length of the data (number of chars in string)
+ * @param[in] txbuf string of data to write
+ * @param[in] len the length of the data (number of chars in string)
  * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t serialSend(uint8_t* txbuf, uint32_t len);
