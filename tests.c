@@ -57,6 +57,9 @@ void linefollowTest(){
   uint16_t *sens[5];  
   while(1)
   {
+  /**
+  * @todo Need to work out why the sensors aren't changing
+  */
     cmdRawSens(*sens); 
     _DBG_("##################");
     _DBG("Sensor 1:");_DBD16(*sens[0]);_DBG_("");
