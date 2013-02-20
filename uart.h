@@ -42,7 +42,7 @@
  * so it is useful as an initialization command.
  *
  * @author Andrew Durant
- * @param address to write to @todo uint8_t* name and version should be "3pi1.1" (6)
+ * @param[out]  buf   address to write to
  * @return uint32_t status
  */
 uint32_t cmdSig(unsigned char *buf);
@@ -53,7 +53,7 @@ uint32_t cmdSig(unsigned char *buf);
  * in the range 0-2000
  *
  * @author Andrew Durant
- * @param uint16_t sens array size 5 (10 bytes) this is where is writes the values to
+ * @param sens array size 5 (10 bytes) this is where is writes the values to
  * @return uint32_t status
  */
 uint32_t cmdRawSens(uint16_t *sens);
@@ -69,7 +69,7 @@ uint32_t cmdRawSens(uint16_t *sens);
  */
 uint32_t cmdCalSens(uint16_t *sens);
 
-/**
+/*
  * Sends the voltage output of the trimpot
  * as a two-byte int, in the range 0-1023
  *
@@ -79,7 +79,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  */
 //uint32_t cmdTrim();
 
-/**
+/*
  * Sends the battery voltage of the 3pi in mV,
  * as a two-byte int
  *
@@ -89,7 +89,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  */
 //uint32_t cmdBat();
 
-/**
+/*
  * Plays a tune specified by a string of
  * musical commands. The first data byte
  * specifies the length of the following
@@ -103,7 +103,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  */
 //void cmdPlay(data);
 
-/**
+/*
  * Performs one round of calibration
  * on the sensors, reads all five IR
  * sensors, and sends calibrated values
@@ -118,7 +118,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  */
 //uint32_t cmdCal();
 
-/**
+/*
  * Resets the calibration.
  * This should always be used when
  * connecting to a slave, in case the
@@ -130,7 +130,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  */
 //void cmdRstCal();
 
-/**
+/*
  * Reads all five IR sensors using calibrated
  * values and estimates the position of a
  * black line under the robot. The value,
@@ -166,7 +166,7 @@ uint32_t cmdLcdClear();
  */
 uint32_t cmdLcdPrint(char *buf);
 
-/**
+/*
  * Moves the LCD cursor to x-y coordinates
  * given by the next two bytes.
  *
@@ -186,7 +186,7 @@ uint32_t cmdLcdPrint(char *buf);
  */
 uint32_t cmdAutoCal();
 
-/**
+/*
  * Sets up PID parameters and begins
  * line following. The first data byte
  * sets the maximum motor speed.
@@ -203,7 +203,7 @@ uint32_t cmdAutoCal();
  */
 //uint32_t cmdPIDstart();
 
-/**
+/*
  * Stops PID line following, setting motor speeds to 0.
  *
  * @author Andrew Durant
