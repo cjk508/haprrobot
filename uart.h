@@ -43,7 +43,7 @@
  *
  * @author Andrew Durant
  * @param[out]  buf   address to write to
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdSig(unsigned char *buf);
 
@@ -54,7 +54,7 @@ uint32_t cmdSig(unsigned char *buf);
  *
  * @author Andrew Durant
  * @param sens array size 5 (10 bytes) this is where is writes the values to
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdRawSens(uint16_t *sens);
 
@@ -64,8 +64,8 @@ uint32_t cmdRawSens(uint16_t *sens);
  * two-byte ints, in the range 0-1000
  *
  * @author Andrew Durant
- * @param uint16_t sens array size 5 (10 bytes) this is where is writes the values to
- * @return uint32_t status
+ * @param sens array size 5 (10 bytes) this is where is writes the values to
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdCalSens(uint16_t *sens);
 
@@ -75,7 +75,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  *
  * @author Andrew Durant
  * @param address to write to @todo not sure at the moment (2)
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 //uint32_t cmdTrim();
 
@@ -85,7 +85,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  *
  * @author Andrew Durant
  * @param address to write to @todo not sure at the moment (2)
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 //uint32_t cmdBat();
 
@@ -99,7 +99,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  *
  * @author Andrew Durant
  * @param address to write to @todo not sure at the moment (100 + first bit sends length)
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 //void cmdPlay(data);
 
@@ -114,7 +114,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  *
  * @author Andrew Durant
  * @param address to write to @todo not sure at the moment (10)
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 //uint32_t cmdCal();
 
@@ -126,7 +126,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  * for example in case of a power glitch.
  *
  * @author Andrew Durant
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 //void cmdRstCal();
 
@@ -142,7 +142,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  *
  * @author Andrew Durant
  * @param address to write to @todo not sure at the moment (2)
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 //uint32_t cmdLinePos();
 
@@ -150,7 +150,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  * Clears the LCD screen on the 3pi.
  *
  * @author Andrew Durant
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdLcdClear();
 
@@ -161,8 +161,8 @@ uint32_t cmdLcdClear();
  * as with the play command above.
  *
  * @author Andrew Durant
- * @param string of characters (8 + first bit is length)
- * @return uint32_t status
+ * @param buf string of characters (8 + first bit is length)
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdLcdPrint(char *buf);
 
@@ -182,7 +182,7 @@ uint32_t cmdLcdPrint(char *buf);
  * it positioned over a line.
  *
  * @author Andrew Durant
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdAutoCal();
 
@@ -217,7 +217,7 @@ uint32_t cmdAutoCal();
  *
  * @author Andrew Durant
  * @param speed motor speed 0-127
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdLeftMFw(int speed);
 
@@ -227,7 +227,7 @@ uint32_t cmdLeftMFw(int speed);
  *
  * @author Andrew Durant
  * @param speed motor speed 0-127
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdLeftMBw(int speed);
 
@@ -236,8 +236,8 @@ uint32_t cmdLeftMBw(int speed);
  * 0 (off) up to 127 (full speed).
  *
  * @author Andrew Durant
- * @param int motor speed 0-127
- * @return uint32_t status
+ * @param speed motor speed 0-127
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdRightMFw(int speed);
 
@@ -246,8 +246,8 @@ uint32_t cmdRightMFw(int speed);
  * 0 (off) up to 127 (full reverse).
  *
  * @author Andrew Durant
- * @param int motor speed 0-127
- * @return uint32_t status
+ * @param speed motor speed 0-127
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdRightMBw(int speed);
 
