@@ -35,7 +35,7 @@ void initialise() {
   debug_frmwrk_init();
   initSerial();
   initSensors();
-  
+
 }
 
 
@@ -45,8 +45,8 @@ void main(void) {
   _DBG_("Magic!");
   
   serialTest();
-
-  motorCorrectTest();
+  linefollowTest();
+  //motorCorrectTest();
 
 
   
