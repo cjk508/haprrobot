@@ -78,7 +78,7 @@ void set_y_move(int8_t y);
 * @author Jed Warwick-Mooney
 * @param int x, int y
 */
-void distanceMoved(int x, int y);
+//void distanceMoved(int x, int y);
 /**
 * Prints the distance the robot has moved from
 * its start point to the LCD

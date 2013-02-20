@@ -2,7 +2,7 @@
 #include "math.h"
 #include "debug_frmwrk.h"
 #include "uart.h"
-
+// @todo use a const for this, not a macro
 #define r 10
 int32_t x_move;
 int32_t y_move;
@@ -37,15 +37,18 @@ int spin(int y) {
 }
 
 int change_in_y(int O) {
-	y = r(1 - cos(O));
+	// @todo fix your code Jed - stop breaking everything
+	//y = r(1 - cos(O));
 }
 
 int change_in_x(int O) {
-	x = r(sin(O));
+	// @todo fix your code Jed - stop breaking everything
+	//x = r(sin(O));
 }
 
 void save_values() {
-	{{Y}, {X}} = {{cos(Theta), -sin(Theta)}, {sin(Theta), cos(Theta)}}*{{x}, {y}};
+	// @todo fix your code Jed - stop breaking everything
+	//{{Y}, {X}} = {{cos(Theta), -sin(Theta)}, {sin(Theta), cos(Theta)}}*{{x}, {y}};
 }
 
 void attach() {
@@ -76,7 +79,8 @@ void set_x_move(int8_t x) {
 void set_y_move(int8_t y) {
 	y_move = y;
 }
-
+	// @todo fix your code Jed - stop breaking everything
+	/*
 int distanceMoved(int x, int y) {
 	//
 	int d;
@@ -85,7 +89,7 @@ int distanceMoved(int x, int y) {
 	_DBG_("the Distance moved by the Polulu robot is: ");
 	_DBC(d); _DBG_("");
 	return d;
-}
+} */
 /*
 void printToLCD() {
 	int x = get_x_move();
