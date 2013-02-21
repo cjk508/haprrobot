@@ -20,18 +20,20 @@
 * the recieved values and add the results to x_move and y_move 
 *
 * @author Jed Warwick-Mooney
-* @param unsigned int button pressed(not used), int movement in the forward
-* or backward direction, int movement in the left or right direction
+* @param buttons unsigned int button pressed(not used), int movement in the 
+* forward
+* @param x int movement in the forward or backward direction
+* @param t int movement in the left or right direction
 * 
 */
-void cb(uint8_t buttons, int8_t X, int8_t Y);
+void cb(uint8_t buttons, int8_t x, int8_t t);
 
 /**
 * Manipulates integers t and x using trigonometry, to work out the actual
 * distance travelled by the robot when it moves in an arc like way.
 *
 * @author Jed Warwick-Mooney
-* @param integer x indicating the forward/backward movement distance 
+* @param  x integer indicating the forward/backward movement distance 
 * of the robot
 */
 void curve(int x);
@@ -40,8 +42,8 @@ void curve(int x);
 * Works out the angle of direction the robot faces 
 *
 * @author Jed Warwick-Mooney
-* @param integer l being the value of the arc length, and integer r 
-* being the radius of the circle
+* @param l integer being the value of the arc length
+* @param r integer being the radius of the circle
 */
 int spin(int l, int r);
 
@@ -84,7 +86,7 @@ int32_t give_y_move();
 * Sets the value of x_move to the value of the param x
 *
 * @author Jed Warwick-Mooney
-* @param 8 bit int x
+* @param x 8 bit int
 * 
 */
 void add_to_x(int8_t x);
@@ -93,7 +95,7 @@ void add_to_x(int8_t x);
 * Sets the value of x_move to the value of the param y
 * 
 * @author Jed Warwick-Mooney
-* @param 8 bit int y
+* @param y 8 bit int
 * 
 */
 void add_to_y(int8_t y);
@@ -104,7 +106,8 @@ void add_to_y(int8_t y);
 * and prints the value to the debug screen.
 *
 * @author Jed Warwick-Mooney
-* @param int x, int y
+* @param x int
+* @param y int
 */
 int distanceMoved(int x, int y);
 
