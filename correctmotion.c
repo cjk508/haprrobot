@@ -24,7 +24,7 @@ void correctForwardMotion() {
   * Currently forced to always choose Right
   */
   if ((left.FrontSensor + left.RearSensor) / 2 >=
-       (right.FrontSensor + right.RearSensor) /2 && 0) {
+       (right.FrontSensor + right.RearSensor) /2) {
     //The Left is closer to something, use that from now on
     x = getLeftSensorValues();
     use_left = 1;
