@@ -7,21 +7,21 @@
 *
 * @author Christopher King
 */
-typedef enum {LEFT, RIGHT, LEFT_STRAIGHT, RIGHT_STRAIGHT, CROSS, LEFT_RIGHT} intersection_enum;
+typedef enum {LEFT, RIGHT, LEFT_STRAIGHT, RIGHT_STRAIGHT, CROSSROAD, LEFT_RIGHT, DEAD_END} intersection_enum;
 //----------------------------------------------------------------
 /**
 *	returns the raw sensor values of the line sensors
 *
 * @author Christopher King
 */
-void useRawSensors(void);
+char[] useRawSensors(void);
 //----------------------------------------------------------------
 /**
 *	returns the Calibrated sensor values of the line sensors
 *
 * @author Christopher King
 */
-void useCalibratedSensors(void);
+char[] useCalibratedSensors(void);
 //----------------------------------------------------------------
 /**
 *	moves forward by a very small amount to test if the intersection
@@ -30,6 +30,15 @@ void useCalibratedSensors(void);
 * @author Christopher King
 */
 void inchForward();
+//----------------------------------------------------------------
+/**
+*	checks to see whether an end to the line is a dead end or a left/right
+* T-junction. 
+*
+* @author Christopher King
+* @return DEAD_END or turn type 
+*/
+intersection_enum scanForDeadEnd()
 //----------------------------------------------------------------
 /**
 *	This should return whether the 
