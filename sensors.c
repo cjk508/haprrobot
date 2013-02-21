@@ -1,3 +1,8 @@
+/**
+*@todo get the front sensor working again
+*@todo ensure that the rounding is working
+*/
+
 #include "sensors.h"
 #include "debug_frmwrk.h"
 //----------------------------------------------------------------
