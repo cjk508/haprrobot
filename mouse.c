@@ -44,7 +44,6 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 	_DBG_("\n");
 	}
 
-<<<<<<< HEAD
 }
 
 void curve(int x) {
@@ -64,23 +63,6 @@ void curve(int x) {
 int spin(int l, int r) {
 	int th = l/r;
 	return th;
-=======
-int change_in_y(int O) {
-	// @todo fix your code Jed - stop breaking everything, try to define variables
-	//y = r(1 - cos(O));
-	return 0; // keep compiler happy
-}
-
-int change_in_x(int O) {
-	// @todo fix your code Jed - stop breaking everything
-	//x = r(sin(O));
-	return 0; // keep compiler happy
-}
-
-void save_values() {
-	// @todo fix your code Jed - stop breaking everything
-	//{{Y}, {X}} = {{cos(Theta), -sin(Theta)}, {sin(Theta), cos(Theta)}}*{{x}, {y}};
->>>>>>> 411f2b6330cb7100bcc85257fdf722c0eb04aa2a
 }
 
 void attach() {
@@ -111,8 +93,7 @@ void add_to_x(int8_t x) {
 void add_to_y(int8_t y) {
 	y_move += (y(sin(theta));
 }
-	// @todo fix your code Jed - stop breaking everything
-	/*
+
 int distanceMoved(int x, int y) {
 	int d;
 	d = ((x^2) + (y^2));
@@ -120,12 +101,12 @@ int distanceMoved(int x, int y) {
 	_DBG_("the Distance moved by the Polulu robot is: ");
 	_DBC(d); _DBG_("");
 	return d;
-} */
-/*
+}
+
 void printToLCD() {
 	int x = get_x_move();
 	int y = get_y_move();
  	int	distance = distanceMoved(x, y);
-	print(x);
+	print(distance);
 }
-*/
+
