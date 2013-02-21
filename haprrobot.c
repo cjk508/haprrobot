@@ -45,8 +45,8 @@ void main(void) {
   _DBG_("Magic!");
   
   serialTest();
-  linefollowTest();
-  //motorCorrectTest();
+  //linefollowTest();
+  motorCorrectTest();
 
 
   

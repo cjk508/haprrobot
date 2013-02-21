@@ -71,6 +71,6 @@ void linefollowTest(){
 }
 
 void motorCorrectTest() {
-  forwards(10);
+  forwards(20);
   while (1) {correctForwardMotion();}
 }
