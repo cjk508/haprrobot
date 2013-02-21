@@ -108,7 +108,7 @@ void printToLCD() {
 	int y = get_y_move();
  	int	distance = distanceMoved(x, y);
 	char buf[8];
-	itoa(distance, buf, 10) 
-	cmdLcdPrint(buf);
+//	itoa(distance, buf, 10);
+//	cmdLcdPrint(buf);
 }
 
