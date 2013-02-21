@@ -12,6 +12,13 @@ const unsigned long frontSensor = 1<<16;
 int analogSensorPins[] = {25, 26, 23, 24}; // FL, BL, BR, FR
 uint32_t currentReadings[] = {0,0,0,0,0}; // initialised readings
 //----------------------------------------------------------------
+uint16_t roundingValues(uint16_t sensorValue)
+{
+  uint16_t temp = 0;
+  temp = ((sensorValue + 50) / 100) * 100;
+  return temp;
+}
+
 void pinConfSetup(uint8_t p_Portnum, uint8_t p_Pinnum, uint8_t p_Funcnum, uint8_t p_Pinmode, uint8_t p_OpenDrain)
 {
 	//Sets up the pin to the spec that has been passed to it

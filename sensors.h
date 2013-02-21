@@ -25,6 +25,15 @@ typedef struct SensorPair {
 }SensorPair;
 //----------------------------------------------------------------
 /**
+*	returns the rounded value of the sensor.
+*
+* @author Christopher King
+* @param  sensorValue The value that should be rounded
+* @return returns the rounded value
+*/
+uint16_t roundingValues(uint16_t sensorValue);
+//----------------------------------------------------------------
+/**
 * This method initialises the Sensors by setting 
 * up the pins on the MBED board
 *
@@ -60,9 +69,6 @@ SensorPair getRightSensorValues();
 * @return returns the current value of the front sensor
 */
 int getFrontSensorValue();
-// Test routine
-
-void delay(void);
 //----------------------------------------------------------------
 /**
 * This method initialises the Sensors by setting 

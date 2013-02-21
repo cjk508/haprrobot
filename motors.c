@@ -77,14 +77,16 @@ void spinRight() {
 * @todo need to check the timings for turning 90/180 degrees probably should create a timer
 */
 void Turn90Left() {
-  while(int i<10000)
+  int i= 0;
+  while(i<10000)
   {
     spinLeft();
   }
   forwards(25);
 }
 void Turn90Right(){
-  while(int i<10000)
+  int i= 0;
+  while(i<10000)
   {
     spinRight();
   }
@@ -92,7 +94,8 @@ void Turn90Right(){
 }
 
 void Turn180(){
-  while(int i<50000)
+  int i= 0;
+  while(i<50000)
   {
     spinRight();
   }
