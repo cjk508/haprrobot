@@ -1,5 +1,3 @@
-
-
 #ifndef TIMER
 #define TIMER
 
@@ -8,27 +6,39 @@
 
 #include "motors.h"
 #include "mouse.h"
+/**
+*	Initialises a timer according to the inputs
+*
+* @author Jed Warwick-Mooney
+* @param *TIMx 
+* @param *IRQn sets the mode the timer is in according to the timer number
+* @param time the length of time 
+*
+*/
 
 void initTimer(LPC_TIM_TypeDef *TIMx, IRQn_Type IRQn, int time);
+/**
+* Initialises the timer interrupts for the robot setting the
+* prescale values to the integer timers
+*
+* @author Jed Warwick-Mooney
+* 
+*/
 
 void initTimers();
 
 /**
-* Initialises the timer interrupt for the robot setting the
-* prescale value to the integer timer
+* The interrupt handler for the robots state machine
 *
 * @author Jed Warwick-Mooney
-* @param int timer
-*/
-/**
-* The interrupt handler for the robot
 *
-* @author Jed Warwick-Mooney
 */
 void TIMER0_IRQHandler();
 /**
 * Interrrupt handler for the tracking of the robots movement
 * from its original position
+*
+* @author Jed Warwick-Mooney
 *
 */
 void TIMER2_IRQHandler();

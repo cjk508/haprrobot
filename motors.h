@@ -21,7 +21,7 @@ int current_motor_speed_right;
  *
  * @author Jed Warwick-Mooney
  * @author Andrew Durant
- * @param int input speed
+ * @param speed integer that is the input speed
  * @return int restricted speed
  */
 int speedCheck(int speed);
@@ -30,7 +30,7 @@ int speedCheck(int speed);
 *
 * @author Jed Warwick-Mooney
 * @author Andrew Durant
-* @param int input speed for left motor
+* @param left int input speed for left motor
 */
 void setLeftMotor(int left);
 /**
@@ -38,7 +38,7 @@ void setLeftMotor(int left);
 *
 * @author Jed Warwick-Mooney
 * @author Andrew Durant
-* @param int input speed for right motor
+* @param right int input speed for right motor
 */
 
 void setRightMotor(int right);
@@ -47,7 +47,8 @@ void setRightMotor(int right);
 * Allows the setting of the left and right motors in one call
 *
 * @author Jed Warwick-Mooney
-* @param int speed to set left motor at, int speed to set right motor at
+* @param lm int speed to set left motor at
+* @param rm int speed to set right motor at
 */
 
 void setMotors(int lm, int rm);
@@ -56,7 +57,7 @@ void setMotors(int lm, int rm);
 * Sets the speed the motors will go in the forwards direction
 *
 * @author Jed Warwick-Mooney
-* @param int speed
+* @param s int speed to move in the forward direction
 */
 
 void forwards(int s);
@@ -65,7 +66,7 @@ void forwards(int s);
 * Sets speed of motors in the backwards direction
 *
 * @author Jed Warwick-Mooney
-* @param int speed
+* @param s int speed to move in the backward direction
 */
 
 void backwards(int s);
@@ -104,7 +105,7 @@ void brake();
 
 /**
 * Sets the left motor to backwards and right forwards in order to spin left
-*git checkout 40f2acb65a235f8d74033d073451f6b8145f1660^1 doxy.doxyfile
+* git checkout 40f2acb65a235f8d74033d073451f6b8145f1660^1 doxy.doxyfile
 *
 * @author Jed Warwick-Mooney
 */
@@ -113,7 +114,6 @@ void spinLeft();
 
 /**
 * Sets the right motor to backwards and left forwards in order to spin right
-*
 *
 * @author Jed Warwick-Mooney
 */

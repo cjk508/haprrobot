@@ -2,6 +2,7 @@
 #include "math.h"
 #include "debug_frmwrk.h"
 #include "uart.h"
+#include <stdlib.h>
 
 const int r = 10;
 int32_t x_move;
@@ -103,12 +104,45 @@ int distanceMoved(int x, int y) {
 	return d;
 }
 
+void int_to_ascii(int value, char* target) 
+{
+  int div;
+  char i=0;
+  char removeZeroes = 1;   
+  
+  if(value==0)
+  {
+    target[0]='0';
+    target[1]='\0';
+  }
+  else
+  {
+    for(div=10000; div!=0; div/=10)
+    {
+      char ch = (value / div) + '0';
+      if(removeZeroes && ch != '0')
+      {
+        if(!isdigit(ch))
+          break;
+        removeZeroes = 0;
+        target[i] = ch;
+        i++;
+			}
+
+      value %= div;
+    }
+
+    target[i]='\0';    
+  }
+}
+
+
 void printToLCD() {
 	int x = get_x_move();
 	int y = get_y_move();
  	int	distance = distanceMoved(x, y);
 	char buf[8];
-	itoa(distance, buf, 10) 
+	int_to_ascii(distance, buf);
 	cmdLcdPrint(buf);
 }
 

@@ -44,6 +44,7 @@ void curve(int x);
 * @author Jed Warwick-Mooney
 * @param l integer being the value of the arc length
 * @param r integer being the radius of the circle
+* @return th angle which the robot is facing
 */
 int spin(int l, int r);
 
@@ -70,6 +71,7 @@ void detach();
 * Returns the value of x_move
 *
 * @author Jed Warwick-Mooney
+* @return x_move
 * 
 */
 int32_t give_x_move();
@@ -78,6 +80,7 @@ int32_t give_x_move();
 * Returns the value of y_move
 *
 * @author Jed Warwick-Mooney
+* @return y_move
 * 
 */
 int32_t give_y_move();
@@ -108,8 +111,18 @@ void add_to_y(int8_t y);
 * @author Jed Warwick-Mooney
 * @param x int
 * @param y int
+* @return d interger indicating the distance moved
 */
 int distanceMoved(int x, int y);
+
+/**
+* Translates an integer value to an ascii value 
+* 
+* @author Jed Warwick-Mooney
+* @param value
+* @param target
+*/
+void int_to_ascii(int value, char* target) ;
 
 /**
 * Prints the distance the robot has moved from its start point

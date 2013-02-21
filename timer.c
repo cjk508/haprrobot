@@ -37,7 +37,7 @@ void TIMER0_IRQHandler() {
 void TIMER2_IRQHandler() {
 	if(TIM_GetIntStatus(LPC_TIM2, TIM_MR2_INT) == SET)
     {
-//        mouse_poll(); Need to edit make file to get the keyboard host to work
+	    mouse_poll();
     }
     TIM_ClearIntPending(LPC_TIM2, TIM_MR2_INT);
 }
