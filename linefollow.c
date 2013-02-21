@@ -48,6 +48,9 @@ void inchForward()
   {  
     i = i+1;
   }
-  brake();
-  
+  brake(); 
+}
+
+intersection_enum intersectionAnalysis();
+{
 }
