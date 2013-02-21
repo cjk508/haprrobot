@@ -42,8 +42,8 @@
  * so it is useful as an initialization command.
  *
  * @author Andrew Durant
- * @param address to write to @todo uint8_t* name and version should be "3pi1.1" (6)
- * @return uint32_t status
+ * @param[out]  buf   address to write to
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdSig(unsigned char *buf);
 
@@ -53,8 +53,8 @@ uint32_t cmdSig(unsigned char *buf);
  * in the range 0-2000
  *
  * @author Andrew Durant
- * @param uint16_t *sens array size 5 (10 bytes) this is where is writes the values to
- * @return uint32_t status
+ * @param[out] sens array size 5 (10 bytes) this is where is writes the values to
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdRawSens(uint16_t *sens);
 
@@ -64,32 +64,32 @@ uint32_t cmdRawSens(uint16_t *sens);
  * two-byte ints, in the range 0-1000
  *
  * @author Andrew Durant
- * @param uint16_t *sens array size 5 (10 bytes) this is where is writes the values to
- * @return uint32_t status
+ * @param[out] sens array size 5 (10 bytes) this is where is writes the values to
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdCalSens(uint16_t *sens);
 
-/**
+/*
  * Sends the voltage output of the trimpot
  * as a two-byte int, in the range 0-1023
  *
  * @author Andrew Durant
  * @param address to write to @todo not sure at the moment (2)
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 //uint32_t cmdTrim();
 
-/**
+/*
  * Sends the battery voltage of the 3pi in mV,
  * as a two-byte int
  *
  * @author Andrew Durant
  * @param address to write to @todo not sure at the moment (2)
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 //uint32_t cmdBat();
 
-/**
+/*
  * Plays a tune specified by a string of
  * musical commands. The first data byte
  * specifies the length of the following
@@ -99,11 +99,11 @@ uint32_t cmdCalSens(uint16_t *sens);
  *
  * @author Andrew Durant
  * @param address to write to @todo not sure at the moment (100 + first bit sends length)
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 //void cmdPlay(data);
 
-/**
+/*
  * Performs one round of calibration
  * on the sensors, reads all five IR
  * sensors, and sends calibrated values
@@ -114,11 +114,11 @@ uint32_t cmdCalSens(uint16_t *sens);
  *
  * @author Andrew Durant
  * @param address to write to @todo not sure at the moment (10)
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 //uint32_t cmdCal();
 
-/**
+/*
  * Resets the calibration.
  * This should always be used when
  * connecting to a slave, in case the
@@ -126,11 +126,11 @@ uint32_t cmdCalSens(uint16_t *sens);
  * for example in case of a power glitch.
  *
  * @author Andrew Durant
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 //void cmdRstCal();
 
-/**
+/*
  * Reads all five IR sensors using calibrated
  * values and estimates the position of a
  * black line under the robot. The value,
@@ -142,7 +142,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  *
  * @author Andrew Durant
  * @param address to write to @todo not sure at the moment (2)
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 //uint32_t cmdLinePos();
 
@@ -150,7 +150,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  * Clears the LCD screen on the 3pi.
  *
  * @author Andrew Durant
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdLcdClear();
 
@@ -161,12 +161,12 @@ uint32_t cmdLcdClear();
  * as with the play command above.
  *
  * @author Andrew Durant
- * @param string of characters (8 + first bit is length)
- * @return uint32_t status
+ * @param[in] buf string of characters (8 + first bit is length)
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdLcdPrint(char *buf);
 
-/**
+/*
  * Moves the LCD cursor to x-y coordinates
  * given by the next two bytes.
  *
@@ -182,11 +182,11 @@ uint32_t cmdLcdPrint(char *buf);
  * it positioned over a line.
  *
  * @author Andrew Durant
- * @return uint32_t status
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdAutoCal();
 
-/**
+/*
  * Sets up PID parameters and begins
  * line following. The first data byte
  * sets the maximum motor speed.
@@ -203,7 +203,7 @@ uint32_t cmdAutoCal();
  */
 //uint32_t cmdPIDstart();
 
-/**
+/*
  * Stops PID line following, setting motor speeds to 0.
  *
  * @author Andrew Durant
@@ -216,8 +216,8 @@ uint32_t cmdAutoCal();
  * 0 (off) up to 127 (full speed).
  *
  * @author Andrew Durant
- * @param int motor speed 0-127
- * @return uint32_t status
+ * @param[in] speed motor speed 0-127
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdLeftMFw(int speed);
 
@@ -226,8 +226,8 @@ uint32_t cmdLeftMFw(int speed);
  * 0 (off) up to 127 (full reverse).
  *
  * @author Andrew Durant
- * @param int motor speed 0-127
- * @return uint32_t status
+ * @param[in] speed motor speed 0-127
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdLeftMBw(int speed);
 
@@ -236,8 +236,8 @@ uint32_t cmdLeftMBw(int speed);
  * 0 (off) up to 127 (full speed).
  *
  * @author Andrew Durant
- * @param int motor speed 0-127
- * @return uint32_t status
+ * @param[in] speed motor speed 0-127
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdRightMFw(int speed);
 
@@ -246,8 +246,8 @@ uint32_t cmdRightMFw(int speed);
  * 0 (off) up to 127 (full reverse).
  *
  * @author Andrew Durant
- * @param int motor speed 0-127
- * @return uint32_t status
+ * @param[in] speed motor speed 0-127
+ * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdRightMBw(int speed);
 
@@ -256,8 +256,8 @@ uint32_t cmdRightMBw(int speed);
  * Read Serial Data
  * 
  * @author Andrew Durant
- * @param rxbuf buffer for received data to be placed into
- * @param len the length of the data (number of chars in string)
+ * @param[out] rxbuf buffer for received data to be placed into
+ * @param[in] len the length of the data (number of chars in string)
  * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t serialRecv(uint8_t* rxbuf, uint32_t len);
@@ -266,8 +266,8 @@ uint32_t serialRecv(uint8_t* rxbuf, uint32_t len);
  * Write Serial Data
  * 
  * @author Andrew Durant
- * @param txbuf string of data to write
- * @param len the length of the data (number of chars in string)
+ * @param[in] txbuf string of data to write
+ * @param[in] len the length of the data (number of chars in string)
  * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t serialSend(uint8_t* txbuf, uint32_t len);

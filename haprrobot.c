@@ -32,21 +32,21 @@
  * Please put them in here.
  */
 void initialise() {
+  debug_frmwrk_init();
   initSerial();
   initSensors();
-  
+
 }
 
 
 
 void main(void) {
-  debug_frmwrk_init();
-  _DBG_("Magic!");
   initialise();
+  _DBG_("Magic!");
   
-	serialTest();
-
-  motorCorrectTest();
+  serialTest();
+  linefollowTest();
+  //motorCorrectTest();
 
 
   

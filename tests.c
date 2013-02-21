@@ -53,6 +53,23 @@ void motorTest() {
    motorStateMachine(5);*/
 }
 
+void linefollowTest(){
+  uint16_t *sens[5];  
+  while(1)
+  {
+  /**
+  * @todo Need to work out why the sensors aren't changing
+  */
+    cmdRawSens(*sens); 
+    _DBG_("##################");
+    _DBG("Sensor 1:");_DBD16(*sens[0]);_DBG_("");
+    _DBG("Sensor 2:");_DBD16(*sens[1]);_DBG_("");
+    _DBG("Sensor 3:");_DBD16(*sens[2]);_DBG_("");
+//    _DBG("Sensor 4:");_DBD16(*sens[3]);_DBG_("");        
+    _DBG("Sensor 5:");_DBD16(*sens[4]);_DBG_("");      
+  }
+}
+
 void motorCorrectTest() {
   forwards(10);
   while (1) {correctForwardMotion();}

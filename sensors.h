@@ -10,6 +10,8 @@
 //Project Includes
 //----------------------------------------------------------------
 /**
+* @brief Sensor return type, contains 2 integers FrontSensor and RearSensor
+*
 * This struct is the return value of the get sensor function
 * it will contain values for the sensor pair that are called.
 * If only the fron sensor is needed then it'll return the value 

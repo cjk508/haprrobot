@@ -32,13 +32,14 @@ SensorPair getLeftSensorValues()
 	returnValue.FrontSensor = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0);
 	returnValue.RearSensor = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1);	
 
-  if ((returnValue.FrontSensor > NO_WALL)&& (returnValue.RearSensor > NO_WALL))
+  if ((returnValue.FrontSensor > NO_WALL) && (returnValue.RearSensor > NO_WALL))
     // returns the SensorPair
 	  return returnValue;	
 	else if (returnValue.FrontSensor < NO_WALL)
 	  returnValue.FrontSensor = 0;
 	else if (returnValue.RearSensor < NO_WALL)
-	  returnValue.FrontSensor = 0;	 
+	  returnValue.FrontSensor = 0;	
+	return returnValue; 
 }
 
 SensorPair getRightSensorValues()
@@ -50,13 +51,15 @@ SensorPair getRightSensorValues()
 	returnValue.FrontSensor = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_4);
 	returnValue.RearSensor = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_2);
  
-  if ((returnValue.FrontSensor > NO_WALL)&& (returnValue.RearSensor > NO_WALL))
+  if ((returnValue.FrontSensor > NO_WALL) && (returnValue.RearSensor > NO_WALL))
     // returns the SensorPair
 	  return returnValue;	
 	else if (returnValue.FrontSensor < NO_WALL)
 	  returnValue.FrontSensor = 0;
 	else if (returnValue.RearSensor < NO_WALL)
 	  returnValue.FrontSensor = 0;	
+
+	return returnValue;
 }
 // Test routine
 

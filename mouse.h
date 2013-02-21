@@ -106,15 +106,19 @@ void add_to_y(int8_t y);
 * @author Jed Warwick-Mooney
 * @param int x, int y
 */
+<<<<<<< HEAD
 int distanceMoved(int x, int y);
 
+=======
+//void distanceMoved(int x, int y);
+>>>>>>> 411f2b6330cb7100bcc85257fdf722c0eb04aa2a
 /**
 * Prints the distance the robot has moved from its start point
 * by calling distanceMoved(x, y) and sending the result to the LCD.
 * 
 * @author Jed Warwick-Mooney
 */
-void printToLCD()
+//void printToLCD()
 
 
 #endif
