@@ -40,4 +40,14 @@ void useCalibratedSensors(void)
          It will keep searching for the "barcode" throughout     
   */  
 }
-
+void inchForward()
+{
+  int i = 0;
+  forward(25);
+  while (i < 10000)
+  {  
+    i = i+1;
+  }
+  brake();
+  
+}
