@@ -41,10 +41,10 @@ void correctForwardMotion() {
   if (
       //If using left and moving away from object, turn left (move away a bit)
       (use_left
-       && ((left.FrontSensor + left.RearSensor)/2 - (x.FrontSensor + x.RearSensor))/2 > 250)
+       && ((left.FrontSensor + left.RearSensor)/2 > (x.FrontSensor + x.RearSensor))/2)
       //If using right and moving toward, turn left
       || (!use_left
-          && ((right.FrontSensor + right.RearSensor)/2 - (x.FrontSensor + x.RearSensor)) /2 < -250)
+          && ((right.FrontSensor + right.RearSensor)/2 < (x.FrontSensor + x.RearSensor))/2)
      ) {
        //Adjust right a bit, decide whether to speed up left or slow down right
        if (current_motor_speed_left > current_motor_speed_right) {
@@ -59,11 +59,11 @@ void correctForwardMotion() {
   else if (
       //If using left and moving toward an object, turn right (move toward a bit)
       (use_left
-       && (left.FrontSensor + left.RearSensor)/2 - (x.FrontSensor + x.RearSensor)/2 < -250)
+       && (left.FrontSensor + left.RearSensor)/2 < (x.FrontSensor + x.RearSensor)/2)
       //If using right and moving away, turn right
       || 
       (!use_left
-       && (right.FrontSensor + right.RearSensor)/2 - (x.FrontSensor + x.RearSensor) /2 > 250)
+       && (right.FrontSensor + right.RearSensor)/2 > (x.FrontSensor + x.RearSensor)/2)
        ) {
          //Adjust right a bit, decide whether to speed up right or slow down left
          if (current_motor_speed_left > current_motor_speed_right) {
