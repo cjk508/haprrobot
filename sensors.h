@@ -31,7 +31,7 @@ typedef struct SensorPair {
 * @param  sensorValue The value that should be rounded
 * @return returns the rounded value
 */
-uint16_t roundingValues(uint16_t sensorValue);
+SensorPair roundingValues(SensorPair sensorValue);
 //----------------------------------------------------------------
 /**
 * This method initialises the Sensors by setting 

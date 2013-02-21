@@ -18,7 +18,7 @@ void serialTest() {
 }
 
 void sensorsTest() {
-//  initSensors();
+  initSensors();
 }
 
 //void mouseTest() {
@@ -74,8 +74,10 @@ void motorCorrectTest() {
   forwards(20);
   while (1) 
   {
-    if (getFrontSensorValue() == 1)
+    while (getFrontSensorValue() == 1)
+    {
       brake();
+    }    
     correctForwardMotion();
   }
 }

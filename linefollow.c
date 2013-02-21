@@ -84,18 +84,16 @@ intersection_enum scanForDeadEnd()
   else if (!right)
     return LEFT;
   else
-    return LEFT_RIGHT;
-    
+    return LEFT_RIGHT;    
 }
 
 intersection_enum intersectionAnalysis();
 {
-
   brake();
   intersection_enum intersectionType;
-  if sensorPattern == {0,0,0,0,0}
+  if sensorPattern == {0,0,0,0,0} //Nothing in front or to the side of the robot
     intersectionType = scanForDeadEnd();
-  else if sensorPattern == {1,1,1,0,0}
+  else if sensorPattern == {1,1,1,0,0} //Line to the left and infront of the robot
   {
     inchForward();
     intersection_enum futureTurn = intersectionAnalysis();
@@ -104,7 +102,7 @@ intersection_enum intersectionAnalysis();
     else
       intersectionType = LEFT_STRAIGHT;
   }
-  else if sensorPattern == {0,0,1,1,1}
+  else if sensorPattern == {0,0,1,1,1}//Line to the right and infront of the robot
   {
     inchForward();
     intersection_enum futureTurn = intersectionAnalysis();
@@ -113,6 +111,6 @@ intersection_enum intersectionAnalysis();
     else
       intersectionType = RIGHT_STRAIGHT;
   }  
-  else if sensorPattern = {1,1,1,1,1}
+  else if sensorPattern = {1,1,1,1,1} //Line to the left, right and in front of the robot.
      intersectionType = CROSSROAD;
 }
