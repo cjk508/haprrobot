@@ -54,7 +54,7 @@ void motorTest() {
 }
 
 void linefollowTest(){
-  uint16_t *sens[5];  
+  uint16_t *sens[5] = {0};  
   while(1)
   {
   /**
