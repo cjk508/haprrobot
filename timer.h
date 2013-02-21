@@ -9,25 +9,33 @@
 #include "motors.h"
 #include "mouse.h"
 
-void initTimer(LPC_TIM_TypeDef *TIMx, IRQn_Type IRQn, int time);
-
-void initTimers();
 
 /**
-* Initialises the timer interrupt for the robot setting the
-* prescale value to the integer timer
+* Timer interupt initialisation abstraction.
+* Sets up a timer interupt from the given parameters
 *
-* @author Jed Warwick-Mooney
-* @param int timer
+* @param TIMx the timer to setup
+* @param IRQn the interupt to fire
+* @param time the time in ms the interupt fires at
 */
+void initTimer(LPC_TIM_TypeDef *TIMx, IRQn_Type IRQn, int time);
+
+/**
+* Initialises the timers for the robot.
+* Timer1 and Timer2
+*/
+void initTimers();
+
 /**
 * The interrupt handler for the robot
 *
 * @author Jed Warwick-Mooney
 */
 void TIMER0_IRQHandler();
+
 /**
-* Interrrupt handler for the tracking of the robots movement
+* Interrrupt handler for the mouse sensor.
+* Helps with tracking of the robots movement
 * from its original position
 *
 */
