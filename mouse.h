@@ -34,7 +34,7 @@ void cb(uint8_t buttons, int8_t X, int8_t Y);
 * @param integer x indicating the forward/backward movement distance 
 * of the robot
 */
-void curve( int x)
+void curve(int x);
 
 /**
 * Works out the angle of direction the robot faces 
@@ -43,7 +43,7 @@ void curve( int x)
 * @param integer l being the value of the arc length, and integer r 
 * being the radius of the circle
 */
-int spin(int l, int r)
+int spin(int l, int r);
 
 /**
 * When USB mouse is attached to the integers 
@@ -114,7 +114,7 @@ int distanceMoved(int x, int y);
 * 
 * @author Jed Warwick-Mooney
 */
-void printToLCD()
+void printToLCD();
 
 
 #endif
