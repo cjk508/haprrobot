@@ -41,12 +41,12 @@ SensorPair getLeftSensorValues()
 
   if ((returnValue.FrontSensor > NO_WALL) && (returnValue.RearSensor > NO_WALL))
     // returns the SensorPair
-	  return returnValue;	
+	  return roundingValues(returnValue);	
 	else if (returnValue.FrontSensor < NO_WALL)
 	  returnValue.FrontSensor = 0;
 	else if (returnValue.RearSensor < NO_WALL)
 	  returnValue.FrontSensor = 0;	
-	return returnValue; 
+	return roundingValues(returnValue); 
 }
 
 SensorPair getRightSensorValues()
@@ -60,13 +60,13 @@ SensorPair getRightSensorValues()
  
   if ((returnValue.FrontSensor > NO_WALL) && (returnValue.RearSensor > NO_WALL))
     // returns the SensorPair
-	  return returnValue;	
+	  return roundingValues(returnValue);	
 	else if (returnValue.FrontSensor < NO_WALL)
 	  returnValue.FrontSensor = 0;
 	else if (returnValue.RearSensor < NO_WALL)
 	  returnValue.FrontSensor = 0;	
 
-	return returnValue;
+	return roundingValues(returnValue);
 }
 // Test routine
 
