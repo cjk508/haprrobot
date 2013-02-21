@@ -72,5 +72,10 @@ void linefollowTest(){
 
 void motorCorrectTest() {
   forwards(20);
-  while (1) {correctForwardMotion();}
+  while (1) 
+  {
+    if (getFrontSensorValue() == 1)
+      brake();
+    correctForwardMotion();
+  }
 }
