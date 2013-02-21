@@ -69,10 +69,10 @@ void correctForwardMotion() {
        //Adjust right a bit, decide whether to speed up right or slow down left
        if (current_motor_speed_left > current_motor_speed_right) {
          //Speed up left
-         setLeftMotor(current_motor_speed_left-1);
+         setLeftMotor(current_motor_speed_left+1);
        } else {
          //Slow Down right
-         setRightMotor(current_motor_speed_right+1);
+         setRightMotor(current_motor_speed_right-1);
        }
        
      }
