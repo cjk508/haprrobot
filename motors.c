@@ -73,7 +73,32 @@ void spinLeft() {
 void spinRight() {
 	setMotors(25, -25);
 }
+/**
+* @todo need to check the timings for turning 90/180 degrees probably should create a timer
+*/
+void Turn90Left() {
+  while(int i<10000)
+  {
+    spinLeft();
+  }
+  forwards(25);
+}
+void Turn90Right(){
+  while(int i<10000)
+  {
+    spinRight();
+  }
+  forwards(25);
+}
 
+void Turn180(){
+  while(int i<50000)
+  {
+    spinRight();
+  }
+  forwards(25);
+
+}
 void motorStateMachine(int state) {
 switch(state) {
 	case 0 :

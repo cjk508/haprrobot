@@ -104,7 +104,7 @@ void brake();
 
 /**
 * Sets the left motor to backwards and right forwards in order to spin left
-*
+*git checkout 40f2acb65a235f8d74033d073451f6b8145f1660^1 doxy.doxyfile
 *
 * @author Jed Warwick-Mooney
 */
@@ -119,6 +119,28 @@ void spinLeft();
 */
 
 void spinRight();
+/**
+* Spins Left for x seconds till it faces 90 degrees to its Left
+* Needed for line following
+*
+* @author Christopher King
+*/
+void Turn90Left();
+/**
+* Spins Right for x seconds till it faces 90 degrees to its right
+* Needed for line following
+*
+* @author Christopher King
+*/
+void Turn90Right();
+/**
+* Spins 180 degrees so it is facing the way it came
+* Needed for line following
+*
+* @author Christopher King
+*/
+void Turn180();
+
 
 void motorStateMachine(int state);
 
