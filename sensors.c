@@ -17,7 +17,7 @@ const unsigned long frontSensor = 1<<15; //this was 17 on robot 5
 int analogSensorPins[] = {25, 26, 23, 24}; // FL, BL, BR, FR
 uint32_t currentReadings[] = {0,0,0,0,0}; // initialised readings
 //----------------------------------------------------------------
-uint16_t roundingValues(SensorPair sensorValue)
+SensorPair roundingValues(SensorPair sensorValue)
 {
   uint16_t tempF = 0;
   uint16_t tempR = 0;  
