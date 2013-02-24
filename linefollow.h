@@ -17,18 +17,27 @@
 typedef enum {LEFT, RIGHT, LEFT_STRAIGHT, RIGHT_STRAIGHT, CROSSROAD, LEFT_RIGHT, DEAD_END} intersection_enum;
 //----------------------------------------------------------------
 /**
+ *  This function should calibrate the line following sensors.
+ *
+ *  @author Christopher King
+ */
+void calibrateSensors(void);
+//----------------------------------------------------------------
+/**
 *	returns the raw sensor values of the line sensors
 *
 * @author Christopher King
+* @return This method returns the current values that the raw sensors are transmitting
 */
-char[] useRawSensors(void);
+char[] getRawSensors(void);
 //----------------------------------------------------------------
 /**
 *	returns the Calibrated sensor values of the line sensors
 *
 * @author Christopher King
+* @return This method retruns the current values that the calibrated sensors believe.
 */
-char[] useCalibratedSensors(void);
+char[] getCalibratedSensors(void);
 //----------------------------------------------------------------
 /**
 *	moves forward by a very small amount to test if the intersection

@@ -15,7 +15,7 @@ void calibrateSensors(void)
 
 }
 
-char[] useRawSensors(void)
+char[] getRawSensors(void)
 {
   char *buf[10];
   uint32_t status = cmdRawSens(*buf);
@@ -29,7 +29,7 @@ char[] useRawSensors(void)
   */
 }
 
-char[] useCalibratedSensors(void)
+char[] getCalibratedSensors(void)
 {
   char *buf[10];
   uint32_t status = cmdCalSens(*buf);
