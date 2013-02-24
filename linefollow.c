@@ -12,7 +12,28 @@ void calibrateSensors(void)
   * it can deduce what the line looks like. 
   */
   cmdCalSens();
+ //or
+ spinRight();
+ int i =0;
+ while (i<1500)
+ {
+   i = i+1;
+ }
+ brake();
+ char bufRight[] = getRawSensors();
+ 
+ spinLeft();
+ i = 0;
+ while (i<3000)
+ {
+	 i = i+1;	
+ }
+ brake();
+ char bufLeft[] = getRawSensors();
 
+ /**
+  * @todo insert clever calibration code here.
+  */
 }
 
 char[] getRawSensors(void)
