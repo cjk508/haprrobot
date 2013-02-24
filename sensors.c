@@ -99,9 +99,9 @@ void initSensors()
 	pinConfSetup(PINSEL_PORT_0, analogSensorPins[0], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);
 	pinConfSetup(PINSEL_PORT_0, analogSensorPins[1], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	
 	pinConfSetup(PINSEL_PORT_0, analogSensorPins[2], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	
-	pinConfSetup(PINSEL_PORT_0, analogSensorPins[3], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	
+	pinConfSetup(PINSEL_PORT_0, analogSensorPins[3], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL); /**@todo check that this intialisation code is correct. I seem to remember that not all are function 1*/	
 	// sets the direction of the GPIO pin and clears the value.
-	GPIO_SetDir(0, frontSensor, 0);
+	GPIO_SetDir(0, frontSensor, 0); /**@todo check that this initialisation is correct. If it is then get help*/
 	// Set up the ADC sampling at 200kHz (maximum rate).
 	ADC_Init(LPC_ADC, 200000);
 	
