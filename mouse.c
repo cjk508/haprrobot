@@ -104,11 +104,12 @@ int distanceMoved(int x, int y) {
 }
 
 void printToLCD() {
-	int x = get_x_move();
+/** distance and buf currently unused to commented out
+ 	int x = get_x_move();
 	int y = get_y_move();
  	int	distance = distanceMoved(x, y);
 	char buf[8];
-//	itoa(distance, buf, 10);
-//	cmdLcdPrint(buf);
+	itoa(distance, buf, 10);
+	cmdLcdPrint(buf);*/
 }
 
