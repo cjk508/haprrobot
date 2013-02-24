@@ -2,6 +2,19 @@
 #include "uart.h"
 #include "linefollow.h"
 
+void calibrateSensors(void)
+{
+  /**
+  * @todo this will need to calibrate the sensors. This will be called
+  * when the robot reaches the line and the raw sensors pick up on this fact
+  * Calibrate sensors should just have to call the calibrate function that I think pololu provides
+  * if it in't provided then the robot will just scan left and right a few times until
+  * it can deduce what the line looks like. 
+  */
+  cmdCalSens();
+
+}
+
 char[] useRawSensors(void)
 {
   char *buf[10];
