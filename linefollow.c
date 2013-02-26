@@ -11,8 +11,9 @@ void calibrateSensors(void)
   * if it in't provided then the robot will just scan left and right a few times until
   * it can deduce what the line looks like. 
   */
-  cmdCalSens();
+  cmdAutoCal();
  //or
+ /*
  spinRight();
  int i =0;
  while (i<1500)
@@ -30,7 +31,7 @@ void calibrateSensors(void)
  }
  brake();
  char bufLeft[] = getRawSensors();
-
+ */
  /**
   * @todo insert clever calibration code here.
   */
