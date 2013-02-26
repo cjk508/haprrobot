@@ -44,10 +44,10 @@ void main(void) {
   initialise();
   _DBG_("Magic!");
   
-  serialTest();
+//  serialTest();
   //linefollowTest();
 //  motorCorrectTest();
-	mouse_init(cb, attach, detach); //initilistion of the mouse
+	//mouse_init(cb, attach, detach); //initilistion of the mouse
 
 
   

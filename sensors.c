@@ -10,11 +10,11 @@
 const uint16_t DESIRED_DISTANCE = 1500;
 const uint16_t VERY_CLOSE = 2700;
 const uint16_t NO_WALL = 2500;
-const unsigned long frontSensor = 1<<15; //this was 17 on robot 5
+const unsigned long frontSensor = 1<<17; //this was 17 on robot 5
 
 //Variables
-//int analogSensorPins[] = {23, 24, 25, 30}; // FL, BL, BR, FR
-int analogSensorPins[] = {25, 26, 23, 24}; // FL, BL, BR, FR
+int analogSensorPins[] = {23, 24, 25, 30}; // FL, BL, BR, FR
+//int analogSensorPins[] = {25, 26, 23, 24}; // FL, BL, BR, FR
 uint32_t currentReadings[] = {0,0,0,0,0}; // initialised readings
 //----------------------------------------------------------------
 SensorPair roundingValues(SensorPair sensorValue)
@@ -85,7 +85,7 @@ int getFrontSensorValue()
  * @todo Get this working as at the moment this doesn't send a value back like it did on robot 5.
  */
   unsigned temp = GPIO_ReadValue(0);
-  int temp17 =  (temp >> 16) & 1;	
+  int temp17 =  (temp >> 17) & 1;	
   currentReadings[4] = temp17 ;
   if (currentReadings[4] > 0)
   	return 1;
@@ -96,10 +96,10 @@ int getFrontSensorValue()
 void initSensors()
 {
 	// configures the analogue pins
-	pinConfSetup(PINSEL_PORT_0, analogSensorPins[0], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);
-	pinConfSetup(PINSEL_PORT_0, analogSensorPins[1], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	
-	pinConfSetup(PINSEL_PORT_0, analogSensorPins[2], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	
-	pinConfSetup(PINSEL_PORT_0, analogSensorPins[3], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL); /**@todo check that this intialisation code is correct. I seem to remember that not all are function 1*/	
+	pinConfSetup(PINSEL_PORT_0, analogSensorPins[0], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL); //FL - 23
+	pinConfSetup(PINSEL_PORT_0, analogSensorPins[1], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	//BL - 24 
+	pinConfSetup(PINSEL_PORT_0, analogSensorPins[2], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	//BR - 25
+	pinConfSetup(PINSEL_PORT_1, analogSensorPins[3], PINSEL_FUNC_3, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL); //FR - 30
 	// sets the direction of the GPIO pin and clears the value.
 	GPIO_SetDir(0, frontSensor, 0); /**@todo check that this initialisation is correct. If it is then get help*/
 	// Set up the ADC sampling at 200kHz (maximum rate).
@@ -109,7 +109,7 @@ void initSensors()
 	ADC_ChannelCmd(LPC_ADC, ADC_CHANNEL_0, ENABLE);
 	ADC_ChannelCmd(LPC_ADC, ADC_CHANNEL_1, ENABLE);
 	ADC_ChannelCmd(LPC_ADC, ADC_CHANNEL_2, ENABLE);
-	ADC_ChannelCmd(LPC_ADC, ADC_CHANNEL_3, ENABLE);
+	ADC_ChannelCmd(LPC_ADC, ADC_CHANNEL_4, ENABLE); // enable this you fool
 
 	// Set ADC to continuously sample.
 	ADC_StartCmd (LPC_ADC, ADC_START_CONTINUOUS);
@@ -130,9 +130,9 @@ void ADC_IRQHandler(void)
 	int counter = 0;
 	unsigned temp = GPIO_ReadValue(0);
 	// temp 16 should shift the values contained within the buffer 16 bits along until we can read that the 16 bit in the stirng contains a 0 or a 1.
-	int temp16 =  (temp >> 15) & 1;	
+	int temp16 =  (temp >> 17) & 1;	
 	// captures the readings at the point the interrupt is called
-	uint16_t newReadings[] = {ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_3),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_2),temp16};
+	uint16_t newReadings[] = {ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_4),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_2),temp16};
 
 	// refreshes the old readings
 	while(counter < 5)
@@ -140,12 +140,11 @@ void ADC_IRQHandler(void)
 		currentReadings[counter] = newReadings[counter];
 		counter = counter+1;
 	}
-	/*_DBG_("#################");
+	_DBG_("#################");
 	_DBG("FL:");	_DBD16(currentReadings[0]); _DBG_("");
 	_DBG("BL:");	_DBD16(currentReadings[2]); _DBG_("");
 	_DBG("FR:");	_DBD16(currentReadings[1]); _DBG_("");
-	_DBG("BR:");	_DBD16(currentReadings[3]); _DBG_("");*/
-	  _DBG_("");_DBD(currentReadings[4]);
+	_DBG("BR:");	_DBD16(currentReadings[3]); _DBG_("");
 	  if (currentReadings[4] > 0)
 	    _DBG_("I see nothing");	 
 	  else  
