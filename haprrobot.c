@@ -47,6 +47,7 @@ void main(void) {
   serialTest();
   //linefollowTest();
 //  motorCorrectTest();
+	mouse_init(cb, attach, detach); //initilistion of the mouse
 
 
   
