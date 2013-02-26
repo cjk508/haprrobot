@@ -20,7 +20,10 @@ void mouseinitial()
   _DBG_("I've completed");
 }
 void myspecialpoll() {
-  //_DBG_("POLL");
+ /*this has been moved in case there was an issue reaching the cb function when it was
+ called from timer.c. This shouldn't be an issue however it has been very slow to react 
+therefore we thought it best to remove it and place it here. This may not be the best way
+of debugging but it seems to have worked,*/
   mouse_poll();
 }
 void cb(uint8_t buttons, int8_t x, int8_t t) {
@@ -55,7 +58,7 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 	_DBG_("Value of x_move is: ");
 	_DBD(x_move);
 	_DBG_("\n");
-  _DBG_("Value of y_move is: ");
+        _DBG_("Value of y_move is: ");
 	_DBD(y_move);
 	_DBG_("\n");
 	}
@@ -63,6 +66,9 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 }
 
 void curve(int x) {
+/**
+* @todo Jed please explain how this works, for all of our sakes :P
+*/
 	int t = spin(x, r);
 	int hyp_y = sin(t) * r;
 	int hyp_z = cos(t) * r;
@@ -121,6 +127,9 @@ int distanceMoved(int x, int y) {
 
 void int_to_ascii(int value, char* target) 
 {
+/**
+* @todo	another callout to Jed to comment his code. It may be fairly obvious but it would still be more readable with a few comments
+*/
   int div;
   char i=0;
   char removeZeroes = 1;   
@@ -137,7 +146,7 @@ void int_to_ascii(int value, char* target)
       char ch = (value / div) + '0';
       if(removeZeroes && ch != '0')
       {
-        if(!isdigit(ch))
+        if(!isdigit(ch))//What is isdigit?, it's throwing up a warning saying that it is implicitly declared and I'm not sure where from 
           break;
         removeZeroes = 0;
         target[i] = ch;
