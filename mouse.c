@@ -146,8 +146,9 @@ void int_to_ascii(int value, char* target)
       char ch = (value / div) + '0';
       if(removeZeroes && ch != '0')
       {
-        if(!isdigit(ch))//What is isdigit?, it's throwing up a warning saying that it is implicitly declared and I'm not sure where from 
+        if(!isdigit(ch))//What is isdigit?, it's throwing up a warning saying that it is implicitly declared and I'm not sure where from
           break;
+//Some warnings around here to do with array subscript and the char type
         removeZeroes = 0;
         target[i] = ch;
         i++;
