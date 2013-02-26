@@ -1,3 +1,4 @@
+#include "debug_frmwrk.h"
 #include "timer.h"
 #include "KeyboardHost.h"
 
@@ -35,11 +36,11 @@ void TIMER0_IRQHandler() {
 
 //interrupt handler for mouse sensor, interrupts every 50ms to see change in values on the robot
 void TIMER2_IRQHandler() {
-	if(TIM_GetIntStatus(LPC_TIM2, TIM_MR2_INT) == SET)
-    {
+	 //if(TIM_GetIntStatus(LPC_TIM2, TIM_MR2_INT) == SET)
+   // {
 	    mouse_poll();
-    }
-    TIM_ClearIntPending(LPC_TIM2, TIM_MR2_INT);
+   // }
+    //TIM_ClearIntPending(LPC_TIM2, TIM_MR2_INT);
 }
 
 

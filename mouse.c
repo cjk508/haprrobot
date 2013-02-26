@@ -2,6 +2,7 @@
 #include "math.h"
 #include "debug_frmwrk.h"
 #include "uart.h"
+#include "timer.h"
 #include <stdlib.h>
 
 const int r = 10;
@@ -9,6 +10,13 @@ int32_t x_move;
 int32_t y_move;
 int theta;
 
+void mouseinitial()
+{
+  _DBG_("I'm starting");
+  mouse_init(cb, attach, detach);
+   initTimers(); 
+  _DBG_("I've completed");
+}
 void cb(uint8_t buttons, int8_t x, int8_t t) {
 	//if there is a change in the t value only then the robot is spinning;
 	if(t != 0 && x == 0) {

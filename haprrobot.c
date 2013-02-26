@@ -35,7 +35,6 @@ void initialise() {
   debug_frmwrk_init();
   initSerial();
   initSensors();
-
 }
 
 
@@ -47,9 +46,8 @@ void main(void) {
 //  serialTest();
   //linefollowTest();
 //  motorCorrectTest();
-	//mouse_init(cb, attach, detach); //initilistion of the mouse
-
-
-  
+//	mouse_init(cb, attach, detach); //initilistion of the mouse
+  _DBG_("init mouse");
+  mouseinitial(); 
   _DBG_("Done");
 }
