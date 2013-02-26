@@ -4,37 +4,10 @@
 
 void calibrateSensors(void)
 {
-  /**
-  * @todo this will need to calibrate the sensors. This will be called
-  * when the robot reaches the line and the raw sensors pick up on this fact
-  * Calibrate sensors should just have to call the calibrate function that I think pololu provides
-  * if it in't provided then the robot will just scan left and right a few times until
-  * it can deduce what the line looks like. 
-  */
+ /*this automatically calibrates the line following sensors. It scans left and 
+  right in an attempt to find the line. This should be called when the raw sensors
+  indicate that a line is present under the robot.*/
   cmdAutoCal();
- //or
- /*
- spinRight();
- int i =0;
- while (i<1500)
- {
-   i = i+1;
- }
- brake();
- char bufRight[] = getRawSensors();
- 
- spinLeft();
- i = 0;
- while (i<3000)
- {
-	 i = i+1;	
- }
- brake();
- char bufLeft[] = getRawSensors();
- */
- /**
-  * @todo insert clever calibration code here.
-  */
 }
 
 char[] getRawSensors(void)
@@ -90,6 +63,8 @@ void inchForward()
 
 intersection_enum scanForDeadEnd()
 {
+ /**@todo need to check the sensor patterns when going over a line. I highly doubt it'll be as simple as 1 for a line and 0 for no line, although that is what 
+the documentation suggests in the pololu how to follow a line thingy.*/
   char *sensorPattern = useRawSensors();
   bool left = true;
   bool right = true;
