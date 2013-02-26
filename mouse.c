@@ -138,12 +138,13 @@ void int_to_ascii(int value, char* target)
 
 
 void printToLCD() {
-	int x = get_x_move();
+/** distance and buf currently unused to commented out
+ 	int x = get_x_move();
 	int y = get_y_move();
  	int	distance = distanceMoved(x, y);
 	char buf[8];
 	int_to_ascii(distance, buf);
 	cmdLcdPrint(buf);
-
+*/
 }
 

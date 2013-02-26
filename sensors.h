@@ -1,3 +1,10 @@
+/**************************************************************************//**
+ * @file     sensors.h
+ * @brief    Sets up and returns the IR sensor values
+ * @version: V0.8
+ * @date:    21. February 2013
+ * @author   Christopher King
+******************************************************************************/
 //----------------------------------------------------------------
 #ifndef Sensors
 #define Sensors
