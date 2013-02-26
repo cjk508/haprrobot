@@ -5,18 +5,22 @@
 const uint16_t DESIRED_DISTANCE = 1500;
 const uint16_t VERY_CLOSE = 2700;
 const uint16_t NO_WALL = 2500;
-const unsigned long frontSensor = 1<<16;
+const unsigned long frontSensor = 1<<15;
 
 //Variables
 //int analogSensorPins[] = {23, 24, 25, 30}; // FL, BL, BR, FR
 int analogSensorPins[] = {25, 26, 23, 24}; // FL, BL, BR, FR
 uint32_t currentReadings[] = {0,0,0,0,0}; // initialised readings
 //----------------------------------------------------------------
-uint16_t roundingValues(uint16_t sensorValue)
+uint16_t roundingValues(SensorPair sensorValue)
 {
-  uint16_t temp = 0;
-  temp = ((sensorValue + 50) / 100) * 100;
-  return temp;
+  uint16_t tempF = 0;
+  uint16_t tempR = 0;  
+  tempF = ((sensorValue.FrontSensor + 50) / 100) * 100;
+  tempR = ((sensorValue.RearSensor + 50) / 100) * 100;
+  sensorValue.RearSensor = tempR;
+  sensorValue.FrontSensor = tempF;
+  return sensorValue;
 }
 
 void pinConfSetup(uint8_t p_Portnum, uint8_t p_Pinnum, uint8_t p_Funcnum, uint8_t p_Pinmode, uint8_t p_OpenDrain)
@@ -41,12 +45,12 @@ SensorPair getLeftSensorValues()
 
   if ((returnValue.FrontSensor > NO_WALL) && (returnValue.RearSensor > NO_WALL))
     // returns the SensorPair
-	  return returnValue;	
+	  return roundingValues(returnValue);	
 	else if (returnValue.FrontSensor < NO_WALL)
 	  returnValue.FrontSensor = 0;
 	else if (returnValue.RearSensor < NO_WALL)
 	  returnValue.FrontSensor = 0;	
-	return returnValue; 
+	return roundingValues(returnValue); 
 }
 
 SensorPair getRightSensorValues()
@@ -60,13 +64,13 @@ SensorPair getRightSensorValues()
  
   if ((returnValue.FrontSensor > NO_WALL) && (returnValue.RearSensor > NO_WALL))
     // returns the SensorPair
-	  return returnValue;	
+	  return roundingValues(returnValue);	
 	else if (returnValue.FrontSensor < NO_WALL)
 	  returnValue.FrontSensor = 0;
 	else if (returnValue.RearSensor < NO_WALL)
 	  returnValue.FrontSensor = 0;	
 
-	return returnValue;
+	return roundingValues(returnValue);
 }
 // Test routine
 
@@ -106,10 +110,10 @@ void initSensors()
 	// Set ADC to start converting.
 	ADC_BurstCmd (LPC_ADC, ENABLE);
 	// Enable interrupts for ADC conversion completing.
-//  NVIC_EnableIRQ(ADC_IRQn);
+	NVIC_EnableIRQ(ADC_IRQn);
 
   // Enable interrupts globally.
-//  __enable_irq();
+  __enable_irq();
 }
 
 void ADC_IRQHandler(void)
@@ -118,9 +122,9 @@ void ADC_IRQHandler(void)
 
 	int counter = 0;
   unsigned temp = GPIO_ReadValue(0);
-  int temp17 =  (temp >> 17) & 1;	
+  int temp16 =  (temp >> 15) & 1;	
 	// captures the readings at the point the interrupt is called
-	uint16_t newReadings[] = {ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_3),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_2),temp17};
+	uint16_t newReadings[] = {ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_3),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1),ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_2),temp16};
 
 	// refreshes the old readings
 	while(counter < 5)
@@ -128,13 +132,14 @@ void ADC_IRQHandler(void)
 		currentReadings[counter] = newReadings[counter];
 		counter = counter+1;
 	}
-	_DBG_("#################");
+	/*_DBG_("#################");
 	_DBG("FL:");	_DBD16(currentReadings[0]); _DBG_("");
 	_DBG("BL:");	_DBD16(currentReadings[2]); _DBG_("");
 	_DBG("FR:");	_DBD16(currentReadings[1]); _DBG_("");
-	_DBG("BR:");	_DBD16(currentReadings[3]); _DBG_("");
-/*	  if (currentReadings[4] > 0)
+	_DBG("BR:");	_DBD16(currentReadings[3]); _DBG_("");*/
+	  _DBG_("");_DBD(currentReadings[4]);
+	  if (currentReadings[4] > 0)
 	    _DBG_("I see nothing");	 
-	   else  
-	   	    _DBG_("Front sensor has sensed something");*/
+	  else  
+	  	 _DBG_("Front sensor has sensed something");
 }

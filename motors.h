@@ -21,8 +21,8 @@ int current_motor_speed_right;
  *
  * @author Jed Warwick-Mooney
  * @author Andrew Durant
- * @param speed integer that is the input speed
- * @return int restricted speed
+ * @param speed input speed
+ * @return restricted speed
  */
 int speedCheck(int speed);
 /**
@@ -30,7 +30,8 @@ int speedCheck(int speed);
 *
 * @author Jed Warwick-Mooney
 * @author Andrew Durant
-* @param left int input speed for left motor
+* @param left input speed for left motor
+
 */
 void setLeftMotor(int left);
 /**
@@ -38,7 +39,7 @@ void setLeftMotor(int left);
 *
 * @author Jed Warwick-Mooney
 * @author Andrew Durant
-* @param right int input speed for right motor
+* @param right input speed for right motor
 */
 
 void setRightMotor(int right);
@@ -47,8 +48,9 @@ void setRightMotor(int right);
 * Allows the setting of the left and right motors in one call
 *
 * @author Jed Warwick-Mooney
-* @param lm int speed to set left motor at
-* @param rm int speed to set right motor at
+* @param lm speed to set left motor at
+* @param rm speed to set right motor at
+
 */
 
 void setMotors(int lm, int rm);
@@ -57,7 +59,7 @@ void setMotors(int lm, int rm);
 * Sets the speed the motors will go in the forwards direction
 *
 * @author Jed Warwick-Mooney
-* @param s int speed to move in the forward direction
+* @param s speed to set motors forwards
 */
 
 void forwards(int s);
@@ -66,7 +68,7 @@ void forwards(int s);
 * Sets speed of motors in the backwards direction
 *
 * @author Jed Warwick-Mooney
-* @param s int speed to move in the backward direction
+* @param s speed to set motors backwards
 */
 
 void backwards(int s);

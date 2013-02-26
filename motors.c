@@ -78,26 +78,29 @@ void spinRight() {
 */
 void Turn90Left() {
   int i= 0;
+  spinLeft();
   while(i<10000)
-  {
-    spinLeft();
+  {   
+    i = i+1;
   }
   forwards(25);
 }
 void Turn90Right(){
   int i= 0;
+  spinRight();
   while(i<10000)
-  {
-    spinRight();
+  {  
+    i = i+1;
   }
   forwards(25);
 }
 
 void Turn180(){
   int i= 0;
+  spinRight();
   while(i<50000)
-  {
-    spinRight();
+  {    
+    i = i+1;
   }
   forwards(25);
 

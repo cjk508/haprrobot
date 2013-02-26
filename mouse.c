@@ -144,5 +144,6 @@ void printToLCD() {
 	char buf[8];
 	int_to_ascii(distance, buf);
 	cmdLcdPrint(buf);
+
 }
 
