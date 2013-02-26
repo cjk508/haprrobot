@@ -127,7 +127,7 @@ void ADC_IRQHandler(void)
 {
 	// counter made to refresh the readings.
 
-	int counter = 0;
+	/*int counter = 0;
 	unsigned temp = GPIO_ReadValue(0);
 	// temp 16 should shift the values contained within the buffer 16 bits along until we can read that the 16 bit in the stirng contains a 0 or a 1.
 	int temp16 =  (temp >> 17) & 1;	
@@ -148,5 +148,5 @@ void ADC_IRQHandler(void)
 	  if (currentReadings[4] > 0)
 	    _DBG_("I see nothing");	 
 	  else  
-	  	 _DBG_("Front sensor has sensed something");
+	  	 _DBG_("Front sensor has sensed something");*/
 }

@@ -2,6 +2,14 @@
 #include "motors.h"
 #include "sensors.h"
 
+/**
+* Reads in side sensor values, and will automatically adjust with the intention
+* of eventually moving parallel to the nearest object.
+* Will adjust speed one unit left or right per invokation - repeated use over
+* a period of a few seconds is best.
+*
+* @author Lloyd Wallis <lpw503@york.ac.uk>
+*/
 void correctForwardMotion() {
   //Get an initial value
   SensorPair left = getLeftSensorValues();
@@ -14,8 +22,8 @@ void correctForwardMotion() {
   * as a calibration pair - the closest one preferably
   * A higher sensor value means closer to an object
   */
-  if ((left.FrontSensor + left.RearSensor) / 2 >=
-       (right.FrontSensor + right.RearSensor) /2) {
+  if (left.FrontSensor + left.RearSensor >=
+        right.FrontSensor + right.RearSensor) {
     //The Left is closer to something, use that
     use_left = 1;
   } else {
@@ -42,7 +50,7 @@ void correctForwardMotion() {
          //Slow Down left
          setLeftMotor(current_motor_speed_left-1);
        }
-     } 
+     }
   else if (
       //If using left and moving toward an object, turn right (move toward a bit)
       (use_left && left.FrontSensor > left.RearSensor)

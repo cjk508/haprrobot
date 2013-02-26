@@ -2,6 +2,8 @@
 #include "math.h"
 #include "debug_frmwrk.h"
 #include "uart.h"
+#include "timer.h"
+#include "KeyboardHost.h"
 #include <stdlib.h>
 
 const int r = 10;
@@ -9,27 +11,40 @@ int32_t x_move;
 int32_t y_move;
 int theta;
 
+void mouseinitial()
+{
+  _DBG_("I'm starting");
+  mouse_init(cb, attach, detach);
+  _DBG_("I've set up the mouse, now attempt the timers");
+  initTimers(); 
+  _DBG_("I've completed");
+}
+void myspecialpoll() {
+  //_DBG_("POLL");
+  mouse_poll();
+}
 void cb(uint8_t buttons, int8_t x, int8_t t) {
+  _DBG_("I've been called");
 	//if there is a change in the t value only then the robot is spinning;
 	if(t != 0 && x == 0) {
 		_DBG_("The Mouse has moved Left/right by: ");
-		_DBC(t);
+		_DBD(t);
 		_DBG_("\n");
 		theta += spin(t, r);
 		_DBG_("Value of theta is: ");
-		_DBC(theta);
+		_DBD(theta);
 		_DBG_("\n");
 	}
 	
 	//If there is a change in the x value only then the robot is moving forward;
 	if(x != 0 && t == 0) {
 		_DBG_("The Mouse has moved Forward/Backward by: ");
-		_DBC(x);
+		_DBD(x);
 		_DBG_("\n");
 		add_to_x(x);
 		add_to_y(x);
 		_DBG_("Value of x_move is: ");
-		_DBC(x_move);
+		_DBD(x_move);
 		_DBG_("\n");
 	}
 
@@ -38,10 +53,10 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 	_DBG_("\n");
 	curve(x);
 	_DBG_("Value of x_move is: ");
-	_DBC(x_move);
+	_DBD(x_move);
 	_DBG_("\n");
   _DBG_("Value of y_move is: ");
-	_DBC(y_move);
+	_DBD(y_move);
 	_DBG_("\n");
 	}
 
