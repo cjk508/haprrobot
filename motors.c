@@ -31,7 +31,6 @@ void setRightMotor(int right) {
 		cmdRightMBw(speedCheck(right));
 	}
 	else {
-		speedCheck(right);
 		cmdRightMFw(speedCheck(right));
 	}
 }

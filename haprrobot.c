@@ -35,7 +35,8 @@ void initialise() {
   debug_frmwrk_init();
   initSerial();
   initSensors();
-
+  // Even tho this is a test it needs to run so that the serial is set up properly
+  serialTest();
 }
 
 
@@ -43,10 +44,9 @@ void initialise() {
 void main(void) {
   initialise();
   _DBG_("Magic!");
-  
-//  serialTest();
+
   //linefollowTest();
-//  motorCorrectTest();
+  motorCorrectTest();
 	//mouse_init(cb, attach, detach); //initilistion of the mouse
 
 

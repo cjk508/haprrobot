@@ -11,7 +11,7 @@
 
 #include "uart.h"
 
-#define MAX_SPEED 40
+#define MAX_SPEED 30
 
 int current_motor_speed_left;
 int current_motor_speed_right;
