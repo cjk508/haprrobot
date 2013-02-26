@@ -7,6 +7,10 @@
 
 #include "KeyboardHost.h"
 
+void mouseinitial();
+
+void myspecialpoll();
+
 /**
 * Records what movement has occured in the robot on every interrupt.
 * A change in the t value only means the robot is spinning, the angle
