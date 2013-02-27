@@ -34,6 +34,8 @@ void correctForwardMotion() {
   /**
   * Compare the two sets of values, and decide
   * whether an adjustment left or right is needed
+  *
+  * Remember that a higher value means it's closer to the sensor.
   */
   if (
       //If using left and moving away from object, turn left (move away a bit)
@@ -42,6 +44,7 @@ void correctForwardMotion() {
       || (!use_left && right.FrontSensor > right.RearSensor)
      ) {
        //Adjust right a bit, decide whether to speed up left or slow down right
+       // @todo this is where it could check if the motor is going backwards or forwards
        if (current_motor_speed_left > current_motor_speed_right) {
          //Speed up right
          setRightMotor(current_motor_speed_right+1);
@@ -58,6 +61,7 @@ void correctForwardMotion() {
       || (!use_left && right.FrontSensor < right.RearSensor)
        ) {
          //Adjust right a bit, decide whether to speed up right or slow down left
+         // @todo this is where it could check if the motor is going backwards or forwards
          if (current_motor_speed_left > current_motor_speed_right) {
            //Speed up left
            setLeftMotor(current_motor_speed_left+1);
