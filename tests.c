@@ -18,40 +18,19 @@ void serialTest() {
 }
 
 void sensorsTest() {
-  initSensors();
+  SensorPair left = getLeftSensorValues();
+  SensorPair right = getRightSensorValues();
+  _DBG_("##################");
+  _DBG("Left Front:");_DBD16(left.FrontSensor);_DBG_("");
+  _DBG("Left Rear:");_DBD16(left.RearSensor);_DBG_("");
+  _DBG("Right Front:");_DBD16(right.FrontSensor);_DBG_("");
+  _DBG("Right Rear:");_DBD16(right.RearSensor);_DBG_("");
+  int i;
+  for (i = 0; i < 10000; i++);
 }
 
-//void mouseTest() {
-//	mouse_init(cb, attach, detach);
-//}
 
-void motorTest() {
-  /*_DBG_("State 0");
-  motorStateMachine(0);
-  waitMotor();
-  _DBG_("State 1");
-  motorStateMachine(1);
-  waitMotor();
-  _DBG_("State 2");  
-  motorStateMachine(2);
-  waitMotor();  
-  _DBG_("State 3");    
-  motorStateMachine(3);
-  waitMotor();  
-  _DBG_("State 4");    
-  motorStateMachine(4);
-  waitMotor();    
-  _DBG_("State 5");    
-  motorStateMachine(5);
-  waitMotor();      */
-// motorStateMachine(0);
-  /*while(getFrontSensorValue() == 1)
-  {
-    _DBD(getFrontSensorValue());
-    _DBG_("");
-   }
-   motorStateMachine(5);*/
-}
+
 
 void linefollowTest(){
   uint16_t *sens[5] = {0};  
