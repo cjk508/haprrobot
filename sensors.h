@@ -1,13 +1,13 @@
 /**************************************************************************//**
  * @file     sensors.h
  * @brief    Sets up and returns the IR sensor values
- * @version: V0.8
- * @date:    21. February 2013
+ * @version: V1
+ * @date:    25. February 2013
  * @author   Christopher King
 ******************************************************************************/
 //----------------------------------------------------------------
-#ifndef Sensors
-#define Sensors
+#ifndef SENSORS_INC
+#define SENSORS_INC
 //----------------------------------------------------------------
 //CMSIS Includes
 #include "lpc17xx_nvic.h"
@@ -21,7 +21,7 @@
 *
 * This struct is the return value of the get sensor function
 * it will contain values for the sensor pair that are called.
-* If only the fron sensor is needed then it'll return the value 
+* If only the fron sensor is needed then it'll return the value
 * in the frontsensor variable.
 *
 * @author Christopher King
@@ -29,10 +29,10 @@
 typedef struct SensorPair {
   uint16_t FrontSensor;
   uint16_t RearSensor;
-}SensorPair;
+  }SensorPair;
 //----------------------------------------------------------------
 /**
-*	returns the rounded value of the sensor.
+* returns the rounded value of the sensor.
 *
 * @author Christopher King
 * @param  sensorValue The value that should be rounded
@@ -41,8 +41,7 @@ typedef struct SensorPair {
 SensorPair roundingValues(SensorPair sensorValue);
 //----------------------------------------------------------------
 /**
-* This method initialises the Sensors by setting 
-* up the pins on the MBED board
+* This method initialises the Sensors by setting up the pins on the MBED board
 *
 * @author Christopher King
 * @param p_Portnum		The port number of the Pin (between 0 and 4)
@@ -57,16 +56,16 @@ void pinConfSetup(uint8_t p_Portnum, uint8_t p_Pinnum, uint8_t p_Funcnum, uint8_
 *	returns the value of the left sensors, both front and rear
 *
 * @author Christopher King
-* @return returns a SensorPair which contains .FrontSensor and .RearSensor 
-*/ 
+* @return returns a SensorPair which contains .FrontSensor and .RearSensor
+*/
 SensorPair getLeftSensorValues();
 //----------------------------------------------------------------
-/**
+ /**
 *	returns the value of the Right sensors, both front and rear
 *
 * @author Christopher King
-* @return returns a SensorPair which contains .FrontSensor and .RearSensor 
-*/ 
+* @return returns a SensorPair which contains .FrontSensor and .RearSensor
+*/
 SensorPair getRightSensorValues();
 //----------------------------------------------------------------
 /**
@@ -78,11 +77,10 @@ SensorPair getRightSensorValues();
 int getFrontSensorValue();
 //----------------------------------------------------------------
 /**
-* This method initialises the Sensors by setting 
-* up the pins on the MBED board
+* This method initialises the Sensors by setting up the pins on the MBED board
 *
 * @author Christopher King
-*/ 
+*/
 void initSensors();
 //----------------------------------------------------------------
 /**
