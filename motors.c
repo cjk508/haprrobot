@@ -5,60 +5,68 @@
 // uint32_t cmdRightMFw(int speed); 0xC5 - M2 forward
 // uint32_t cmdRightMBw(int speed); 0xC6 - M2 backward
 
-int current_motor_speed_left;
-int current_motor_speed_right;
-
+int getSpeedLeft() {
+  return current_motor_speed_left;
+}
+int getSpeedRight() {
+  return current_motor_speed_right;
+}
 
 int speedCheck(int speed) {
+  speed = (speed < 0) ? 0 : speed;
 	return (speed > MAX_SPEED) ? MAX_SPEED : speed;
 }
 
-void setLeftMotor(int left) {
-	current_motor_speed_left = left;
-	if(left < 0 ) {
-		left *= -1;
-		cmdLeftMBw(speedCheck(left));
-	}
-	else {
-		cmdLeftMFw(speedCheck(left));
-	}
+void setLeftMotorFw(int speed) {
+  current_motor_dir_left = 1;
+	current_motor_speed_left = speedCheck(speed);
+//		cmdLeftMFw(current_motor_speed_left);
+}
+void setLeftMotorBw(int speed) {
+  current_motor_dir_left = 0;
+	current_motor_speed_left = speedCheck(speed);
+//		cmdLeftMBw(current_motor_speed_left);
 }
 
-void setRightMotor(int right) {
-	current_motor_speed_right = right;
-	if(right < 0 ) {
-		right *= -1;
-		cmdRightMBw(speedCheck(right));
-	}
-	else {
-		cmdRightMFw(speedCheck(right));
-	}
+void setRightMotorFw(int speed) {
+  current_motor_dir_right = 1;
+	current_motor_speed_left = speedCheck(speed);
+//		cmdLeftMFw(current_motor_speed_right);
+}
+void setRightMotorBw(int speed) {
+  current_motor_dir_right = 0;
+	current_motor_speed_right = speedCheck(speed);
+//		cmdLeftMBw(current_motor_speed_right);
 }
 
-void setMotors(int lm, int rm) {
-	setLeftMotor(lm);
-	setRightMotor(rm);
+void setMotorsFw(int lm, int rm) {
+	setLeftMotorFw(lm);
+	setRightMotorFw(rm);
+}
+void setMotorsBw(int lm, int rm) {
+	setLeftMotorBw(lm);
+	setRightMotorBw(rm);
 }
 
 void forwards(int s) {
-	setMotors(s+2, s);
+	setMotorsFw(s+2, s);
 }
 
 void backwards(int s) {
   s = s * (-1);
-	setMotors(s, s+2);
+	setMotorsBw(s, s+2);
 }
 
 void right() {
-	setMotors(25, 0);
+	//setMotors(25, 0);
 }
 
 void left() {
-	setMotors(0, 25);
+	//setMotors(0, 25);
 }
 
 void freewheel() {
-	setMotors(0, 0);
+	setMotorsFw(0, 0);
 }
 
 void brake() {
@@ -66,11 +74,11 @@ void brake() {
 }
 
 void spinLeft() {
-	setMotors(-25, 25);
+	//setMotors(-25, 25);
 }
 
 void spinRight() {
-	setMotors(25, -25);
+	//setMotors(25, -25);
 }
 /**
 * @todo need to check the timings for turning 90/180 degrees probably should create a timer

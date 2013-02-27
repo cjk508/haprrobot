@@ -16,6 +16,12 @@
 int current_motor_speed_left;
 int current_motor_speed_right;
 
+int current_motor_dir_left;
+int current_motor_dir_right;
+
+int getSpeedLeft();
+int getSpeedRight();
+
 /**
  * Restricts the max speed to the constant MAX_SPEED
  *
@@ -26,23 +32,37 @@ int current_motor_speed_right;
  */
 int speedCheck(int speed);
 /**
-* Sets the left motor speed  
+* Sets the left motor forward speed  
 *
-* @author Jed Warwick-Mooney
 * @author Andrew Durant
-* @param left input speed for left motor
+* @param speed input speed for left motor
 
 */
-void setLeftMotor(int left);
+void setLeftMotorFw(int speed);
 /**
-* Sets the right motor speed  
+* Sets the left motor backward speed  
 *
-* @author Jed Warwick-Mooney
 * @author Andrew Durant
-* @param right input speed for right motor
-*/
+* @param speed input speed for left motor
 
-void setRightMotor(int right);
+*/
+void setLeftMotorBw(int speed);
+/**
+* Sets the right motor forward speed  
+*
+* @author Andrew Durant
+* @param speed input speed for right motor
+
+*/
+void setLeftMotorFw(int speed);
+/**
+* Sets the right motor backward speed  
+*
+* @author Andrew Durant
+* @param speed input speed for right motor
+
+*/
+void setLeftMotorBw(int speed);
 
 /**
 * Allows the setting of the left and right motors in one call
@@ -53,7 +73,17 @@ void setRightMotor(int right);
 
 */
 
-void setMotors(int lm, int rm);
+void setMotorsFw(int lm, int rm);
+/**
+* Allows the setting of the left and right motors in one call
+*
+* @author Jed Warwick-Mooney
+* @param lm speed to set left motor at
+* @param rm speed to set right motor at
+
+*/
+
+void setMotorsBw(int lm, int rm);
 
 /**
 * Sets the speed the motors will go in the forwards direction

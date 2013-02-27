@@ -74,9 +74,9 @@ void motorCorrectTest() {
   forwards(15);
   while (1) 
   {
-   while (getFrontSensorValue() == 1)    {
-     brake();
-   }    
+//   while (getFrontSensorValue() == 1)    {
+//     brake();
+//   }    
     correctForwardMotion();
   }
 }

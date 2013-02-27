@@ -2,6 +2,12 @@
 #include "motors.h"
 #include "sensors.h"
 
+#include "debug_frmwrk.h"
+// DBG Levels
+// 1 - Basic
+// 2 - Verbose
+#define DBG_LEVEL 2
+
 /**
 * Reads in side sensor values, and will automatically adjust with the intention
 * of eventually moving parallel to the nearest object.
@@ -37,39 +43,32 @@ void correctForwardMotion() {
   *
   * Remember that a higher value means it's closer to the sensor.
   */
-  if (
-      //If using left and moving away from object, turn left (move away a bit)
-      (use_left && left.FrontSensor < left.RearSensor)
-      //If using right and moving toward, turn left
-      || (!use_left && right.FrontSensor > right.RearSensor)
-     ) {
-       //Adjust right a bit, decide whether to speed up left or slow down right
-       // @todo this is where it could check if the motor is going backwards or forwards
-       if (current_motor_speed_left > current_motor_speed_right) {
-         //Speed up right
-         setRightMotor(current_motor_speed_right+1);
-       } 
-       else {
-         //Slow Down left
-         setLeftMotor(current_motor_speed_left-1);
-       }
-     }
-  else if (
-      //If using left and moving toward an object, turn right (move toward a bit)
-      (use_left && left.FrontSensor > left.RearSensor)
-      //If using right and moving away, turn right
-      || (!use_left && right.FrontSensor < right.RearSensor)
-       ) {
-         //Adjust right a bit, decide whether to speed up right or slow down left
-         // @todo this is where it could check if the motor is going backwards or forwards
-         if (current_motor_speed_left > current_motor_speed_right) {
-           //Speed up left
-           setLeftMotor(current_motor_speed_left+1);
-         } 
-         else {
-           //Slow Down right
-           setRightMotor(current_motor_speed_right-1);
-         }
-     }
-        
+  if (use_left) {
+    if (left.FrontSensor < left.RearSensor) {
+    //If using left and moving away from an object, turn left (move closer a bit)
+      //Slow down left
+      setLeftMotorFw(getSpeedLeft()-1);
+      if (DBG_LEVEL >= 2) { _DBG_("Turning Left"); _DBG("Set left up: "); _DBD32(getSpeedLeft()); _DBG_(""); }
+    }
+    else if (left.FrontSensor > left.RearSensor) {
+    //If using left and moving toward an object, turn right (move away a bit)
+      //Speed up left
+      setLeftMotorFw(getSpeedLeft()+1);
+      if (DBG_LEVEL >= 2) { _DBG_("Turning Left"); _DBG("Set left dn: "); _DBD32(getSpeedLeft()); _DBG_(""); }
+    }
+  }
+  else if (!use_left) {
+    if (right.FrontSensor > right.RearSensor) {
+    //If using right and moving toward an object, turn left (move away a bit)
+      //Speed up right
+      setRightMotorFw(getSpeedRight()+1);
+      if (DBG_LEVEL >= 2) { _DBG_("Turning Right"); _DBG("Set right up: "); _DBD32(getSpeedRight()); _DBG_(""); }
+    }
+    else if (right.FrontSensor < right.RearSensor) {
+    //If using right and moving away from an object, turn right (move closer a bit)
+      //Slow down right
+      setRightMotorFw(getSpeedRight()-1);
+      if (DBG_LEVEL >= 2) { _DBG_("Turning Right"); _DBG("Set right dn: "); _DBD32(getSpeedRight()); _DBG_(""); }
+    }
+  }
 }
