@@ -34,7 +34,7 @@ void cb(uint8_t buttons, int8_t x, int8_t t);
 
 /**
 * Manipulates integers t and x using trigonometry, to work out the actual
-* distance travelled by the robot when it moves in an arc like way.
+* distance travelled by the robot when it moves in an arc like way. 
 *
 * @author Jed Warwick-Mooney
 * @param  x integer indicating the forward/backward movement distance 
@@ -43,7 +43,7 @@ void cb(uint8_t buttons, int8_t x, int8_t t);
 void curve(int x);
 
 /**
-* Works out the angle of direction the robot faces 
+* Returns an angle in radiens, after dividing the length l travelled by the constant r
 *
 * @author Jed Warwick-Mooney
 * @param l integer being the value of the arc length
@@ -115,18 +115,18 @@ void add_to_y(int8_t y);
 * @author Jed Warwick-Mooney
 * @param x int
 * @param y int
-* @return d interger indicating the distance moved
+* @return d - interger indicating the distance moved
 */
 int distanceMoved(int x, int y);
 
 /**
 * Translates an integer value to an ascii value 
 * 
-* @author Jed Warwick-Mooney
-* @param value
-* @param target
+* @author Jed Warwick-Mooney(not original author)
+* @param val - value we want in ascii 
+* @param buf - stores ascii value
 */
-void int_to_ascii(int value, char* target) ;
+int my_itoa(int val, char* buf) ;
 
 /**
 * Prints the distance the robot has moved from its start point

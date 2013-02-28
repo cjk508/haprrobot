@@ -28,8 +28,7 @@ void initTimer(LPC_TIM_TypeDef *TIMx, IRQn_Type IRQn, int time) {
 }
 
 void initTimers() {
-	//initTimer(LPC_TIM0, TIMER0_IRQn, 50);
-	initTimer(LPC_TIM0, TIMER0_IRQn, 5000);
+	initTimer(LPC_TIM0, TIMER0_IRQn, 3000);
 	_DBG_("TIMER SETUP");
 }
 

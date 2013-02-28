@@ -45,14 +45,13 @@ void main(void) {
   initialise();
   _DBG_("Magic!");
 
-  while(1) {
-    sensorsTest();
-  }
+ // while(1) {
+  //  sensorsTest();
+  //}
 //  linefollowTest();
 //  motorCorrectTest();
-//	mouse_init(cb, attach, detach); //initilisation of the mouse
-//  _DBG_("init mouse");
-//  mouseinitial(); 
+  _DBG_("init mouse");
+  mouseinitial(); 
 
   _DBG_("Done");
 }

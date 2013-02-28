@@ -6,11 +6,11 @@
 #include "KeyboardHost.h"
 #include <stdlib.h>
 
-const int r = 10;
+const int r = 1000;
 int32_t x_move;
 int32_t y_move;
 int theta;
-
+// when the mouse moves slow enough it can detect 1000 points per 10cm, so 10000 = 1m
 void mouseinitial()
 {
   _DBG_("I'm starting");
@@ -27,40 +27,33 @@ of debugging but it seems to have worked,*/
   mouse_poll();
 }
 void cb(uint8_t buttons, int8_t x, int8_t t) {
-  _DBG_("I've been called");
 	//if there is a change in the t value only then the robot is spinning;
 	if(t != 0 && x == 0) {
-		_DBG_("The Mouse has moved Left/right by: ");
-		_DBD(t);
-		_DBG_("\n");
 		theta += spin(t, r);
-		_DBG_("Value of theta is: ");
-		_DBD(theta);
-		_DBG_("\n");
+		//_DBG_("Value of theta is: ");
+		//_DBD32(theta);
+		//_DBG_("\n");
 	}
 	
 	//If there is a change in the x value only then the robot is moving forward;
 	if(x != 0 && t == 0) {
 		_DBG_("The Mouse has moved Forward/Backward by: ");
-		_DBD(x);
-		_DBG_("\n");
+		_DBD32(x);
 		add_to_x(x);
 		add_to_y(x);
 		_DBG_("Value of x_move is: ");
-		_DBD(x_move);
+		_DBD32(x_move);
 		_DBG_("\n");
 	}
 
 	if(t != 0 && x != 0) {
-	_DBG_("Moving in a curve");
-	_DBG_("\n");
-	curve(x);
-	_DBG_("Value of x_move is: ");
-	_DBD(x_move);
-	_DBG_("\n");
-        _DBG_("Value of y_move is: ");
-	_DBD(y_move);
-	_DBG_("\n");
+		//_DBG_("Moving in a curve");
+		curve(x);
+		//_DBG_("Value of x_move is: ");
+		//_DBD32(x_move);
+  	//_DBG_("Value of y_move is: ");
+		//_DBD32(y_move);
+		//_DBG_("\n");
 	}
 
 }
@@ -68,18 +61,18 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 void curve(int x) {
 /**
 * @todo Jed please explain how this works, for all of our sakes :P
+The Idea of this method is to work out how far the robot has moved with respect to the x and y axis coordinates.
 */
-	int t = spin(x, r);
-	int hyp_y = sin(t) * r;
-	int hyp_z = cos(t) * r;
-	int y2 = hyp_y * sin(t);
-	int x2 = hyp_y * cos(t);
-	int hyp_x = r - hyp_z;
-	int x1 = hyp_x * sin(t);
-	int y1 = hyp_x * cos(t);
-	theta += t;
-	add_to_x(x1 + x2);
-	add_to_y(y2 - y1);
+	int t = spin(x, r); // gives us an angle theta, from the length of the arc traversed, x, and the constant, r, where r is the radius of a circle.
+	int hyp_2 = sin(t) * r; // gets sin(t) and multiplies it by r to get the hypotenuse, hyp_2, of the upper triangle 
+	int x2 = hyp_2 * cos(t); // multiplies hyp_2 by the cosine of theta, to get an x value parrallel to the x axis of the overall coordinates
+	int y2 = hyp_2 * sin(t); // multiplies hyp_2 by the sine of theta, to get an y value parrallel to the y axis of the overall coordinates
+	int hyp_1 = r - (cos(t) * r); // gets cos(t) multplies it by r, then minusing r from the result of the multiplication to get the hypotenuse, hyp_1, of the lower triangle 
+	int x1 = hyp_1 * sin(t);// multiplies hyp_1 by the cosine of theta, to get an x value parrallel to the x axis of the overall coordinates
+	int y1 = hyp_1 * cos(t);// multiplies hyp_1 by the cosine of theta, to get an y value parrallel to the y axis of the overall coordinates
+	theta += t;// add t to theta so the angle the robot now faces is known
+	x_move += (x1 + x2);// add the values of x1 and x2 together so the overall parrallel movement with respect to the x axis is known
+	y_move += (y2 - y1);// minus y1 (from the lower triangle) from y2( from the upper triangle) where the difference is how far left or right the robot has moved with respect to the y axis
 }
 
 int spin(int l, int r) {
@@ -109,67 +102,79 @@ int32_t get_y_move() {
 }
 
 void add_to_x(int8_t x) {
-	x_move += x * cos(theta);
+	x_move += x * cos(theta); //x is multiplied by cos(theta) as direction the robot is facing can affect how far it actually moves along the x_axis
 }
 
 void add_to_y(int8_t y) {
-	y_move += y * sin(theta);
+	y_move += y * sin(theta);//y is multiplied by sin(theta) as direction the robot is facing can affect how far it actually moves along the y_axis
 }
 
 int distanceMoved(int x, int y) {
 	int d;
-	d = ((x^2) + (y^2));
+	d = ((x^2) + (y^2)); //pythagarus theorem used to work out overall distance moved from orignal start point
 	d = sqrt(d);
 	_DBG_("the Distance moved by the Polulu robot is: ");
 	_DBC(d); _DBG_("");
 	return d;
 }
-
-void int_to_ascii(int value, char* target) 
+/* Code taken from http://code.google.com/p/my-itoa/, for ease of use and lack of time*/
+int my_itoa(int val, char* buf)
 {
-/**
-* @todo	another callout to Jed to comment his code. It may be fairly obvious but it would still be more readable with a few comments
-*/
-  int div;
-  char i=0;
-  char removeZeroes = 1;   
-  
-  if(value==0)
-  {
-    target[0]='0';
-    target[1]='\0';
-  }
-  else
-  {
-    for(div=10000; div!=0; div/=10)
+    const unsigned int radix = 10; // sets the base of the output
+
+    char* p;
+    unsigned int a;        //every digit
+    int len;
+    char* b;            //start of the digit char
+    char temp;
+    unsigned int u;
+
+    p = buf;
+
+    if (val < 0)
     {
-      char ch = (value / div) + '0';
-      if(removeZeroes && ch != '0')
-      {
-        if(!isdigit(ch))//What is isdigit?, it's throwing up a warning saying that it is implicitly declared and I'm not sure where from
-          break;
-//Some warnings around here to do with array subscript and the char type
-        removeZeroes = 0;
-        target[i] = ch;
-        i++;
-			}
-
-      value %= div;
+        *p++ = '-';
+        val = 0 - val;
     }
+    u = (unsigned int)val;
 
-    target[i]='\0';    
-  }
+    b = p;
+
+    do
+    {
+        a = u % radix;
+        u /= radix;
+
+        *p++ = a + '0';
+
+    } while (u > 0);
+
+    len = (int)(p - buf);
+
+    *p-- = 0;
+
+    //swap
+    do
+    {
+        temp = *p;
+        *p = *b;
+        *b = temp;
+        --p;
+        ++b;
+
+    } while (b < p);
+
+    return len;
 }
 
 
+
 void printToLCD() {
-/** distance and buf currently unused to commented out
  	int x = get_x_move();
 	int y = get_y_move();
  	int	distance = distanceMoved(x, y);
 	char buf[8];
-	int_to_ascii(distance, buf);
+	my_itoa(distance, buf);
 	cmdLcdPrint(buf);
-*/
 }
 
