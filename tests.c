@@ -1,8 +1,10 @@
+#include "debug_frmwrk.h"
 #include "uart.h"
 #include "sensors.h"
 #include "motors.h"
 #include "correctmotion.h"
 #include "timer.h"
+#include "linefollow.h"
 
 #define DBG_LEVEL 1
 
@@ -33,7 +35,8 @@ void sensorsTest() {
 
 
 void linefollowTest(){
-  char *sens[10] = {0};  
+  _DBG_("LINE FOLLOW TEST");
+  uint16_t *sens[10] = {0};  
   while(1)
   {
   /**
@@ -41,11 +44,11 @@ void linefollowTest(){
   */
     cmdRawSens(*sens); 
     _DBG_("##################");
-    _DBG("Sensor 1:");_DBC(sens[0]);_DBG_("");
-    _DBG("Sensor 2:");_DBC(sens[1]);_DBG_("");
-    _DBG("Sensor 3:");_DBC(sens[2]);_DBG_("");
-    _DBG("Sensor 4:");_DBC(sens[3]);_DBG_("");        
-    _DBG("Sensor 5:");_DBC(sens[4]);_DBG_("");      
+    _DBG("Sensor 1:");_DBD16(*sens[0]);_DBG_("");
+    _DBG("Sensor 2:");_DBD16(*sens[1]);_DBG_("");
+    _DBG("Sensor 3:");_DBD16(*sens[2]);_DBG_("");
+    _DBG("Sensor 4:");_DBD16(*sens[3]);_DBG_("");        
+    _DBG("Sensor 5:");_DBD16(*sens[4]);_DBG_("");      
   }
 }
 

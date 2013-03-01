@@ -10,11 +10,10 @@ void calibrateSensors(void)
   cmdAutoCal();
 }
 
-char[] getRawSensors(void)
+void getRawSensors(uint16_t *sens)
 {
-  char *buf[10];
-  uint32_t status = cmdRawSens(*buf);
-  return *buf;
+  uint32_t status = cmdRawSens(*sens);
+  return *sens;
   /**
   *@todo need to work out whether 0 is black or 1000
   *      once this have been sussed out then it will 
@@ -23,12 +22,10 @@ char[] getRawSensors(void)
          It will keep searching for the "barcode" throughout     
   */
 }
-
-char[] getCalibratedSensors(void)
+void getCalibratedSensors(uint16_t *sens)
 {
-  char *buf[10];
-  uint32_t status = cmdCalSens(*buf);
-  if(/*buffer arrays are white*/)
+  uint32_t status = cmdCalSens(*sens);
+/*  if(/*buffer arrays are white)
   {
     //try to find the line
   }
@@ -39,7 +36,7 @@ char[] getCalibratedSensors(void)
   /*if the read in i between 0-1000 then we are to the right of the line
     if it is between 1000 and 3000 then we are approx centre 
     if it is between 3000 and 4000 then it is to the far left of the robot
-  */
+
   }
   /**
   *@todo need to work out whether 0 is black or 2000
@@ -47,8 +44,8 @@ char[] getCalibratedSensors(void)
          attempt to look for a black floor. It will
          then calibrate and use the line follow command
          It will keep searching for the "barcode" throughout     
-  */  
-  return *buf;
+
+  return *buf;*/
 }
 void inchForward()
 {
@@ -64,7 +61,7 @@ void inchForward()
 intersection_enum scanForDeadEnd()
 {
  /**@todo need to check the sensor patterns when going over a line. I highly doubt it'll be as simple as 1 for a line and 0 for no line, although that is what 
-the documentation suggests in the pololu how to follow a line thingy.*/
+the documentation suggests in the pololu how to follow a line thingy.
   char *sensorPattern = useRawSensors();
   bool left = true;
   bool right = true;
@@ -93,7 +90,7 @@ the documentation suggests in the pololu how to follow a line thingy.*/
     return RIGHT;
   else if (!right)
     return LEFT;
-  else
+  else*/
     return LEFT_RIGHT;    
 }
 

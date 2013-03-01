@@ -29,7 +29,7 @@ void calibrateSensors(void);
 * @author Christopher King
 * @return This method returns the current values that the raw sensors are transmitting
 */
-char[] getRawSensors(void);
+void getRawSensors(uint16_t *sens);
 //----------------------------------------------------------------
 /**
 *	returns the Calibrated sensor values of the line sensors
@@ -37,7 +37,7 @@ char[] getRawSensors(void);
 * @author Christopher King
 * @return This method retruns the current values that the calibrated sensors believe.
 */
-char[] getCalibratedSensors(void);
+void getCalibratedSensors(uint16_t *sens);
 //----------------------------------------------------------------
 /**
 *	moves forward by a very small amount to test if the intersection
@@ -54,7 +54,7 @@ void inchForward(void);
 * @author Christopher King
 * @return DEAD_END or turn type 
 */
-intersection_enum scanForDeadEnd(void)
+//intersection_enum scanForDeadEnd(void)
 //----------------------------------------------------------------
 /**
 *	This should return whether the 
