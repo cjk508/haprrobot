@@ -9,7 +9,6 @@
 const int r = 1000;
 int32_t x_move;
 int32_t y_move;
-int32_t overflowProtection;
 int theta;
 // when the mouse moves slow enough it can detect 1000 points per 10cm, so 10000 = 1m
 void mouseinitial()

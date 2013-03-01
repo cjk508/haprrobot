@@ -50,8 +50,9 @@ void main(void) {
   //}
 //  linefollowTest();
 //  motorCorrectTest();
-  _DBG_("init mouse");
-  mouseinitial(); 
+//  _DBG_("init mouse");
+//  mouseinitial(); 
+  linefollowTest();
 
   _DBG_("Done");
 }
