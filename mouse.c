@@ -30,7 +30,7 @@ of debugging but it seems to have worked,*/
 
 void overflowProtection(int8_t x)
 {
-	
+	//if it hits 127... stop
 }
 void cb(uint8_t buttons, int8_t x, int8_t t) {
 /**
