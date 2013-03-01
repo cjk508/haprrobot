@@ -5,6 +5,7 @@
 #include "timer.h"
 #include "KeyboardHost.h"
 #include <stdlib.h>
+#include "motors.h"
 
 const int r = 1000;
 int32_t x_move;
@@ -27,14 +28,18 @@ of debugging but it seems to have worked,*/
   mouse_poll();
 }
 
-void overflowProtection(int8_t x)
+void overflowProtection(int8_t x, int8_t t)
 {
-	//if it hits 127... stop
+	if(x > 125 || t > 125) {
+		_DBG_("OVERFLOW");
+		brake();
+	}
 }
 void cb(uint8_t buttons, int8_t x, int8_t t) {
 /**
 * @todo put some form of overflow protection to make sure that we are getting fairly accurate results.
 */
+	overflowProtection(x, t);
 	//if there is a change in the t value only then the robot is spinning;
 	if(t != 0 && x == 0) {
 		theta += spin(t, r);
@@ -135,46 +140,33 @@ int my_itoa(int val, char* buf)
     char* b;            //start of the digit char
     char temp;
     unsigned int u;
-
     p = buf;
-
     if (val < 0)
     {
         *p++ = '-';
         val = 0 - val;
     }
     u = (unsigned int)val;
-
     b = p;
-
-    do
+    while (u > 0)
     {
         a = u % radix;
         u /= radix;
-
         *p++ = a + '0';
-
-    } while (u > 0);
-
+    } 
     len = (int)(p - buf);
-
     *p-- = 0;
-
     //swap
-    do
+    while (b < p)
     {
         temp = *p;
         *p = *b;
         *b = temp;
         --p;
         ++b;
-
-    } while (b < p);
-
+    }
     return len;
 }
-
-
 
 void printToLCD() {
  	int x = get_x_move();
