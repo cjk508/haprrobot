@@ -14,7 +14,7 @@ void calibrateSensors(void)
 void getRawSensors(uint16_t *sens)
 {
   _DBG_("attempt to get sensor values");
-  uint32_t status = cmdRawSens(*sens);
+  uint32_t status = cmdRawSens(sens);
   _DBG_("Got sensor values");  
   /**
   *@todo need to work out whether 0 is black or 1000
@@ -26,8 +26,8 @@ void getRawSensors(uint16_t *sens)
 }
 void getCalibratedSensors(uint16_t *sens)
 {
-  uint32_t status = cmdCalSens(*sens);
-/*  if(/*buffer arrays are white)
+  uint32_t status = cmdCalSens(sens);
+/**  if(buffer arrays are white)
   {
     //try to find the line
   }
@@ -35,12 +35,11 @@ void getCalibratedSensors(uint16_t *sens)
   {
     //follow the line
     cmdLinePosition(); //nneds to implemented in uart.c
-  /*if the read in i between 0-1000 then we are to the right of the line
+  if the read in i between 0-1000 then we are to the right of the line
     if it is between 1000 and 3000 then we are approx centre 
     if it is between 3000 and 4000 then it is to the far left of the robot
 
   }
-  /**
   *@todo need to work out whether 0 is black or 2000
   *      once this have been sussed out then it will 
          attempt to look for a black floor. It will
@@ -52,7 +51,7 @@ void getCalibratedSensors(uint16_t *sens)
 void inchForward()
 {
   int i = 0;
-  forward(25);
+  forwards(25);
   while (i < 10000)
   {  
     i = i+1;
@@ -93,16 +92,17 @@ the documentation suggests in the pololu how to follow a line thingy.
   else if (!right)
     return LEFT;
   else*/
-    return LEFT_RIGHT;    
+    return LEFT_RIGHT; 
 }
 
-intersection_enum intersectionAnalysis();
+intersection_enum intersectionAnalysis()
 {
+ /* char sensorPattern[5] = {0};
   brake();
   intersection_enum intersectionType;
-  if sensorPattern == {0,0,0,0,0} //Nothing in front or to the side of the robot
+  if (sensorPattern == {0,0,0,0,0}) //Nothing in front or to the side of the robot
     intersectionType = scanForDeadEnd();
-  else if sensorPattern == {1,1,1,0,0} //Line to the left and infront of the robot
+  else if (sensorPattern == {1,1,1,0,0} )//Line to the left and infront of the robot
   {
     inchForward();
     intersection_enum futureTurn = intersectionAnalysis();
@@ -111,7 +111,7 @@ intersection_enum intersectionAnalysis();
     else
       intersectionType = LEFT_STRAIGHT;
   }
-  else if sensorPattern == {0,0,1,1,1}//Line to the right and infront of the robot
+  else if (sensorPattern == {0,0,1,1,1})//Line to the right and infront of the robot
   {
     inchForward();
     intersection_enum futureTurn = intersectionAnalysis();
@@ -120,6 +120,7 @@ intersection_enum intersectionAnalysis();
     else
       intersectionType = RIGHT_STRAIGHT;
   }  
-  else if sensorPattern = {1,1,1,1,1} //Line to the left, right and in front of the robot.
-     intersectionType = CROSSROAD;
+  else if (sensorPattern = {1,1,1,1,1}) //Line to the left, right and in front of the robot.
+     intersectionType = CROSSROAD;*/
+   return CROSSROAD;
 }

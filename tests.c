@@ -36,7 +36,7 @@ void sensorsTest() {
 
 void linefollowTest(){
   _DBG_("LINE FOLLOW TEST");
-  uint16_t *sens[10] = {0};  
+  uint16_t sens[10] = {0};  
   /**
   * @todo Need to work out why the sensors aren't changing
   */
@@ -51,6 +51,7 @@ void linefollowTest(){
     _DBG("Sensor 5:");_DBD16(*sens[4]);_DBG_("");
     */
   cmdAutoCal();
+  getCalibratedSensors(&sens);
   //getCalibratedSensors(*sens); error stating undefined reference for both this function and getRawSensors(*sens);
 }
 
