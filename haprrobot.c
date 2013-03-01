@@ -44,7 +44,6 @@ void initialise() {
 void main(void) {
   initialise();
   _DBG_("Magic!");
-  linefollowTest();
  // while(1) {
   //  sensorsTest();
   //}
