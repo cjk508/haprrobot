@@ -60,7 +60,6 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 
 void curve(int x) {
 /**
-* @todo Jed please explain how this works, for all of our sakes :P
 The Idea of this method is to work out how far the robot has moved with respect to the x and y axis coordinates.
 */
 	int t = spin(x, r); // gives us an angle theta, from the length of the arc traversed, x, and the constant, r, where r is the radius of a circle.

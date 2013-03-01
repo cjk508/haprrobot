@@ -45,7 +45,7 @@ char[] getCalibratedSensors(void);
 *
 * @author Christopher King
 */
-void inchForward();
+void inchForward(void);
 //----------------------------------------------------------------
 /**
 *	checks to see whether an end to the line is a dead end or a left/right
@@ -54,7 +54,7 @@ void inchForward();
 * @author Christopher King
 * @return DEAD_END or turn type 
 */
-intersection_enum scanForDeadEnd()
+intersection_enum scanForDeadEnd(void)
 //----------------------------------------------------------------
 /**
 *	This should return whether the 
@@ -62,5 +62,5 @@ intersection_enum scanForDeadEnd()
 * @author Christopher King
 * @return will return which intersection we have come across
 */
-intersection_enum intersectionAnalysis();
+intersection_enum intersectionAnalysis(void);
 #endif
