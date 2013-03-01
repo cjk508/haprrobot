@@ -1,5 +1,6 @@
 #include "motors.h"
 #include "uart.h"
+#include "debug_frmwrk.h" 
 #include "linefollow.h"
 
 void calibrateSensors(void)
@@ -12,8 +13,9 @@ void calibrateSensors(void)
 
 void getRawSensors(uint16_t *sens)
 {
+  _DBG_("attempt to get sensor values");
   uint32_t status = cmdRawSens(*sens);
-  return *sens;
+  _DBG_("Got sensor values");  
   /**
   *@todo need to work out whether 0 is black or 1000
   *      once this have been sussed out then it will 
