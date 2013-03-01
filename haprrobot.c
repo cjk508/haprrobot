@@ -48,11 +48,10 @@ void main(void) {
  // while(1) {
   //  sensorsTest();
   //}
-//  linefollowTest();
+  linefollowTest();
 //  motorCorrectTest();
-  _DBG_("init mouse");
-  mouseinitial(); 
-//  linefollowTest();
+//  _DBG_("init mouse");
+ // mouseinitial(); 
 
   _DBG_("Done");
 }
