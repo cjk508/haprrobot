@@ -9,6 +9,7 @@
 const int r = 1000;
 int32_t x_move;
 int32_t y_move;
+int32_t overflowProtection;
 int theta;
 // when the mouse moves slow enough it can detect 1000 points per 10cm, so 10000 = 1m
 void mouseinitial()
@@ -26,7 +27,15 @@ therefore we thought it best to remove it and place it here. This may not be the
 of debugging but it seems to have worked,*/
   mouse_poll();
 }
+
+void overflowProtection(int8_t x)
+{
+	
+}
 void cb(uint8_t buttons, int8_t x, int8_t t) {
+/**
+* @todo put some form of overflow protection to make sure that we are getting fairly accurate results.
+*/
 	//if there is a change in the t value only then the robot is spinning;
 	if(t != 0 && x == 0) {
 		theta += spin(t, r);
