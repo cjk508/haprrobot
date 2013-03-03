@@ -1,3 +1,16 @@
+/***************************************************************//**
+ *	@file tests.c
+ *	@brief	contains all of the tests for each part of the robot
+ *
+ *	@author Andrew Durant
+ *	@author Chistopher King
+ *	@author Jed Warwick-Mooney
+ *	@author Lloyd Wallis
+ *
+ *	@version V1.5
+ *	@date 01 March 2013
+ *
+*/
 #include "debug_frmwrk.h"
 #include "linefollow.h"
 #include "uart.h"
