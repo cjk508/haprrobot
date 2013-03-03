@@ -1,5 +1,6 @@
 /***********************************************************//**
-*	@file	correctmotion
+*	@file	correctmotion.h
+*	@file 	correctmotion.c
 *	@brief	Enables self-correction of movement when the 
 *		robot should move parallel to an object
 *
