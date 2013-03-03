@@ -2,8 +2,8 @@
  * @file     linefollow.h
  * @brief    Should allow the robot to follow a line. Currently all it does is analyse 
  *           an intersection
- * @version: V0.2
- * @date:    21. February 2013
+ * @version: V0.6
+ * @date:    03 March 2013
  ******************************************************************************/
 #ifndef LINE_FOLLOW
 #define LINE_FOLLOW
