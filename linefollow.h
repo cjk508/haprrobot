@@ -29,7 +29,7 @@ void calibrateSensors(void);
 * @author Christopher King
 * @return This method returns the current values that the raw sensors are transmitting
 */
-void getRawSensors(uint16_t *sens);
+void getRawSensors(uint16_t* sens);
 //----------------------------------------------------------------
 /**
 *	returns the Calibrated sensor values of the line sensors
@@ -37,7 +37,7 @@ void getRawSensors(uint16_t *sens);
 * @author Christopher King
 * @return This method retruns the current values that the calibrated sensors believe.
 */
-void getCalibratedSensors(uint16_t *sens);
+void getCalibratedSensors(uint16_t* sens);
 //----------------------------------------------------------------
 /**
 *	moves forward by a very small amount to test if the intersection
@@ -64,7 +64,7 @@ void inchForward(void);
  * @param	desiredPattern	this is the pattern that the if statement wants to check against
  * @return returns either a 1 or a 0 depending on whether the input pattern matches the desired pattern.
  */
-int sensorPatternChecker(char* sensorPattern, char* desiredPattern);
+int sensorPatternChecker(uint16_t* sensorPattern, uint16_t* desiredPattern);
 //----------------------------------------------------------------
 /**
 *	This should return whether the 

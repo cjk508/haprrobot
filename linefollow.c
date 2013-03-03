@@ -11,7 +11,7 @@ void calibrateSensors(void)
   cmdAutoCal();
 }
 
-void getRawSensors(uint16_t *sens)
+void getRawSensors(uint16_t*  sens)
 {
   _DBG_("attempt to get sensor values");
   uint32_t status = cmdRawSens(sens);
@@ -65,7 +65,8 @@ void inchForward()
 intersection_enum scanForDeadEnd()
 {
  /**@todo need to check the sensor patterns when going over a line. I highly doubt it'll be as simple as 1 for a line and 0 for no line, although that is what the documentation suggests in the pololu how to follow a line thingy.*/
-  char *sensorPattern = useRawSensors();
+  uint16_t* sensorPattern = {0};
+  getRawSensors(sensorPattern);
   char left = '1';
   char right = '1';
   int i = 0;
@@ -75,8 +76,10 @@ intersection_enum scanForDeadEnd()
     i = i + 1;
   }
   brake();
-  if sensorPattern != {1,1,1,0,0}
-    left = false;
+  
+  //uint16_t desiredPattern[5] = {1,1,1,0,0};
+  if (!sensorPatternChecker(sensorPattern, (uint16_t*){1,1,1,0,0}))
+    left = '0';
   i = 0;    
   spinRight();
   while (i<400)
@@ -84,8 +87,8 @@ intersection_enum scanForDeadEnd()
     i = i + 1;
   }
   brake();
-  if sensorPattern != {0,0,1,1,1}
-    right = false;
+  if (!sensorPatternChecker(sensorPattern, (uint16_t* ){0,0,1,1,1}))
+    right = '0';
     
   if (!left && !right)
     return DEAD_END;
@@ -97,11 +100,11 @@ intersection_enum scanForDeadEnd()
     return LEFT_RIGHT; 
 }
 
-int sensorPatternChecker(char* sensorPattern, char* desiredPattern)
+int sensorPatternChecker(uint16_t* sensorPattern, uint16_t* desiredPattern)
 {
 	// This is to try and get round the sensor checking if statement problems, failing to analyse {0,0,0,0,0} properly
-	lengthSensors = sizeof(sensorPattern);
-	lengthDesired = sizeof(desiredPattern);
+	int lengthSensors = sizeof(sensorPattern);
+	int lengthDesired = sizeof(desiredPattern);
 	int returnChecker = 0; //this will be incremented with each correct value. If it = 5 by the end then it will return 1
 	if (lengthSensors == lengthDesired)
 	{
