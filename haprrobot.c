@@ -1,3 +1,17 @@
+/*********************************************************//**
+*	@file haprrobot.c
+*	@brief	Main file that intialises the sensors and uart. Then allows testing and the main files to run
+*
+*	@version V1.0
+*	@author Andrew Durant
+*	@author Christopher King
+*	@author Jed Warwick-Mooney
+*	@author Lloyd Wallis
+*
+*	@date 03 March 2013
+*
+*/							     
+
 // Central include files
 #include "debug_frmwrk.h"
 #include "lpc17xx_pinsel.h"
