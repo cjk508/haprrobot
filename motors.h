@@ -1,3 +1,15 @@
+/************************************************************//**
+ *	@file	motors.h
+ *	@brief	contains all the motor controls for the m3pi robot. It keeps track of the direction and the speed of each motor
+ *		it will also allow each motor to be set usin easily readible commands and allow the speeds to be read by other functions
+ *		within haprrobot.
+ *	@author	Jed Warwick-Mooney
+ *	@author	Andrew Durant
+ *	@author Christopher King
+ *
+ *	@version:	 V0.9
+ *	@date:	01 March 2013
+ */
 /* Motor library for m3pi
  * Jed Warwick-Mooney
  * Andrew Durant

@@ -1,8 +1,10 @@
-/* UART library for m3pi
- * Andrew Durant
- * 
- * Provides basic functions for each serial command that can be sent to the m3pi
+/**********************************************************************//**
+ *	@file uart.h
+ *	@brief	UART library for m3pi. Provides basic functions for each serial command that can be sent to the m3pi
  *
+ *	@author	Andrew Durant
+ *	@version: V1.0
+ *	@date: 26 February 2013
  */
 
 #ifndef UART_INC

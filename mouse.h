@@ -1,7 +1,11 @@
-/* Records mouse sensor data in order to find out how far it has moved form the original start point
-*  
-* Jed Warwick-Mooney
-*/
+/*********************************************************************//**
+*	@file mouse.h
+*	@brief	 Records mouse sensor data in order to find out how far it has moved form the original start point
+*
+*	@author	Jed Warwick-Mooney
+*	@version: V0.8
+*	@date:	28 February 2013
+************************************************************************/
 #ifndef MOUSE
 #define MOUSE
 

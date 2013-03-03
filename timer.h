@@ -1,3 +1,13 @@
+/***********************************************************//**
+*	@file	timer.h
+*	@brief	Allows easy set up of timers for use in the mouse and motion.	
+*
+*	@author Andrew Durant
+*	@author Jed Warwick-Mooney
+*	@version: V2.0
+*	@date 20 February 2013
+**************************************************************/
+
 #ifndef TIMER
 #define TIMER
 
