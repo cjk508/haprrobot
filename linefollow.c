@@ -100,7 +100,7 @@ intersection_enum scanForDeadEnd()
     return LEFT_RIGHT; 
 }
 
-int sensorPatternChecker(uint16_t* sensorPattern, uint16_t* desiredPattern)
+int sensorPatternChecker(uint16_t sensorPattern[], uint16_t desiredPattern[])
 {
 	// This is to try and get round the sensor checking if statement problems, failing to analyse {0,0,0,0,0} properly
 	int lengthSensors = sizeof(sensorPattern);
@@ -125,30 +125,33 @@ int sensorPatternChecker(uint16_t* sensorPattern, uint16_t* desiredPattern)
 
 intersection_enum intersectionAnalysis()
 {
- /* char sensorPattern[5] = {0};
+  /**
+   * @todo try and find a decent way of passing the desired pattern rather than using casting
+   */
+  uint16_t sensorPattern[5] = {0};
   brake();
   intersection_enum intersectionType;
-  if (sensorPattern == {0,0,0,0,0}) //Nothing in front or to the side of the robot
+  if (sensorPatternChecker(sensorPattern,(uint16_t*){0,0,0,0,0})) //Nothing in front or to the side of the robot
     intersectionType = scanForDeadEnd();
-  else if (sensorPattern == {1,1,1,0,0} )//Line to the left and infront of the robot
+  else if (sensorPatternChecker(sensorPattern,(uint16_t*){1,1,1,0,0} ))//Line to the left and infront of the robot
   {
     inchForward();
     intersection_enum futureTurn = intersectionAnalysis();
-    if futureTurn == DEAD_END
+    if (futureTurn == DEAD_END)
       intersectionType = LEFT;
     else
       intersectionType = LEFT_STRAIGHT;
   }
-  else if (sensorPattern == {0,0,1,1,1})//Line to the right and infront of the robot
+  else if (sensorPatternChecker(sensorPattern, (uint16_t*){0,0,1,1,1}))//Line to the right and infront of the robot
   {
     inchForward();
     intersection_enum futureTurn = intersectionAnalysis();
-    if futureTurn == DEAD_END
+    if( futureTurn == DEAD_END)
       intersectionType = RIGHT;
     else
       intersectionType = RIGHT_STRAIGHT;
   }  
-  else if (sensorPattern = {1,1,1,1,1}) //Line to the left, right and in front of the robot.
-     intersectionType = CROSSROAD;*/
+  else if (sensorPatternChecker(sensorPattern,(uint16_t*) {1,1,1,1,1})) //Line to the left, right and in front of the robot.
+     intersectionType = CROSSROAD;
    return CROSSROAD;
 }
