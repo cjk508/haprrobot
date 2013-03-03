@@ -57,6 +57,16 @@ void inchForward(void);
 //intersection_enum scanForDeadEnd(void)
 //----------------------------------------------------------------
 /**
+ * For a given input it will check it against the desired pattern to whether they are equivalent
+ *
+ * @author Christopher King
+ * @param	sensorPattern	this is the pattern that the if statements want to check.
+ * @param	desiredPattern	this is the pattern that the if statement wants to check against
+ * @return returns either a 1 or a 0 depending on whether the input pattern matches the desired pattern.
+ */
+int sensorPatternChecker(char* sensorPattern, char* desiredPattern);
+//----------------------------------------------------------------
+/**
 *	This should return whether the 
 *
 * @author Christopher King

@@ -50,6 +50,9 @@ void getCalibratedSensors(uint16_t *sens)
 }
 void inchForward()
 {
+ /**
+  * @todo not sure if this should be in motor.c rather than in here as it is technically to do with the motors.
+  */
   int i = 0;
   forwards(25);
   while (i < 10000)
@@ -61,11 +64,10 @@ void inchForward()
 
 intersection_enum scanForDeadEnd()
 {
- /**@todo need to check the sensor patterns when going over a line. I highly doubt it'll be as simple as 1 for a line and 0 for no line, although that is what 
-the documentation suggests in the pololu how to follow a line thingy.
+ /**@todo need to check the sensor patterns when going over a line. I highly doubt it'll be as simple as 1 for a line and 0 for no line, although that is what the documentation suggests in the pololu how to follow a line thingy.*/
   char *sensorPattern = useRawSensors();
-  bool left = true;
-  bool right = true;
+  char left = '1';
+  char right = '1';
   int i = 0;
   spinLeft();
   while (i<400)
@@ -91,8 +93,31 @@ the documentation suggests in the pololu how to follow a line thingy.
     return RIGHT;
   else if (!right)
     return LEFT;
-  else*/
+  else
     return LEFT_RIGHT; 
+}
+
+int sensorPatternChecker(char* sensorPattern, char* desiredPattern)
+{
+	// This is to try and get round the sensor checking if statement problems, failing to analyse {0,0,0,0,0} properly
+	lengthSensors = sizeof(sensorPattern);
+	lengthDesired = sizeof(desiredPattern);
+	int returnChecker = 0; //this will be incremented with each correct value. If it = 5 by the end then it will return 1
+	if (lengthSensors == lengthDesired)
+	{
+		int i = 0;
+		while (i<=lengthSensors)
+		{
+			if (sensorPattern[i] == desiredPattern[i])
+				returnChecker += 1;			
+		}
+		if (returnChecker == lengthDesired)
+			return 1;
+		else
+			return 0;
+	}
+	else
+		return 0;
 }
 
 intersection_enum intersectionAnalysis()
