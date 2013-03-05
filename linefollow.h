@@ -14,7 +14,8 @@
 *
 * @author Christopher King
 */
-typedef enum {LEFT, RIGHT, LEFT_STRAIGHT, RIGHT_STRAIGHT, CROSSROAD, LEFT_RIGHT, DEAD_END} intersection_enum;
+typedef enum {LEFT, RIGHT, LEFT_STRAIGHT, RIGHT_STRAIGHT, CROSSROAD, LEFT_RIGHT, DEAD_END, NONE} intersection_enum;
+
 //----------------------------------------------------------------
 /**
  *  This function should calibrate the line following sensors.

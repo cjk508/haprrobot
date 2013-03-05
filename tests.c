@@ -68,10 +68,23 @@ void linefollowTest(){
   /**
   * @todo Need to work out why the sensors aren't changing
   */
-  cmdAutoCal();
+//while (1) {
+    _DBG_("##################");
+     getRawSensors(sens); 
+    _DBG_("##################");
+    _DBG("Sensor 1:");_DBD16(sens[0]);_DBG_("");
+    _DBG("Sensor 2:");_DBD16(sens[1]);_DBG_("");
+    _DBG("Sensor 3:");_DBD16(sens[2]);_DBG_("");
+    _DBG("Sensor 4:");_DBD16(sens[3]);_DBG_("");        
+    _DBG("Sensor 5:");_DBD16(sens[4]);_DBG_("");
+	//};
+
+  lineMotors();
+  //calibrateSensors();
+  /*_DBG_("calibrated");
   while (1) {
     _DBG_("##################");
-     getCalibratedSensors(sens);
+     getRawSensors(sens);
     _DBG_("##################");
     _DBG("Sensor 1:");_DBD16(sens[0]);_DBG_("");
     _DBG("Sensor 2:");_DBD16(sens[1]);_DBG_("");
@@ -79,8 +92,9 @@ void linefollowTest(){
     _DBG("Sensor 4:");_DBD16(sens[3]);_DBG_("");        
     _DBG("Sensor 5:");_DBD16(sens[4]);_DBG_("");
 	int i;
-	for (i = 0; i < 10000; i++);
-};
+	for (i = 0; i < 100000; i++);
+  };*/
+}
 /**
  * Tests the motion correction, should stop if there is an object infront of the robot, otherwise it should follow a wall
  *

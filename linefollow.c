@@ -12,7 +12,12 @@ void calibrateSensors(void)
  /*this automatically calibrates the line following sensors. It scans left and 
   right in an attempt to find the line. This should be called when the raw sensors
   indicate that a line is present under the robot.*/
-  cmdAutoCal();
+  uint32_t status = cmdAutoCal();
+  
+  if (status == 1) 
+    _DBG_("Calibrated");
+  else
+    _DBG_("Failed Calibration :(");
 }
 
 void getRawSensors(uint16_t*  sens)
@@ -125,6 +130,43 @@ int sensorPatternChecker(uint16_t sensorPattern[], const uint16_t* desiredPatter
 	}
 	else
 		return 0;
+}
+
+void lineMotors()
+{
+  intersection_enum currentIntersection = NONE;
+  while(currentIntersection == NONE)
+  {
+    forwards(15);
+    currentIntersection = intersectionAnalysis();
+  }
+  switch(currentIntersection)
+  {
+    case LEFT:
+      _DBG_("LEFT");
+    break;
+    case RIGHT:
+    _DBG_("Right");
+    break;
+    case LEFT_STRAIGHT:
+      _DBG_("LEFT_straight");
+    break;
+    case RIGHT_STRAIGHT:
+    _DBG_("right_straight");
+    break;
+    case CROSSROAD:
+      _DBG_("OOOh crossroad");
+    break;
+    case LEFT_RIGHT:
+    _DBG_("LEFT & right ");
+    break;
+    case DEAD_END:
+     _DBG_("DEADEND!!!!!! :O");
+    break;
+    default:
+      _DBG_("Boring... but interesting");
+  }
+  brake();
 }
 
 intersection_enum intersectionAnalysis()
