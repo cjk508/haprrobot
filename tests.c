@@ -68,7 +68,7 @@ void linefollowTest(){
   /**
   * @todo Need to work out why the sensors aren't changing
   */
-
+while (1) {
     _DBG_("##################");
      getRawSensors(sens); 
     _DBG_("##################");
@@ -77,9 +77,11 @@ void linefollowTest(){
     _DBG("Sensor 3:");_DBD16(sens[2]);_DBG_("");
     _DBG("Sensor 4:");_DBD16(sens[3]);_DBG_("");        
     _DBG("Sensor 5:");_DBD16(sens[4]);_DBG_("");
-    
-  cmdAutoCal();
-  getCalibratedSensors(sens);
+	int i;
+	for (i = 0; i < 10000; i++);
+};
+  //cmdAutoCal();
+  //getCalibratedSensors(sens);
   //getCalibratedSensors(sens); error stating undefined reference for both this function and getRawSensors(*sens);
 }
 
