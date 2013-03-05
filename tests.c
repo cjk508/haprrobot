@@ -68,8 +68,8 @@ void linefollowTest(){
   /**
   * @todo Need to work out why the sensors aren't changing
   */
-  /*
-while (1) {
+
+//while (1) {
     _DBG_("##################");
      getRawSensors(sens); 
     _DBG_("##################");
@@ -80,7 +80,7 @@ while (1) {
     _DBG("Sensor 5:");_DBD16(sens[4]);_DBG_("");
 	int i;
 	for (i = 0; i < 10000; i++);
-}; */
+//};
   cmdAutoCal();
   while (1) {
     _DBG_("##################");
