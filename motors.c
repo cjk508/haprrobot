@@ -20,23 +20,23 @@ int speedCheck(int speed) {
 void setLeftMotorFw(int speed) {
   current_motor_dir_left = 1;
 	current_motor_speed_left = speedCheck(speed);
-//		cmdLeftMFw(current_motor_speed_left);
+		cmdLeftMFw(current_motor_speed_left);
 }
 void setLeftMotorBw(int speed) {
   current_motor_dir_left = 0;
 	current_motor_speed_left = speedCheck(speed);
-//		cmdLeftMBw(current_motor_speed_left);
+	cmdLeftMBw(current_motor_speed_left);
 }
 
 void setRightMotorFw(int speed) {
   current_motor_dir_right = 1;
 	current_motor_speed_left = speedCheck(speed);
-//		cmdLeftMFw(current_motor_speed_right);
+	cmdLeftMFw(current_motor_speed_right);
 }
 void setRightMotorBw(int speed) {
   current_motor_dir_right = 0;
 	current_motor_speed_right = speedCheck(speed);
-//		cmdLeftMBw(current_motor_speed_right);
+	cmdLeftMBw(current_motor_speed_right);
 }
 
 void setMotorsFw(int lm, int rm) {

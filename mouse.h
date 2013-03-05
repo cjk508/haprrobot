@@ -54,7 +54,7 @@ void curve(int x);
 * @param r integer being the radius of the circle
 * @return th angle which the robot is facing
 */
-int spin(int l, int r);
+int32_t spin(int l, int r);
 
 /**
 * When USB mouse is attached to the integers 
