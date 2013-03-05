@@ -14,7 +14,8 @@
 *
 * @author Christopher King
 */
-typedef enum {LEFT, RIGHT, LEFT_STRAIGHT, RIGHT_STRAIGHT, CROSSROAD, LEFT_RIGHT, DEAD_END} intersection_enum;
+typedef enum {LEFT, RIGHT, LEFT_STRAIGHT, RIGHT_STRAIGHT, CROSSROAD, LEFT_RIGHT, DEAD_END, NONE} intersection_enum;
+
 //----------------------------------------------------------------
 /**
  *  This function should calibrate the line following sensors.
@@ -64,7 +65,7 @@ void inchForward(void);
  * @param	desiredPattern	this is the pattern that the if statement wants to check against
  * @return returns either a 1 or a 0 depending on whether the input pattern matches the desired pattern.
  */
-int sensorPatternChecker(uint16_t sensorPattern[], uint16_t desiredPattern[]);
+int sensorPatternChecker(uint16_t* sensorPattern, const uint16_t* desiredPattern);
 //----------------------------------------------------------------
 /**
 *	This should return whether the 

@@ -2,13 +2,22 @@
 #include "uart.h"
 #include "debug_frmwrk.h" 
 #include "linefollow.h"
+uint16_t const noLine[] = {0,0,0,0,0};
+uint16_t const allTheLines[] = {1,1,1,1,1};
+uint16_t const leftLine[] = {1,1,1,0,0};
+uint16_t const rightLine[] = {0,0,1,1,1};
 
 void calibrateSensors(void)
 {
  /*this automatically calibrates the line following sensors. It scans left and 
   right in an attempt to find the line. This should be called when the raw sensors
   indicate that a line is present under the robot.*/
-  cmdAutoCal();
+  uint32_t status = cmdAutoCal();
+  
+  if (status == 1) 
+    _DBG_("Calibrated");
+  else
+    _DBG_("Failed Calibration :(");
 }
 
 void getRawSensors(uint16_t*  sens)
@@ -24,7 +33,7 @@ void getRawSensors(uint16_t*  sens)
          It will keep searching for the "barcode" throughout     
   */
 }
-void getCalibratedSensors(uint16_t *sens)
+void getCalibratedSensors(uint16_t* sens)
 {
   uint32_t status = cmdCalSens(sens);
 /**  if(buffer arrays are white)
@@ -65,7 +74,7 @@ void inchForward()
 intersection_enum scanForDeadEnd()
 {
  /**@todo need to check the sensor patterns when going over a line. I highly doubt it'll be as simple as 1 for a line and 0 for no line, although that is what the documentation suggests in the pololu how to follow a line thingy.*/
-  uint16_t* sensorPattern = {0};
+  uint16_t sensorPattern[5] = {0};
   getRawSensors(sensorPattern);
   char left = '1';
   char right = '1';
@@ -78,7 +87,7 @@ intersection_enum scanForDeadEnd()
   brake();
   
   //uint16_t desiredPattern[5] = {1,1,1,0,0};
-  if (!sensorPatternChecker(sensorPattern, (uint16_t*){1,1,1,0,0}))
+  if (!sensorPatternChecker(sensorPattern, leftLine))
     left = '0';
   i = 0;    
   spinRight();
@@ -87,7 +96,7 @@ intersection_enum scanForDeadEnd()
     i = i + 1;
   }
   brake();
-  if (!sensorPatternChecker(sensorPattern, (uint16_t* ){0,0,1,1,1}))
+  if (!sensorPatternChecker(sensorPattern, rightLine))
     right = '0';
     
   if (!left && !right)
@@ -100,7 +109,7 @@ intersection_enum scanForDeadEnd()
     return LEFT_RIGHT; 
 }
 
-int sensorPatternChecker(uint16_t sensorPattern[], uint16_t desiredPattern[])
+int sensorPatternChecker(uint16_t sensorPattern[], const uint16_t* desiredPattern)
 {
 	// This is to try and get round the sensor checking if statement problems, failing to analyse {0,0,0,0,0} properly
 	int lengthSensors = sizeof(sensorPattern);
@@ -112,7 +121,7 @@ int sensorPatternChecker(uint16_t sensorPattern[], uint16_t desiredPattern[])
 		while (i<=lengthSensors)
 		{
 			if (sensorPattern[i] == desiredPattern[i])
-				returnChecker += 1;			
+				returnChecker += 1;
 		}
 		if (returnChecker == lengthDesired)
 			return 1;
@@ -123,6 +132,43 @@ int sensorPatternChecker(uint16_t sensorPattern[], uint16_t desiredPattern[])
 		return 0;
 }
 
+void lineMotors()
+{
+  intersection_enum currentIntersection = NONE;
+  while(currentIntersection == NONE)
+  {
+    forwards(15);
+    currentIntersection = intersectionAnalysis();
+  }
+  switch(currentIntersection)
+  {
+    case LEFT:
+      _DBG_("LEFT");
+    break;
+    case RIGHT:
+    _DBG_("Right");
+    break;
+    case LEFT_STRAIGHT:
+      _DBG_("LEFT_straight");
+    break;
+    case RIGHT_STRAIGHT:
+    _DBG_("right_straight");
+    break;
+    case CROSSROAD:
+      _DBG_("OOOh crossroad");
+    break;
+    case LEFT_RIGHT:
+    _DBG_("LEFT & right ");
+    break;
+    case DEAD_END:
+     _DBG_("DEADEND!!!!!! :O");
+    break;
+    default:
+      _DBG_("Boring... but interesting");
+  }
+  brake();
+}
+
 intersection_enum intersectionAnalysis()
 {
   /**
@@ -131,9 +177,9 @@ intersection_enum intersectionAnalysis()
   uint16_t sensorPattern[5] = {0};
   brake();
   intersection_enum intersectionType;
-  if (sensorPatternChecker(sensorPattern,(uint16_t*){0,0,0,0,0})) //Nothing in front or to the side of the robot
+  if (sensorPatternChecker(sensorPattern,noLine)) //Nothing in front or to the side of the robot
     intersectionType = scanForDeadEnd();
-  else if (sensorPatternChecker(sensorPattern,(uint16_t*){1,1,1,0,0} ))//Line to the left and infront of the robot
+  else if (sensorPatternChecker(sensorPattern,leftLine ))//Line to the left and infront of the robot
   {
     inchForward();
     intersection_enum futureTurn = intersectionAnalysis();
@@ -142,7 +188,7 @@ intersection_enum intersectionAnalysis()
     else
       intersectionType = LEFT_STRAIGHT;
   }
-  else if (sensorPatternChecker(sensorPattern, (uint16_t*){0,0,1,1,1}))//Line to the right and infront of the robot
+  else if (sensorPatternChecker(sensorPattern,rightLine))//Line to the right and infront of the robot
   {
     inchForward();
     intersection_enum futureTurn = intersectionAnalysis();
@@ -151,7 +197,7 @@ intersection_enum intersectionAnalysis()
     else
       intersectionType = RIGHT_STRAIGHT;
   }  
-  else if (sensorPatternChecker(sensorPattern,(uint16_t*) {1,1,1,1,1})) //Line to the left, right and in front of the robot.
+  else if (sensorPatternChecker(sensorPattern,allTheLines)) //Line to the left, right and in front of the robot.
      intersectionType = CROSSROAD;
    return CROSSROAD;
-}
+ }
