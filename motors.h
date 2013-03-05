@@ -21,8 +21,6 @@
 #ifndef MOTOR_INC
 #define MOTOR_INC
 
-#include "uart.h"
-
 #define MAX_SPEED 30
 
 int current_motor_speed_left;

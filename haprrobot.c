@@ -48,7 +48,7 @@
 void initialise() {
   debug_frmwrk_init();
   initSerial();
-  initSensors();
+//  initSensors();
   // Even tho this is a test it needs to run so that the serial is set up properly
   serialTest();
 }
@@ -59,10 +59,12 @@ void main(void) {
   initialise();
   _DBG_("Magic!");
   cmdDoPlay("abcdefg>a");
- // while(1) {
-  //  sensorsTest();
-  //}
+  
+//  while(1) {
+//    sensorsTest();
+//  }
 //  motorCorrectTest();
+
 //  _DBG_("init mouse");
  // mouseinitial(); 
 
