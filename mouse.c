@@ -11,6 +11,7 @@ const int r = 1000;
 int32_t x_move;
 int32_t y_move;
 int theta;
+int count;
 // when the mouse moves slow enough it can detect 1000 points per 10cm, so 10000 = 1m
 void mouseinitial()
 {
@@ -26,11 +27,12 @@ void myspecialpoll() {
 therefore we thought it best to remove it and place it here. This may not be the best way
 of debugging but it seems to have worked,*/
   mouse_poll();
+	count += 1;
 }
 
 void overflowProtection(int8_t x, int8_t t)
 {
-	if(x > 125 || t > 125) {
+	if( x > 125 || x < -125 || -125 > t || t > 125) {
 		_DBG_("OVERFLOW");
 		brake();
 	}
@@ -68,7 +70,6 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 		//_DBD32(y_move);
 		//_DBG_("\n");
 	}
-
 }
 
 void curve(int x) {
@@ -100,6 +101,8 @@ void attach() {
 
 void detach() {
 	_DBG_("I'm detached, BOO!");
+	_DBG_("count:");
+	_DBD(count);
 //	printToLCD();
 }
 
