@@ -253,6 +253,17 @@ uint32_t cmdRightMFw(int speed);
  */
 uint32_t cmdRightMBw(int speed);
 
+/**
+ * Tells the robot to play the given series of characters
+ * using the onboard speakers.
+ * http://www.pololu.com/docs/0J18/3 includes full
+ * reference of accepted syntax for this command.
+ *
+ * @author Lloyd Wallis
+ * @param[in] seq Speaker playout sequence string
+ */
+uint32_t cmdDoPlay(char *seq);
+
 
 /**
  * Read Serial Data

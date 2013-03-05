@@ -90,6 +90,18 @@ uint32_t cmdRightMBw(int speed) {
   return ret;
 }
 
+uint32_t cmdDoPlay(char *seq) {
+  sig = DO_PLAY;
+  //First byte must be length of sequence to read
+  uint8_t len = strlen(seq);
+  //Songs longer than 100 are invalid input
+  if (len > 100) {return 0;}
+  ret = serialSend(&sig, 1);
+  ret = serialSend(&len, 1);
+  ret = serialSend((unsigned char*)&seq, (uint32_t)len);
+  return ret;
+}
+
 
 uint32_t serialRecv(uint8_t* rxbuf, uint32_t len) {
 	return(UART_Receive(LPC_UART3, rxbuf, len, BLOCKING));
