@@ -61,9 +61,9 @@ void main(void) {
   
   linefollowTest();
   
- // while(1) {
-  //  sensorsTest();
-  //}
+//  while(1) {
+//    sensorsTest();
+//  }
 //  motorCorrectTest();
 
 //  _DBG_("init mouse");

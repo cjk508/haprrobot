@@ -1,4 +1,6 @@
 #include "motors.h"
+#include "uart.h"
+#include "debug_frmwrk.h" 
 
 // uint32_t cmdLeftMFw(int speed); 0xC1 - M1 forward
 // uint32_t cmdLeftMBw(int speed); 0xC2 - M1 backward
@@ -20,23 +22,27 @@ int speedCheck(int speed) {
 void setLeftMotorFw(int speed) {
   current_motor_dir_left = 1;
 	current_motor_speed_left = speedCheck(speed);
-//		cmdLeftMFw(current_motor_speed_left);
+	_DBD32(current_motor_speed_left);_DBG_("");
+	cmdLeftMFw(current_motor_speed_left);
 }
 void setLeftMotorBw(int speed) {
   current_motor_dir_left = 0;
 	current_motor_speed_left = speedCheck(speed);
-//		cmdLeftMBw(current_motor_speed_left);
+	_DBD32(current_motor_speed_left);_DBG_("");
+	cmdLeftMBw(current_motor_speed_left);
 }
 
 void setRightMotorFw(int speed) {
   current_motor_dir_right = 1;
-	current_motor_speed_left = speedCheck(speed);
-//		cmdLeftMFw(current_motor_speed_right);
+	current_motor_speed_right = speedCheck(speed);
+	_DBD32(current_motor_speed_right);_DBG_("");
+	cmdRightMFw(current_motor_speed_right);
 }
 void setRightMotorBw(int speed) {
   current_motor_dir_right = 0;
 	current_motor_speed_right = speedCheck(speed);
-//		cmdLeftMBw(current_motor_speed_right);
+	_DBD32(current_motor_speed_right);_DBG_("");
+	cmdRightMBw(current_motor_speed_right);
 }
 
 void setMotorsFw(int lm, int rm) {

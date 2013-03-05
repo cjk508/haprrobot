@@ -78,7 +78,7 @@ void linefollowTest(){
     _DBG("Sensor 4:");_DBD16(sens[3]);_DBG_("");        
     _DBG("Sensor 5:");_DBD16(sens[4]);_DBG_("");
 	//};
-
+  _DBG_("MOTOR TIME");
   lineMotors();
   //calibrateSensors();
   /*_DBG_("calibrated");

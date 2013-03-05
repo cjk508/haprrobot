@@ -2,10 +2,10 @@
 #include "uart.h"
 #include "debug_frmwrk.h" 
 #include "linefollow.h"
-uint16_t const noLine[] = {0,0,0,0,0};
-uint16_t const allTheLines[] = {1,1,1,1,1};
-uint16_t const leftLine[] = {1,1,1,0,0};
-uint16_t const rightLine[] = {0,0,1,1,1};
+uint16_t const noLine[] = {1500,1500,1500,1500,1500};
+uint16_t const allTheLines[] = {1900,1900,1900,1900,1900};
+uint16_t const leftLine[] = {1900,1900,1900,1500,1500};
+uint16_t const rightLine[] = {1500,1500,1900,1900,1900};
 
 void calibrateSensors(void)
 {
@@ -111,33 +111,69 @@ intersection_enum scanForDeadEnd()
 
 int sensorPatternChecker(uint16_t sensorPattern[], const uint16_t* desiredPattern)
 {
+//  _DBG_("Checking pattern");
 	// This is to try and get round the sensor checking if statement problems, failing to analyse {0,0,0,0,0} properly
 	int lengthSensors = sizeof(sensorPattern);
 	int lengthDesired = sizeof(desiredPattern);
 	int returnChecker = 0; //this will be incremented with each correct value. If it = 5 by the end then it will return 1
+//	_DBD(lengthSensors);_DBG_("");
+//	_DBD(lengthDesired);_DBG_("");
+//	_DBG_("0");
 	if (lengthSensors == lengthDesired)
 	{
 		int i = 0;
+//		_DBG_("1");
 		while (i<=lengthSensors)
 		{
-			if (sensorPattern[i] == desiredPattern[i])
-				returnChecker += 1;
+		  if (desiredPattern[i] > 1250)  
+  		{
+// 		_DBG_("2 (if)");
+  			if (sensorPattern[i] >= desiredPattern[i]) {
+//  			  _DBG_("3 (if if)");
+	  			returnChecker += 1;
+	  		}
+	  	}
+	  	else {
+	  	  //_DBG_("2 (else)");
+  			if (sensorPattern[i] < desiredPattern[i]) {
+//  			  _DBG_("3 (else if)");
+	  			returnChecker += 1;
+	  		}
+	  	}
+	  	i = i+1;	  		
 		}
-		if (returnChecker == lengthDesired)
+		if (returnChecker == lengthDesired) {
+//		  _DBG_("return 1");
 			return 1;
-		else
+		}
+		else {
+//		  _DBG_("return 0");
 			return 0;
+		}
 	}
 	else
+//	  _DBG_("fail");
 		return 0;
 }
 
 void lineMotors()
 {
+  _DBG_("in motors");
   intersection_enum currentIntersection = NONE;
+  _DBG_("now to go forwards");
+  cmdLeftMFw(15);
+  cmdRightMFw(15);
+  uint16_t sens[5] = {0};
   while(currentIntersection == NONE)
   {
-    forwards(15);
+    _DBG_("##################");
+     getRawSensors(sens);
+    _DBG_("##################");
+    _DBG("Sensor 1:");_DBD16(sens[0]);_DBG_("");
+    _DBG("Sensor 2:");_DBD16(sens[1]);_DBG_("");
+    _DBG("Sensor 3:");_DBD16(sens[2]);_DBG_("");
+    _DBG("Sensor 4:");_DBD16(sens[3]);_DBG_("");        
+    _DBG("Sensor 5:");_DBD16(sens[4]);_DBG_("");
     currentIntersection = intersectionAnalysis();
   }
   switch(currentIntersection)
@@ -175,8 +211,14 @@ intersection_enum intersectionAnalysis()
    * @todo try and find a decent way of passing the desired pattern rather than using casting
    */
   uint16_t sensorPattern[5] = {0};
-  brake();
-  intersection_enum intersectionType;
+  getRawSensors(sensorPattern);
+  _DBG_("##################");
+    _DBG("Sensor 1:");_DBD16(sensorPattern[0]);_DBG_("");
+    _DBG("Sensor 2:");_DBD16(sensorPattern[1]);_DBG_("");
+    _DBG("Sensor 3:");_DBD16(sensorPattern[2]);_DBG_("");
+    _DBG("Sensor 4:");_DBD16(sensorPattern[3]);_DBG_("");        
+    _DBG("Sensor 5:");_DBD16(sensorPattern[4]);_DBG_("");
+  intersection_enum intersectionType = NONE;
   if (sensorPatternChecker(sensorPattern,noLine)) //Nothing in front or to the side of the robot
     intersectionType = scanForDeadEnd();
   else if (sensorPatternChecker(sensorPattern,leftLine ))//Line to the left and infront of the robot
