@@ -30,9 +30,6 @@
 // 1 - Basic
 // 2 - Verbose
 #define DBG_LEVEL 1
-#	modified:   linefollow.c
-#	modified:   linefollow.h
-#	modified:   tests.c
 
 #include "uart.h"
 #include "sensors.h"

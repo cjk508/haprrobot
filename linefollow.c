@@ -125,7 +125,7 @@ int sensorPatternChecker(uint16_t sensorPattern[], const uint16_t* desiredPatter
 //		_DBG_("1");
 		while (i<=lengthSensors)
 		{
-		  if (desiredPattern[i] > 1250)  
+		  if (desiredPattern[i] > 1500)  
   		{
 // 		_DBG_("2 (if)");
   			if (sensorPattern[i] >= desiredPattern[i]) {
@@ -241,5 +241,5 @@ intersection_enum intersectionAnalysis()
   }  
   else if (sensorPatternChecker(sensorPattern,allTheLines)) //Line to the left, right and in front of the robot.
      intersectionType = CROSSROAD;
-   return CROSSROAD;
- }
+   return intersectionType;
+}
