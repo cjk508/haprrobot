@@ -7,11 +7,10 @@
 #include <stdlib.h>
 #include "motors.h"
 
-const int r = 1000;
+const int r = 1;
 int32_t x_move;
 int32_t y_move;
-int theta;
-int count;
+int32_t theta;
 // when the mouse moves slow enough it can detect 1000 points per 10cm, so 10000 = 1m
 void mouseinitial()
 {
@@ -27,14 +26,12 @@ void myspecialpoll() {
 therefore we thought it best to remove it and place it here. This may not be the best way
 of debugging but it seems to have worked,*/
   mouse_poll();
-	count += 1;
 }
 
 void overflowProtection(int8_t x, int8_t t)
 {
 	if( x > 125 || x < -125 || -125 > t || t > 125) {
 		_DBG_("OVERFLOW");
-		brake();
 	}
 }
 void cb(uint8_t buttons, int8_t x, int8_t t) {
@@ -44,21 +41,28 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 	overflowProtection(x, t);
 	//if there is a change in the t value only then the robot is spinning;
 	if(t != 0 && x == 0) {
-		theta += spin(t, r);
+	//	_DBG_("Theta has changed by: ");
+		//_DBD32(t);
+	//	_DBG_("");
+		//int32_t spinVal = spin(t, r);
+		//_DBG_("Value of spin is: ");
+		//_DBD32(spinVal);
+		//_DBG_("");
+		theta = theta + t; 
 		//_DBG_("Value of theta is: ");
 		//_DBD32(theta);
-		//_DBG_("\n");
+		_DBG_("\n");
 	}
 	
 	//If there is a change in the x value only then the robot is moving forward;
 	if(x != 0 && t == 0) {
-		_DBG_("The Mouse has moved Forward/Backward by: ");
-		_DBD32(x);
+		//_DBG_("The Mouse has moved Forward/Backward by: ");
+		//_DBD32(x);
 		add_to_x(x);
 		add_to_y(x);
-		_DBG_("Value of x_move is: ");
-		_DBD32(x_move);
-		_DBG_("\n");
+		//_DBG_("Value of x_move is: ");
+		//_DBD32(x_move);
+		//_DBG_("\n");
 	}
 
 	if(t != 0 && x != 0) {
@@ -88,21 +92,21 @@ The Idea of this method is to work out how far the robot has moved with respect 
 	y_move += (y2 - y1);// minus y1 (from the lower triangle) from y2( from the upper triangle) where the difference is how far left or right the robot has moved with respect to the y axis
 }
 
-int spin(int l, int r) {
+int32_t spin(int l, int r) {
 	int th = l/r;
 	return th;
 }
 
 void attach() {
-	x_move = 0;
-	y_move = 0;
+	x_move = 3;
+	y_move = 4;
+	distanceMoved(x_move, y_move);
+	theta = 0;
 	_DBG_("I'm attached, YAY!");
 }
 
 void detach() {
 	_DBG_("I'm detached, BOO!");
-	_DBG_("count:");
-	_DBD(count);
 //	printToLCD();
 }
 
@@ -129,7 +133,7 @@ int distanceMoved(int x, int y) {
 	d = ((x^2) + (y^2)); //pythagarus theorem used to work out overall distance moved from orignal start point
 	d = sqrt(d);
 	_DBG_("the Distance moved by the Polulu robot is: ");
-	_DBC(d); _DBG_("");
+	_DBD(d); _DBG_("");
 	return d;
 }
 /* Code taken from http://code.google.com/p/my-itoa/, for ease of use and lack of time*/
@@ -175,6 +179,8 @@ void printToLCD() {
  	int x = get_x_move();
 	int y = get_y_move();
  	int	distance = distanceMoved(x, y);
+	_DBG_("DISTANCE MOVED");
+	_DBD32(distance);
 	char buf[8];
 	my_itoa(distance, buf);
 	cmdLcdPrint(buf);

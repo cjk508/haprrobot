@@ -30,6 +30,9 @@
 // 1 - Basic
 // 2 - Verbose
 #define DBG_LEVEL 1
+#	modified:   linefollow.c
+#	modified:   linefollow.h
+#	modified:   tests.c
 
 #include "uart.h"
 #include "sensors.h"
@@ -48,7 +51,7 @@
 void initialise() {
   debug_frmwrk_init();
   initSerial();
-  initSensors();
+//  initSensors();
   // Even tho this is a test it needs to run so that the serial is set up properly
   serialTest();
 }
