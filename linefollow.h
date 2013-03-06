@@ -47,7 +47,7 @@ void getCalibratedSensors(uint16_t* sensorPattern);
 * @author Christopher King
 * @param junctionType This is the type of junction which needs to be analysed
 */
-void inchForward(intersection_enum junctionType,uint16_t* sensorPattern);
+void inchForward(intersection_enum junctionType ,uint16_t* sensorPattern);
 //----------------------------------------------------------------
 /**
  * For a given input it will check it against the desired pattern to whether they are equivalent

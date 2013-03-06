@@ -47,7 +47,7 @@ SensorPair roundingValues(SensorPair sensorValue);
 * @param  sensorValue The raw value from the sensors
 * @return value in cm for the left side
 */
-SensorPair calibratedValuesLeft(SensorPair sensorValue)
+SensorPair calibratedValuesLeft(SensorPair sensorValue);
 //----------------------------------------------------------------
 /**
 * Returns calibrated values in cm for the right sensors
@@ -56,7 +56,7 @@ SensorPair calibratedValuesLeft(SensorPair sensorValue)
 * @param  sensorValue The raw value from the sensors
 * @return value in cm for the right side
 */
-SensorPair calibratedValuesRight(SensorPair sensorValue)
+SensorPair calibratedValuesRight(SensorPair sensorValue);
 //----------------------------------------------------------------
 /**
 * This method initialises the Sensors by setting up the pins on the MBED board
