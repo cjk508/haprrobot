@@ -57,9 +57,9 @@ void initialise() {
 void doaTest() {
 //  cmdDoPlay("abcdefg>a");
   
-  while(1) {
-    sensorsTest();
-  }
+//  while(1) {
+//    sensorsTest();
+//  }
   
 //  linefollowTest();    
 
