@@ -56,7 +56,7 @@ void sensorsTest() {
   _DBG("Right FCal:");_DBD16(rightcal.FrontSensor);_DBG_("");
   _DBG("Right RCal:");_DBD16(rightcal.RearSensor);_DBG_("");
   int i = 0;
-//  while (i < 3000000) {i++;}
+  while (i < 3000000) {i++;}
 }
 /**
  * Tests line following. Very easy atm because the linefollowing code doesn't work
