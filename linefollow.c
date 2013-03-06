@@ -89,7 +89,7 @@ intersection_enum scanForDeadEnd()
   brake();
   
   //uint16_t desiredPattern[5] = {1,1,1,0,0};
-  if (!sensorPatternChecker(sensorPattern, leftLine))
+ /* if (!sensorPatternChecker(sensorPattern, leftLine))
     left = '0';
   i = 0;    
   spinRight();
@@ -108,7 +108,7 @@ intersection_enum scanForDeadEnd()
   else if (!right)
     return LEFT;
   else
-    return LEFT_RIGHT; 
+    return LEFT_RIGHT; */
 }
 
 int sensorPatternChecker(uint16_t sensorPattern[], const uint16_t* desiredPattern)
