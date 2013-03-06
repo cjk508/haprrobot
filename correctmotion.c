@@ -48,13 +48,25 @@ void correctForwardMotion() {
     //If using left and moving away from an object, turn left (move closer a bit)
       //Slow down left
       setLeftMotorFw(getSpeedLeft()-1);
-      if (DBG_LEVEL >= 2) { _DBG_("Turning Left"); _DBG("Set left up: "); _DBD32(getSpeedLeft()); _DBG_(""); }
+      if (DBG_LEVEL >= 2) { _DBG_("Turning Left"); _DBG("Set left up: "); _DBD32(getSpeedLeft()); _DBG_(""); 
+        _DBG_("##################");
+        _DBG("Left Front:");_DBD16(left.FrontSensor);_DBG_("");
+        _DBG("Left Rear:");_DBD16(left.RearSensor);_DBG_("");
+        _DBG("Right Front:");_DBD16(right.FrontSensor);_DBG_("");
+        _DBG("Right Rear:");_DBD16(right.RearSensor);_DBG_("");
+      }
     }
     else if (left.FrontSensor > left.RearSensor) {
     //If using left and moving toward an object, turn right (move away a bit)
       //Speed up left
       setLeftMotorFw(getSpeedLeft()+1);
-      if (DBG_LEVEL >= 2) { _DBG_("Turning Left"); _DBG("Set left dn: "); _DBD32(getSpeedLeft()); _DBG_(""); }
+      if (DBG_LEVEL >= 2) { _DBG_("Turning Right"); _DBG("Set left dn: "); _DBD32(getSpeedLeft()); _DBG_(""); 
+        _DBG_("##################");
+        _DBG("Left Front:");_DBD16(left.FrontSensor);_DBG_("");
+        _DBG("Left Rear:");_DBD16(left.RearSensor);_DBG_("");
+        _DBG("Right Front:");_DBD16(right.FrontSensor);_DBG_("");
+        _DBG("Right Rear:");_DBD16(right.RearSensor);_DBG_("");
+      }
     }
   }
   else if (!use_left) {
@@ -62,13 +74,25 @@ void correctForwardMotion() {
     //If using right and moving toward an object, turn left (move away a bit)
       //Speed up right
       setRightMotorFw(getSpeedRight()+1);
-      if (DBG_LEVEL >= 2) { _DBG_("Turning Right"); _DBG("Set right up: "); _DBD32(getSpeedRight()); _DBG_(""); }
+      if (DBG_LEVEL >= 2) { _DBG_("Turning Left"); _DBG("Set right up: "); _DBD32(getSpeedRight()); _DBG_(""); 
+        _DBG_("##################");
+        _DBG("Left Front:");_DBD16(left.FrontSensor);_DBG_("");
+        _DBG("Left Rear:");_DBD16(left.RearSensor);_DBG_("");
+        _DBG("Right Front:");_DBD16(right.FrontSensor);_DBG_("");
+        _DBG("Right Rear:");_DBD16(right.RearSensor);_DBG_("");
+      }
     }
     else if (right.FrontSensor < right.RearSensor) {
     //If using right and moving away from an object, turn right (move closer a bit)
       //Slow down right
       setRightMotorFw(getSpeedRight()-1);
-      if (DBG_LEVEL >= 2) { _DBG_("Turning Right"); _DBG("Set right dn: "); _DBD32(getSpeedRight()); _DBG_(""); }
+      if (DBG_LEVEL >= 2) { _DBG_("Turning Right"); _DBG("Set right dn: "); _DBD32(getSpeedRight()); _DBG_(""); 
+        _DBG_("##################");
+        _DBG("Left Front:");_DBD16(left.FrontSensor);_DBG_("");
+        _DBG("Left Rear:");_DBD16(left.RearSensor);_DBG_("");
+        _DBG("Right Front:");_DBD16(right.FrontSensor);_DBG_("");
+        _DBG("Right Rear:");_DBD16(right.RearSensor);_DBG_("");
+      }
     }
   }
 }
