@@ -3,7 +3,7 @@
  * @brief    Sets up and returns the IR sensor values
  * @version: V1
  * @date:    25. February 2013
- * @author   Christopher King
+ * @author   Christopher King <cjk508@york.ac.uk>
 ******************************************************************************/
 //----------------------------------------------------------------
 #ifndef SENSORS_INC
@@ -24,7 +24,7 @@
 * If only the fron sensor is needed then it'll return the value
 * in the frontsensor variable.
 *
-* @author Christopher King
+* @author Christopher King <cjk508@york.ac.uk>
 */
 typedef struct SensorPair {
   uint16_t FrontSensor;
@@ -34,7 +34,7 @@ typedef struct SensorPair {
 /**
 * returns the rounded value of the sensor.
 *
-* @author Christopher King
+* @author Christopher King <cjk508@york.ac.uk>
 * @param  sensorValue The value that should be rounded
 * @return returns the rounded value
 */
@@ -61,7 +61,7 @@ SensorPair calibratedValuesRight(SensorPair sensorValue);
 /**
 * This method initialises the Sensors by setting up the pins on the MBED board
 *
-* @author Christopher King
+* @author Christopher King <cjk508@york.ac.uk>
 * @param p_Portnum		The port number of the Pin (between 0 and 4)
 * @param p_Pinnum 		The pin number of the Pin
 * @param p_Funcnum		The function of the pin (between 0 and 3)
@@ -73,7 +73,7 @@ void pinConfSetup(uint8_t p_Portnum, uint8_t p_Pinnum, uint8_t p_Funcnum, uint8_
 /**
 *	returns the value of the left sensors, both front and rear
 *
-* @author Christopher King
+* @author Christopher King <cjk508@york.ac.uk>
 * @return returns a SensorPair which contains .FrontSensor and .RearSensor
 */
 SensorPair getLeftSensorValues();
@@ -81,7 +81,7 @@ SensorPair getLeftSensorValues();
  /**
 *	returns the value of the Right sensors, both front and rear
 *
-* @author Christopher King
+* @author Christopher King <cjk508@york.ac.uk>
 * @return returns a SensorPair which contains .FrontSensor and .RearSensor
 */
 SensorPair getRightSensorValues();
@@ -89,7 +89,7 @@ SensorPair getRightSensorValues();
 /**
 *	returns the value of the from sensor
 *
-* @author Christopher King
+* @author Christopher King <cjk508@york.ac.uk>
 * @return returns 0 unless it sees something, then returns one.
 */
 int getFrontSensorValue();
@@ -97,7 +97,7 @@ int getFrontSensorValue();
 /**
 * This method initialises the Sensors by setting up the pins on the MBED board
 *
-* @author Christopher King
+* @author Christopher King <cjk508@york.ac.uk>
 */
 void initSensors();
 //----------------------------------------------------------------
@@ -106,7 +106,7 @@ void initSensors();
 * it is then converted and sent to a dummy USB terminal. This is here purely for testing,
 * it will not be part of the final program.
 *
-* @author Christopher King.
+* @author Christopher King <cjk508@york.ac.uk>.
 */
 void ADC_IRQHandler();
 //----------------------------------------------------------------

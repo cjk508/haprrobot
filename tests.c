@@ -19,10 +19,6 @@
 #include "correctmotion.h"
 #include "timer.h"
 
-/**
- * @def	DBG_LEVEL
- * Something to do with Andy... dunno what exactly :P
- */
 #define DBG_LEVEL 1
 
 // Here be test functions!
@@ -43,7 +39,7 @@ void serialTest() {
 /**
  * Tests the front and side sensors on the robot, prints out the values that correctmotion will recieve
  *
- * @author Christopher King
+ * @author Christopher King <cjk508@york.ac.uk>
  */
 void sensorsTest() {
   SensorPair left = getLeftSensorValues();
@@ -59,41 +55,11 @@ void sensorsTest() {
 /**
  * Tests line following. Very easy atm because the linefollowing code doesn't work
  *
- * @author Christopher King
+ * @author Christopher King <cjk508@york.ac.uk>
  */
 
 void linefollowTest(){
-  __enable_irq();
   _DBG_("LINE FOLLOW TEST");
-  /*uint16_t sens[10] = {0};    
- 
-  
-//while (1) {
-    _DBG_("##################");
-     getRawSensors(sens); 
-    _DBG_("##################");
-    _DBG("Sensor 1:");_DBD16(sens[0]);_DBG_("");
-    _DBG("Sensor 2:");_DBD16(sens[1]);_DBG_("");
-    _DBG("Sensor 3:");_DBD16(sens[2]);_DBG_("");
-    _DBG("Sensor 4:");_DBD16(sens[3]);_DBG_("");        
-    _DBG("Sensor 5:");_DBD16(sens[4]);_DBG_("");
-	//};
-  _DBG_("MOTOR TIME");
-  lineMotors();
-  //calibrateSensors();
-  _DBG_("calibrated");
-  while (1) {
-    _DBG_("##################");
-     getRawSensors(sens);
-    _DBG_("##################");
-    _DBG("Sensor 1:");_DBD16(sens[0]);_DBG_("");
-    _DBG("Sensor 2:");_DBD16(sens[1]);_DBG_("");
-    _DBG("Sensor 3:");_DBD16(sens[2]);_DBG_("");
-    _DBG("Sensor 4:");_DBD16(sens[3]);_DBG_("");        
-    _DBG("Sensor 5:");_DBD16(sens[4]);_DBG_("");
-	int i;
-	for (i = 0; i < 100000; i++);
-  };*/
 }
 /**
  * Tests the motion correction, should stop if there is an object infront of the robot, otherwise it should follow a wall
