@@ -18,8 +18,8 @@
 */
 void correctForwardMotion() {
   //Get an initial value
-  SensorPair left = calibratedValuesLeft();
-  SensorPair right = calibratedValuesRight();
+  SensorPair left = calibratedValuesLeft(getLeftSensorValues());
+  SensorPair right = calibratedValuesRight(getRightSensorValues());
   
   int use_left; //1 = left, 0 = right
 
