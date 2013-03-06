@@ -51,6 +51,7 @@ void initialise() {
 //  initSensors();
   // Even tho this is a test it needs to run so that the serial is set up properly
   serialTest();
+  initTimers();  
 }
 
 
@@ -58,8 +59,8 @@ void initialise() {
 void main(void) {
   initialise();
   _DBG_("Magic!");
-  cmdDoPlay("abcdefg>a");
-  
+  //cmdDoPlay("abcdefg>a");
+  linefollowTest();    
 //  while(1) {
 //    sensorsTest();
 //  }
