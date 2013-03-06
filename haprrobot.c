@@ -58,15 +58,14 @@ void initialise() {
 void main(void) {
   initialise();
   _DBG_("Magic!");
-  cmdDoPlay("abcdefg>a");
   
 //  while(1) {
 //    sensorsTest();
 //  }
 //  motorCorrectTest();
 
-//  _DBG_("init mouse");
- // mouseinitial(); 
+	 _DBG_("init mouse");
+  mouseinitial(); 
 
   _DBG_("Done");
 }

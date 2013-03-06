@@ -41,25 +41,23 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 	overflowProtection(x, t);
 	//if there is a change in the t value only then the robot is spinning;
 	if(t != 0 && x == 0) {
-	//	_DBG_("Theta has changed by: ");
-		//_DBD32(t);
-	//	_DBG_("");
+		_DBG_("Theta has changed by: ");
+		_DBD32(t);
+		_DBG_("");
 		//int32_t spinVal = spin(t, r);
-		//_DBG_("Value of spin is: ");
-		//_DBD32(spinVal);
-		//_DBG_("");
 		theta = theta + t; 
-		//_DBG_("Value of theta is: ");
-		//_DBD32(theta);
+		_DBG_("Value of theta is: ");
+		_DBD32(theta);
 		_DBG_("\n");
+		turnRightTill90(theta);
 	}
 	
 	//If there is a change in the x value only then the robot is moving forward;
 	if(x != 0 && t == 0) {
 		//_DBG_("The Mouse has moved Forward/Backward by: ");
 		//_DBD32(x);
-		add_to_x(x);
-		add_to_y(x);
+		//add_to_x(x);
+		//add_to_y(x);
 		//_DBG_("Value of x_move is: ");
 		//_DBD32(x_move);
 		//_DBG_("\n");
@@ -67,7 +65,7 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 
 	if(t != 0 && x != 0) {
 		//_DBG_("Moving in a curve");
-		curve(x);
+		//curve(x);
 		//_DBG_("Value of x_move is: ");
 		//_DBD32(x_move);
   	//_DBG_("Value of y_move is: ");
@@ -76,11 +74,18 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 	}
 }
 
+void turnRightTill90(int t) {
+	if(t < 400){
+	spinRight();
+	}
+	brake();
+}
+
 void curve(int x) {
 /**
 The Idea of this method is to work out how far the robot has moved with respect to the x and y axis coordinates.
 */
-	int t = spin(x, r); // gives us an angle theta, from the length of the arc traversed, x, and the constant, r, where r is the radius of a circle.
+	int t = spin(x, r); // gives us an angle theta, from the length of the arc traversed, x, and the constant, r, wKolkatahere r is the radius of a circle.
 	int hyp_2 = sin(t) * r; // gets sin(t) and multiplies it by r to get the hypotenuse, hyp_2, of the upper triangle 
 	int x2 = hyp_2 * cos(t); // multiplies hyp_2 by the cosine of theta, to get an x value parrallel to the x axis of the overall coordinates
 	int y2 = hyp_2 * sin(t); // multiplies hyp_2 by the sine of theta, to get an y value parrallel to the y axis of the overall coordinates
@@ -98,9 +103,8 @@ int32_t spin(int l, int r) {
 }
 
 void attach() {
-	x_move = 3;
-	y_move = 4;
-	distanceMoved(x_move, y_move);
+	x_move = 0;
+	y_move = 0;
 	theta = 0;
 	_DBG_("I'm attached, YAY!");
 }
@@ -179,8 +183,6 @@ void printToLCD() {
  	int x = get_x_move();
 	int y = get_y_move();
  	int	distance = distanceMoved(x, y);
-	_DBG_("DISTANCE MOVED");
-	_DBD32(distance);
 	char buf[8];
 	my_itoa(distance, buf);
 	cmdLcdPrint(buf);

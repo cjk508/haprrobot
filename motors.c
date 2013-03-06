@@ -84,7 +84,7 @@ void spinLeft() {
 }
 
 void spinRight() {
-	//setMotors(25, -25);
+	setMotors(25, -25);
 }
 /**
 * @todo need to check the timings for turning 90/180 degrees probably should create a timer
