@@ -46,6 +46,7 @@ void getCalibratedSensors(uint16_t* sensorPattern);
 *
 * @author Christopher King
 * @param junctionType This is the type of junction which needs to be analysed
+* @param  sensorPattern current sensor readings
 */
 void inchForward(intersection_enum junctionType ,uint16_t* sensorPattern);
 //----------------------------------------------------------------
