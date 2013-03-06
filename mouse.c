@@ -16,9 +16,7 @@ void mouseinitial()
 {
   _DBG_("I'm starting");
   mouse_init(cb, attach, detach);
-  _DBG_("I've set up the mouse, now attempt the timers");
-  initTimers(); 
-  _DBG_("I've completed");
+  _DBG_("I've set up the mouse");
 }
 void myspecialpoll() {
  /*this has been moved in case there was an issue reaching the cb function when it was
@@ -75,7 +73,7 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 }
 
 void turnRightTill90(int t) {
-	if(t < 400){
+	if(t < 300){
 	spinRight();
 	}
 	brake();

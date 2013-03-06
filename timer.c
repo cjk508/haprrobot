@@ -36,7 +36,7 @@ void TIMER0_IRQHandler() {
 	 if(TIM_GetIntStatus(LPC_TIM0, TIM_MR0_INT) == SET)
     {
     //  _DBG_("MOUSE POLL should occur now");
-	    //myspecialpoll();
+	    myspecialpoll();
 	    if(lotsOfBlackTape <350)
   	    lotsOfBlackTape +=1;
   	  else
