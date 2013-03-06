@@ -11,6 +11,8 @@ const int r = 1;
 int32_t x_move;
 int32_t y_move;
 int32_t theta;
+int coord_x;
+int coord_y;
 // when the mouse moves slow enough it can detect 1000 points per 10cm, so 10000 = 1m
 void mouseinitial()
 {
@@ -46,7 +48,7 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 		theta = theta + t; 
 		_DBG_("Value of theta is: ");
 		_DBD32(theta);
-		_DBG_("\n");
+		_DBG_("\n");http://www.facebook.com/
 		turnRightTill90(theta);
 	}
 	
@@ -56,7 +58,7 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 		//_DBD32(x);
 		//add_to_x(x);
 		//add_to_y(x);
-		//_DBG_("Value of x_move is: ");
+		//_DBG_("Value of x_move is: ");http://www.facebook.com/
 		//_DBD32(x_move);
 		//_DBG_("\n");
 	}
@@ -66,7 +68,7 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 		//curve(x);
 		//_DBG_("Value of x_move is: ");
 		//_DBD32(x_move);
-  	//_DBG_("Value of y_move is: ");
+  	//_DBG_("Value of y_move is: ");http://www.facebook.com/
 		//_DBD32(y_move);
 		//_DBG_("\n");
 	}
@@ -77,6 +79,11 @@ void turnRightTill90(int t) {
 	spinRight();
 	}
 	brake();
+}
+
+void converter() {
+	coord_x = x_move/100;
+	coord_y = y_move/100;
 }
 
 void curve(int x) {
@@ -110,6 +117,55 @@ void attach() {
 void detach() {
 	_DBG_("I'm detached, BOO!");
 //	printToLCD();
+
+ID
+	Description / Title	
+Solved By
+	
+1
+Multiples of 3 and 5	
+275458
+
+		
+ivanjones
+2 hours
+2
+Even Fibonacci numbers	
+227000
+
+		
+raqy.style
+22 minutes
+3
+Largest prime factor	
+164932
+
+		
+jimbonk
+2 hours
+4
+Largest palindrome product	
+151279
+
+		
+mizbah.ahsan
+6 hours
+5
+Smallest multiple	
+166171
+
+		
+usamakhaq
+12 hours
+6
+Sum square difference	
+167574
+
+		
+jagadish123
+3 hours
+7
+10001st prime
 }
 
 int32_t get_x_move() {	
