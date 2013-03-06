@@ -118,6 +118,7 @@ void patternNormaliser(uint16_t* sensorPattern)
 
 intersection_enum analyseJunction(uint16_t* sensorPattern)
 {
+  realloc(sensorPattern);
   if((sensorPattern[0] = 1) && (sensorPattern[1] = 1) && // Left Junction
      (sensorPattern[2] = 1) && (sensorPattern[3] = 0) && (sensorPattern[4] = 0)) 
      {

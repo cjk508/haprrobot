@@ -18,8 +18,8 @@
 */
 void correctForwardMotion() {
   //Get an initial value
-  SensorPair left = getLeftSensorValues();
-  SensorPair right = getRightSensorValues();
+  SensorPair left = calibratedValuesLeft();
+  SensorPair right = calibratedValuesRight();
   
   int use_left; //1 = left, 0 = right
 
@@ -28,7 +28,7 @@ void correctForwardMotion() {
   * as a calibration pair - the closest one preferably
   * A higher sensor value means closer to an object
   */
-  if (left.FrontSensor + left.RearSensor >=
+  if (left.FrontSensor + left.RearSensor <=
         right.FrontSensor + right.RearSensor) {
     //The Left is closer to something, use that
     use_left = 1;
@@ -41,10 +41,10 @@ void correctForwardMotion() {
   * Compare the two sets of values, and decide
   * whether an adjustment left or right is needed
   *
-  * Remember that a higher value means it's closer to the sensor.
+  * Now measured in cm meaning that larger value is, as per normal, further away
   */
   if (use_left) {
-    if (left.FrontSensor < left.RearSensor) {
+    if (left.FrontSensor > left.RearSensor) {
     //If using left and moving away from an object, turn left (move closer a bit)
       //Slow down left
       setLeftMotorFw(getSpeedLeft()-1);
@@ -56,7 +56,7 @@ void correctForwardMotion() {
         _DBG("Right Rear:");_DBD16(right.RearSensor);_DBG_("");
       }
     }
-    else if (left.FrontSensor > left.RearSensor) {
+    else if (left.FrontSensor < left.RearSensor) {
     //If using left and moving toward an object, turn right (move away a bit)
       //Speed up left
       setLeftMotorFw(getSpeedLeft()+1);
@@ -70,7 +70,7 @@ void correctForwardMotion() {
     }
   }
   else if (!use_left) {
-    if (right.FrontSensor > right.RearSensor) {
+    if (right.FrontSensor < right.RearSensor) {
     //If using right and moving toward an object, turn left (move away a bit)
       //Speed up right
       setRightMotorFw(getSpeedRight()+1);
@@ -82,7 +82,7 @@ void correctForwardMotion() {
         _DBG("Right Rear:");_DBD16(right.RearSensor);_DBG_("");
       }
     }
-    else if (right.FrontSensor < right.RearSensor) {
+    else if (right.FrontSensor > right.RearSensor) {
     //If using right and moving away from an object, turn right (move closer a bit)
       //Slow down right
       setRightMotorFw(getSpeedRight()-1);
