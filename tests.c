@@ -45,15 +45,18 @@ void sensorsTest() {
   SensorPair left = getLeftSensorValues();
   SensorPair right = getRightSensorValues();
   SensorPair leftcal = calibratedValuesLeft(left);
-//  _DBG_("##################");
-//  _DBG("Left Front:");_DBD16(left.FrontSensor);_DBG_("");
-//  _DBG("Left Rear:");_DBD16(left.RearSensor);_DBG_("");
-//  _DBG("Left FCal:");_DBD16(leftcal.FrontSensor);_DBG_("");
-//  _DBG("Left RCal:");_DBD16(leftcal.RearSensor);_DBG_("");
-//  _DBG("Right Front:");_DBD16(right.FrontSensor);_DBG_("");
+  SensorPair rightcal = calibratedValuesRight(right);
+  _DBG_("##################");
+  _DBG("Left Front:");_DBD16(left.FrontSensor);_DBG_("");
+  _DBG("Left Rear:");_DBD16(left.RearSensor);_DBG_("");
+  _DBG("Left FCal:");_DBD16(leftcal.FrontSensor);_DBG_("");
+  _DBG("Left RCal:");_DBD16(leftcal.RearSensor);_DBG_("");
+  _DBG("Right Front:");_DBD16(right.FrontSensor);_DBG_("");
   _DBG("Right Rear:");_DBD16(right.RearSensor);_DBG_("");
+  _DBG("Right FCal:");_DBD16(rightcal.FrontSensor);_DBG_("");
+  _DBG("Right RCal:");_DBD16(rightcal.RearSensor);_DBG_("");
   int i = 0;
-//  while (i < 3000000) {i++;}
+  while (i < 3000000) {i++;}
 }
 /**
  * Tests line following. Very easy atm because the linefollowing code doesn't work

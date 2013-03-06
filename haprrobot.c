@@ -49,15 +49,14 @@ void initialise() {
   initSerial();
   //initSensors();
   // Even tho this is a test it needs to run so that the serial is set up properly
-  serialTest();
-  initTimers();  
-	_DBG_("I've completed");
+  serialTest(); 
+  initTimers();
+  mouseinitial();  
+	_DBG_("I've completed"); 
+
 }
 
-void main(void) {
-  initialise();
-  _DBG_("Magic!");
-  
+void doaTest() {
 //  cmdDoPlay("abcdefg>a");
   
 //  while(1) {
@@ -68,8 +67,15 @@ void main(void) {
 
 //  motorCorrectTest();
 
-	 _DBG_("init mouse");
-  mouseinitial(); 
+//  _DBG_("init mouse");
+ // mouseinitial(); 
+}
+
+void main(void) {
+  initialise();
+  _DBG_("Magic!");
+  
+
 
   _DBG_("Done");
 }
