@@ -48,13 +48,13 @@ void serialTest() {
 void sensorsTest() {
   SensorPair left = getLeftSensorValues();
   SensorPair right = getRightSensorValues();
-  _DBG_("##################");
+//  _DBG_("##################");
   _DBG("Left Front:");_DBD16(left.FrontSensor);_DBG_("");
-  _DBG("Left Rear:");_DBD16(left.RearSensor);_DBG_("");
-  _DBG("Right Front:");_DBD16(right.FrontSensor);_DBG_("");
-  _DBG("Right Rear:");_DBD16(right.RearSensor);_DBG_("");
-  int i;
-  for (i = 0; i < 10000; i++);
+//  _DBG("Left Rear:");_DBD16(left.RearSensor);_DBG_("");
+//  _DBG("Right Front:");_DBD16(right.FrontSensor);_DBG_("");
+//  _DBG("Right Rear:");_DBD16(right.RearSensor);_DBG_("");
+  int i = 0;
+  while (i < 50000) {i++;}
 }
 /**
  * Tests line following. Very easy atm because the linefollowing code doesn't work
@@ -105,9 +105,9 @@ void motorCorrectTest() {
   forwards(15);
   while (1) 
   {
-   while (getFrontSensorValue() == 1){
+/*   while (getFrontSensorValue() == 1){
 	   brake();
-   }    
+   } */
     correctForwardMotion();
   }
 }
