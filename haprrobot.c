@@ -40,7 +40,6 @@
 // This is a file for your test functions
 #include "tests.c"
 
-
 /**
  * Runs all the initialisations that are needed
  * Please put them in here.
@@ -53,8 +52,6 @@ void initialise() {
   serialTest();
   initTimers();  
 }
-
-
 
 void main(void) {
   initialise();

@@ -89,10 +89,10 @@ void spinRight() {
 	setLeftMotorBw(25);
 	setRightMotorFw(25);
 }
-/**
+/** removed as found new way of doing this
 * @todo need to check the timings for turning 90/180 degrees probably should create a timer
 */
-void Turn90Left() {
+/*void Turn90Left() {
   spinLeft();
   int i = getSpin();
   while ((i < (getSpin() + 15)) && (i-getSpin() <16))
@@ -119,7 +119,7 @@ void Turn180(){
     _DBD(getSpin());_DBG_("");    
   }
   brake();;
-}
+}*/
 void motorStateMachine(int state) {
 switch(state) {
 	case 0 :

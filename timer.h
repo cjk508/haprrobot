@@ -33,7 +33,7 @@ void initTimer(LPC_TIM_TypeDef *TIMx, IRQn_Type IRQn, int time);
 * Timer1 and Timer2
 */
 
-int getSpin();
+int getLotsOfBlackTape();
 
 void initTimers();
 

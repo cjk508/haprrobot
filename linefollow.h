@@ -28,50 +28,74 @@ void calibrateSensors(void);
 *	returns the raw sensor values of the line sensors
 *
 * @author Christopher King
-* @return This method returns the current values that the raw sensors are transmitting
+* @param sensorPattern This method returns the current values that the raw sensors are transmitting
 */
-void getRawSensors(uint16_t* sens);
+void getRawSensors(uint16_t* sensorPattern);
 //----------------------------------------------------------------
 /**
 *	returns the Calibrated sensor values of the line sensors
 *
 * @author Christopher King
-* @return This method retruns the current values that the calibrated sensors believe.
+* @param sensorPattern This method retruns the current values that the calibrated sensors believe.
 */
-void getCalibratedSensors(uint16_t* sens);
+void getCalibratedSensors(uint16_t* sensorPattern);
 //----------------------------------------------------------------
 /**
 *	moves forward by a very small amount to test if the intersection
 * is a turn only or a turn and straight on
 *
 * @author Christopher King
+* @param junctionType This is the type of junction which needs to be analysed
 */
-void inchForward(void);
-//----------------------------------------------------------------
-/**
-*	checks to see whether an end to the line is a dead end or a left/right
-* T-junction. 
-*
-* @author Christopher King
-* @return DEAD_END or turn type 
-*/
-//intersection_enum scanForDeadEnd(void)
+void inchForward(intersection_enum junctionType,uint16_t* sensorPattern);
 //----------------------------------------------------------------
 /**
  * For a given input it will check it against the desired pattern to whether they are equivalent
  *
  * @author Christopher King
- * @param	sensorPattern	this is the pattern that the if statements want to check.
- * @param	desiredPattern	this is the pattern that the if statement wants to check against
- * @return returns either a 1 or a 0 depending on whether the input pattern matches the desired pattern.
+ * @param	sensorPattern	this is the pattern that the needs to be normalised to 1s and 0s.
  */
-int sensorPatternChecker(uint16_t* sensorPattern, const uint16_t* desiredPattern);
+void patternNormaliser(uint16_t* sensorPattern);
 //----------------------------------------------------------------
 /**
-*	This should return whether the 
+*	This should return the junction type
 *
 * @author Christopher King
+* @param  sensorPattern current sensor readings
 * @return will return which intersection we have come across
 */
-intersection_enum intersectionAnalysis(void);
+intersection_enum analyseJunction(uint16_t* sensorPattern);
+//----------------------------------------------------------------
+/**
+*	Main function which follows the line and analyses what it finds
+*
+* @author Christopher King
+*/
+void lineMotors();
+//----------------------------------------------------------------
+/**
+*	Spins left until sensorPattern[2] == 1 which should mean its spun until it's centred on a new line
+*
+* @author Christopher King
+* @param  sensorPattern current sensor readings
+*/
+void lineSpinLeft(uint16_t* sensorPattern);
+//----------------------------------------------------------------
+/**
+*	Spins right until sensorPattern[2] == 1 which should mean its spun until it's centred on a new line
+*
+* @author Christopher King
+* @param  sensorPattern current sensor readings
+*/
+void lineSpinRight(uint16_t* sensorPattern);
+//----------------------------------------------------------------
+/**
+*	Should correct forward movement if it goes astray
+*
+* @author Christopher King
+* @param  sensorPattern current sensor readings
+*/
+void lineFollowForward(uint16_t* sensorPattern);
 #endif
+
+

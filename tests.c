@@ -65,21 +65,8 @@ void sensorsTest() {
 void linefollowTest(){
   __enable_irq();
   _DBG_("LINE FOLLOW TEST");
-  uint16_t sens[10] = {0};  
-  Turn90Right();
-  while (getSpeedLeft() != 0)
-  {
-  }  
-  Turn90Left();
-  while (getSpeedLeft() != 0)
-  {
-  }
-  Turn180();
-  while (getSpeedLeft() != 0)
-  {
-  }  
-  brake();  
-  /**
+  /**uint16_t sens[10] = {0};    
+  
   * @todo Need to work out why the sensors aren't changing
   
 //while (1) {
