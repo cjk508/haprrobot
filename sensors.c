@@ -5,7 +5,7 @@
 //constants
 const uint16_t DESIRED_DISTANCE = 1500;
 const uint16_t VERY_CLOSE = 2700;
-const uint16_t NO_WALL = 2500;
+const uint16_t NO_WALL = 0; // 2500;
 const unsigned long frontSensor = 1<<17; //this was 17 on robot 5
 //Variables
 int analogSensorPins[] = {23, 24, 25, 30}; // FL, BL, BR, FR
@@ -18,6 +18,94 @@ SensorPair roundingValues(SensorPair sensorValue)
   uint16_t tempR = 0;
   tempF = ((sensorValue.FrontSensor + 50) / 100) * 100;
   tempR = ((sensorValue.RearSensor + 50) / 100) * 100;
+  sensorValue.RearSensor = tempR;
+  sensorValue.FrontSensor = tempF;
+  return sensorValue;
+}
+//----------------------------------------------------------------
+SensorPair calibratedValuesLeft(SensorPair sensorValue) {
+  uint16_t tempF = 0;
+  uint16_t tempR = 0;
+  // Front
+  if (sensorValue.FrontSensor < 800) { tempF = 40; }
+  else if (sensorValue.FrontSensor < 920) { tempF = 35; }
+  else if (sensorValue.FrontSensor < 1100) { tempF = 30; }
+  else if (sensorValue.FrontSensor < 1350) { tempF = 25; }
+  else if (sensorValue.FrontSensor < 1580) { tempF = 20; }
+  else if (sensorValue.FrontSensor < 1680) { tempF = 19; }
+  else if (sensorValue.FrontSensor < 1770) { tempF = 18; }
+  else if (sensorValue.FrontSensor < 1850) { tempF = 17; }
+  else if (sensorValue.FrontSensor < 1950) { tempF = 16; }
+  else if (sensorValue.FrontSensor < 2010) { tempF = 15; }
+  else if (sensorValue.FrontSensor < 2200) { tempF = 14; }
+  else if (sensorValue.FrontSensor < 2350) { tempF = 13; }
+  else if (sensorValue.FrontSensor < 2430) { tempF = 12; }
+  else if (sensorValue.FrontSensor < 2610) { tempF = 11; }
+  else if (sensorValue.FrontSensor < 2720) { tempF = 10; }
+  else if (sensorValue.FrontSensor < 3200) { tempF = 5; }
+  
+  // Rear
+  if (sensorValue.RearSensor < 810) { tempR = 40; }
+  else if (sensorValue.RearSensor < 940) { tempR = 35; }
+  else if (sensorValue.RearSensor < 1100) { tempR = 30; }
+  else if (sensorValue.RearSensor < 1350) { tempR = 25; }
+  else if (sensorValue.RearSensor < 1600) { tempR = 20; }
+  else if (sensorValue.RearSensor < 1700) { tempR = 19; }
+  else if (sensorValue.RearSensor < 1800) { tempR = 18; }
+  else if (sensorValue.RearSensor < 1870) { tempR = 17; }
+  else if (sensorValue.RearSensor < 1950) { tempR = 16; }
+  else if (sensorValue.RearSensor < 2050) { tempR = 15; }
+  else if (sensorValue.RearSensor < 2150) { tempR = 14; }
+  else if (sensorValue.RearSensor < 2280) { tempR = 13; }
+  else if (sensorValue.RearSensor < 2400) { tempR = 12; }
+  else if (sensorValue.RearSensor < 2600) { tempR = 11; }
+  else if (sensorValue.RearSensor < 2810) { tempR = 10; }
+  else if (sensorValue.RearSensor < 3250) { tempR = 5; }
+  
+  sensorValue.RearSensor = tempR;
+  sensorValue.FrontSensor = tempF;
+  return sensorValue;
+}
+//----------------------------------------------------------------
+SensorPair calibratedValuesRight(SensorPair sensorValue) {
+  uint16_t tempF = sensorValue.FrontSensor;
+  uint16_t tempR = sensorValue.RearSensor;
+  // Front
+  if (sensorValue.FrontSensor < 930) { tempF = 40; }
+  else if (sensorValue.FrontSensor < 1030) { tempF = 35; }
+  else if (sensorValue.FrontSensor < 1170) { tempF = 30; }
+  else if (sensorValue.FrontSensor < 1350) { tempF = 25; }
+  else if (sensorValue.FrontSensor < 1590) { tempF = 20; }
+  else if (sensorValue.FrontSensor < 1715) { tempF = 19; }
+  else if (sensorValue.FrontSensor < 1780) { tempF = 18; }
+  else if (sensorValue.FrontSensor < 1850) { tempF = 17; }
+  else if (sensorValue.FrontSensor < 1980) { tempF = 16; }
+  else if (sensorValue.FrontSensor < 2040) { tempF = 15; }
+  else if (sensorValue.FrontSensor < 2100) { tempF = 14; }
+  else if (sensorValue.FrontSensor < 2300) { tempF = 13; }
+  else if (sensorValue.FrontSensor < 2400) { tempF = 12; }
+  else if (sensorValue.FrontSensor < 2610) { tempF = 11; }
+  else if (sensorValue.FrontSensor < 2720) { tempF = 10; }
+  else if (sensorValue.FrontSensor < 3250) { tempF = 5; }
+  
+  // Rear
+  if (sensorValue.RearSensor < 700) { tempR = 40; }
+  else if (sensorValue.RearSensor < 825) { tempR = 35; }
+  else if (sensorValue.RearSensor < 1100) { tempR = 30; }
+  else if (sensorValue.RearSensor < 1300) { tempR = 25; }
+  else if (sensorValue.RearSensor < 1560) { tempR = 20; }
+  else if (sensorValue.RearSensor < 1670) { tempR = 19; }
+  else if (sensorValue.RearSensor < 1725) { tempR = 18; }
+  else if (sensorValue.RearSensor < 1800) { tempR = 17; }
+  else if (sensorValue.RearSensor < 1900) { tempR = 16; }
+  else if (sensorValue.RearSensor < 2000) { tempR = 15; }
+  else if (sensorValue.RearSensor < 2150) { tempR = 14; }
+  else if (sensorValue.RearSensor < 2280) { tempR = 13; }
+  else if (sensorValue.RearSensor < 2400) { tempR = 12; }
+  else if (sensorValue.RearSensor < 2600) { tempR = 11; }
+  else if (sensorValue.RearSensor < 2810) { tempR = 10; }
+  else if (sensorValue.RearSensor < 3250) { tempR = 5; }
+  
   sensorValue.RearSensor = tempR;
   sensorValue.FrontSensor = tempF;
   return sensorValue;
@@ -43,14 +131,17 @@ SensorPair getLeftSensorValues()
 	returnValue.FrontSensor = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_0);
 	returnValue.RearSensor = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_1);
 
-  if ((returnValue.FrontSensor > NO_WALL) && (returnValue.RearSensor > NO_WALL))
+  if ((returnValue.FrontSensor > NO_WALL) && (returnValue.RearSensor > NO_WALL)) {
     // returns the SensorPair
-	  return roundingValues(returnValue);
-	else if (returnValue.FrontSensor < NO_WALL)
+	  return returnValue; // roundingValues(returnValue);
+	}
+	if (returnValue.FrontSensor < NO_WALL) {
 	  returnValue.FrontSensor = 0;
-	else if (returnValue.RearSensor < NO_WALL)
-	  returnValue.FrontSensor = 0;
-	return roundingValues(returnValue);
+	}
+	if (returnValue.RearSensor < NO_WALL) {
+	  returnValue.RearSensor = 0;
+	}
+	return returnValue; // roundingValues(returnValue);
 }
 //----------------------------------------------------------------
 SensorPair getRightSensorValues()
@@ -62,15 +153,17 @@ SensorPair getRightSensorValues()
 	returnValue.FrontSensor = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_4);
 	returnValue.RearSensor = ADC_ChannelGetData(LPC_ADC,ADC_CHANNEL_2);
 
-  if ((returnValue.FrontSensor > NO_WALL) && (returnValue.RearSensor > NO_WALL))
+  if ((returnValue.FrontSensor > NO_WALL) && (returnValue.RearSensor > NO_WALL)) {
     // returns the SensorPair
-	  return roundingValues(returnValue);
-	else if (returnValue.FrontSensor < NO_WALL)
+	  return returnValue; // roundingValues(returnValue);
+	}
+	if (returnValue.FrontSensor < NO_WALL) {
 	  returnValue.FrontSensor = 0;
-	else if (returnValue.RearSensor < NO_WALL)
-	  returnValue.FrontSensor = 0;
-
-	return roundingValues(returnValue);
+	}
+	if (returnValue.RearSensor < NO_WALL) {
+	  returnValue.RearSensor = 0;
+  }
+	return returnValue; // roundingValues(returnValue);
 }
 //----------------------------------------------------------------
 int getFrontSensorValue()
@@ -79,9 +172,9 @@ int getFrontSensorValue()
   int temp17 =  (temp >> 17) & 1;
   currentReadings[4] = temp17 ;
   if (currentReadings[4] > 0)
-  	return 1;
+  	return 0;
   else
-    return 0;
+    return 1;
 }
 //----------------------------------------------------------------
 void initSensors()

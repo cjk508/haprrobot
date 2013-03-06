@@ -40,7 +40,6 @@
 // This is a file for your test functions
 #include "tests.c"
 
-
 /**
  * Runs all the initialisations that are needed
  * Please put them in here.
@@ -48,20 +47,24 @@
 void initialise() {
   debug_frmwrk_init();
   initSerial();
-//  initSensors();
+  initSensors();
   // Even tho this is a test it needs to run so that the serial is set up properly
   serialTest();
+  initTimers();  
 }
-
-
 
 void main(void) {
   initialise();
   _DBG_("Magic!");
   
+//  cmdDoPlay("abcdefg>a");
+  
 //  while(1) {
 //    sensorsTest();
 //  }
+  
+//  linefollowTest();    
+
 //  motorCorrectTest();
 
 	 _DBG_("init mouse");

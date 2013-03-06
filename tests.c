@@ -19,10 +19,6 @@
 #include "correctmotion.h"
 #include "timer.h"
 
-/**
- * @def	DBG_LEVEL
- * Something to do with Andy... dunno what exactly :P
- */
 #define DBG_LEVEL 1
 
 // Here be test functions!
@@ -43,57 +39,30 @@ void serialTest() {
 /**
  * Tests the front and side sensors on the robot, prints out the values that correctmotion will recieve
  *
- * @author Christopher King
+ * @author Christopher King <cjk508@york.ac.uk>
  */
 void sensorsTest() {
   SensorPair left = getLeftSensorValues();
   SensorPair right = getRightSensorValues();
-  _DBG_("##################");
-  _DBG("Left Front:");_DBD16(left.FrontSensor);_DBG_("");
-  _DBG("Left Rear:");_DBD16(left.RearSensor);_DBG_("");
-  _DBG("Right Front:");_DBD16(right.FrontSensor);_DBG_("");
+  SensorPair leftcal = calibratedValuesLeft(left);
+//  _DBG_("##################");
+//  _DBG("Left Front:");_DBD16(left.FrontSensor);_DBG_("");
+//  _DBG("Left Rear:");_DBD16(left.RearSensor);_DBG_("");
+//  _DBG("Left FCal:");_DBD16(leftcal.FrontSensor);_DBG_("");
+//  _DBG("Left RCal:");_DBD16(leftcal.RearSensor);_DBG_("");
+//  _DBG("Right Front:");_DBD16(right.FrontSensor);_DBG_("");
   _DBG("Right Rear:");_DBD16(right.RearSensor);_DBG_("");
-  int i;
-  for (i = 0; i < 10000; i++);
+  int i = 0;
+//  while (i < 3000000) {i++;}
 }
 /**
  * Tests line following. Very easy atm because the linefollowing code doesn't work
  *
- * @author Christopher King
+ * @author Christopher King <cjk508@york.ac.uk>
  */
 
 void linefollowTest(){
   _DBG_("LINE FOLLOW TEST");
-  uint16_t sens[10] = {0};  
-  /**
-  * @todo Need to work out why the sensors aren't changing
-  */
-//while (1) {
-    _DBG_("##################");
-     getRawSensors(sens); 
-    _DBG_("##################");
-    _DBG("Sensor 1:");_DBD16(sens[0]);_DBG_("");
-    _DBG("Sensor 2:");_DBD16(sens[1]);_DBG_("");
-    _DBG("Sensor 3:");_DBD16(sens[2]);_DBG_("");
-    _DBG("Sensor 4:");_DBD16(sens[3]);_DBG_("");        
-    _DBG("Sensor 5:");_DBD16(sens[4]);_DBG_("");
-	//};
-  _DBG_("MOTOR TIME");
-  lineMotors();
-  //calibrateSensors();
-  /*_DBG_("calibrated");
-  while (1) {
-    _DBG_("##################");
-     getRawSensors(sens);
-    _DBG_("##################");
-    _DBG("Sensor 1:");_DBD16(sens[0]);_DBG_("");
-    _DBG("Sensor 2:");_DBD16(sens[1]);_DBG_("");
-    _DBG("Sensor 3:");_DBD16(sens[2]);_DBG_("");
-    _DBG("Sensor 4:");_DBD16(sens[3]);_DBG_("");        
-    _DBG("Sensor 5:");_DBD16(sens[4]);_DBG_("");
-	int i;
-	for (i = 0; i < 100000; i++);
-  };*/
 }
 /**
  * Tests the motion correction, should stop if there is an object infront of the robot, otherwise it should follow a wall
@@ -105,9 +74,9 @@ void motorCorrectTest() {
   forwards(15);
   while (1) 
   {
-   while (getFrontSensorValue() == 1){
+/*   while (getFrontSensorValue() == 1){
 	   brake();
-   }    
+   } */
     correctForwardMotion();
   }
 }

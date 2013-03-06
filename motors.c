@@ -1,4 +1,5 @@
 #include "motors.h"
+#include "timer.h"
 #include "uart.h"
 #include "debug_frmwrk.h" 
 
@@ -22,27 +23,27 @@ int speedCheck(int speed) {
 void setLeftMotorFw(int speed) {
   current_motor_dir_left = 1;
 	current_motor_speed_left = speedCheck(speed);
-	_DBD32(current_motor_speed_left);_DBG_("");
-	cmdLeftMFw(current_motor_speed_left);
+	_DBG("Left MotorF: ");_DBD32(current_motor_speed_left);_DBG_("");
+//	cmdLeftMFw(current_motor_speed_left);
 }
 void setLeftMotorBw(int speed) {
   current_motor_dir_left = 0;
 	current_motor_speed_left = speedCheck(speed);
-	_DBD32(current_motor_speed_left);_DBG_("");
-	cmdLeftMBw(current_motor_speed_left);
+	_DBG("Left MotorB: ");_DBD32(current_motor_speed_left);_DBG_("");
+//	cmdLeftMBw(current_motor_speed_left);
 }
 
 void setRightMotorFw(int speed) {
   current_motor_dir_right = 1;
 	current_motor_speed_right = speedCheck(speed);
-	_DBD32(current_motor_speed_right);_DBG_("");
-	cmdRightMFw(current_motor_speed_right);
+	_DBG("Right MotorF: ");_DBD32(current_motor_speed_right);_DBG_("");
+//	cmdRightMFw(current_motor_speed_right);
 }
 void setRightMotorBw(int speed) {
   current_motor_dir_right = 0;
 	current_motor_speed_right = speedCheck(speed);
-	_DBD32(current_motor_speed_right);_DBG_("");
-	cmdRightMBw(current_motor_speed_right);
+	_DBG("Right MotorB: ");_DBD32(current_motor_speed_right);_DBG_("");
+//	cmdRightMBw(current_motor_speed_right);
 }
 
 void setMotorsFw(int lm, int rm) {
@@ -80,44 +81,44 @@ void brake() {
 }
 
 void spinLeft() {
-	//setMotors(-25, 25);
+	setLeftMotorFw(25);
+	setRightMotorBw(25);
 }
 
 void spinRight() {
-	setMotors(25, -25);
+	setLeftMotorBw(25);
+	setRightMotorFw(25);
 }
-/**
-* @todo need to check the timings for turning 90/180 degrees probably should create a timer
+/* removed as found new way of doing this
 */
-void Turn90Left() {
-  int i= 0;
+/*void Turn90Left() {
   spinLeft();
-  while(i<10000)
-  {   
-    i = i+1;
+  int i = getSpin();
+  while ((i < (getSpin() + 15)) && (i-getSpin() <16))
+  {
+    _DBD(getSpin());_DBG_("");    
   }
-  forwards(25);
+  brake();  
 }
 void Turn90Right(){
-  int i= 0;
   spinRight();
-  while(i<10000)
-  {  
-    i = i+1;
+  int i = getSpin();
+  while ((i < (getSpin() + 15)) && (i-getSpin() <16))
+  {
+    _DBD(getSpin());_DBG_("");    
   }
-  forwards(25);
+  brake();
 }
 
 void Turn180(){
   int i= 0;
   spinRight();
-  while(i<50000)
-  {    
-    i = i+1;
+  while ((i < (getSpin() + 40)) && (i-getSpin() <41))
+  {
+    _DBD(getSpin());_DBG_("");    
   }
-  forwards(25);
-
-}
+  brake();;
+}*/
 void motorStateMachine(int state) {
 switch(state) {
 	case 0 :
