@@ -48,6 +48,7 @@ SensorPair roundingValues(SensorPair sensorValue);
 * @return value in cm for the left side
 */
 SensorPair calibratedValuesLeft(SensorPair sensorValue)
+//----------------------------------------------------------------
 /**
 * Returns calibrated values in cm for the right sensors
 *

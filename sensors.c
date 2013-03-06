@@ -66,6 +66,7 @@ SensorPair calibratedValuesLeft(SensorPair sensorValue) {
   sensorValue.FrontSensor = tempF;
   return sensorValue;
 }
+//----------------------------------------------------------------
 SensorPair calibratedValuesRight(SensorPair sensorValue) {
   uint16_t tempF = sensorValue.FrontSensor;
   uint16_t tempR = sensorValue.RearSensor;
