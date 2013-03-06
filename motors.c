@@ -89,8 +89,7 @@ void spinRight() {
 	setLeftMotorBw(25);
 	setRightMotorFw(25);
 }
-/** removed as found new way of doing this
-* @todo need to check the timings for turning 90/180 degrees probably should create a timer
+/* removed as found new way of doing this
 */
 /*void Turn90Left() {
   spinLeft();

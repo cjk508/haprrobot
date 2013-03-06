@@ -65,9 +65,8 @@ void sensorsTest() {
 void linefollowTest(){
   __enable_irq();
   _DBG_("LINE FOLLOW TEST");
-  /**uint16_t sens[10] = {0};    
-  
-  * @todo Need to work out why the sensors aren't changing
+  /*uint16_t sens[10] = {0};    
+ 
   
 //while (1) {
     _DBG_("##################");
