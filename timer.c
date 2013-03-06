@@ -3,6 +3,7 @@
 #include "mouse.h"
 
 int motorState = 0;
+int spinCounter = 0;
 
 void initTimer(LPC_TIM_TypeDef *TIMx, IRQn_Type IRQn, int time) {
 	TIM_TIMERCFG_Type TimerConf = {
@@ -25,16 +26,25 @@ void initTimers() {
 	_DBG_("TIMER SETUP");
 }
 
+int getSpin()
+{
+  return spinCounter;
+}
 
 void TIMER0_IRQHandler() {
   //DBG_("Timer called");
 	 if(TIM_GetIntStatus(LPC_TIM0, TIM_MR0_INT) == SET)
     {
     //  _DBG_("MOUSE POLL should occur now");
-	    myspecialpoll();
+	    //myspecialpoll();
+	    if(spinCounter <350)
+  	    spinCounter +=1;
+  	  else
+  	    spinCounter = 0;
 	  //  _DBG_("mouse polled");
     }
     TIM_ClearIntPending(LPC_TIM0, TIM_MR0_INT);
 }
+
 
 

@@ -18,7 +18,6 @@
 #include "mouse.h"
 
 
-
 /**
 * Timer interupt initialisation abstraction.
 * Sets up a timer interupt from the given parameters
@@ -33,6 +32,8 @@ void initTimer(LPC_TIM_TypeDef *TIMx, IRQn_Type IRQn, int time);
 * Initialises the timers for the robot.
 * Timer1 and Timer2
 */
+
+int getSpin();
 
 void initTimers();
 

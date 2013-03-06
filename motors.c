@@ -1,4 +1,5 @@
 #include "motors.h"
+#include "timer.h"
 #include "uart.h"
 #include "debug_frmwrk.h" 
 
@@ -80,43 +81,44 @@ void brake() {
 }
 
 void spinLeft() {
-	//setMotors(-25, 25);
+	setLeftMotorFw(25);
+	setRightMotorBw(25);
 }
 
 void spinRight() {
-	//setMotors(25, -25);
+	setLeftMotorBw(25);
+	setRightMotorFw(25);
 }
 /**
 * @todo need to check the timings for turning 90/180 degrees probably should create a timer
 */
 void Turn90Left() {
-  int i= 0;
   spinLeft();
-  while(i<10000)
-  {   
-    i = i+1;
+  int i = getSpin();
+  while ((i < (getSpin() + 15)) && (i-getSpin() <16))
+  {
+    _DBD(getSpin());_DBG_("");    
   }
-  forwards(25);
+  brake();  
 }
 void Turn90Right(){
-  int i= 0;
   spinRight();
-  while(i<10000)
-  {  
-    i = i+1;
+  int i = getSpin();
+  while ((i < (getSpin() + 15)) && (i-getSpin() <16))
+  {
+    _DBD(getSpin());_DBG_("");    
   }
-  forwards(25);
+  brake();
 }
 
 void Turn180(){
   int i= 0;
   spinRight();
-  while(i<50000)
-  {    
-    i = i+1;
+  while ((i < (getSpin() + 40)) && (i-getSpin() <41))
+  {
+    _DBD(getSpin());_DBG_("");    
   }
-  forwards(25);
-
+  brake();;
 }
 void motorStateMachine(int state) {
 switch(state) {

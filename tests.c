@@ -63,11 +63,25 @@ void sensorsTest() {
  */
 
 void linefollowTest(){
+  __enable_irq();
   _DBG_("LINE FOLLOW TEST");
   uint16_t sens[10] = {0};  
+  Turn90Right();
+  while (getSpeedLeft() != 0)
+  {
+  }  
+  Turn90Left();
+  while (getSpeedLeft() != 0)
+  {
+  }
+  Turn180();
+  while (getSpeedLeft() != 0)
+  {
+  }  
+  brake();  
   /**
   * @todo Need to work out why the sensors aren't changing
-  */
+  
 //while (1) {
     _DBG_("##################");
      getRawSensors(sens); 
@@ -81,7 +95,7 @@ void linefollowTest(){
   _DBG_("MOTOR TIME");
   lineMotors();
   //calibrateSensors();
-  /*_DBG_("calibrated");
+  _DBG_("calibrated");
   while (1) {
     _DBG_("##################");
      getRawSensors(sens);

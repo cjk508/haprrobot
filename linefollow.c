@@ -2,10 +2,12 @@
 #include "uart.h"
 #include "debug_frmwrk.h" 
 #include "linefollow.h"
-uint16_t const noLine[] = {1500,1500,1500,1500,1500};
-uint16_t const allTheLines[] = {1900,1900,1900,1900,1900};
-uint16_t const leftLine[] = {1900,1900,1900,1500,1500};
-uint16_t const rightLine[] = {1500,1500,1900,1900,1900};
+uint16_t const jNone[] = {900,1400,1900,1400,900};
+uint16_t const jCrossOrT[] = {900,1900,1900,1900,900};
+uint16_t const jLeft[] = {900,1900,1900,900,900};
+uint16_t const jRight[] = {900,900,1900,1900,900};
+uint16_t const jSRight[] = {900,900,1900,1900,1400};
+uint16_t const jSLeft[] = {1400,1900,1900,900,900};
 
 void calibrateSensors(void)
 {
@@ -87,7 +89,7 @@ intersection_enum scanForDeadEnd()
   brake();
   
   //uint16_t desiredPattern[5] = {1,1,1,0,0};
-  if (!sensorPatternChecker(sensorPattern, leftLine))
+ /* if (!sensorPatternChecker(sensorPattern, leftLine))
     left = '0';
   i = 0;    
   spinRight();
@@ -106,7 +108,7 @@ intersection_enum scanForDeadEnd()
   else if (!right)
     return LEFT;
   else
-    return LEFT_RIGHT; 
+    return LEFT_RIGHT; */
 }
 
 int sensorPatternChecker(uint16_t sensorPattern[], const uint16_t* desiredPattern)
@@ -219,27 +221,22 @@ intersection_enum intersectionAnalysis()
     _DBG("Sensor 4:");_DBD16(sensorPattern[3]);_DBG_("");        
     _DBG("Sensor 5:");_DBD16(sensorPattern[4]);_DBG_("");
   intersection_enum intersectionType = NONE;
-  if (sensorPatternChecker(sensorPattern,noLine)) //Nothing in front or to the side of the robot
-    intersectionType = scanForDeadEnd();
-  else if (sensorPatternChecker(sensorPattern,leftLine ))//Line to the left and infront of the robot
+  
+  if (sensorPatternChecker(sensorPattern,jNone)) //Nothing in front or to the side of the robot
+    intersectionType = scanForDeadEnd(); /**@todo change soon*/
+  else if (sensorPatternChecker(sensorPattern,jSLeft ))//Line to the left and infront of the robot
   {
-    inchForward();
-    intersection_enum futureTurn = intersectionAnalysis();
-    if (futureTurn == DEAD_END)
-      intersectionType = LEFT;
-    else
       intersectionType = LEFT_STRAIGHT;
   }
-  else if (sensorPatternChecker(sensorPattern,rightLine))//Line to the right and infront of the robot
+  else if (sensorPatternChecker(sensorPattern,jSRight))//Line to the right and infront of the robot
   {
-    inchForward();
-    intersection_enum futureTurn = intersectionAnalysis();
-    if( futureTurn == DEAD_END)
-      intersectionType = RIGHT;
-    else
       intersectionType = RIGHT_STRAIGHT;
   }  
-  else if (sensorPatternChecker(sensorPattern,allTheLines)) //Line to the left, right and in front of the robot.
+  else if (sensorPatternChecker(sensorPattern,jCrossOrT)) //Crossroads or T
      intersectionType = CROSSROAD;
+  else if (sensorPatternChecker(sensorPattern,jLeft)) //Just left
+    intersectionType  = LEFT;
+  else if (sensorPatternChecker(sensorPattern,jRight)) //Just Right   
+    intersectionType = RIGHT;
    return intersectionType;
 }
