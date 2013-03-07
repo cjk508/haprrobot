@@ -34,7 +34,7 @@ void overflowProtection(int8_t x, int8_t t)
 		struct motorPair XrightMotorValues = getSpeedRight();
 		struct motorPair XleftMotorValues = getSpeedLeft();
 		brake();
-		delay();
+		delay(1);
 		resume(XrightMotorValues, XleftMotorValues);
 	}
 	if( -125 > t || t > 125) {
@@ -42,7 +42,7 @@ void overflowProtection(int8_t x, int8_t t)
 		struct motorPair TrightMotorValues = getSpeedRight();
 		struct motorPair TleftMotorValues = getSpeedLeft();
 		brake();
-		delay();
+		delay(1);
 		resume(TrightMotorValues, TleftMotorValues);
 	}
 }

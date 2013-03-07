@@ -7,7 +7,7 @@
 // DBG Levels
 // 1 - Verbose
 // 2 - No movement
-#define DBG_LEVEL 1
+#define DBG_LEVEL 2
 
 motorPair getSpeedLeft() {
 	struct motorPair motorValues;
@@ -39,7 +39,7 @@ void setLeftMotorFw(int speed) {
   if (frontIRQ_triggered) return;
   current_motor_dir_left = 1;
 	current_motor_speed_left = speedCheck(speed);
-	if (DBG_LEVEL == 1) {
+	if (DBG_LEVEL >= 1) {
 	  _DBG("Left MotorF: ");_DBD32(current_motor_speed_left);_DBG_("");
 	}
 	if (DBG_LEVEL != 2) {
@@ -50,7 +50,7 @@ void setLeftMotorBw(int speed) {
   if (frontIRQ_triggered) return;
   current_motor_dir_left = 0;
 	current_motor_speed_left = speedCheck(speed);
-	if (DBG_LEVEL == 1) {
+	if (DBG_LEVEL >= 1) {
 	  _DBG("Left MotorB: ");_DBD32(current_motor_speed_left);_DBG_("");
   }
   if (DBG_LEVEL != 2) {
@@ -62,7 +62,7 @@ void setRightMotorFw(int speed) {
   if (frontIRQ_triggered) return;
   current_motor_dir_right = 1;
 	current_motor_speed_right = speedCheck(speed);
-	if (DBG_LEVEL == 1) {
+	if (DBG_LEVEL >= 1) {
 		_DBG("Right MotorF: ");_DBD32(current_motor_speed_right);_DBG_("");
   }
   if (DBG_LEVEL != 2) {
@@ -73,7 +73,7 @@ void setRightMotorBw(int speed) {
   if (frontIRQ_triggered) return;
   current_motor_dir_right = 0;
 	current_motor_speed_right = speedCheck(speed);
-	if (DBG_LEVEL == 1) {
+	if (DBG_LEVEL >= 1) {
 		_DBG("Right MotorB: ");_DBD32(current_motor_speed_right);_DBG_("");
 	}
 	if (DBG_LEVEL != 2) {

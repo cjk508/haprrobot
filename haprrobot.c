@@ -112,7 +112,7 @@ int doTheDemo() {
       }
       case 3: {// Walls and lines on both sides
         dockBySensorsAndLine();
-        break
+        break;
       }
       default: {  // should never reach but if it does then track movement with mouse
         currentState = 2;

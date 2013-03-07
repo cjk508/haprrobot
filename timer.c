@@ -27,8 +27,8 @@ void initTimers() {
 }
 
 void delay(int time) {
-  int i = getLotsOfBlackTape();
-  while (i - getLotsOfBlackTape() == time) {
+  int i = lotsOfBlackTape;
+  while (i - lotsOfBlackTape == time) {
   }
 }
 
