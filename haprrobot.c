@@ -115,7 +115,7 @@ void followToDock() {
   /// @todo use functions from line following, lineFollow() until dock.
 }
 
-void doTheDemo() {
+int doTheDemo() {
   /*// wait for initialisation
   delay(100);
   
@@ -150,7 +150,47 @@ void doTheDemo() {
   /**
    * @todo create checks for the current environment setup. This should include line and wall checks
    * @todo create state machine that will set the state based on the priority of the input.
+   * @todo make sure that the front sensor always interrupts
   */
+  int currentState = -1;
+  
+  if(checkForLine()) {
+    currentState = 0;
+  }
+  else if(checkForWall()) {
+    currentState = 1;
+  }
+  else {
+    currentState = 2;
+  }
+  
+  if (currentState > -1) { // should never be -1 but if it is we have some problems
+    switch (currentState) {
+      
+      case 0: { //Wall found... follow it
+        
+        break;
+      }
+      case 1: { // Woop I've found a line
+      
+        break;
+      }
+      case 2: {// No Wall found track movement with mouse
+
+        break;
+      }
+      default: {  // should never reach but if it does then track movement with mouse
+      
+      }  
+    }
+    return 1;
+  }
+  else {
+    if(DBG_LEVEL == 1) {
+      _DBG_("ARGH WE HAVE NO ENVIRONMENT");
+    }
+    return 0;
+  }
 }
 
 void main(void) {
