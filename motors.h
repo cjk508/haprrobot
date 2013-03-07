@@ -34,9 +34,21 @@ typedef struct motorPair{
 	int motor_dir;
 }motorPair;
 
+/**
+* Sets-up the structure of the pair of values of for the left motor
+* 
+* @author Chris King
+* @author Jed Warwick-Mooney
+*/
 motorPair getSpeedLeft();
-motorPair getSpeedRight();
 
+/**
+* Sets-up the structure of the pair of values of for the right motor
+* 
+* @author Chris King
+* @author Jed Warwick-Mooney
+*/
+motorPair getSpeedRight();
 
 /**
 * Returns 1 if the robot is moving forwards, 0 otherwise
@@ -59,7 +71,7 @@ int speedCheck(int speed);
 *
 * @author Andrew Durant
 * @param speed input speed for left motor
-
+*
 */
 void setLeftMotorFw(int speed);
 /**
@@ -67,7 +79,7 @@ void setLeftMotorFw(int speed);
 *
 * @author Andrew Durant
 * @param speed input speed for left motor
-
+*
 */
 void setLeftMotorBw(int speed);
 /**
@@ -75,7 +87,7 @@ void setLeftMotorBw(int speed);
 *
 * @author Andrew Durant
 * @param speed input speed for right motor
-
+*
 */
 void setRightMotorFw(int speed);
 /**
@@ -83,7 +95,7 @@ void setRightMotorFw(int speed);
 *
 * @author Andrew Durant
 * @param speed input speed for right motor
-
+*
 */
 void setRightMotorBw(int speed);
 
@@ -93,7 +105,7 @@ void setRightMotorBw(int speed);
 * @author Jed Warwick-Mooney
 * @param lm speed to set left motor at
 * @param rm speed to set right motor at
-
+*
 */
 
 void setMotorsFw(int lm, int rm);
@@ -103,7 +115,7 @@ void setMotorsFw(int lm, int rm);
 * @author Jed Warwick-Mooney
 * @param lm speed to set left motor at
 * @param rm speed to set right motor at
-
+*
 */
 
 void setMotorsBw(int lm, int rm);
@@ -166,7 +178,15 @@ void spinLeft();
 */
 
 void spinRight();
-
+/**
+* Sets the robot to its previous state after being interrupted by the overflowProtection() method in mouse.c 
+*
+* @author Chris King
+*	@author Jed Warwick-Mooney
+* @param lm The value for the direction and speed of the left motor
+* @parma rm The value for the direction and speed of the right motor
+*/
+void resume(motorPair lm, motorPair rm)
 /**
 * Jed's state machine
 *
