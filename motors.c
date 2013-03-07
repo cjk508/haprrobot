@@ -121,36 +121,7 @@ void resume(motorPair lm, motorPair rm) {
 		setRightMotorBw(rm.motor_speed);
 	}
 }
-/* removed as found new way of doing this
-*/
-/*void Turn90Left() {
-  spinLeft();
-  int i = getSpin();
-  while ((i < (getSpin() + 15)) && (i-getSpin() <16))
-  {
-    _DBD(getSpin());_DBG_("");    
-  }
-  brake();  
-}
-void Turn90Right(){
-  spinRight();
-  int i = getSpin();
-  while ((i < (getSpin() + 15)) && (i-getSpin() <16))
-  {
-    _DBD(getSpin());_DBG_("");    
-  }
-  brake();
-}
 
-void Turn180(){
-  int i= 0;
-  spinRight();
-  while ((i < (getSpin() + 40)) && (i-getSpin() <41))
-  {
-    _DBD(getSpin());_DBG_("");    
-  }
-  brake();;
-}*/
 void motorStateMachine(int state) {
 switch(state) {
 	case 0 :

@@ -116,7 +116,7 @@ void followToDock() {
 }
 
 void doTheDemo() {
-  // wait for initialisation
+  /*// wait for initialisation
   delay(100);
   
   // Track distance
@@ -145,7 +145,12 @@ void doTheDemo() {
   
   findALine();
   
-  followToDock();
+  followToDock();*/
+  
+  /**
+   * @todo create checks for the current environment setup. This should include line and wall checks
+   * @todo create state machine that will set the state based on the priority of the input.
+  */
 }
 
 void main(void) {
