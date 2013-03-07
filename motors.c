@@ -16,6 +16,7 @@ motorPair getSpeedLeft() {
 
   return motorValues;
 }
+
 motorPair getSpeedRight() {
 	struct motorPair motorValues;
 	motorValues.motor_speed = current_motor_speed_right;
@@ -138,27 +139,3 @@ void resume(motorPair lm, motorPair rm) {
 	}
 }
 
-void motorStateMachine(int state) {
-switch(state) {
-	case 0 :
-		forwards(25);
-		break;
-	case 1 :
-		right();
-		break;
-	case 2 :
-  	left();
-  	break;
-  case 3:
-    spinLeft();
-    break;
-  case 4 :
-     spinRight();
-     break;
-	case 5 :
-		brake();
-		break;
-	default	:
-    break;
-	}
-}

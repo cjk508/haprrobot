@@ -29,24 +29,37 @@ int current_motor_speed_right;
 int current_motor_dir_left;
 int current_motor_dir_right;
 
+/**
+* @brief Motor return type, contains 2 integers motor_speed and motor_dir
+*
+* This struct will return the speed and direction of the motors at the time.
+* It will allow easy access to all information that the motors need 
+* this includes the direction of the motor as speed is always positive.
+*
+* @author Christopher King <cjk508@york.ac.uk>
+* @author Jed Warwick-Mooney 
+*/
 typedef struct motorPair{
 	int motor_speed;
 	int motor_dir;
 }motorPair;
 
 /**
-* Sets-up the structure of the pair of values of for the left motor
-* 
-* @author Chris King
+* Allows access to the left motor speed and direction
+*
+* @author Andrew Durant
+* @author Christopher King
 * @author Jed Warwick-Mooney
+* @return the speed and direction of the left motors
 */
 motorPair getSpeedLeft();
-
 /**
-* Sets-up the structure of the pair of values of for the right motor
-* 
-* @author Chris King
+* Allows access to the right motor speed and direction
+*
+* @author Andrew Durant
+* @author Christopher King
 * @author Jed Warwick-Mooney
+* @return the speed and direction of the right motors
 */
 motorPair getSpeedRight();
 
@@ -164,7 +177,6 @@ void brake();
 
 /**
 * Sets the left motor to backwards and right forwards in order to spin left
-* git checkout 40f2acb65a235f8d74033d073451f6b8145f1660^1 doxy.doxyfile
 *
 * @author Jed Warwick-Mooney
 */
@@ -186,12 +198,5 @@ void spinRight();
 * @param lm The value for the direction and speed of the left motor
 * @parma rm The value for the direction and speed of the right motor
 */
-void resume(motorPair lm, motorPair rm)
-/**
-* Jed's state machine
-*
-* @author Jed Warwick-Mooney
-*/
-void motorStateMachine(int state);
-
+void resume(motorPair lm, motorPair rm);
 #endif

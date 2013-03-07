@@ -1,6 +1,12 @@
+#include "environment.h"
+
+#include "correctmotion.h"
+#include "sensors.h"
+#include "linefollow.h"
+
 int checkForLine() {
   uint16_t sensorPattern[5] = {0};
-  getRawSensors(&sensorPattern); // & is unnecessary we know... we are just being cautious
+  getRawSensors(sensorPattern);
   int i;
   int isThereALine = 0;
   
@@ -28,4 +34,7 @@ int checkForWall() {
     return 1;
   }
   return 0;
+}
+
+void trackByMouse() {
 }

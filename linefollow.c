@@ -6,7 +6,7 @@
 
 #define DBG_LEVEL 1
 //----------------------------------------------------------------
-uint32_t calibrateSensors(void)
+uint32_t calibrateSensors()
 {
    if (DBG_LEVEL == 1)
     _DBG_("send command");  
