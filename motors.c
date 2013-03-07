@@ -109,7 +109,7 @@ void spinRight() {
 }
 
 void resume(motorPair lm, motorPair rm) {
-	if (lm.motor_speed == 0 && rm.motor_speed == 0) { ///@todo which dir value when we freewheel?  (love from Chris)
+	if (lm.motor_speed == 0 && rm.motor_speed == 0) {
 		freewheel();
 	}
 	if(lm.motor_dir == 1 ) {
