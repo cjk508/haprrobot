@@ -105,9 +105,6 @@ void spinRight() {
 }
 
 void resume(motorPair lm, motorPair rm) {
-	if (lm.motor_speed == 0 && rm.motor_speed == 0) {
-		brake();
-	}
 	if(lm.motor_dir == 1 ) {
 		setLeftMotorFw(lm.motor_speed);
 	}
@@ -115,6 +112,7 @@ void resume(motorPair lm, motorPair rm) {
 	{
 		setLeftMotorBw(lm.motor_speed);
 	}
+	
 	if(rm.motor_dir == 1 ) {
 		setRightMotorFw(rm.motor_speed);
 	}
