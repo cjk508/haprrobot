@@ -161,7 +161,9 @@ void add_to_y(int8_t y) {
 	y_move += y * sin(theta);//y is multiplied by sin(theta) as direction the robot is facing can affect how far it actually moves along the y_axis
 }
 
-/* Code taken from http://code.google.com/p/my-itoa/, for ease of use and lack of time*/
+/** @todo Is this alright? Code taken from http://code.google.com/p/my-itoa/, for ease of use and lack of time
+*   @todo If not using in group project remove. Pop in indivual side if you want to use it.
+*/
 int my_itoa(int val, char* buf)
 {
     const unsigned int radix = 10; // sets the base of the output

@@ -53,9 +53,11 @@ uint32_t cmdAutoCal() {
   sig = AUTO_CALIBRATE;
   uint8_t check;
   ret = serialSend(&sig,1);
-  ret = serialRecv(&check,10);
-  if (check != (uint8_t)'c') return 1;
-  else return ret;
+  ret = serialRecv(&check,1);
+  if (check != (uint8_t)'c')
+    return 1;
+  else 
+    return ret;
 }
 
 uint32_t cmdLeftMFw(int speed) {
@@ -102,6 +104,33 @@ uint32_t cmdDoPlay(char *seq) {
   ret = serialSend(&sig, 1);
   ret = serialSend(&len, 1);
   ret = serialSend((unsigned char*)&seq, (uint32_t)len);
+  return ret;
+}
+
+uint32_t cmdPIDstart(uint8_t *data) {
+  sig = SET_PID;
+  ret = serialSend(&sig, 1);
+  ret = serialSend(data, 5);
+  return ret;
+}
+
+uint32_t cmdPIDstop() {
+  sig = STOP_PID;
+  ret = serialSend(&sig, 1);
+  return ret;
+}
+
+uint32_t cmdLinePos(uint16_t *linePos) {
+  sig = SEND_LINE_POSITION;
+  
+  ret = serialSend(&sig, 1);
+  ret = serialRecv(linePos, 2);
+  return ret;
+}
+
+void cmdRstCal() {
+  sig = LINE_SENSORS_RESET_CALIBRATION;
+  ret = serialSend(&sig, 1);
   return ret;
 }
 

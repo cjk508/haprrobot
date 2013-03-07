@@ -64,9 +64,9 @@ void delay(int time) {
 
 
 void doATest() {
-  cmdDoPlay("abcdefg>a");
+  //cmdDoPlay("abcdefg>a");
   
-//  lineMotors();
+  lineMotors();
 //  while(1) {
 //    sensorsTest();
 //  }
@@ -115,7 +115,88 @@ void followToDock() {
   /// @todo use functions from line following, lineFollow() until dock.
 }
 
-void doTheDemo() {
+int checkForLine() {
+  uint16_t sensorPattern[5] = {0};
+  getRawSensors(&sensorPattern); // & is unnecessary we know... we are just being cautious
+  int i;
+  int isThereALine = 0;
+  
+  for (i = 0; i<5; i++) {
+    if (sensorPattern[i] == 2000)
+      isThereALine = 1;
+  }
+  if (isThereALine) {
+    return 1;
+  }
+  else
+    return 0;
+}
+
+int checkForWall() {
+  ///@todo get sensor values -> read the distance. If the distance is less than 40 then there is a wall. Set which side
+  
+}
+
+int doTheDemo() { 
+  /**
+   * @todo create checks for the current environment setup. This should include line and wall checks
+   * @todo create state machine that will set the state based on the priority of the input.
+   * @todo make sure that the front sensor always interrupts
+  */
+  int currentState = -1;
+  
+  if(checkForLine()) {
+    currentState = 0;
+  }
+  else if(checkForWall()) {
+    currentState = 1;
+  }
+  else {
+    currentState = 2;
+  }
+  
+  if (currentState > -1) { // should never be -1 but if it is we have some problems
+    switch (currentState) {
+      
+      case 0: { //Wall found... follow it
+        
+        break;
+      }
+      case 1: { // Woop I've found a line
+      
+        break;
+      }
+      case 2: {// No Wall found track movement with mouse
+
+        break;
+      }
+      default: {  // should never reach but if it does then track movement with mouse
+      
+      }  
+    }
+    return 1;
+  }
+  else {
+    if(DBG_LEVEL == 1) {
+      _DBG_("ARGH WE HAVE NO ENVIRONMENT");
+    }
+    return 0;
+  }
+}
+
+void main(void) {
+  initialise();
+  _DBG_("Magic!");
+  
+  doATest();
+  
+  _DBG_("Done");
+}
+
+
+
+
+
   /*// wait for initialisation
   delay(100);
   
@@ -146,25 +227,6 @@ void doTheDemo() {
   findALine();
   
   followToDock();*/
-  
-  /**
-   * @todo create checks for the current environment setup. This should include line and wall checks
-   * @todo create state machine that will set the state based on the priority of the input.
-  */
-}
-
-void main(void) {
-  initialise();
-  _DBG_("Magic!");
-  
-  doATest();
-  
-  _DBG_("Done");
-}
-
-
-
-
 
 
 
