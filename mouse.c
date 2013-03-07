@@ -30,8 +30,21 @@ of debugging but it seems to have worked,*/
 
 void overflowProtection(int8_t x, int8_t t)
 {
-	if( x > 125 || x < -125 || -125 > t || t > 125) {
-		_DBG_("OVERFLOW");
+	if( x > 125 || x < -125) {
+		_DBG_("x has OVERFLOW");
+		struct motorPair XrightMotorValues = getSpeedRight();
+		struct motorPair XleftMotorValues = getSpeedLeft();
+		brake();
+		delay();
+		resume(XrightMotorValues, XleftMotorValues);
+	}
+	if( -125 > t || t > 125) {
+		_DBG_("t has OVERFLOW");
+		struct motorPair TrightMotorValues = getSpeedRight();
+		struct motorPair TleftMotorValues = getSpeedLeft();
+		brake();
+		delay();
+		resume(TrightMotorValues, TleftMotorValues);
 	}
 }
 void cb(uint8_t buttons, int8_t x, int8_t t) {
@@ -187,7 +200,7 @@ int my_itoa(int val, char* buf)
 void printToLCD() {
  	int x = get_x_move();
 	int y = get_y_move();
- 	int	distance = distanceMoved(x, y);
+ 	int	distance = distanceMoved(coord_x, coord_y);
 	char buf[8];
 	my_itoa(distance, buf);
 	cmdLcdPrint(buf);
