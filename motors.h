@@ -29,8 +29,14 @@ int current_motor_speed_right;
 int current_motor_dir_left;
 int current_motor_dir_right;
 
-int getSpeedLeft();
-int getSpeedRight();
+typedef struct motorPair{
+	int motor_speed;
+	int motor_dir;
+}motorPair;
+
+motorPair getSpeedLeft();
+motorPair getSpeedRight();
+
 
 /**
  * Restricts the max speed to the constant MAX_SPEED

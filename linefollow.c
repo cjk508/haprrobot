@@ -118,7 +118,6 @@ void patternNormaliser(uint16_t* sensorPattern)
 
 intersection_enum analyseJunction(uint16_t* sensorPattern)
 {
-  realloc(sensorPattern);
   if((sensorPattern[0] = 1) && (sensorPattern[1] = 1) && // Left Junction
      (sensorPattern[2] = 1) && (sensorPattern[3] = 0) && (sensorPattern[4] = 0)) 
      {
@@ -193,18 +192,18 @@ void lineFollowForward(uint16_t* sensorPattern)
   getRawSensors(sensorPattern);
   if((sensorPattern[1] == 1) && (sensorPattern[3] == 1) && (sensorPattern[2] == 1))
   {
-    if (getSpeedLeft() != getSpeedRight()) //if speed is not equal then change otherwise carry on
+    if (getSpeedLeft().motor_speed != getSpeedRight().motor_speed) //if speed is not equal then change otherwise carry on
     {
       forwards(25);
     }
   }  
   else if ((sensorPattern[1] == 0) && (sensorPattern[3] == 1))
   {
-    setLeftMotorFw(getSpeedLeft()+1);
+    setLeftMotorFw(getSpeedLeft().motor_speed+1);
   }
   else if((sensorPattern[1] == 1) && (sensorPattern[3] == 0))
   {
-    setRightMotorFw(getSpeedRight()+1);
+    setRightMotorFw(getSpeedRight().motor_speed+1);
   }
 }
 

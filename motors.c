@@ -8,11 +8,19 @@
 // uint32_t cmdRightMFw(int speed); 0xC5 - M2 forward
 // uint32_t cmdRightMBw(int speed); 0xC6 - M2 backward
 
-int getSpeedLeft() {
-  return current_motor_speed_left;
+motorPair getSpeedLeft() {
+	struct motorPair motorValues;
+	motorValues.motor_speed = current_motor_speed_left;
+	motorValues.motor_dir = current_motor_dir_left;
+
+  return motorValues;
 }
-int getSpeedRight() {
-  return current_motor_speed_right;
+motorPair getSpeedRight() {
+	struct motorPair motorValues;
+	motorValues.motor_speed = current_motor_speed_right;
+	motorValues.motor_dir = current_motor_dir_right;
+
+  return motorValues;
 }
 
 int speedCheck(int speed) {
@@ -88,6 +96,26 @@ void spinLeft() {
 void spinRight() {
 	setLeftMotorBw(25);
 	setRightMotorFw(25);
+}
+
+void resume(motorPair lm, motorPair rm) {
+	if (lm.motor_speed == 0 && rm.motor_speed == 0) { //@todo which dir value when we freewheel?  (love from Chris)
+		freewheel();
+	}
+	if(lm.motor_dir == 1 ) {
+		setLeftMotorFw(lm.motor_speed);
+	}
+	else if (lm.motor_dir == 0 )
+	{
+		setLeftMotorBw(lm.motor_speed);
+	}
+	if(rm.motor_dir == 1 ) {
+		setRightMotorFw(rm.motor_speed);
+	}
+	else if (rm.motor_dir == 0 )
+	{
+		setRightMotorBw(rm.motor_speed);
+	}
 }
 /* removed as found new way of doing this
 */
