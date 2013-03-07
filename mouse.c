@@ -73,41 +73,56 @@ int32_t converterForCm(int32_t x) {
 	return temp;
 }
 
+void clearVal(int x) {
+	x = 0;
+}
+
 void cb(uint8_t buttons, int8_t x, int8_t t) {
 /**
 * @todo put some form of overflow protection to make sure that we are getting fairly accurate results.
 */
+
+	static int32_t tempt;
+	static int32_t tempx;
+	static int32_t tempXCurve;
+	static int state;
+	static int prevState;
 	
 	//if there is a change in the t value only then the robot is spinning;
 	if(t != 0 && x == 0) {
-	int32_t tempt = 0;
-		while(t != 0 && x == 0) {
-			overflowProtection(x, 0);
-			tempt += t;
-		}
-		int32_t spinVal = thetaOfArc(converterForCm(tempt), r);
-		theta = theta + spinVal; 
+		prevState = state;
+		state = 1;
+		overflowProtection(x, 0);
+		tempt += t; 
+		if (prevState == 2){converterForCm(tempx);
+		add_to_x(tempx);
+		add_to_y(tempx);
+		clearVal(tempx);}
+		if (prevState == 3){curve(tempXCurve);}
 	}
 	
 	//If there is a change in the x value only then the robot is moving forward;
 	if(x != 0 && t == 0) {
-	int32_t tempx = 0;
-		while(t == 0 && x != 0) {
-			overflowProtection(x, 0);
-			tempx += x;
-		}
-		x = converterForCm(tempx);
-		add_to_x(x);
-		add_to_y(x);
+		prevState = state;
+		state = 2;
+		overflowProtection(x, 0);
+		tempx += x;
+		if (prevState == 1){int32_t spinVal = thetaOfArc(converterForCm(tempt), r);
+		theta = theta + spinVal; clearVal(tempt);}
+		if (prevState == 3){curve(tempXCurve);}
 	}
 
 	if(t != 0 && x != 0) {
-	int32_t tempx = 0;
-		while(t != 0 && x != 0) {
-			overflowProtection(x, t);
-			tempx += x;
-		}
-		curve(tempx);
+		prevState = state;
+		state = 3;
+		overflowProtection(x, t);
+		tempXCurve += x;
+		if (prevState == 1){int32_t spinVal = thetaOfArc(converterForCm(tempt), r);
+		theta = theta + spinVal; clearVal(tempt);}
+		if (prevState == 2){converterForCm(tempx);
+		add_to_x(tempx);
+		add_to_y(tempx);
+		clearVal(tempx);}
 	}
 }
 
@@ -128,9 +143,9 @@ The Idea of this method is to work out how far the robot has moved with respect 
 }
 
 void attach() {
-	coord_x = 0;
-	coord_y = 0;
-	theta = 0;
+	clearVal(coord_x);
+	clearVal(coord_y);
+	clearVal(theta);
 	_DBG_("I'm attached, YAY!");
 }
 

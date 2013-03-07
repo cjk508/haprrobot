@@ -27,6 +27,24 @@ void mouseinitial();
 void myspecialpoll();
 
 /**
+* Returns an angle in radiens, after dividing the length l travelled by the constant r
+*
+* @author Jed Warwick-Mooney
+* @param l integer being the value of the arc length
+* @param r integer being the radius of the circle
+* @return th angle which the robot is facing
+*/
+int32_t thetaOfArc(int32_t l, int32_t r);
+/**
+* Takes an integer value and convertes it into centimeters 
+* 
+* @author Jed Warwick-Mooney
+* @param x integer to be converted
+* @return temp the resulting centimeter value
+*/
+int32_t converterForCm(int32_t x);
+
+/**
 * Records what movement has occured in the robot on every interrupt.
 * A change in the t value only means the robot is spinning, the angle
 * the robot faces is worked out usnig the spin() method and returned to
@@ -45,6 +63,13 @@ void myspecialpoll();
 * @param t int movement in the left or right direction
 * 
 */
+/**
+* Clears the value of the integer given to it
+* 
+* @author Jed Warwick-Mooney
+* @param x the integer to be cleared
+*/
+void clearVal(int x);
 void cb(uint8_t buttons, int8_t x, int8_t t);
 /**
 * Manipulates integers t and x using trigonometry, to work out the actual
@@ -55,24 +80,6 @@ void cb(uint8_t buttons, int8_t x, int8_t t);
 * of the robot
 */
 void curve(int x);
-
-/**
-* Returns an angle in radiens, after dividing the length l travelled by the constant r
-*
-* @author Jed Warwick-Mooney
-* @param l integer being the value of the arc length
-* @param r integer being the radius of the circle
-* @return th angle which the robot is facing
-*/
-int32_t thetaOfArc(int32_t l, int32_t r);
-/**
-* Takes an integer value and convertes it into centimeters 
-* 
-* @author Jed Warwick-Mooney
-* @param x integer to be converted
-* @return temp the resulting centimeter value
-*/
-int32_t converterForCm(int32_t x);
 
 /**
 * When USB mouse is attached to the integers 
