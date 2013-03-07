@@ -22,7 +22,6 @@
 #define MOTOR_INC
 
 #define MAX_SPEED 30
-#define DBG_LEVEL 2
 
 int current_motor_speed_left;
 int current_motor_speed_right;

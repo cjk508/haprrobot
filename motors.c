@@ -4,10 +4,10 @@
 #include "uart.h"
 #include "debug_frmwrk.h" 
 
-// uint32_t cmdLeftMFw(int speed); 0xC1 - M1 forward
-// uint32_t cmdLeftMBw(int speed); 0xC2 - M1 backward
-// uint32_t cmdRightMFw(int speed); 0xC5 - M2 forward
-// uint32_t cmdRightMBw(int speed); 0xC6 - M2 backward
+// DBG Levels
+// 1 - Verbose
+// 2 - No movement
+#define DBG_LEVEL 1
 
 motorPair getSpeedLeft() {
 	struct motorPair motorValues;
@@ -41,7 +41,7 @@ void setLeftMotorFw(int speed) {
 	if (DBG_LEVEL == 1) {
 	  _DBG("Left MotorF: ");_DBD32(current_motor_speed_left);_DBG_("");
 	}
-	else {
+	if (DBG_LEVEL != 2) {
 	  cmdLeftMFw(current_motor_speed_left);
 	}
 }
@@ -52,7 +52,7 @@ void setLeftMotorBw(int speed) {
 	if (DBG_LEVEL == 1) {
 	  _DBG("Left MotorB: ");_DBD32(current_motor_speed_left);_DBG_("");
   }
-  else {
+  if (DBG_LEVEL != 2) {
     cmdLeftMBw(current_motor_speed_left);
   }
 }
@@ -64,7 +64,7 @@ void setRightMotorFw(int speed) {
 	if (DBG_LEVEL == 1) {
 		_DBG("Right MotorF: ");_DBD32(current_motor_speed_right);_DBG_("");
   }
-  else {
+  if (DBG_LEVEL != 2) {
     cmdRightMFw(current_motor_speed_right);
   }
 }
@@ -75,7 +75,7 @@ void setRightMotorBw(int speed) {
 	if (DBG_LEVEL == 1) {
 		_DBG("Right MotorB: ");_DBD32(current_motor_speed_right);_DBG_("");
 	}
-	else {
+	if (DBG_LEVEL != 2) {
 		cmdRightMBw(current_motor_speed_right);
 	}
 }
