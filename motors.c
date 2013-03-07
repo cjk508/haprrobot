@@ -15,6 +15,11 @@ int getSpeedRight() {
   return current_motor_speed_right;
 }
 
+int isMovingForward() {
+  return (current_motor_dir_left && current_motor_dir_right)
+        && (current_motor_speed_left != 0 && current_motor_speed_right != 0)
+}
+
 int speedCheck(int speed) {
   speed = (speed < 0) ? 0 : speed;
 	return (speed > MAX_SPEED) ? MAX_SPEED : speed;
