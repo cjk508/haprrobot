@@ -166,29 +166,12 @@ void spinLeft();
 */
 
 void spinRight();
-/** removed as found new way of doing this
-* Spins Left for x seconds till it faces 90 degrees to its Left
-* Needed for line following
-*
-* @author Christopher King
-*
-*void Turn90Left();
-**
-* Spins Right for x seconds till it faces 90 degrees to its right
-* Needed for line following
-*
-* @author Christopher King
-*
-void Turn90Right();
-**
-* Spins 180 degrees so it is facing the way it came
-* Needed for line following
-*
-* @author Christopher King
-*
-void Turn180();
-*/
 
+/**
+* Jed's state machine
+*
+* @author Jed Warwick-Mooney
+*/
 void motorStateMachine(int state);
 
 #endif
