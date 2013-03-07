@@ -196,7 +196,7 @@ void spinRight();
 * @author Chris King
 *	@author Jed Warwick-Mooney
 * @param lm The value for the direction and speed of the left motor
-* @parma rm The value for the direction and speed of the right motor
+* @param rm The value for the direction and speed of the right motor
 */
 void resume(motorPair lm, motorPair rm);
 #endif

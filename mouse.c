@@ -199,10 +199,9 @@ int my_itoa(int val, char* buf)
 }
 
 void distanceMoved(int x, int y) {
-	int d;
-	d = ((x^2) + (y^2)); //pythagarus theorem used to work out overall distance moved from orignal start point
+	int d = ((x^2) + (y^2)); //pythagarus theorem used to work out overall distance moved from orignal start point
 	d = sqrt(d);
-	_DBG_("The coordiante position of the Polulo robot is: ( ";_DBD(x);_DBG_" , ";_DBD(y);_DBG_" )";
+	_DBG_("The coordiante position of the Polulo robot is: ( ");_DBD(x);_DBG_(" , ");_DBD(y);_DBG_(" )");
 	_DBG_("The total distance moved by the Polulu robot is: ");
 	_DBD(d); _DBG_("");
 }

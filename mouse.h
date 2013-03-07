@@ -46,7 +46,6 @@ void myspecialpoll();
 * 
 */
 void cb(uint8_t buttons, int8_t x, int8_t t);
-void turnRightTill90(int t);
 /**
 * Manipulates integers t and x using trigonometry, to work out the actual
 * distance travelled by the robot when it moves in an arc like way. 
@@ -140,7 +139,7 @@ void add_to_y(int8_t y);
 * @param y int
 * @return d - interger indicating the distance moved
 */
-int distanceMoved(int x, int y);
+void distanceMoved(int x, int y);
 
 /**
 * Translates an integer value to an ascii value 
