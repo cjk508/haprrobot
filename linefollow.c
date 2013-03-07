@@ -2,8 +2,10 @@
 #include "uart.h"
 #include "debug_frmwrk.h" 
 #include "linefollow.h"
+#include "environment.h"
 
 #define DBG_LEVEL 1
+//----------------------------------------------------------------
 uint32_t calibrateSensors(void)
 {
    if (DBG_LEVEL == 1)
@@ -20,13 +22,13 @@ uint32_t calibrateSensors(void)
   
   return status;
 }
-
+//----------------------------------------------------------------
 void getRawSensors(uint16_t*  sensorPattern)
 {
   cmdRawSens(sensorPattern);
 }
-
-void lineMotors()
+//----------------------------------------------------------------
+void followLine()
 {  if (DBG_LEVEL == 1)
     _DBG_("CALIB LINE");
   
@@ -40,5 +42,9 @@ void lineMotors()
   
   if (DBG_LEVEL == 1)  
     _DBG_("START MOVING"); 
+  while (checkForLine()) {
+    
+  }
+  cmdPIDstop();  
 }
-
+//----------------------------------------------------------------
