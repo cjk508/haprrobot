@@ -8,11 +8,9 @@
 #include "motors.h"
 
 const int r = 7;
-int32_t x_move;
-int32_t y_move;
 int32_t theta;
-int coord_x;
-int coord_y;
+int32_t coord_x;
+int32_t coord_y;
 int actTheta;
 // when the mouse moves slow enough it can detect 1000 points per 10cm, so 10000 = 1m
 void mouseinitial()
@@ -125,40 +123,38 @@ The Idea of this method is to work out how far the robot has moved with respect 
 	int x1 = hyp_1 * sin(th);// multiplies hyp_1 by the cosine of theta, to get an x value parrallel to the x axis of the overall coordinates
 	int y1 = hyp_1 * cos(th);// multiplies hyp_1 by the cosine of theta, to get an y value parrallel to the y axis of the overall coordinates
 	theta += th;// add t to theta so the angle the robot now faces is known
-	x_move += (x1 + x2);// add the values of x1 and x2 together so the overall parrallel movement with respect to the x axis is known
-	y_move += (y2 - y1);// minus y1 (from the lower triangle) from y2( from the upper triangle) where the difference is how far left or right the robot has moved with respect to the y axis
+	coord_x += (x1 + x2);// add the values of x1 and x2 together so the overall parrallel movement with respect to the x axis is known
+	coord_y += (y2 - y1);// minus y1 (from the lower triangle) from y2( from the upper triangle) where the difference is how far left or right the robot has moved with respect to the y axis
 }
 
-
-
 void attach() {
-	x_move = 0;
-	y_move = 0;
+	coord_x = 0;
+	coord_y = 0;
 	theta = 0;
 	_DBG_("I'm attached, YAY!");
 }
 
 void detach() {
 	_DBG_("I'm detached, BOO!");
-//	printToLCD();
+	distanceMoved(coord_x, coord_y);
 }
 
-int32_t get_x_move() {	
+int32_t get_coord_x() {	
 	//Returns the value of x_move
-	return x_move;
+	return coord_x;
 }
 
-int32_t get_y_move() {
+int32_t get_coord_y() {
 	//Returns the value of y_move
-	return y_move;
+	return coord_y;
 }
 
 void add_to_x(int8_t x) {
-	x_move += x * cos(theta); //x is multiplied by cos(theta) as direction the robot is facing can affect how far it actually moves along the x_axis
+	coord_x += x * cos(theta); //x is multiplied by cos(theta) as direction the robot is facing can affect how far it actually moves along the x_axis
 }
 
 void add_to_y(int8_t y) {
-	y_move += y * sin(theta);//y is multiplied by sin(theta) as direction the robot is facing can affect how far it actually moves along the y_axis
+	coord_y += y * sin(theta);//y is multiplied by sin(theta) as direction the robot is facing can affect how far it actually moves along the y_axis
 }
 
 /** @todo Is this alright? Code taken from http://code.google.com/p/my-itoa/, for ease of use and lack of time
@@ -202,19 +198,11 @@ int my_itoa(int val, char* buf)
     return len;
 }
 
-int distanceMoved(int x, int y) {
-	int d;
-	d = ((x^2) + (y^2)); //pythagarus theorem used to work out overall distance moved from orignal start point
+void distanceMoved(int x, int y) {
+	int d = ((x^2) + (y^2)); //pythagarus theorem used to work out overall distance moved from orignal start point
 	d = sqrt(d);
-	_DBG_("the Distance moved by the Polulu robot is: ");
+	_DBG_("The coordiante position of the Polulo robot is: ( ");_DBD(x);_DBG_(" , ");_DBD(y);_DBG_(" )");
+	_DBG_("The total distance moved by the Polulu robot is: ");
 	_DBD(d); _DBG_("");
-	return d;
-}
-
-void printToLCD() {
- 	int	distance = distanceMoved(coord_x, coord_y);
-	char buf[8];
-	my_itoa(distance, buf);
-	cmdLcdPrint(buf);
 }
 

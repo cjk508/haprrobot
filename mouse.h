@@ -10,8 +10,19 @@
 #define MOUSE
 
 #include "KeyboardHost.h"
-
+/**
+* Intialiases the mouse by linking the cb, attach, detach methods together and calling mouse_init
+*
+* @author Jed Warwick-Mooney
+*
+*/
 void mouseinitial();
+/**
+*	Called by timer.h to call mouse_poll() in mouse to save timer.c calling it as this caused problems
+*
+*	@author Chris King
+* @author Jed Warwick-Mooney
+*/
 
 void myspecialpoll();
 
@@ -35,7 +46,6 @@ void myspecialpoll();
 * 
 */
 void cb(uint8_t buttons, int8_t x, int8_t t);
-void turnRightTill90(int t);
 /**
 * Manipulates integers t and x using trigonometry, to work out the actual
 * distance travelled by the robot when it moves in an arc like way. 
@@ -54,7 +64,15 @@ void curve(int x);
 * @param r integer being the radius of the circle
 * @return th angle which the robot is facing
 */
-int32_t spin(int l, int r);
+int32_t thetaOfArc(int32_t l, int32_t r);
+/**
+* Takes an integer value and convertes it into centimeters 
+* 
+* @author Jed Warwick-Mooney
+* @param x integer to be converted
+* @return temp the resulting centimeter value
+*/
+int32_t converterForCm(int32_t x);
 
 /**
 * When USB mouse is attached to the integers 
@@ -121,7 +139,7 @@ void add_to_y(int8_t y);
 * @param y int
 * @return d - interger indicating the distance moved
 */
-int distanceMoved(int x, int y);
+void distanceMoved(int x, int y);
 
 /**
 * Translates an integer value to an ascii value 
@@ -133,7 +151,7 @@ int distanceMoved(int x, int y);
 int my_itoa(int val, char* buf) ;
 
 /**
-* Prints the distance the robot has moved from its start point
+* t
 * by calling distanceMoved(x, y) and sending the result to the LCD.
 * 
 * @author Jed Warwick-Mooney
