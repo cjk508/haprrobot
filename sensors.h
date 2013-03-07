@@ -17,7 +17,7 @@
 //Project Includes
 //----------------------------------------------------------------
 /**
-* @var frontIRQ_triggered Stores whether the frontIRQ has stopped the robot
+* Stores whether the frontIRQ has stopped the robot
 */
 int frontIRQ_triggered;
 /**
