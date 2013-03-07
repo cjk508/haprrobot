@@ -3,6 +3,7 @@
 #include "correctmotion.h"
 #include "sensors.h"
 #include "linefollow.h"
+#include "timer.h"
 
 int checkForLine() {
   uint16_t sensorPattern[5] = {0};
@@ -21,19 +22,39 @@ int checkForLine() {
     return 0;
 }
 
+void dockBySensorsAndLine() {
+  forwards(25);
+  delay(20);
+  brake();
+}
 
 int checkForWall() {
   SensorPair leftSensors = calibratedValuesLeft(getLeftSensorValues());
   SensorPair rightSensors = calibratedValuesRight(getRightSensorValues());  
+  int sensorSideFound = 0;
   if (leftSensors.FrontSensor < 40 || leftSensors.RearSensor < 40) {
     setSensorSide(1);
-    return 1;
+    sensorSideFound++;
   }
-  else if (rightSensors.FrontSensor < 40 || rightSensors.RearSensor < 40) {
+  if (rightSensors.FrontSensor < 40 || rightSensors.RearSensor < 40) {
     setSensorSide(0);  
-    return 1;
+    sensorSideFound++;
   }
-  return 0;
+  
+  switch (sensorSideFound) {
+    case 0: {
+      return 0;
+      break;
+    }
+    case 1: {
+      return 1;
+      break;
+    }    
+    case 2: {
+      return 2;
+      break;
+    }    
+  }
 }
 
 void trackByMouse() {

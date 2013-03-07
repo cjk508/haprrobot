@@ -26,9 +26,10 @@ void initTimers() {
 	_DBG_("TIMER SETUP");
 }
 
-int getLotsOfBlackTape()
-{
-  return lotsOfBlackTape;
+void delay(int time) {
+  int i = getLotsOfBlackTape();
+  while (i - getLotsOfBlackTape() == time) {
+  }
 }
 
 void TIMER0_IRQHandler() {

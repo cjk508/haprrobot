@@ -41,7 +41,13 @@ int getLotsOfBlackTape();
 * @author Jed Warwick-Mooney
 */
 void initTimers();
-
+/**
+* The timer over multiple interrupts
+*
+* @author Andrew Durant
+* @param time The length of time you wish to delay by
+*/
+void delay(int time);
 /**
 * The interrupt handler for the robots state machine
 *
