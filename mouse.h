@@ -45,6 +45,14 @@ int32_t thetaOfArc(int32_t l, int32_t r);
 int32_t converterForCm(int32_t x);
 
 /**
+* Clears the value of the integer given to it
+* 
+* @author Jed Warwick-Mooney
+* @param x the integer to be cleared
+*/
+void clearVal(int x);
+
+/**
 * Records what movement has occured in the robot on every interrupt.
 * A change in the t value only means the robot is spinning, the angle
 * the robot faces is worked out usnig the spin() method and returned to
@@ -63,13 +71,7 @@ int32_t converterForCm(int32_t x);
 * @param t int movement in the left or right direction
 * 
 */
-/**
-* Clears the value of the integer given to it
-* 
-* @author Jed Warwick-Mooney
-* @param x the integer to be cleared
-*/
-void clearVal(int x);
+
 void cb(uint8_t buttons, int8_t x, int8_t t);
 /**
 * Manipulates integers t and x using trigonometry, to work out the actual
