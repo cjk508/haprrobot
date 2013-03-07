@@ -36,6 +36,7 @@
 #include "motors.h"
 #include "correctmotion.h"
 #include "timer.h"
+#include "environment.h"
 
 // This is a file for your test functions
 #include "tests.c"
@@ -66,7 +67,7 @@ void delay(int time) {
 void doATest() {
   //cmdDoPlay("abcdefg>a");
   
-  lineMotors();
+  followLine();
 //  while(1) {
 //    sensorsTest();
 //  }
@@ -77,64 +78,6 @@ void doATest() {
 
 //  _DBG_("init mouse");
  // mouseinitial();
-}
-
-
-
-void trackMovement(int distance) {
-  /// @todo Take current value
-  
-  // Start moving
-  forwards(20);
-  
-  /// @todo Take value & check against distance
-  
-}
-
-void findAWall() {
-  /// @todo needs to be able to deal with not being near the wall
-  /// @todo needs to recognise that the wall might be directly in front.
-}
-
-void followWall() {
-  /// @todo correct motion allong wall until no more wall then get out! 
-}
-
-void updateMouse() {
-  /// @todo should take in location values
-  /// @todo move into mouse.c
-  /// @todo set location values because we know where we are
-}
-
-void findALine() {
-  /// @todo move to line follow
-  /// @todo implement this
-}
-
-void followToDock() {
-  /// @todo use functions from line following, lineFollow() until dock.
-}
-
-int checkForLine() {
-  uint16_t sensorPattern[5] = {0};
-  getRawSensors(&sensorPattern); // & is unnecessary we know... we are just being cautious
-  int i;
-  int isThereALine = 0;
-  
-  for (i = 0; i<5; i++) {
-    if (sensorPattern[i] == 2000)
-      isThereALine = 1;
-  }
-  if (isThereALine) {
-    return 1;
-  }
-  else
-    return 0;
-}
-
-int checkForWall() {
-  ///@todo get sensor values -> read the distance. If the distance is less than 40 then there is a wall. Set which side
-  
 }
 
 int doTheDemo() { 
@@ -158,20 +101,20 @@ int doTheDemo() {
   if (currentState > -1) { // should never be -1 but if it is we have some problems
     switch (currentState) {
       
-      case 0: { //Wall found... follow it
-        
+      case 0: { // Woop I've found a line
+        followLine(); ///@todo how do I know when to stop... where all the line gone?
         break;
       }
-      case 1: { // Woop I've found a line
-      
+      case 1: { //Wall found... follow it
+        correctForwardMotion(); //looped by state machine
         break;
       }
       case 2: {// No Wall found track movement with mouse
-
+        trackByMouse();
         break;
       }
       default: {  // should never reach but if it does then track movement with mouse
-      
+        currentState = 2;
       }  
     }
     return 1;
@@ -226,9 +169,41 @@ void main(void) {
   
   findALine();
   
-  followToDock();*/
+  followToDock();
 
+void trackMovement(int distance) {
+  /// @todo Take current value
+  
+  // Start moving
+  forwards(20);
+  
+  /// @todo Take value & check against distance
+  
+}
 
+void findAWall() {
+  /// @todo needs to be able to deal with not being near the wall
+  /// @todo needs to recognise that the wall might be directly in front.
+}
+
+void followWall() {
+  /// @todo correct motion allong wall until no more wall then get out! 
+}
+
+void updateMouse() {
+  /// @todo should take in location values
+  /// @todo move into mouse.c
+  /// @todo set location values because we know where we are
+}
+
+void findALine() {
+  /// @todo move to line follow
+  /// @todo implement this
+}
+
+void followToDock() {
+  /// @todo use functions from line following, lineFollow() until dock.
+}*/
 
 
 
