@@ -42,9 +42,7 @@ void setLeftMotorFw(int speed) {
 	if (DBG_LEVEL >= 1) {
 	  _DBG("Left MotorF: ");_DBD32(current_motor_speed_left);_DBG_("");
 	}
-	if (DBG_LEVEL != 2) {
-	  cmdLeftMFw(current_motor_speed_left);
-	}
+	//cmdLeftMFw(current_motor_speed_left);
 }
 void setLeftMotorBw(int speed) {
   if (frontIRQ_triggered) return;
@@ -53,9 +51,7 @@ void setLeftMotorBw(int speed) {
 	if (DBG_LEVEL >= 1) {
 	  _DBG("Left MotorB: ");_DBD32(current_motor_speed_left);_DBG_("");
   }
-  if (DBG_LEVEL != 2) {
-    cmdLeftMBw(current_motor_speed_left);
-  }
+  //cmdLeftMBw(current_motor_speed_left);
 }
 
 void setRightMotorFw(int speed) {
@@ -65,9 +61,7 @@ void setRightMotorFw(int speed) {
 	if (DBG_LEVEL >= 1) {
 		_DBG("Right MotorF: ");_DBD32(current_motor_speed_right);_DBG_("");
   }
-  if (DBG_LEVEL != 2) {
-    cmdRightMFw(current_motor_speed_right);
-  }
+  //cmdRightMFw(current_motor_speed_right);
 }
 void setRightMotorBw(int speed) {
   if (frontIRQ_triggered) return;
@@ -76,9 +70,7 @@ void setRightMotorBw(int speed) {
 	if (DBG_LEVEL >= 1) {
 		_DBG("Right MotorB: ");_DBD32(current_motor_speed_right);_DBG_("");
 	}
-	if (DBG_LEVEL != 2) {
-		cmdRightMBw(current_motor_speed_right);
-	}
+  //cmdRightMBw(current_motor_speed_right);
 }
 
 void setMotorsFw(int lm, int rm) {

@@ -28,15 +28,22 @@ void setSensorSide(int setSide) {
 */
 void correctForwardMotion() {
   //Get an initial value
-  SensorPair left = calibratedValuesLeft(getLeftSensorValues());
-  SensorPair right = calibratedValuesRight(getRightSensorValues());
-
+  _DBG_("In cfm");
+  SensorPair left = getLeftSensorValues();
+  _DBG_("Got Left");
+  SensorPair right = getRightSensorValues();
+  _DBG_("Got Right");
+  left = calibratedValuesLeft(left);
+  _DBG_("Cal Left");
+  right = calibratedValuesRight(right);
+  
   /**
   * Compare the two sets of values, and decide
   * whether an adjustment left or right is needed
   *
   * Now measured in cm meaning that larger value is, as per normal, further away
   */
+  _DBD(sensorSide);_DBG_(" - sensorside");
   if (sensorSide) {
     if (left.FrontSensor > left.RearSensor) {
     //If using left and moving away from an object, turn left (move closer a bit)
