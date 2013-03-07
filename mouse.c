@@ -158,7 +158,9 @@ int distanceMoved(int x, int y) {
 	_DBD(d); _DBG_("");
 	return d;
 }
-/* Code taken from http://code.google.com/p/my-itoa/, for ease of use and lack of time*/
+/** @todo Is this alright? Code taken from http://code.google.com/p/my-itoa/, for ease of use and lack of time
+*   @todo If not using in group project remove. Pop in indivual side if you want to use it.
+*/
 int my_itoa(int val, char* buf)
 {
     const unsigned int radix = 10; // sets the base of the output
