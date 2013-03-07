@@ -48,48 +48,11 @@ void overflowProtection(int8_t x, int8_t t)
 		resume(TrightMotorValues, TleftMotorValues);
 	}
 }
-void cb(uint8_t buttons, int8_t x, int8_t t) {
-/**
-* @todo put some form of overflow protection to make sure that we are getting fairly accurate results.
-*/
-	
-	//if there is a change in the t value only then the robot is spinning;
-	if(t != 0 && x == 0) {
-		overflowProtection(0, t);
-		_DBG_("Theta has changed by: ");
-		_DBD32(t);
-		_DBG_("");
-		//int32_t spinVal = spin(t, r);
-		theta = theta + t; 
-		_DBG_("Value of theta is: ");
-		_DBD32(theta);
-		_DBG_("\n");
-	}
-	
-	//If there is a change in the x value only then the robot is moving forward;
-	if(x != 0 && t == 0) {
-		overflowProtection(x, 0);
-		//_DBG_("The Mouse has moved Forward/Backward by: ");
-		//_DBD32(x);
-		//add_to_x(x);
-		//add_to_y(x);
-		//_DBG_("Value of x_move is: ");
-		//_DBD32(x_move);
-		//_DBG_("\n");
-	}
 
-	if(t != 0 && x != 0) {
-		overflowProtection(x, t);
-		//_DBG_("Moving in a curve");
-		//curve(x);
-		//_DBG_("Value of x_move is: ");
-		//_DBD32(x_move);
-  	//_DBG_("Value of y_move is: ");
-		//_DBD32(y_move);
-		//_DBG_("\n");
-	}
+int32_t thetaOfArc(int32_t l, int32_t r) {
+	int32_t th = l/r;
+	return th;
 }
-
 
 void converterForTheta() {
 	if(theta>0){
@@ -102,35 +65,71 @@ void converterForTheta() {
 		while(theta<(-4)){
 			theta = theta + 4;
 			actTheta-=1;
-		}
+		}	
 	}
 }
 
-int converterForCm(int x) {
-	x = x/100;
-	return x;
+int32_t converterForCm(int32_t x) {
+	int32_t temp = x/100;
+	if(x%100 > 49) temp += 1;
+	return temp;
+}
+
+void cb(uint8_t buttons, int8_t x, int8_t t) {
+/**
+* @todo put some form of overflow protection to make sure that we are getting fairly accurate results.
+*/
+	
+	//if there is a change in the t value only then the robot is spinning;
+	if(t != 0 && x == 0) {
+	int32_t tempt = 0;
+		while(t != 0 && x == 0) {
+			overflowProtection(x, 0);
+			tempt += t;
+		}
+		int32_t spinVal = thetaOfArc(converterForCm(tempt), r);
+		theta = theta + spinVal; 
+	}
+	
+	//If there is a change in the x value only then the robot is moving forward;
+	if(x != 0 && t == 0) {
+	int32_t tempx = 0;
+		while(t == 0 && x != 0) {
+			overflowProtection(x, 0);
+			tempx += x;
+		}
+		x = converterForCm(tempx);
+		add_to_x(x);
+		add_to_y(x);
+	}
+
+	if(t != 0 && x != 0) {
+	int32_t tempx = 0;
+		while(t != 0 && x != 0) {
+			overflowProtection(x, t);
+			tempx += x;
+		}
+		curve(tempx);
+	}
 }
 
 void curve(int x) {
 /**
 The Idea of this method is to work out how far the robot has moved with respect to the x and y axis coordinates.
 */
-	int t = spin(converterForCm(x), r); // gives us an angle theta, from the length of the arc traversed, x, and the constant, r, where r is the radius of a circle.
-	int hyp_2 = sin(t) * r; // gets sin(t) and multiplies it by r to get the hypotenuse, hyp_2, of the upper triangle 
-	int x2 = hyp_2 * cos(t); // multiplies hyp_2 by the cosine of theta, to get an x value parrallel to the x axis of the overall coordinates
-	int y2 = hyp_2 * sin(t); // multiplies hyp_2 by the sine of theta, to get an y value parrallel to the y axis of the overall coordinates
-	int hyp_1 = r - (cos(t) * r); // gets cos(t) multplies it by r, then minusing r from the result of the multiplication to get the hypotenuse, hyp_1, of the lower triangle 
-	int x1 = hyp_1 * sin(t);// multiplies hyp_1 by the cosine of theta, to get an x value parrallel to the x axis of the overall coordinates
-	int y1 = hyp_1 * cos(t);// multiplies hyp_1 by the cosine of theta, to get an y value parrallel to the y axis of the overall coordinates
-	theta += t;// add t to theta so the angle the robot now faces is known
+	int32_t th = thetaOfArc(converterForCm(x), r); // gives us an angle theta, from the length of the arc traversed, x, and the constant, r, where r is the radius of a circle.
+	int hyp_2 = sin(th) * r; // gets sin(th) and multiplies it by r to get the hypotenuse, hyp_2, of the upper triangle 
+	int x2 = hyp_2 * cos(th); // multiplies hyp_2 by the cosine of theta, to get an x value parrallel to the x axis of the overall coordinates
+	int y2 = hyp_2 * sin(th); // multiplies hyp_2 by the sine of theta, to get an y value parrallel to the y axis of the overall coordinates
+	int hyp_1 = r - (cos(th) * r); // gets cos(th) multplies it by r, then minusing r from the result of the multiplication to get the hypotenuse, hyp_1, of the lower triangle 
+	int x1 = hyp_1 * sin(th);// multiplies hyp_1 by the cosine of theta, to get an x value parrallel to the x axis of the overall coordinates
+	int y1 = hyp_1 * cos(th);// multiplies hyp_1 by the cosine of theta, to get an y value parrallel to the y axis of the overall coordinates
+	theta += th;// add t to theta so the angle the robot now faces is known
 	x_move += (x1 + x2);// add the values of x1 and x2 together so the overall parrallel movement with respect to the x axis is known
 	y_move += (y2 - y1);// minus y1 (from the lower triangle) from y2( from the upper triangle) where the difference is how far left or right the robot has moved with respect to the y axis
 }
 
-int32_t spin(int l, int r) {
-	int th = l/r;
-	return th;
-}
+
 
 void attach() {
 	x_move = 0;
@@ -162,14 +161,6 @@ void add_to_y(int8_t y) {
 	y_move += y * sin(theta);//y is multiplied by sin(theta) as direction the robot is facing can affect how far it actually moves along the y_axis
 }
 
-int distanceMoved(int x, int y) {
-	int d;
-	d = ((x^2) + (y^2)); //pythagarus theorem used to work out overall distance moved from orignal start point
-	d = sqrt(d);
-	_DBG_("the Distance moved by the Polulu robot is: ");
-	_DBD(d); _DBG_("");
-	return d;
-}
 /** @todo Is this alright? Code taken from http://code.google.com/p/my-itoa/, for ease of use and lack of time
 *   @todo If not using in group project remove. Pop in indivual side if you want to use it.
 */
@@ -211,9 +202,16 @@ int my_itoa(int val, char* buf)
     return len;
 }
 
+int distanceMoved(int x, int y) {
+	int d;
+	d = ((x^2) + (y^2)); //pythagarus theorem used to work out overall distance moved from orignal start point
+	d = sqrt(d);
+	_DBG_("the Distance moved by the Polulu robot is: ");
+	_DBD(d); _DBG_("");
+	return d;
+}
+
 void printToLCD() {
- 	int x = get_x_move();
-	int y = get_y_move();
  	int	distance = distanceMoved(coord_x, coord_y);
 	char buf[8];
 	my_itoa(distance, buf);
