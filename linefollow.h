@@ -13,7 +13,7 @@
  *
  *  @author Christopher King <cjk508@york.ac.uk>
  */
-void calibrateSensors(void)
+uint32_t calibrateSensors(void)
 //----------------------------------------------------------------
 /**
 *	Main function which follows the line and analyses what it finds
