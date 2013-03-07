@@ -8,6 +8,22 @@
 *	@date:	27 February 2013
 *
 ***************************************************************/							      
+/**
+* Gets the side that the sensor should use
+*
+* @author Christopher King
+* @author Andrew Durant
+* @return returns the sensor side
+*/
+int getSensorSide();
+/**
+* Sets the side that the sensor should use
+*
+* @author Christopher King
+* @author Andrew Durant
+* @param setSide The sensor side to set
+*/
+void setSensorSide(int setSide);
 
 /**
 * Compares the current motor speeds and sensor values

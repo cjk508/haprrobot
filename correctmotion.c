@@ -8,6 +8,16 @@
 // 2 - Verbose
 #define DBG_LEVEL 2
 
+int sensorSide; //1 = left, 0 = right
+
+int getSensorSide() {
+  return sensorSide;
+}
+
+void setSensorSide(int setSide) {
+  sensorSide = setSide;
+}
+
 /**
 * Reads in side sensor values, and will automatically adjust with the intention
 * of eventually moving parallel to the nearest object.
@@ -20,22 +30,6 @@ void correctForwardMotion() {
   //Get an initial value
   SensorPair left = calibratedValuesLeft(getLeftSensorValues());
   SensorPair right = calibratedValuesRight(getRightSensorValues());
-  
-  int use_left; //1 = left, 0 = right
-
-  /**
-  * Comparing the sets of values, choose either left or right
-  * as a calibration pair - the closest one preferably
-  * A higher sensor value means closer to an object
-  */
-  if (left.FrontSensor + left.RearSensor <=
-        right.FrontSensor + right.RearSensor) {
-    //The Left is closer to something, use that
-    use_left = 1;
-  } else {
-    //The Right is closer to something, use that
-    use_left = 0;
-  }
 
   /**
   * Compare the two sets of values, and decide
@@ -43,7 +37,7 @@ void correctForwardMotion() {
   *
   * Now measured in cm meaning that larger value is, as per normal, further away
   */
-  if (use_left) {
+  if (sensorSide) {
     if (left.FrontSensor > left.RearSensor) {
     //If using left and moving away from an object, turn left (move closer a bit)
       //Slow down left
@@ -69,7 +63,7 @@ void correctForwardMotion() {
       }
     }
   }
-  else if (!use_left) {
+  else if (!sensorSide) {
     if (right.FrontSensor < right.RearSensor) {
     //If using right and moving toward an object, turn left (move away a bit)
       //Speed up right

@@ -5,8 +5,8 @@
  * @version: V0.6
  * @date:    03 March 2013
  ******************************************************************************/
-#ifndef LINE_FOLLOW
-#define LINE_FOLLOW
+#ifndef LINE_INC
+#define LINE_INC
 //----------------------------------------------------------------
 /**
  *  This function should calibrate the line following sensors.
@@ -24,11 +24,11 @@ uint32_t calibrateSensors(void);
 void getRawSensors(uint16_t* sensorPattern);
 //----------------------------------------------------------------
 /**
-*	Main function which follows the line and analyses what it finds
+*	Main function which follows the line
 *
 * @author Christopher King <cjk508@york.ac.uk>
 */
-void lineMotors();
+void followLine();
 
 #endif
 
