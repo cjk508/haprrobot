@@ -14,6 +14,7 @@ void calibrateSensors(void)
  /*this automatically calibrates the line following sensors. It scans left and 
   right in an attempt to find the line. This should be called when the raw sensors
   indicate that a line is present under the robot.*/
+  _DBG_("send command");  
   uint32_t status = cmdAutoCal();
   
   if (status == 1) 
@@ -24,10 +25,7 @@ void calibrateSensors(void)
 
 void getRawSensors(uint16_t*  sensorPattern)
 {
-  _DBG_("attempt to get sensor values");
   uint32_t status = cmdRawSens(sensorPattern);
-  patternNormaliser(sensorPattern);
-  _DBG_("Got sensor values");  
 }
 void getCalibratedSensors(uint16_t* sensorPattern)
 {
@@ -51,55 +49,12 @@ void getCalibratedSensors(uint16_t* sensorPattern)
 void lineMotors()
 {
   uint16_t sensorPattern[5] = {0};
-  forwards(25);
-  while(junctionFound == 0)
-  {
-    lineFollowForward(sensorPattern);
-    getRawSensors(sensorPattern);
-    if((sensorPattern[0] == 1)||(sensorPattern[4] == 1))
-      junctionFound = 1;
-  }
-  brake();
-  intersection_enum junctionType = analyseJunction(sensorPattern);
-  switch(junctionType)
-  {
-    case LEFT:{
-        _DBG_("LEFT");
-        lineSpinLeft(sensorPattern);
-        break;
-      }
-    case RIGHT:{
-        _DBG_("RIGHT");
-        lineSpinRight(sensorPattern);
-        break;
-      }
-    case LEFT_STRAIGHT:{
-        _DBG_("LEFT_STRAIGHT");
-        lineSpinLeft(sensorPattern); // or forwards depending on previous moves
-        break;
-      }
-    case RIGHT_STRAIGHT:{
-        _DBG_("RIGHT_STRAIGHT");
-        lineSpinRight(sensorPattern); // or forwards depending on previous moves
-        break;
-      }
-    case CROSSROAD:{
-        _DBG_("CROSSROAD");
-        lineSpinLeft(sensorPattern); // or right or forwards depending on previous moves
-        break;
-      }
-    case LEFT_RIGHT:{
-        _DBG_("LEFT_RIGHT");
-        lineSpinLeft(sensorPattern); // or right depending on previous moves
-        break;
-      }
-    case DEAD_END:{
-        _DBG_("DEAD_END");
-        lineSpinLeft(sensorPattern);
-        break;
-      }
-    case NONE: break;
-  }
+  _DBG_("CALIB LINE");
+  calibrateSensors();  
+  _DBG_("START LINE FOLLOWING");
+  uint8_t sequence[] = {35, 45 , 35, 35 ,45}; 
+  cmdPIDstart(sequence);	
+  _DBG_("START MOVING"); 
 }
 
 void patternNormaliser(uint16_t* sensorPattern)

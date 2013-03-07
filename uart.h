@@ -130,7 +130,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  * @author Andrew Durant
  * @return uint32_t status - 0 if ok, !0 if fail
  */
-//void cmdRstCal();
+void cmdRstCal();
 
 /*
  * Reads all five IR sensors using calibrated
@@ -146,7 +146,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  * @param address to write to @todo not sure at the moment (2)
  * @return uint32_t status - 0 if ok, !0 if fail
  */
-//uint32_t cmdLinePos();
+uint32_t cmdLinePos(uint16_t *linePos);
 
 /**
  * Clears the LCD screen on the 3pi.
@@ -203,7 +203,7 @@ uint32_t cmdAutoCal();
  * @param @todo not sure at the moment (5)
  * @return uint32_t status
  */
-//uint32_t cmdPIDstart();
+uint32_t cmdPIDstart(uint8_t *data);
 
 /*
  * Stops PID line following, setting motor speeds to 0.
@@ -211,7 +211,7 @@ uint32_t cmdAutoCal();
  * @author Andrew Durant
  * @return uint32_t status
  */
-//uint32_t cmdPIDstop();
+uint32_t cmdPIDstop();
 
 /**
  * Sets motor M1 turning forward with a speed of
