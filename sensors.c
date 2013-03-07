@@ -210,8 +210,8 @@ void initSensors()
 void EINT0_IRQHandler() {
   //Check if this is "something in the way" or "nothing in the way, actually"
   if (getFrontSensorValue() && isMovingForward()) {
-    frontIRQ_triggered = 1;
     brake();
+    frontIRQ_triggered = 1;
   } else {
     if (frontIRQ_triggered) {
       frontIRQ_triggered = 0;
