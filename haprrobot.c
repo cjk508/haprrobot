@@ -50,8 +50,8 @@ void initialise() {
   //initSensors();
   // Even tho this is a test it needs to run so that the serial is set up properly
   serialTest(); 
-  initTimers();
-  mouseinitial();  
+  //initTimers();
+  //mouseinitial();  
 	_DBG_("I've completed"); 
 
 }
@@ -64,8 +64,9 @@ void delay(int time) {
 
 
 void doATest() {
-//  cmdDoPlay("abcdefg>a");
-  lineMotors();
+  cmdDoPlay("abcdefg>a");
+  
+//  lineMotors();
 //  while(1) {
 //    sensorsTest();
 //  }
@@ -75,7 +76,7 @@ void doATest() {
 //  motorCorrectTest();
 
 //  _DBG_("init mouse");
- // mouseinitial(); 
+ // mouseinitial();
 }
 
 

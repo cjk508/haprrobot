@@ -1,5 +1,6 @@
 //----------------------------------------------------------------
 #include "sensors.h"
+#include "motors.h"
 #include "debug_frmwrk.h"
 //----------------------------------------------------------------
 //constants
@@ -11,6 +12,7 @@ const unsigned long frontSensor = 1<<17; //this was 17 on robot 5
 int analogSensorPins[] = {23, 24, 25, 30}; // FL, BL, BR, FR
 //int analogSensorPins[] = {25, 26, 23, 24}; // FL, BL, BR, FR
 uint32_t currentReadings[] = {0,0,0,0,0}; // initialised readings
+int frontIRQ_triggered = 0;
 //----------------------------------------------------------------
 SensorPair roundingValues(SensorPair sensorValue)
 {
@@ -185,7 +187,9 @@ void initSensors()
 	pinConfSetup(PINSEL_PORT_0, analogSensorPins[2], PINSEL_FUNC_1, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL);	//BR - 25
 	pinConfSetup(PINSEL_PORT_1, analogSensorPins[3], PINSEL_FUNC_3, PINSEL_PINMODE_PULLUP,PINSEL_PINMODE_NORMAL); //FR - 30
 	// sets the direction of the GPIO pin and clears the value.
-	GPIO_SetDir(0, frontSensor, 0); /**@todo check that this initialisation is correct. If it is then get help*/
+	GPIO_SetDir(0, frontSensor, 0);
+	GPIO_IntCmd(0, frontSensor, 1);
+	NVIC_EnableIRQ(EINT0_IRQn);
 	// Set up the ADC sampling at 200kHz (maximum rate).
 	ADC_Init(LPC_ADC, 200000);
 
@@ -203,3 +207,17 @@ void initSensors()
 	//Interrupts not needed as sensor readings are provided when requested.
 }
 //----------------------------------------------------------------
+void EINT0_IRQHandler() {
+  //Check if this is "something in the way" or "nothing in the way, actually"
+  if (getFrontSensorValue() && isMovingForward()) {
+    brake();
+    cmdDoPlay("B");
+    frontIRQ_triggered = 1;
+  } else {
+    if (frontIRQ_triggered) {
+      frontIRQ_triggered = 0;
+      cmdDoPlay("C");
+      forwards(25);
+    }
+  }
+}

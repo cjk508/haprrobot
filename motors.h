@@ -39,6 +39,13 @@ motorPair getSpeedRight();
 
 
 /**
+* Returns 1 if the robot is moving forwards, 0 otherwise
+*
+* @author Lloyd Wallis <lpw503@york.ac.uk>
+* @return If the robot is doing a forward
+*/
+int isMovingForward();
+/**
  * Restricts the max speed to the constant MAX_SPEED
  *
  * @author Jed Warwick-Mooney

@@ -17,6 +17,10 @@
 //Project Includes
 //----------------------------------------------------------------
 /**
+* Stores whether the frontIRQ has stopped the robot
+*/
+int frontIRQ_triggered;
+/**
 * @brief Sensor return type, contains 2 integers FrontSensor and RearSensor
 *
 * This struct is the return value of the get sensor function
@@ -106,8 +110,17 @@ void initSensors();
 * it is then converted and sent to a dummy USB terminal. This is here purely for testing,
 * it will not be part of the final program.
 *
-* @author Christopher King <cjk508@york.ac.uk>.
+* @author Christopher King <cjk508@york.ac.uk>
 */
 void ADC_IRQHandler();
 //----------------------------------------------------------------
+/**
+* This interrupt is called whenever the value of the front sensor
+* changes. The front sensor reports either "nothing there" or "something there"
+* This will slow down and stop the robot if something is in the way
+* Or start moving again if previously stopped
+*
+* @author Lloyd Wallis <lpw503@york.ac.uk>
+*/
+void EINT0_IRQHandler();
 #endif

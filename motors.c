@@ -1,4 +1,5 @@
 #include "motors.h"
+#include "sensors.h"
 #include "timer.h"
 #include "uart.h"
 #include "debug_frmwrk.h" 
@@ -23,18 +24,25 @@ motorPair getSpeedRight() {
   return motorValues;
 }
 
+int isMovingForward() {
+  return (current_motor_dir_left && current_motor_dir_right)
+        && (current_motor_speed_left != 0 && current_motor_speed_right != 0);
+}
+
 int speedCheck(int speed) {
   speed = (speed < 0) ? 0 : speed;
 	return (speed > MAX_SPEED) ? MAX_SPEED : speed;
 }
 
 void setLeftMotorFw(int speed) {
+  if (frontIRQ_triggered) return;
   current_motor_dir_left = 1;
 	current_motor_speed_left = speedCheck(speed);
 	_DBG("Left MotorF: ");_DBD32(current_motor_speed_left);_DBG_("");
 //	cmdLeftMFw(current_motor_speed_left);
 }
 void setLeftMotorBw(int speed) {
+  if (frontIRQ_triggered) return;
   current_motor_dir_left = 0;
 	current_motor_speed_left = speedCheck(speed);
 	_DBG("Left MotorB: ");_DBD32(current_motor_speed_left);_DBG_("");
@@ -42,12 +50,14 @@ void setLeftMotorBw(int speed) {
 }
 
 void setRightMotorFw(int speed) {
+  if (frontIRQ_triggered) return;
   current_motor_dir_right = 1;
 	current_motor_speed_right = speedCheck(speed);
 	_DBG("Right MotorF: ");_DBD32(current_motor_speed_right);_DBG_("");
 //	cmdRightMFw(current_motor_speed_right);
 }
 void setRightMotorBw(int speed) {
+  if (frontIRQ_triggered) return;
   current_motor_dir_right = 0;
 	current_motor_speed_right = speedCheck(speed);
 	_DBG("Right MotorB: ");_DBD32(current_motor_speed_right);_DBG_("");
