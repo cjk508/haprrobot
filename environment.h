@@ -20,6 +20,8 @@ int checkForLine();
 */
 int checkForWall();
 
+void dockBySensorsAndLine();
+
 void trackByMouse();
 
 #endif

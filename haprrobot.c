@@ -58,28 +58,20 @@ void initialise() {
 
 }
 
-void delay(int time) {
-  int i = getLotsOfBlackTape();
-  while (i - getLotsOfBlackTape() == time) {
-  }
-}
-
-
 void doATest() {
   cmdDoPlay("abcdefg>a");
   forwards(25);
   while (1) {
   
   }
-  
-  //followLine();
+ //followLine();
 //  while(1) {
 //    sensorsTest();
 //  }
   
 //  linefollowTest();    
 
-//  motorCorrectTest();
+  motorCorrectTest();
 
 //  _DBG_("init mouse");
  // mouseinitial();
@@ -94,7 +86,11 @@ int doTheDemo() {
   int currentState = -1;
   
   if(checkForLine()) {
-    currentState = 0;
+    if (checkForWall() == 2) {
+      currentState = 3;
+    }
+    else
+      currentState = 0;
   }
   else if(checkForWall()) {
     currentState = 1;
@@ -116,6 +112,10 @@ int doTheDemo() {
       }
       case 2: {// No Wall found track movement with mouse
         trackByMouse();
+        break;
+      }
+      case 3: {// Walls and lines on both sides
+        dockBySensorsAndLine();
         break;
       }
       default: {  // should never reach but if it does then track movement with mouse
