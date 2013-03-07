@@ -7,12 +7,13 @@
 #include <stdlib.h>
 #include "motors.h"
 
-const int r = 1;
+const int r = 7;
 int32_t x_move;
 int32_t y_move;
 int32_t theta;
 int coord_x;
 int coord_y;
+int actTheata;
 // when the mouse moves slow enough it can detect 1000 points per 10cm, so 10000 = 1m
 void mouseinitial()
 {
@@ -51,9 +52,10 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 /**
 * @todo put some form of overflow protection to make sure that we are getting fairly accurate results.
 */
-	overflowProtection(x, t);
+	
 	//if there is a change in the t value only then the robot is spinning;
 	if(t != 0 && x == 0) {
+		overflowProtection(0, t);
 		_DBG_("Theta has changed by: ");
 		_DBD32(t);
 		_DBG_("");
@@ -62,11 +64,11 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 		_DBG_("Value of theta is: ");
 		_DBD32(theta);
 		_DBG_("\n");
-		turnRightTill90(theta);
 	}
 	
 	//If there is a change in the x value only then the robot is moving forward;
 	if(x != 0 && t == 0) {
+		overflowProtection(x, 0);
 		//_DBG_("The Mouse has moved Forward/Backward by: ");
 		//_DBD32(x);
 		//add_to_x(x);
@@ -77,6 +79,7 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 	}
 
 	if(t != 0 && x != 0) {
+		overflowProtection(x, t);
 		//_DBG_("Moving in a curve");
 		//curve(x);
 		//_DBG_("Value of x_move is: ");
@@ -87,23 +90,30 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 	}
 }
 
-void turnRightTill90(int t) {
-	if(t < 300){
-	spinRight();
+
+void converterForTheta() {
+	if(theta>0){
+		while(theta>4){
+			theta = theta - 4;
+			actTheta+=1;
+		}
+	else {
+		while(theta<(-4)){
+			theta = theta + 4;
+			actTheta-=1;
 	}
-	brake();
 }
 
-void converter() {
-	coord_x = x_move/100;
-	coord_y = y_move/100;
+int converterForCm(int x) {
+	x = x/100;
+	return x;
 }
 
 void curve(int x) {
 /**
 The Idea of this method is to work out how far the robot has moved with respect to the x and y axis coordinates.
 */
-	int t = spin(x, r); // gives us an angle theta, from the length of the arc traversed, x, and the constant, r, wKolkatahere r is the radius of a circle.
+	int t = spin(converterForCm(x), r); // gives us an angle theta, from the length of the arc traversed, x, and the constant, r, where r is the radius of a circle.
 	int hyp_2 = sin(t) * r; // gets sin(t) and multiplies it by r to get the hypotenuse, hyp_2, of the upper triangle 
 	int x2 = hyp_2 * cos(t); // multiplies hyp_2 by the cosine of theta, to get an x value parrallel to the x axis of the overall coordinates
 	int y2 = hyp_2 * sin(t); // multiplies hyp_2 by the sine of theta, to get an y value parrallel to the y axis of the overall coordinates
