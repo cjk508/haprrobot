@@ -143,14 +143,6 @@ void right();
 void left();
 
 /**
- * Sets all motors to low (forwards and backwards)
- * This allows the robot to freewheel
- *
- * @author Andrew Durant
- */
-void freewheel();
-
-/**
  * Sets all motors to high (forwards and backwards)
  * This stops it from freewheeling at all
  *

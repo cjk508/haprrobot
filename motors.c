@@ -90,12 +90,8 @@ void left() {
 	//setMotors(0, 25);
 }
 
-void freewheel() {
-	setMotorsFw(0, 0);
-}
-
 void brake() {
-  freewheel();
+  setMotorsFw(0, 0);
 }
 
 void spinLeft() {
@@ -110,7 +106,7 @@ void spinRight() {
 
 void resume(motorPair lm, motorPair rm) {
 	if (lm.motor_speed == 0 && rm.motor_speed == 0) {
-		freewheel();
+		brake();
 	}
 	if(lm.motor_dir == 1 ) {
 		setLeftMotorFw(lm.motor_speed);
