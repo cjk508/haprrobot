@@ -13,7 +13,7 @@ int32_t y_move;
 int32_t theta;
 int coord_x;
 int coord_y;
-int actTheata;
+int actTheta;
 // when the mouse moves slow enough it can detect 1000 points per 10cm, so 10000 = 1m
 void mouseinitial()
 {
@@ -97,10 +97,12 @@ void converterForTheta() {
 			theta = theta - 4;
 			actTheta+=1;
 		}
+	}
 	else {
 		while(theta<(-4)){
 			theta = theta + 4;
 			actTheta-=1;
+		}
 	}
 }
 

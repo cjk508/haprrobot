@@ -64,9 +64,9 @@ void delay(int time) {
 
 
 void doATest() {
-  cmdDoPlay("abcdefg>a");
+  //cmdDoPlay("abcdefg>a");
   
-//  lineMotors();
+  lineMotors();
 //  while(1) {
 //    sensorsTest();
 //  }
@@ -154,7 +154,7 @@ int doTheDemo() {
   */
   int currentState = -1;
   
-  if(checkForLine()) {
+  /*if(checkForLine()) {
     currentState = 0;
   }
   else if(checkForWall()) {
@@ -163,7 +163,7 @@ int doTheDemo() {
   else {
     currentState = 2;
   }
-  
+  */
   if (currentState > -1) { // should never be -1 but if it is we have some problems
     switch (currentState) {
       
