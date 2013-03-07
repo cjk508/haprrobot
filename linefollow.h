@@ -13,7 +13,7 @@
  *
  *  @author Christopher King <cjk508@york.ac.uk>
  */
-uint32_t calibrateSensors(void)
+uint32_t calibrateSensors(void);
 //----------------------------------------------------------------
 /**
 *	returns the raw sensor values of the line sensors
