@@ -67,14 +67,14 @@ void delay(int time) {
 void doATest() {
   //cmdDoPlay("abcdefg>a");
   
-  followLine();
+ //followLine();
 //  while(1) {
 //    sensorsTest();
 //  }
   
 //  linefollowTest();    
 
-//  motorCorrectTest();
+  motorCorrectTest();
 
 //  _DBG_("init mouse");
  // mouseinitial();
