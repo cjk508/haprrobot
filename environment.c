@@ -57,5 +57,38 @@ int checkForWall() {
   }
 }
 
-void trackByMouse() {
+void setTrackingPosition(int pos) {
+  trackingPosition = pos;
 }
+
+void trackByMouse() {
+  
+  switch (trackingPosition) {
+    case 0: {
+//      trackDistance(2000,0);
+      break;
+    }
+    case 1: {
+//      trackDistance(2000,2000);
+      break;
+    }    
+    case 2: {
+//      trackDistance(500,-1000);
+      break;
+    }    
+  }
+  
+  
+  
+}
+
+
+
+
+
+
+
+
+
+
+
