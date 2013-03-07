@@ -1,5 +1,6 @@
 //----------------------------------------------------------------
 #include "sensors.h"
+#include "motors.h"
 #include "debug_frmwrk.h"
 //----------------------------------------------------------------
 //constants
@@ -188,7 +189,7 @@ void initSensors()
 	// sets the direction of the GPIO pin and clears the value.
 	GPIO_SetDir(0, frontSensor, 0);
 	GPIO_IntCmd(0, frontSensor, 1);
-	NVIC_EnableIRQ(EInt0_IRQn);
+	NVIC_EnableIRQ(EINT0_IRQn);
 	// Set up the ADC sampling at 200kHz (maximum rate).
 	ADC_Init(LPC_ADC, 200000);
 
