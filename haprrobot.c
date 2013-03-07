@@ -115,38 +115,29 @@ void followToDock() {
   /// @todo use functions from line following, lineFollow() until dock.
 }
 
-int doTheDemo() {
-  /*// wait for initialisation
-  delay(100);
+int checkForLine() {
+  uint16_t sensorPattern[5] = {0};
+  getRawSensors(&sensorPattern); // & is unnecessary we know... we are just being cautious
+  int i;
+  int isThereALine = 0;
   
-  // Track distance
-  trackMovement(200);
+  for (i = 0; i<5; i++) {
+    if (sensorPattern[i] == 2000)
+      isThereALine = 1;
+  }
+  if (isThereALine) {
+    return 1;
+  }
+  else
+    return 0;
+}
+
+int checkForWall() {
+  ///@todo get sensor values -> read the distance. If the distance is less than 40 then there is a wall. Set which side
   
-  findAWall();
-  
-  updateMouse();
-  
-  followWall();
-  
-  updateMouse();
-  
-  int dist = 0;
-  
-  // dist is based on where we are from the wall, and how far we need to go to the next wall. total is 2m dist should be less.
-  trackMovement(dist);
-  
-  findAWall();
-  
-  followWall();
-  
-  updateMouse();
-  
-  trackMovement(100); /// @todo check this value
-  
-  findALine();
-  
-  followToDock();*/
-  
+}
+
+int doTheDemo() { 
   /**
    * @todo create checks for the current environment setup. This should include line and wall checks
    * @todo create state machine that will set the state based on the priority of the input.
@@ -154,7 +145,7 @@ int doTheDemo() {
   */
   int currentState = -1;
   
-  /*if(checkForLine()) {
+  if(checkForLine()) {
     currentState = 0;
   }
   else if(checkForWall()) {
@@ -163,7 +154,7 @@ int doTheDemo() {
   else {
     currentState = 2;
   }
-  */
+  
   if (currentState > -1) { // should never be -1 but if it is we have some problems
     switch (currentState) {
       
@@ -205,6 +196,37 @@ void main(void) {
 
 
 
+
+  /*// wait for initialisation
+  delay(100);
+  
+  // Track distance
+  trackMovement(200);
+  
+  findAWall();
+  
+  updateMouse();
+  
+  followWall();
+  
+  updateMouse();
+  
+  int dist = 0;
+  
+  // dist is based on where we are from the wall, and how far we need to go to the next wall. total is 2m dist should be less.
+  trackMovement(dist);
+  
+  findAWall();
+  
+  followWall();
+  
+  updateMouse();
+  
+  trackMovement(100); /// @todo check this value
+  
+  findALine();
+  
+  followToDock();*/
 
 
 

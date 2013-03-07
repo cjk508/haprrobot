@@ -16,6 +16,14 @@
 uint32_t calibrateSensors(void)
 //----------------------------------------------------------------
 /**
+*	returns the raw sensor values of the line sensors
+*
+* @author Christopher King <cjk508@york.ac.uk>
+* @param sensorPattern This method returns the current values that the raw sensors are transmitting
+*/
+void getRawSensors(uint16_t* sensorPattern);
+//----------------------------------------------------------------
+/**
 *	Main function which follows the line and analyses what it finds
 *
 * @author Christopher King <cjk508@york.ac.uk>

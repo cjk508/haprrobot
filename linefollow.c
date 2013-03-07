@@ -21,6 +21,11 @@ uint32_t calibrateSensors(void)
   return status;
 }
 
+void getRawSensors(uint16_t*  sensorPattern)
+{
+  cmdRawSens(sensorPattern);
+}
+
 void lineMotors()
 {  if (DBG_LEVEL == 1)
     _DBG_("CALIB LINE");
