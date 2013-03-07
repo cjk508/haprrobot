@@ -64,7 +64,7 @@ void delay(int time) {
 
 
 void doATest() {
-//  cmdDoPlay("abcdefg>a");
+  cmdDoPlay("abcdefg>a");
   
 //  while(1) {
 //    sensorsTest();
