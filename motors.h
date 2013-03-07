@@ -29,12 +29,38 @@ int current_motor_speed_right;
 int current_motor_dir_left;
 int current_motor_dir_right;
 
+/**
+* @brief Motor return type, contains 2 integers motor_speed and motor_dir
+*
+* This struct will return the speed and direction of the motors at the time.
+* It will allow easy access to all information that the motors need 
+* this includes the direction of the motor as speed is always positive.
+*
+* @author Christopher King <cjk508@york.ac.uk>
+* @author Jed Warwick-Mooney 
+*/
 typedef struct motorPair{
 	int motor_speed;
 	int motor_dir;
 }motorPair;
 
+/**
+* Allows access to the left motor speed and direction
+*
+* @author Andrew Durant
+* @author Christopher King
+* @author Jed Warwick-Mooney
+* @return the speed and direction of the left motors
+*/
 motorPair getSpeedLeft();
+/**
+* Allows access to the right motor speed and direction
+*
+* @author Andrew Durant
+* @author Christopher King
+* @author Jed Warwick-Mooney
+* @return the speed and direction of the right motors
+*/
 motorPair getSpeedRight();
 
 
@@ -168,10 +194,10 @@ void spinLeft();
 void spinRight();
 
 /**
-* Jed's state machine
+* Resumes the motors using previous values
 *
+* @author Christopher King
 * @author Jed Warwick-Mooney
 */
-void motorStateMachine(int state);
-
+void resume(motorPair lm, motorPair rm);
 #endif

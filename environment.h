@@ -20,4 +20,6 @@ int checkForLine();
 */
 int checkForWall();
 
+void trackByMouse();
+
 #endif
