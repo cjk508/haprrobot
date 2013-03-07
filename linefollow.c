@@ -42,9 +42,9 @@ void followLine()
   
   if (DBG_LEVEL == 1)  
     _DBG_("START MOVING"); 
-  while (checkForLine()) {
+  /*while (checkForLine()) {
     
   }
-  cmdPIDstop();  
+  cmdPIDstop(); */ 
 }
 //----------------------------------------------------------------

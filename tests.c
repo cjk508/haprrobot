@@ -18,6 +18,7 @@
 #include "motors.h"
 #include "correctmotion.h"
 #include "timer.h"
+#include "environment.h"
 
 #define DBG_LEVEL 1
 
@@ -75,6 +76,10 @@ void linefollowTest(){
  */
 void motorCorrectTest() {
   forwards(15);
+  _DBG_("Moving");
+  setSensorSide(1);
+  _DBG_("Using Left");
+  //checkForWall();
   while (1) 
   {
 /*   while (getFrontSensorValue() == 1){

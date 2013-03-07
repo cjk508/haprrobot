@@ -189,7 +189,7 @@ void initSensors()
 	// sets the direction of the GPIO pin and clears the value.
 	GPIO_SetDir(0, frontSensor, 0);
 	GPIO_IntCmd(0, frontSensor, 1);
-	NVIC_EnableIRQ(EINT0_IRQn);
+	NVIC_EnableIRQ(EINT3_IRQn);
 	// Set up the ADC sampling at 200kHz (maximum rate).
 	ADC_Init(LPC_ADC, 200000);
 
@@ -207,17 +207,15 @@ void initSensors()
 	//Interrupts not needed as sensor readings are provided when requested.
 }
 //----------------------------------------------------------------
-void EINT0_IRQHandler() {
+void EINT3_IRQHandler() {
   //Check if this is "something in the way" or "nothing in the way, actually"
   if (getFrontSensorValue() && isMovingForward()) {
     brake();
-    cmdDoPlay("B");
+    cmdDoPlay("ABC");
     frontIRQ_triggered = 1;
-  } else {
-    if (frontIRQ_triggered) {
-      frontIRQ_triggered = 0;
-      cmdDoPlay("C");
-      forwards(25);
-    }
+  } else if (getFrontSensorValue() == 0 && frontIRQ_triggered) {
+    frontIRQ_triggered = 0;
+    cmdDoPlay("E");
+    forwards(25);
   }
 }

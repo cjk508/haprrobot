@@ -29,19 +29,17 @@
 void initTimer(LPC_TIM_TypeDef *TIMx, IRQn_Type IRQn, int time);
 
 /**
-* This is used to enable the robot to "know" when it is in the middle of a large blob of tape signifying the end of the maze
-*
-* @author Christopher King <cjk508@york.ac.uk>
-* @return should return the number of ticks since the robot started to inch forward
-*/
-int getLotsOfBlackTape();
-
-/**
 * Initialises the timers for the robot Timer1 and Timer2
 * @author Jed Warwick-Mooney
 */
 void initTimers();
-
+/**
+* The timer over multiple interrupts
+*
+* @author Andrew Durant
+* @param time The length of time you wish to delay by
+*/
+void delay(int time);
 /**
 * The interrupt handler for the robots state machine
 *

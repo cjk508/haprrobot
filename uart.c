@@ -93,17 +93,14 @@ uint32_t cmdRightMBw(int speed) {
 }
 
 uint32_t cmdDoPlay(char *seq) {
-  _DBG_("PLAYING");
   sig = DO_PLAY;
   //First byte must be length of sequence to read
   uint8_t len = strlen(seq);
   //Songs longer than 100 are invalid input
   if (len > 100) {return 0;}
-  _DBG("Sending ");
-  _DBG_(seq);
   ret = serialSend(&sig, 1);
   ret = serialSend(&len, 1);
-  ret = serialSend((unsigned char*)&seq, (uint32_t)len);
+  ret = serialSend((unsigned char*)seq, (uint32_t)len);
   return ret;
 }
 
