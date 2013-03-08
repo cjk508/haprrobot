@@ -2,6 +2,7 @@
 #include "sensors.h"
 #include "motors.h"
 #include "debug_frmwrk.h"
+#include "uart.h"
 //----------------------------------------------------------------
 //constants
 const uint16_t DESIRED_DISTANCE = 1500;
@@ -29,12 +30,15 @@ SensorPair calibratedValuesLeft(SensorPair sensorValue) {
   uint16_t tempF = 0;
   uint16_t tempR = 0;
   // Front
-  if (sensorValue.FrontSensor < 800) { tempF = 40; }
+  if (sensorValue.FrontSensor < 400) { tempF = 100; }
+  else if (sensorValue.FrontSensor < 800) { tempF = 40; }
   else if (sensorValue.FrontSensor < 920) { tempF = 35; }
   else if (sensorValue.FrontSensor < 1100) { tempF = 30; }
   else if (sensorValue.FrontSensor < 1350) { tempF = 25; }
-  else if (sensorValue.FrontSensor < 1500) { tempF = 22; }  
-  else if (sensorValue.FrontSensor < 1510) { tempF = 21; }
+  else if (sensorValue.FrontSensor < 1480) { tempF = 24; }  
+  else if (sensorValue.FrontSensor < 1480) { tempF = 23; }  
+  else if (sensorValue.FrontSensor < 10) { tempF = 22; }  
+  else if (sensorValue.FrontSensor < 1560) { tempF = 21; }
   else if (sensorValue.FrontSensor < 1580) { tempF = 20; }
   else if (sensorValue.FrontSensor < 1680) { tempF = 19; }
   else if (sensorValue.FrontSensor < 1770) { tempF = 18; }
@@ -49,7 +53,8 @@ SensorPair calibratedValuesLeft(SensorPair sensorValue) {
   else if (sensorValue.FrontSensor < 3200) { tempF = 5; }
   
   // Rear
-  if (sensorValue.RearSensor < 810) { tempR = 40; }
+  if (sensorValue.FrontSensor < 400) { tempF = 100; }  
+  else if (sensorValue.RearSensor < 810) { tempR = 40; }
   else if (sensorValue.RearSensor < 940) { tempR = 35; }
   else if (sensorValue.RearSensor < 1100) { tempR = 30; }
   else if (sensorValue.RearSensor < 1350) { tempR = 25; }
@@ -75,7 +80,8 @@ SensorPair calibratedValuesRight(SensorPair sensorValue) {
   uint16_t tempF = sensorValue.FrontSensor;
   uint16_t tempR = sensorValue.RearSensor;
   // Front
-  if (sensorValue.FrontSensor < 930) { tempF = 40; }
+  if (sensorValue.FrontSensor < 400) { tempF = 100; } 
+  else if (sensorValue.FrontSensor < 930) { tempF = 40; }
   else if (sensorValue.FrontSensor < 1030) { tempF = 35; }
   else if (sensorValue.FrontSensor < 1170) { tempF = 30; }
   else if (sensorValue.FrontSensor < 1350) { tempF = 25; }
@@ -93,7 +99,8 @@ SensorPair calibratedValuesRight(SensorPair sensorValue) {
   else if (sensorValue.FrontSensor < 3250) { tempF = 5; }
   
   // Rear
-  if (sensorValue.RearSensor < 700) { tempR = 40; }
+  if (sensorValue.FrontSensor < 400) { tempF = 100; } 
+  else if (sensorValue.RearSensor < 700) { tempR = 40; }
   else if (sensorValue.RearSensor < 825) { tempR = 35; }
   else if (sensorValue.RearSensor < 1100) { tempR = 30; }
   else if (sensorValue.RearSensor < 1300) { tempR = 25; }

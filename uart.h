@@ -130,7 +130,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  * @author Andrew Durant
  * @return uint32_t status - 0 if ok, !0 if fail
  */
-void cmdRstCal();
+uint32_t cmdRstCal();
 
 /*
  * Reads all five IR sensors using calibrated
@@ -146,7 +146,7 @@ void cmdRstCal();
  * @param address to write to @todo not sure at the moment (2)
  * @return uint32_t status - 0 if ok, !0 if fail
  */
-uint32_t cmdLinePos(uint16_t *linePos);
+uint32_t cmdLinePos(uint8_t *linePos);
 
 /**
  * Clears the LCD screen on the 3pi.

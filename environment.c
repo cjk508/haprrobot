@@ -32,11 +32,11 @@ int checkForWall() {
   SensorPair leftSensors = calibratedValuesLeft(getLeftSensorValues());
   SensorPair rightSensors = calibratedValuesRight(getRightSensorValues());  
   int sensorSideFound = 0;
-  if (leftSensors.FrontSensor < 40 || leftSensors.RearSensor < 40) {
+  if (leftSensors.FrontSensor < 100 || leftSensors.RearSensor < 100) {
     setSensorSide(1);
     sensorSideFound++;
   }
-  if (rightSensors.FrontSensor < 40 || rightSensors.RearSensor < 40) {
+  if (rightSensors.FrontSensor < 100 || rightSensors.RearSensor < 100) {
     setSensorSide(0);  
     sensorSideFound++;
   }
@@ -55,6 +55,7 @@ int checkForWall() {
       break;
     }    
   }
+  return 3;
 }
 
 void setTrackingPosition(int pos) {

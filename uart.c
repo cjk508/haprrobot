@@ -117,7 +117,7 @@ uint32_t cmdPIDstop() {
   return ret;
 }
 
-uint32_t cmdLinePos(uint16_t *linePos) {
+uint32_t cmdLinePos(uint8_t *linePos) {
   sig = SEND_LINE_POSITION;
   
   ret = serialSend(&sig, 1);
@@ -125,7 +125,7 @@ uint32_t cmdLinePos(uint16_t *linePos) {
   return ret;
 }
 
-void cmdRstCal() {
+uint32_t cmdRstCal() {
   sig = LINE_SENSORS_RESET_CALIBRATION;
   ret = serialSend(&sig, 1);
   return ret;

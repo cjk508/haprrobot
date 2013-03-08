@@ -35,49 +35,70 @@ void debug_output(SensorPair sensor) {
 }
 
 void wallFollow(SensorPair sensor) {
-  if ((sensor.FrontSensor > WALL_DISTANCE) && (sensor.RearSensor > WALL_DISTANCE)) { // both sensors are over the desired distance
-    if(sensor.RearSensor > sensor.FrontSensor) {
+  if (sensor.FrontSensor < 100) {  
+    int difference = sensor.FrontSensor - sensor.RearSensor;
+    if (difference < 0){
+      difference = difference * (-1);
+    }
+    if ((sensor.FrontSensor > WALL_DISTANCE) && (sensor.RearSensor > WALL_DISTANCE)) { // both sensors are over the desired distance
+      if(sensor.RearSensor > sensor.FrontSensor) {
+        
+        if(sensorSide){
+          motorPair motorInfo = getSpeedLeft();
+          setLeftMotorFw(motorInfo.motor_speed + difference);
+        }
+        else {
+          motorPair motorInfo = getSpeedRight();
+          setRightMotorFw(motorInfo.motor_speed + difference);      
+        }
+        debug_output(sensor);
+      }
+      else if (sensor.RearSensor == sensor.FrontSensor) {
+        if(sensorSide){
+          motorPair motorInfo = getSpeedRight();
+          setRightMotorFw(motorInfo.motor_speed + (sensor.FrontSensor - WALL_DISTANCE));  
+        }
+        else {
+          motorPair motorInfo = getSpeedLeft();
+          setLeftMotorFw(motorInfo.motor_speed + (sensor.FrontSensor - WALL_DISTANCE));    
+        }    
+      }
+    }
+    else if ((sensor.FrontSensor < WALL_DISTANCE) || (sensor.RearSensor < WALL_DISTANCE)) {
+      if (sensor.RearSensor == sensor.FrontSensor) {
+        if(sensorSide){
+          forwards(15); 
+        }
+      }
+      if((sensor.FrontSensor < WALL_DISTANCE) && (sensor.RearSensor > sensor.FrontSensor)) { //Front sensor is closest to the wall and under the desired distance
+        
+        if(sensorSide){
+          motorPair motorInfo = getSpeedLeft();
+          setLeftMotorFw(motorInfo.motor_speed + difference);
+        }
+        else {
+          motorPair motorInfo = getSpeedRight();
+          setRightMotorFw(motorInfo.motor_speed + difference);      
+        } 
+        debug_output(sensor);   
+      }
+      else if((sensor.RearSensor < WALL_DISTANCE) && (sensor.RearSensor < sensor.FrontSensor)) {//Rear sensor is closest to the wall and under the desired distance
       
-      if(sensorSide){
-        motorPair motorInfo = getSpeedLeft();
-        setLeftMotorFw(motorInfo.motor_speed + 1);
+        if(sensorSide){ //if left then 
+          motorPair motorInfo = getSpeedRight();
+          setRightMotorFw(motorInfo.motor_speed + difference);
+        }
+        else {
+          motorPair motorInfo = getSpeedLeft();
+          setLeftMotorFw(motorInfo.motor_speed + difference);      
+        }     
+        debug_output(sensor);  
       }
-      else {
-        motorPair motorInfo = getSpeedRight();
-        setRightMotorFw(motorInfo.motor_speed + 1);      
-      }
+    }
+    else {
+      forwards(15);
       debug_output(sensor);
     }
-  }
-  else if ((sensor.FrontSensor < WALL_DISTANCE) || (sensor.RearSensor < WALL_DISTANCE)) {
-    if((sensor.FrontSensor < WALL_DISTANCE) && (sensor.RearSensor > sensor.FrontSensor)) { //Front sensor is closest to the wall and under the desired distance
-      
-      if(sensorSide){
-        motorPair motorInfo = getSpeedLeft();
-        setLeftMotorFw(motorInfo.motor_speed + 1);
-      }
-      else {
-        motorPair motorInfo = getSpeedRight();
-        setRightMotorFw(motorInfo.motor_speed + 1);      
-      } 
-      debug_output(sensor);   
-    }
-    else if((sensor.RearSensor < WALL_DISTANCE) && (sensor.RearSensor < sensor.FrontSensor)) {//Rear sensor is closest to the wall and under the desired distance
-    
-      if(sensorSide){ //if left then 
-        motorPair motorInfo = getSpeedRight();
-        setRightMotorFw(motorInfo.motor_speed + 1);
-      }
-      else {
-        motorPair motorInfo = getSpeedLeft();
-        setLeftMotorFw(motorInfo.motor_speed + 1);      
-      }     
-      debug_output(sensor);  
-    }
-  }
-  else {
-    forwards(15);
-    debug_output(sensor);
   }
 }
 
