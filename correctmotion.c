@@ -8,6 +8,8 @@
 // 2 - Verbose
 #define DBG_LEVEL 2
 
+#define WALL_DISTANCE 15
+
 int sensorSide; //1 = left, 0 = right
 
 int getSensorSide() {
@@ -16,6 +18,67 @@ int getSensorSide() {
 
 void setSensorSide(int setSide) {
   sensorSide = setSide;
+}
+
+void debug_output(SensorPair sensor) {
+  if (DBG_LEVEL >= 2) {
+    _DBG_("##################");
+    if(sensorSide) {
+        _DBG("Left Front:");_DBD16(sensor.FrontSensor);_DBG_("");
+        _DBG("Left Rear:");_DBD16(sensor.RearSensor);_DBG_("");
+     }
+     else {
+      _DBG("Right Front:");_DBD16(sensor.FrontSensor);_DBG_("");
+      _DBG("Right Rear:");_DBD16(sensor.RearSensor);_DBG_("");
+    }
+  }
+}
+
+void wallFollow(SensorPair sensor) {
+  if ((sensor.FrontSensor > WALL_DISTANCE) && (sensor.RearSensor > WALL_DISTANCE)) { // both sensors are over the desired distance
+    if(sensor.RearSensor > sensor.FrontSensor) {
+      
+      if(sensorSide){
+        motorPair motorInfo = getSpeedLeft();
+        setLeftMotorFw(motorInfo.motor_speed + 1);
+      }
+      else {
+        motorPair motorInfo = getSpeedRight();
+        setRightMotorFw(motorInfo.motor_speed + 1);      
+      }
+      debug_output(sensor);
+    }
+  }
+  else if ((sensor.FrontSensor < WALL_DISTANCE) || (sensor.RearSensor < WALL_DISTANCE)) {
+    if((sensor.FrontSensor < WALL_DISTANCE) && (sensor.RearSensor > sensor.FrontSensor)) { //Front sensor is closest to the wall and under the desired distance
+      
+      if(sensorSide){
+        motorPair motorInfo = getSpeedLeft();
+        setLeftMotorFw(motorInfo.motor_speed + 1);
+      }
+      else {
+        motorPair motorInfo = getSpeedRight();
+        setRightMotorFw(motorInfo.motor_speed + 1);      
+      } 
+      debug_output(sensor);   
+    }
+    else if((sensor.RearSensor < WALL_DISTANCE) && (sensor.RearSensor < sensor.FrontSensor)) {//Rear sensor is closest to the wall and under the desired distance
+    
+      if(sensorSide){ //if left then 
+        motorPair motorInfo = getSpeedRight();
+        setRightMotorFw(motorInfo.motor_speed + 1);
+      }
+      else {
+        motorPair motorInfo = getSpeedLeft();
+        setLeftMotorFw(motorInfo.motor_speed + 1);      
+      }     
+      debug_output(sensor);  
+    }
+  }
+  else {
+    forwards(15);
+    debug_output(sensor);
+  }
 }
 
 /**
@@ -28,13 +91,9 @@ void setSensorSide(int setSide) {
 */
 void correctForwardMotion() {
   //Get an initial value
-  _DBG_("In cfm");
   SensorPair left = getLeftSensorValues();
-  _DBG_("Got Left");
   SensorPair right = getRightSensorValues();
-  _DBG_("Got Right");
   left = calibratedValuesLeft(left);
-  _DBG_("Cal Left");
   right = calibratedValuesRight(right);
   
   /**
@@ -43,8 +102,13 @@ void correctForwardMotion() {
   *
   * Now measured in cm meaning that larger value is, as per normal, further away
   */
-  _DBD(sensorSide);_DBG_(" - sensorside");
   if (sensorSide) {
+    wallFollow(left);
+  }
+  else {
+    wallFollow(right);
+  }  
+/*  if (sensorSide) {
     if (left.FrontSensor > left.RearSensor) {
     //If using left and moving away from an object, turn left (move closer a bit)
       //Slow down left
@@ -95,5 +159,5 @@ void correctForwardMotion() {
         _DBG("Right Rear:");_DBD16(right.RearSensor);_DBG_("");
       }
     }
-  }
+  }*/
 }

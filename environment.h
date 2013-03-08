@@ -1,6 +1,8 @@
 #ifndef ENVIRO_INC
 #define ENVIRO_INC
 
+int trackingPosition;
+
 /**
 * Checks to see if there is a line underneath the robot using the raw sensors
 *
@@ -21,6 +23,8 @@ int checkForLine();
 int checkForWall();
 
 void dockBySensorsAndLine();
+
+void setTrackingPosition(int pos);
 
 void trackByMouse();
 

@@ -7,7 +7,10 @@
 *	@version: V0.6
 *	@date:	27 February 2013
 *
-***************************************************************/							      
+***************************************************************/		
+#ifndef CORRECT_INC
+#define CORRECT_INC					      
+#include "sensors.h"
 /**
 * Gets the side that the sensor should use
 *
@@ -25,6 +28,9 @@ int getSensorSide();
 */
 void setSensorSide(int setSide);
 
+void wallFollow(SensorPair sensor);
+
+void debug_output(SensorPair sensor);
 /**
 * Compares the current motor speeds and sensor values
 * It will adjust the motor speeds depending if necessary
@@ -33,4 +39,5 @@ void setSensorSide(int setSide);
 * @author Lloyd Wallis
 */
 void correctForwardMotion();
+#endif
 
