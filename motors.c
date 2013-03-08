@@ -42,13 +42,13 @@ void setLeftMotorFw(int speed) {
 	/*if (DBG_LEVEL >= 1) {
 	  _DBG("Left MotorF: ");_DBD32(current_motor_speed_left);_DBG_("");
 	}*/
-	cmdLeftMFw(current_motor_speed_left);
+cmdLeftMFw(current_motor_speed_left);
 }
 void setLeftMotorBw(int speed) {
   if (frontIRQ_triggered) return;
   current_motor_dir_left = 0;
 	current_motor_speed_left = speedCheck(speed);
-	/*if (DBG_LEVEL >= 1) {
+/*	if (DBG_LEVEL >= 1) {
 	  _DBG("Left MotorB: ");_DBD32(current_motor_speed_left);_DBG_("");
   }*/
   cmdLeftMBw(current_motor_speed_left);

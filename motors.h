@@ -21,7 +21,7 @@
 #ifndef MOTOR_INC
 #define MOTOR_INC
 
-#define MAX_SPEED 30
+#define MAX_SPEED 25
 
 int current_motor_speed_left;
 int current_motor_speed_right;

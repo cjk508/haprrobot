@@ -54,7 +54,7 @@ void sensorsTest() {
   //_DBG("Left RCal:");_DBD16(leftcal.RearSensor);_DBG_("");
   //_DBG("Right Front:");_DBD16(right.FrontSensor);_DBG_("");
   //_DBG("Right Rear:");_DBD16(right.RearSensor);_DBG_("");
-  //_DBG("Right FCal:");_DBD16(rightcal.FrontSensor);_DBG_("");
+  //_DBG("Right FCal:");_DBD16(rightcal.FrontSensor);_DBGm_("");
   //_DBG("Right RCal:");_DBD16(rightcal.RearSensor);_DBG_("");
   /*int i = 0;
   while (i < 3000000) {i++;}*/
