@@ -59,19 +59,16 @@ void initialise() {
 }
 
 void doATest() {
-  cmdDoPlay("abcdefg>a");
-  forwards(25);
-  while (1) {
-  
-  }
+  //cmdDoPlay("abcdefg>a");
+ // forwards(25);
  //followLine();
-//  while(1) {
-//    sensorsTest();
-//  }
+  while(1) {
+    sensorsTest();
+  }
   
 //  linefollowTest();    
 
-  motorCorrectTest();
+  //motorCorrectTest();
 
 //  _DBG_("init mouse");
  // mouseinitial();

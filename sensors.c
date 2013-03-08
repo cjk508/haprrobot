@@ -33,6 +33,8 @@ SensorPair calibratedValuesLeft(SensorPair sensorValue) {
   else if (sensorValue.FrontSensor < 920) { tempF = 35; }
   else if (sensorValue.FrontSensor < 1100) { tempF = 30; }
   else if (sensorValue.FrontSensor < 1350) { tempF = 25; }
+  else if (sensorValue.FrontSensor < 1500) { tempF = 22; }  
+  else if (sensorValue.FrontSensor < 1510) { tempF = 21; }
   else if (sensorValue.FrontSensor < 1580) { tempF = 20; }
   else if (sensorValue.FrontSensor < 1680) { tempF = 19; }
   else if (sensorValue.FrontSensor < 1770) { tempF = 18; }
