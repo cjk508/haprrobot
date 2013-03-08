@@ -47,24 +47,9 @@ void overflowProtection(int8_t x, int8_t t)
 	}
 }
 
-int32_t thetaOfArc(int32_t l, int32_t r) {
-	int32_t th = l/r;
+double thetaOfArc(int32_t l, int32_t r) {
+	double th = l/r;
 	return th;
-}
-
-void converterForTheta() {
-	if(theta>0){
-		while(theta>4){
-			theta = theta - 4;
-			actTheta+=1;
-		}
-	}
-	else {
-		while(theta<(-4)){
-			theta = theta + 4;
-			actTheta-=1;
-		}	
-	}
 }
 
 int32_t converterForCm(int32_t x) {
@@ -89,7 +74,7 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 	static int state;
 	static int prevState;
 	
-	//if there is a change in the t value only then the robot is spinning;
+	//if there is a change in the t value only then the robot is spinning
 	if(t != 0 && x == 0) {
 		prevState = state;
 		state = 1;
@@ -104,7 +89,7 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 		if (prevState == 3){curve(tempXCurve); clearVal(tempXCurve);}
 	}
 	
-	//If there is a change in the x value only then the robot is moving forward;
+	//If there is a change in the x value only then the robot is moving forward
 	if(x != 0 && t == 0) {
 		prevState = state;
 		state = 2;
@@ -118,7 +103,7 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 		clearVal(tempx);}
 		if (prevState == 3){curve(tempXCurve); clearVal(tempXCurve);}
 	}
-
+	//If x and t are changing then the robot is moving in a curve
 	if(t != 0 && x != 0) {
 		prevState = state;
 		state = 3;
@@ -159,7 +144,7 @@ void attach() {
 
 void detach() {
 	_DBG_("I'm detached, BOO!");
-	distanceMoved(coord_x, coord_y);
+	printCoords(coord_x, coord_y);
 }
 
 int32_t get_coord_x() {	
@@ -221,11 +206,7 @@ int my_itoa(int val, char* buf)
     return len;
 }
 
-void distanceMoved(int x, int y) {
-	int d = ((x^2) + (y^2)); //pythagarus theorem used to work out overall distance moved from orignal start point
-	d = sqrt(d);
+void printCoords(int x, int y) {
 	_DBG_("The coordiante position of the Pololu robot is: ( ");_DBD(x);_DBG_(" , ");_DBD(y);_DBG_(" )");
-	_DBG_("The total distance moved by the Pololu robot is: ");
-	_DBD(d); _DBG_("");
 }
 

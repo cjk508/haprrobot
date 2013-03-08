@@ -34,7 +34,7 @@ void myspecialpoll();
 * @param r integer being the radius of the circle
 * @return th angle which the robot is facing
 */
-int32_t thetaOfArc(int32_t l, int32_t r);
+double thetaOfArc(int32_t l, int32_t r);
 /**
 * Takes an integer value and convertes it into centimeters 
 * 
@@ -85,7 +85,7 @@ void curve(int x);
 
 /**
 * When USB mouse is attached to the integers 
-* x_move and y_move are set to 0
+* x_coords and y_coords are set to 0
 *
 * @author Jed Warwick-Mooney
 * 
@@ -93,9 +93,8 @@ void curve(int x);
 void attach();
 
 /**
-* When the USB is detahced form the Polulu 
-* robot the x_move nd y_move ints are sent to 
-* the method printLCD()
+* detaching the USB mouse causes the x_coord and y_coord values to be sent 
+* to the debug screen via the printCoords() method
 *
 * @author Jed Warwick-Mooney
 * 
@@ -138,17 +137,6 @@ void add_to_x(int8_t x);
 */
 void add_to_y(int8_t y);
 
-/**
-* Works out the distance the robot has moved 
-* from it's orignal starting position 
-* and prints the value to the debug screen.
-*
-* @author Jed Warwick-Mooney
-* @param x int
-* @param y int
-* @return d - interger indicating the distance moved
-*/
-void distanceMoved(int x, int y);
 
 /**
 * Translates an integer value to an ascii value 
@@ -160,12 +148,12 @@ void distanceMoved(int x, int y);
 int my_itoa(int val, char* buf) ;
 
 /**
-* t
-* by calling distanceMoved(x, y) and sending the result to the LCD.
-* 
+*	Prints the coordinates of the robot to the debug screen
+*
 * @author Jed Warwick-Mooney
+* @param x integer of the x coordinate
+* @param y integer of the y coordinate
 */
-void printToLCD();
-
+void printCoords(int x, int y);
 
 #endif
