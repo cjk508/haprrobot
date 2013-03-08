@@ -31,13 +31,19 @@ SensorPair calibratedValuesLeft(SensorPair sensorValue) {
   uint16_t tempR = 0;
   // Front
   if (sensorValue.FrontSensor < 400) { tempF = 100; }
+  else if (sensorValue.FrontSensor < 470) { tempF = 60; }
+  else if (sensorValue.FrontSensor < 560) { tempF = 50; }  
+  else if (sensorValue.FrontSensor < 640) { tempF = 45; }     
+  else if (sensorValue.FrontSensor < 710) { tempF = 43; }  
   else if (sensorValue.FrontSensor < 800) { tempF = 40; }
+  else if (sensorValue.FrontSensor < 880) { tempF = 37; }      
   else if (sensorValue.FrontSensor < 920) { tempF = 35; }
+  else if (sensorValue.FrontSensor < 980) { tempF = 33; }
   else if (sensorValue.FrontSensor < 1100) { tempF = 30; }
   else if (sensorValue.FrontSensor < 1350) { tempF = 25; }
   else if (sensorValue.FrontSensor < 1480) { tempF = 24; }  
   else if (sensorValue.FrontSensor < 1480) { tempF = 23; }  
-  else if (sensorValue.FrontSensor < 10) { tempF = 22; }  
+  else if (sensorValue.FrontSensor < 1520) { tempF = 22; }   //? said 10 dunno why
   else if (sensorValue.FrontSensor < 1560) { tempF = 21; }
   else if (sensorValue.FrontSensor < 1580) { tempF = 20; }
   else if (sensorValue.FrontSensor < 1680) { tempF = 19; }

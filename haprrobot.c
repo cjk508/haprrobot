@@ -62,10 +62,10 @@ void doATest() {
   //cmdDoPlay("abcdefg>a");
  // forwards(25);
  //followLine();
-  /*while(1) {
+ /* while(1) {
     sensorsTest();
   }*/
-  
+ 
 //  linefollowTest();    
 
   motorCorrectTest();

@@ -27,16 +27,33 @@ int getSensorSide();
 * @param setSide The sensor side to set
 */
 void setSensorSide(int setSide);
-
-void wallFollow(SensorPair sensor);
-
-void debug_output(SensorPair sensor);
 /**
-* Compares the current motor speeds and sensor values
-* It will adjust the motor speeds depending if necessary
-* The aim is to keep the robot in a straight line
+* Uses the sensor that is passed to follow the wall.
+* If the front sensor reads over 40 then it will move towards the wall
+* If the rear sensor reads over 40 then nothing will happen.
+* If the front sensor > rear sensor and both are below WALL_DISTANCE then turn towards wall
+* If the front sensor < rear sensor and both are below WALL_DISTANCE then turn away from wall
+*
+* @author Christopher King
+* @author Lloyd Wallis
+* @param sensor sensor that will be used for wall following
+*/
+void wallFollow(SensorPair sensor);
+/**
+* Outputs the values of the sensor that is passed
+*
+* @author Christopher King
+* @param sensor The sensor that will be debugged
+*/
+void debug_output(SensorPair sensor);
+
+/**
+* Gets the sensor values and then passes then on to
+* wall follow if the front sensor is lower than 100
+* @todo should then move away from it when front sensor 100 rear sensor 40
 *
 * @author Lloyd Wallis
+* @author Christopher King
 */
 void correctForwardMotion();
 #endif
