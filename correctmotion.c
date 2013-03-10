@@ -138,14 +138,16 @@ void correctForwardMotion() {
   *
   * Now measured in cm meaning that larger value is, as per normal, further away
   */
-  if (sensor.FrontSensor < 100) { 
     if (sensorSide) {
-      wallFollow(left);
+      if (left.FrontSensor < 100) {
+        wallFollow(left);
+      }
     }
     else {
-      wallFollow(right);
-    }  
-  }
+      if (right.FrontSensor < 100) {
+        wallFollow(right);
+      }
+    }
 /*  if (sensorSide) {
     if (left.FrontSensor > left.RearSensor) {
     //If using left and moving away from an object, turn left (move closer a bit)
