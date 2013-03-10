@@ -47,6 +47,7 @@
  */
 void initialise() {
   debug_frmwrk_init();
+  trackingState = 0;
   initSerial();
   serialTest();
   initSensors();

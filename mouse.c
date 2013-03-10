@@ -29,7 +29,7 @@ of debugging but it seems to have worked,*/
 
 void overflowProtection(int8_t x, int8_t t)
 {
-	if( x > 125 || x < -125) {
+	if( x > 120 || x < -120) {
 		_DBG_("x has OVERFLOW");
 		struct motorPair XrightMotorValues = getSpeedRight();
 		struct motorPair XleftMotorValues = getSpeedLeft();
@@ -37,7 +37,7 @@ void overflowProtection(int8_t x, int8_t t)
 		delay(1);
 		resume(XrightMotorValues, XleftMotorValues);
 	}
-	if( -125 > t || t > 125) {
+	if( -12 > t || t > 120) {
 		_DBG_("t has OVERFLOW");
 		struct motorPair TrightMotorValues = getSpeedRight();
 		struct motorPair TleftMotorValues = getSpeedLeft();
@@ -80,13 +80,19 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 		state = 1;
 		overflowProtection(x, 0);
 		tempt += t;
-		if (prevState == 1 && tempt>100){double spinVal = thetaOfArc(converterForCm(tempt), r); 
-		theta = theta + spinVal; clearVal(tempt);}
-		if (prevState == 2){converterForCm(tempx);
-		add_to_x(tempx);
-		add_to_y(tempx);
-		clearVal(tempx);}
-		if (prevState == 3){curve(tempXCurve); clearVal(tempXCurve);}
+		if (prevState == 1 && tempt>100){
+		  double spinVal = thetaOfArc(converterForCm(tempt), r); 
+		  theta = theta + spinVal; clearVal(tempt);}
+		if (prevState == 2){
+		  converterForCm(tempx);
+		  add_to_x(tempx);
+		  add_to_y(tempx);
+		  clearVal(tempx);
+		}
+		if (prevState == 3){
+		  curve(tempXCurve);
+		  clearVal(tempXCurve);
+		}
 	}
 	
 	//If there is a change in the x value only then the robot is moving forward
@@ -95,13 +101,20 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 		state = 2;
 		overflowProtection(x, 0);
 		tempx += x;
-		if (prevState == 1){int32_t spinVal = thetaOfArc(converterForCm(tempt), r);
-		theta = theta + spinVal; clearVal(tempt);}
-		if (prevState == 2 && tempx>100) {converterForCm(tempx);
-		add_to_x(tempx);
-		add_to_y(tempx);
-		clearVal(tempx);}
-		if (prevState == 3){curve(tempXCurve); clearVal(tempXCurve);}
+		if (prevState == 1){
+		  int32_t spinVal = thetaOfArc(converterForCm(tempt), r);
+		  theta = theta + spinVal; clearVal(tempt);
+		}
+		if (prevState == 2 && tempx>100) {  
+		  converterForCm(tempx);
+		  add_to_x(tempx);
+		  add_to_y(tempx);
+		  clearVal(tempx);
+		}
+		if (prevState == 3){
+		  curve(tempXCurve);
+		  clearVal(tempXCurve);
+	  }
 	}
 	//If x and t are changing then the robot is moving in a curve
 	if(t != 0 && x != 0) {
@@ -109,13 +122,20 @@ void cb(uint8_t buttons, int8_t x, int8_t t) {
 		state = 3;
 		overflowProtection(x, t);
 		tempXCurve += x;
-		if (prevState == 1){int32_t spinVal = thetaOfArc(converterForCm(tempt), r);
-		theta = theta + spinVal; clearVal(tempt);}
-		if (prevState == 2){converterForCm(tempx);
-		add_to_x(tempx);
-		add_to_y(tempx);
-		clearVal(tempx);}
-		if (prevState == 3 && tempXCurve > 100){curve(tempXCurve); clearVal(tempXCurve);}
+		if (prevState == 1){
+		  int32_t spinVal = thetaOfArc(converterForCm(tempt), r);
+		  theta = theta + spinVal; clearVal(tempt);
+		}
+		if (prevState == 2){
+		  converterForCm(tempx);
+		  add_to_x(tempx);
+		  add_to_y(tempx);
+		  clearVal(tempx);
+		}
+		if (prevState == 3 && tempXCurve > 100){
+		  curve(tempXCurve);
+		  clearVal(tempXCurve);
+		}
 	}
 }
 
