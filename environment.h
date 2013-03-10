@@ -1,3 +1,16 @@
+/*********************************************************************//**
+*	@file environment.h
+*	@brief	 Checks the robots surrounding environment and informs the "state machine"
+*          Also includes environment based sub-functions that are necessary for ensuring
+*          stable results.
+*
+*	@author	Andrew Durant
+* @author Christopher King
+* @author Lloyd Wallis
+*	@version: V1.0
+*	@date:	10 March 2013
+************************************************************************/
+
 #ifndef ENVIRO_INC
 #define ENVIRO_INC
 
