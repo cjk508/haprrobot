@@ -37,7 +37,7 @@ void overflowProtection(int8_t x, int8_t t)
 		delay(1);
 		resume(XrightMotorValues, XleftMotorValues);
 	}
-	if( -120 > t || t > 120) {
+	if( -12 > t || t > 120) {
 		_DBG_("t has OVERFLOW");
 		struct motorPair TrightMotorValues = getSpeedRight();
 		struct motorPair TleftMotorValues = getSpeedLeft();
