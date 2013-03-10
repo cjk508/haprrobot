@@ -75,7 +75,8 @@ void wallFollow(SensorPair sensor) {
         motorPair motorInfo = getSpeedRight();
         setRightMotorFw(motorInfo.motor_speed + difference);      
       } 
-      debug_output(sensor);   
+      debug_output(sensor);  
+       
     }
     else if((sensor.RearSensor < WALL_DISTANCE) && (sensor.RearSensor < sensor.FrontSensor)) {//Rear sensor is closest to the wall and under the desired distance
     
@@ -88,12 +89,14 @@ void wallFollow(SensorPair sensor) {
         setLeftMotorFw(motorInfo.motor_speed + difference);      
       }     
       debug_output(sensor);  
+      
     }
   }
   else if ((sensor.FrontSensor == WALL_DISTANCE) && (sensor.RearSensor == WALL_DISTANCE)) {//if at the required distance carry on all is well
     forwards(15);   
   }
   else if ((sensor.FrontSensor == 100) && (sensor.RearSensor < 30)) {
+    
     if(sensorSide){ //if left then 
       motorPair motorInfo = getSpeedRight();
      /**
@@ -105,7 +108,8 @@ void wallFollow(SensorPair sensor) {
       motorPair motorInfo = getSpeedLeft();
      /* setRightMotorFw(15);
       setLeftMotorFw(25);     */
-    }     
+    }    
+     
   }
   else {
     forwards(15);
