@@ -1,7 +1,7 @@
 #include "correctmotion.h"
 #include "motors.h"
 #include "sensors.h"
-
+#include "uart.h"
 #include "debug_frmwrk.h"
 // DBG Levels
 // 1 - Basic
@@ -42,25 +42,17 @@ void wallFollow(SensorPair sensor) {
   
   if ((sensor.FrontSensor > WALL_DISTANCE) && (sensor.RearSensor > WALL_DISTANCE)) { // both sensors are over the desired distance
     if(sensor.RearSensor > sensor.FrontSensor) {
-      
-      if(sensorSide){
-        motorPair motorInfo = getSpeedLeft();
-        setLeftMotorFw(motorInfo.motor_speed + difference);
-      }
-      else {
-        motorPair motorInfo = getSpeedRight();
-        setRightMotorFw(motorInfo.motor_speed + difference);      
-      }
+      forwards(15); //keep on going straight until one of the sensors is at the desired distance.
       debug_output(sensor);
     }
-    else if (sensor.RearSensor == sensor.FrontSensor) {
+    else { //if we are either parallel or facing away from the wall
       if(sensorSide){
-        motorPair motorInfo = getSpeedRight();
-        setRightMotorFw(motorInfo.motor_speed + (sensor.FrontSensor - WALL_DISTANCE));  
+        setRightMotorFw(15 + (sensor.FrontSensor - WALL_DISTANCE));
+        setLeftMotorFw(15);            
       }
       else {
-        motorPair motorInfo = getSpeedLeft();
-        setLeftMotorFw(motorInfo.motor_speed + (sensor.FrontSensor - WALL_DISTANCE));    
+        setLeftMotorFw(15 + (sensor.FrontSensor - WALL_DISTANCE));    
+        setRightMotorFw(15);        
       }    
     }
   }
@@ -79,15 +71,7 @@ void wallFollow(SensorPair sensor) {
        
     }
     else if((sensor.RearSensor < WALL_DISTANCE) && (sensor.RearSensor < sensor.FrontSensor)) {//Rear sensor is closest to the wall and under the desired distance
-    
-      if(sensorSide){ //if left then 
-        motorPair motorInfo = getSpeedRight();
-        setRightMotorFw(motorInfo.motor_speed + difference);
-      }
-      else {
-        motorPair motorInfo = getSpeedLeft();
-        setLeftMotorFw(motorInfo.motor_speed + difference);      
-      }     
+      forwards(15);   
       debug_output(sensor);  
       
     }
@@ -112,6 +96,7 @@ void wallFollow(SensorPair sensor) {
      
   }
   else {
+    cmdDoPlay("a"); //error beep
     forwards(15);
     debug_output(sensor);
   }
@@ -138,16 +123,15 @@ void correctForwardMotion() {
   *
   * Now measured in cm meaning that larger value is, as per normal, further away
   */
-    if (sensorSide) {
-      if (left.FrontSensor < 100) {
-        wallFollow(left);
-      }
-    }
-    else {
-      if (right.FrontSensor < 100) {
-        wallFollow(right);
-      }
-    }
+  if (sensorSide) {
+    if (left.FrontSensor < 100) //if i can see a wall then follow it
+      wallFollow(left);
+  }
+  else {
+    if (right.FrontSensor < 100) 
+      wallFollow(right);
+  }  
+}
 /*  if (sensorSide) {
     if (left.FrontSensor > left.RearSensor) {
     //If using left and moving away from an object, turn left (move closer a bit)
@@ -200,4 +184,3 @@ void correctForwardMotion() {
       }
     }
   }*/
-}
