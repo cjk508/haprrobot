@@ -15,8 +15,8 @@
 #define ENVIRO_INC
 
 int trackingPositionX;
-int trackingPosition;
-
+int trackingPositionY;
+int trackingState;
 /**
 * Checks to see if there is a line underneath the robot using the raw sensors
 *

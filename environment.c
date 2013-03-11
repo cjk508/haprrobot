@@ -4,8 +4,8 @@
 #include "sensors.h"
 #include "linefollow.h"
 #include "timer.h"
-
-int trackingState;
+#include "mouse.h"
+#include "uart.h"
 
 int checkForLine() {
   uint16_t sensorPattern[5] = {0};
@@ -59,11 +59,14 @@ void setTrackingPosition(int x, int y) {
 }
 
 int checkForStableSensors(int wallPosition) {
-  if (sensorSide) {
-    SensorPair temp1 = calibratedValuesLeft(getLeftSensorValues());
+  SensorPair temp1;
+  SensorPair temp2;
+  
+  if (getSensorSide()) {
+    temp1 = calibratedValuesLeft(getLeftSensorValues());
   }
   else {
-    SensorPair temp1 = calibratedValuesRight(getRightSensorValues()); 
+    temp1 = calibratedValuesRight(getRightSensorValues()); 
   }
   
   if (wallPosition == 0) { // robot just found wall
@@ -84,11 +87,11 @@ int checkForStableSensors(int wallPosition) {
   
   delay(2);
   	
-  if (sensorSide) {
-    SensorPair temp2 = calibratedValuesLeft(getLeftSensorValues());
+  if (getSensorSide()) {
+    temp2 = calibratedValuesLeft(getLeftSensorValues());
   }
   else {
-    SensorPair temp2 = calibratedValuesRight(getRightSensorValues()); 
+    temp2 = calibratedValuesRight(getRightSensorValues()); 
   } 
   
   if (wallPosition == 0) { // robot just found wall
@@ -118,28 +121,28 @@ void setCoords() {
 
   switch(trackingState) {
     case 1: {
-      if (checkForStableSensors()) {
+      if (checkForStableSensors(0)) {
         differenceBetweenMouseAndPosition(2000, 0);
         trackingState = 2;
       }
       break;
     }
     case 2: {
-      if (checkForStableSensors()) {
+      if (checkForStableSensors(1)) {
         differenceBetweenMouseAndPosition(4000, 0);
         trackingState = 3;
       }    
       break;
     }
     case 3: {
-      if (checkForStableSensors()) {
+      if (checkForStableSensors(0)) {
         differenceBetweenMouseAndPosition(6000, 2000);
         trackingState = 4;
       }    
       break;
     }
     case 4: {
-      if (checkForStableSensors()) {
+      if (checkForStableSensors(1)) {
         differenceBetweenMouseAndPosition(8000, 2000);
         trackingState = 5;
       }    
@@ -153,8 +156,8 @@ void setCoords() {
 }
 
 void differenceBetweenMouseAndPosition(int x, int y) {
-  diffX = x - trackingPositionX;
-  diffY = y - trackingPositionY;  
+  int diffX = x - trackingPositionX;
+  int diffY = y - trackingPositionY;  
   
   if (diffY<0)
     diffY = diffY * (-1);  

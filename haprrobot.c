@@ -125,7 +125,7 @@ int doTheDemo() {
         break;
       }
       case 4: { // left wall ended, bear right
-        turnRight();
+        right();
         delay(20); ///@todo need to add something in case we never reach the wall
         forwards(15);
       }      
