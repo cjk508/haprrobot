@@ -67,9 +67,10 @@ void initialise() {
   serialTest();
   initSensors();
   // Even tho this is a test it needs to run so that the serial is set up properly
-  //initTimers();
+  initTimers();
   __enable_irq();
-  //mouseinitial();  
+	_DBG_("MOUSE");
+  mouseinitial();  
 	_DBG_("I've completed"); 
 
 }
@@ -84,10 +85,11 @@ void doATest() {
  
 //  linefollowTest();    
 
-  motorCorrectTest();
+ // motorCorrectTest();
 
-//  _DBG_("init mouse");
- // mouseinitial();
+ //_DBG_("init mouse");
+ //mouseinitial();
+	forwardsfor50();
 }
 
 int doTheDemo() { 
