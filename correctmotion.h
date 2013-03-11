@@ -4,7 +4,8 @@
 *		robot should move parallel to an object
 *
 *	@author	Lloyd Wallis
-*	@version: V0.6
+* @author Christopher King
+*	@version: V0.8
 *	@date:	27 February 2013
 *
 ***************************************************************/		
@@ -34,8 +35,9 @@ void setSensorSide(int setSide);
 * If the front sensor > rear sensor and both are below WALL_DISTANCE then turn towards wall
 * If the front sensor < rear sensor and both are below WALL_DISTANCE then turn away from wall
 *
-* @author Christopher King
-* @author Lloyd Wallis
+* @author Christopher King (changed to work with WALL_DISTANCE also debug)
+* @author Lloyd Wallis (initial code & debug)
+* @author Andrew Durant (debugger)
 * @param sensor sensor that will be used for wall following
 */
 void wallFollow(SensorPair sensor);
@@ -48,12 +50,13 @@ void wallFollow(SensorPair sensor);
 void debug_output(SensorPair sensor);
 
 /**
-* Gets the sensor values and then passes then on to
-* wall follow if the front sensor is lower than 100
-* @todo should then move away from it when front sensor 100 rear sensor 40
+* Reads in side sensor values, and will automatically adjust with the intention
+* of eventually moving parallel to the nearest object.
+* Will adjust speed one unit left or right per invokation - repeated use over
+* a period of a few seconds is best.
 *
-* @author Lloyd Wallis
-* @author Christopher King
+* @author Lloyd Wallis <lpw503@york.ac.uk> (initial coding)
+* @author Christopher King (removed duplicated code and put it into wallfollow rather than checking for left and then right)
 */
 void correctForwardMotion();
 #endif
