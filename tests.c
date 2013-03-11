@@ -72,7 +72,7 @@ void linefollowTest(){
  * Tests the motion correction, should stop if there is an object infront of the robot, otherwise it should follow a wall
  *
  * @author Lloyd Wallis
- * @author Christoher King
+ * @author Christopher King
  */
 void motorCorrectTest() {
   forwards(15);
@@ -82,8 +82,8 @@ void motorCorrectTest() {
   //checkForWall();
   while (1) 
   {
-    int i =0;
-    while (i < 3000000) {i++;}
-    correctForwardMotion();
+   /* int i =0;
+    while (i < 3000000) {i++;}*/
+      correctForwardMotion();
   }
 }
