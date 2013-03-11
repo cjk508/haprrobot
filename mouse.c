@@ -72,6 +72,7 @@ void cb(uint8_t buttons, int8_t y, int8_t t) {
 	static int32_t tempt;
 	static int32_t tempy;
 	static int32_t tempYCurve;
+	static int32_t tempTCurve;
 	static int state;
 	static int prevState;
 	printCoords(coord_x, coord_y);
@@ -123,6 +124,7 @@ void cb(uint8_t buttons, int8_t y, int8_t t) {
 		state = 3;
 		overflowProtection(y, t);
 		tempYCurve += y;
+		tempTCurve += t;
 		if (prevState == 1){
 		  double spinVal = thetaOfArc(converterForCm(tempt), r);
 		  theta = theta + spinVal; clearVal(tempt);
@@ -133,20 +135,20 @@ void cb(uint8_t buttons, int8_t y, int8_t t) {
 		  add_to_y(tempy2);
 		  clearVal(tempy);
 		}
-		if (prevState == 3 || tempYCurve > 99){
-		  curve(tempYCurve);
+		if (prevState == 3 || tempYCurve > 99 && tempTCurve > 99){
+		  curve(converterForCm(tempYCurve), converterForCm(tempTCurve));
 		  clearVal(tempYCurve);
+			clearVal(tempTCurve);
 		}
 	}
 }
 
 
-void curve(int y) {
+void curve(int y, int t) {
 /**
 The Idea of this method is to work out how far the robot has moved with respect to the x and y axis coordinates.
-*/
-	int rad = converterForCm(y);
-	double th = thetaOfArc(rad, rad); // gives us an angle theta, from the length of the arc traversed, y, and the constant, r, where r is the radius of a circle.
+*/double th = (t/y); // gives us an angle theta, from the length of the arc traversed, y, and the constant, r, where r is the radius of a circle.
+	double rad = (y/th);	
 	double hyp_2 = sin(th) * rad; // gets sin(th) and multiplies it by r to get the hypotenuse, hyp_2, of the upper triangle 
 	double y2 = hyp_2 * cos(th); // multiplies hyp_2 by the cosine of theta, to get an x value parrallel to the x axis of the overall coordinates
 	double x2 = hyp_2 * sin(th); // multiplies hyp_2 by the sine of theta, to get an y value parrallel to the y axis of the overall coordinates
