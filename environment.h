@@ -1,9 +1,22 @@
+/*********************************************************************//**
+*	@file environment.h
+*	@brief	 Checks the robots surrounding environment and informs the "state machine"
+*          Also includes environment based sub-functions that are necessary for ensuring
+*          stable results.
+*
+*	@author	Andrew Durant
+* @author Christopher King
+* @author Lloyd Wallis
+*	@version: V1.0
+*	@date:	10 March 2013
+************************************************************************/
+
 #ifndef ENVIRO_INC
 #define ENVIRO_INC
 
 int trackingPositionX;
-int trackingPosition;
-
+int trackingPositionY;
+int trackingState;
 /**
 * Checks to see if there is a line underneath the robot using the raw sensors
 *
@@ -46,9 +59,10 @@ void setTrackingPosition(int x, int y);
 * @author Christopher King
 * @author Lloyd Wallis
 *
+* @param wallPosition  where should the wall be? 0 = wall infront of FS, 1 = wall infront of RS, anything else = no wall
 * @return 1 or 0 depending on whether Sensors are stable (1) or they aren't (0)
 */
-int checkForStableSensors(void);
+int checkForStableSensors(int wallPosition);
 /**
 * State machine that contains the next set coordinates. This then checks that the
 * sensors are stable and continues to the next state

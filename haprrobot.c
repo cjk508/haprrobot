@@ -40,7 +40,11 @@
 
 // This is a file for your test functions
 #include "tests.c"
-
+/**
+* @brief 0 short course goes straight on to dock 
+*        1 is long course, bears right after left wall to find the right wall.
+*/
+int courseType;
 /**
  * Runs all the initialisations that are needed
  * Please put them in here.
@@ -48,6 +52,7 @@
 void initialise() {
   debug_frmwrk_init();
   trackingState = 0;
+  courseType = 0;
   initSerial();
   serialTest();
   initSensors();
@@ -90,9 +95,12 @@ int doTheDemo() {
     else
       currentState = 0;
   }
-  else if(checkForWall()) {
+  else if(checkForWall() == 1 || checkForWall() == 2) {
     currentState = 1;
   }
+  else if(checkForWall() == 3 && courseType) {
+    currentState = 4;
+  }    
   else {
     currentState = 2;
   }
@@ -120,6 +128,11 @@ int doTheDemo() {
         dockBySensorsAndLine();
         break;
       }
+      case 4: { // left wall ended, bear right
+        right();
+        delay(20); ///@todo need to add something in case we never reach the wall
+        forwards(15);
+      }      
       default: {  // should never reach but if it does then track movement with mouse
         currentState = 2;
       }  
