@@ -1,3 +1,9 @@
+#include "menu.h"
+#include "haprrobot.h"
+#include "uart.h"
+#include "sensors.h"
+#include "timer.h"
+
 void ADC_IRQHandler(void) {
   //Disable further interrupts for now
   NVIC_DisableIRQ(ADC_IRQn);
@@ -52,7 +58,7 @@ void ADC_IRQHandler(void) {
     return;
   }
   
-  NVIC_EnableIRQ(ADC_IRQ);
+  NVIC_EnableIRQ(ADC_IRQn);
   abortMode = 0;
 }
 
