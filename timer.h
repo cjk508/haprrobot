@@ -17,7 +17,7 @@
 #include "motors.h"
 #include "mouse.h"
 
-
+int lotsOfBlackTape;
 /**
 * Timer interupt initialisation abstraction.
 * Sets up a timer interupt from the given parameters
