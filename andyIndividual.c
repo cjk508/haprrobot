@@ -82,30 +82,35 @@ SensorPair noteValuesLeft(SensorPair sensorValue) {
   return sensorValue;
 }
 
-SensorPair calibratedValuesRight(SensorPair sensorValue) {
+SensorPair volumeValuesRight(SensorPair sensorValue) {
   uint16_t tempF = 0;
   uint16_t tempR = 0;
   // Front
-  if      (sensorValue.FrontSensor < 700)  { tempF = 0; }
-  else if (sensorValue.FrontSensor < 825)  { tempF = 1; }
-  else if (sensorValue.FrontSensor < 1100)  { tempF = 2; }  
-  else if (sensorValue.FrontSensor < 1300)  { tempF = 3; }     
-  else if (sensorValue.FrontSensor < 1560)  { tempF = 4; }  
-  else if (sensorValue.FrontSensor < 1670)  { tempF = 5; }
-  else if (sensorValue.FrontSensor < 1725)  { tempF = 6; }      
-  else if (sensorValue.FrontSensor < 1800)  { tempF = 7; }
-  else if (sensorValue.FrontSensor < 1900)  { tempF = 8; }
-  else if (sensorValue.FrontSensor < 2000)  { tempF = 9; }
-  else if (sensorValue.FrontSensor < 2150)  { tempF = 10; }
-  else if (sensorValue.FrontSensor < 2280)  { tempF = 11; }  
-  else if (sensorValue.FrontSensor < 2400)  { tempF = 12; }     
-  else if (sensorValue.FrontSensor < 2600)  { tempF = 13; }  
-  else if (sensorValue.FrontSensor < 2810)  { tempF = 14; }
-  else if (sensorValue.FrontSensor < 3250)  { tempF = 15; }      
-  else                                     { tempF = 16; }
+  if      (sensorValue.FrontSensor < 1400) { tempF = 16; }
+  else if (sensorValue.FrontSensor < 1560) { tempF = 15; }
+  else if (sensorValue.FrontSensor < 1670) { tempF = 14; }  
+  else if (sensorValue.FrontSensor < 1725) { tempF = 13; }     
+  else if (sensorValue.FrontSensor < 1800) { tempF = 12; }  
+  else if (sensorValue.FrontSensor < 1900) { tempF = 11; }
+  else if (sensorValue.FrontSensor < 2000) { tempF = 10; }      
+  else if (sensorValue.FrontSensor < 2150) { tempF = 9; }
+  else if (sensorValue.FrontSensor < 2280) { tempF = 8; }
+  else if (sensorValue.FrontSensor < 2400) { tempF = 7; }
+  else if (sensorValue.FrontSensor < 2600) { tempF = 6; }
+  else if (sensorValue.FrontSensor < 2810) { tempF = 5; }  
+  else if (sensorValue.FrontSensor < 2900) { tempF = 4; }     
+  else if (sensorValue.FrontSensor < 3000) { tempF = 3; }  
+  else if (sensorValue.FrontSensor < 3100) { tempF = 2; }
+  else if (sensorValue.FrontSensor < 3250) { tempF = 1; }      
+  else                                     { tempF = 0; }
 
   sensorValue.RearSensor = tempR;
   sensorValue.FrontSensor = tempF;
   return sensorValue;
 }
+
+
+
+
+
 

@@ -92,3 +92,7 @@ volume[13] = "V13";
 volume[14] = "V14";
 volume[15] = "V15";
 
+
+SensorPair noteValuesLeft(SensorPair sensorValue);
+
+SensorPair volumeValuesRight(SensorPair sensorValue);
