@@ -38,7 +38,6 @@
 #include "timer.h"
 #include "environment.h"
 #include "menu.h"
-#include "chrisIndependent.h"
 
 // This is a file for your test functions
 #include "tests.c"
@@ -72,13 +71,13 @@ void initialise() {
   initTimers();
   __enable_irq();
 	_DBG_("MOUSE");
-  mouseinitial();  
+ // mouseinitial();  
 	_DBG_("I've completed"); 
 
 }
 
 void doATest() {
-  //cmdDoPlay("abcdefg>a");
+  cmdDoPlay("cdefgab>c");
  // forwards(25);
  //followLine();
  /* while(1) {
@@ -87,11 +86,11 @@ void doATest() {
  
 //  linefollowTest();    
 
- // motorCorrectTest();
+ motorCorrectTest();
 
  //_DBG_("init mouse");
  //mouseinitial();
-	forwardsfor50();
+ //forwardsfor50();
 }
 
 int doTheDemo() { 

@@ -75,15 +75,14 @@ void linefollowTest(){
  * @author Christopher King
  */
 void motorCorrectTest() {
-  forwards(15);
+  forwards(20);
   _DBG_("Moving");
   setSensorSide(1);
   _DBG_("Using Left");
   //checkForWall();
   while (1) 
   {
-   /* int i =0;
-    while (i < 3000000) {i++;}*/
-      correctForwardMotion();
+    correctForwardMotion();
+    delay(2);
   }
 }
