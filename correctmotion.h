@@ -4,7 +4,8 @@
 *		robot should move parallel to an object
 *
 *	@author	Lloyd Wallis
-*	@version: V0.6
+* @author Christopher King
+*	@version: V0.8
 *	@date:	27 February 2013
 *
 ***************************************************************/		
