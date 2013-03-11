@@ -225,12 +225,25 @@ void initSensors()
 void EINT3_IRQHandler() {
   //Check if this is "something in the way" or "nothing in the way, actually"
   if (getFrontSensorValue() && isMovingForward()) {
+    //Something in the way
     brake();
-    cmdDoPlay("ABC");
     frontIRQ_triggered = 1;
+    /**
+    * Enables the IRQ handler for the ADC inputs.
+    * Part of Lloyd's personal project
+    */
+    NVIC_EnableIRQ(ADC_IRQn);
   } else if (getFrontSensorValue() == 0 && frontIRQ_triggered) {
+    //Nothing in the way, actually
     frontIRQ_triggered = 0;
-    cmdDoPlay("E");
+    /**
+    * @todo Restore previous motion
+    */
     forwards(25);
+    /**
+    * Disables the IRQ handler for the ADC inputs.
+    * Part of Lloyd's personal project
+    */
+    NVIC_DisableIRQ(ADC_IRQn);
   }
 }

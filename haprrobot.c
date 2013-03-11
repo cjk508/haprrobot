@@ -37,6 +37,7 @@
 #include "correctmotion.h"
 #include "timer.h"
 #include "environment.h"
+#include "menu.h"
 
 // This is a file for your test functions
 #include "tests.c"
@@ -45,6 +46,15 @@
 *        1 is long course, bears right after left wall to find the right wall.
 */
 int courseType;
+/**
+* Enables tools to override the next state
+*/
+int stateOverride = -1;
+/**
+* Enables interrupts to request the state machine to abort current operation
+* and reevaluate transitions
+*/
+int abortMode = 0;
 /**
  * Runs all the initialisations that are needed
  * Please put them in here.
@@ -105,10 +115,13 @@ int doTheDemo() {
     currentState = 2;
   }
   
+  //Part of Lloyd's Personal Project
   if (stateOverride != -1) {
     currentState = stateOverride;
   }
+  abortMode = 0;
   
+  //Run a series of commands based on the chosen state
   if (currentState > -1) { // should never be -1 but if it is we have some problems
     switch (currentState) {
       
