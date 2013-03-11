@@ -97,6 +97,10 @@ int doTheDemo() {
     currentState = 2;
   }
   
+  if (stateOverride != -1) {
+    currentState = stateOverride;
+  }
+  
   if (currentState > -1) { // should never be -1 but if it is we have some problems
     switch (currentState) {
       
