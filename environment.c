@@ -42,22 +42,15 @@ int checkForWall() {
     setSensorSide(0);  
     sensorSideFound++;
   }
-  
-  switch (sensorSideFound) {
-    case 0: {
-      return 0;
-      break;
-    }
-    case 1: {
-      return 1;
-      break;
-    }    
-    case 2: {
-      return 2;
-      break;
-    }    
-  }
-  return 3;
+  if (leftSensors.FrontSensor == 100 && leftSensors.RearSensor < 100) {
+    setSensorSide(1);  
+    sensorSideFound = 3;
+  }   
+  if (rightSensors.FrontSensor == 100 && rightSensors.RearSensor < 100) {
+    setSensorSide(0);  
+    sensorSideFound = 4;
+  }       
+  return sensorSideFound;
 }
 
 void setTrackingPosition(int x, int y) {
@@ -65,13 +58,29 @@ void setTrackingPosition(int x, int y) {
   trackingPositionY = y;
 }
 
-int checkForStableSensors(void) {
+int checkForStableSensors(int wallPosition) {
   if (sensorSide) {
     SensorPair temp1 = calibratedValuesLeft(getLeftSensorValues());
   }
   else {
     SensorPair temp1 = calibratedValuesRight(getRightSensorValues()); 
   }
+  
+  if (wallPosition == 0) { // robot just found wall
+    if (temp1.RearSensor != 100) {
+      return 0; // Wall is not in the right position don't write the new tracking position
+    }
+  }
+  else if (wallPosition == 1) { // robot just leaving wall
+    if (temp1.FrontSensor != 100) {
+      return 0; // Wall is not in the right position don't write the new tracking position
+    }  
+  }
+  else { // No wall
+    if ((temp1.RearSensor < 100) || (temp1.FrontSensor < 100)) 
+      return 0; // Wall is not in the right position don't write the new tracking position
+  }
+  
   
   delay(2);
   	
@@ -82,11 +91,26 @@ int checkForStableSensors(void) {
     SensorPair temp2 = calibratedValuesRight(getRightSensorValues()); 
   } 
   
+  if (wallPosition == 0) { // robot just found wall
+    if (temp2.RearSensor != 100) {
+      return 0; // Wall is not in the right position don't write the new tracking position
+    }
+  }
+  else if (wallPosition == 1) { // robot just leaving wall
+    if (temp2.FrontSensor != 100) {
+      return 0; // Wall is not in the right position don't write the new tracking position
+    }  
+  }
+  else { // No wall
+    if ((temp2.RearSensor < 100) || (temp2.FrontSensor < 100)) 
+      return 0; // Wall is not in the right position don't write the new tracking position
+  }  
+  
   if ((temp1.FrontSensor == temp2.FrontSensor) && (temp1.FrontSensor == temp2.FrontSensor)) {
     return 1;
   }
   else {
-    return 0;
+      return 0; // Sensors were not stable don't write the new tracking position
   }
 }
 

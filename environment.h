@@ -59,9 +59,10 @@ void setTrackingPosition(int x, int y);
 * @author Christopher King
 * @author Lloyd Wallis
 *
+* @param wallPosition  where should the wall be? 0 = wall infront of FS, 1 = wall infront of RS, anything else = no wall
 * @return 1 or 0 depending on whether Sensors are stable (1) or they aren't (0)
 */
-int checkForStableSensors(void);
+int checkForStableSensors(int wallPosition);
 /**
 * State machine that contains the next set coordinates. This then checks that the
 * sensors are stable and continues to the next state

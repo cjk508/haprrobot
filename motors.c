@@ -92,11 +92,13 @@ void backwards(int s) {
 }
 
 void right() {
-	//setMotors(25, 0);
+	setLeftMotorFw(25);
+	setRightMotorFw(15);
 }
 
 void left() {
-	//setMotors(0, 25);
+	setLeftMotorFw(15);
+	setRightMotorFw(25);
 }
 
 void brake() {
