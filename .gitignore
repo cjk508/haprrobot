@@ -2,5 +2,9 @@
 *.o
 bin/
 docs/
+JedIndividual.h
+JedIndividual.c
 chrisIndependent.c
 chrisIndependent.h
+andyIndividual.h
+andyIndividual.c
