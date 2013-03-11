@@ -36,7 +36,7 @@ void setSensorSide(int setSide);
 *
 * @author Christopher King (changed to work with WALL_DISTANCE also debug)
 * @author Lloyd Wallis (initial code & debug)
-* @debugger Andrew Durant
+* @author Andrew Durant (debugger)
 * @param sensor sensor that will be used for wall following
 */
 void wallFollow(SensorPair sensor);
