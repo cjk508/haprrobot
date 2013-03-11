@@ -59,7 +59,7 @@ SensorPair calibratedValuesLeft(SensorPair sensorValue) {
   else if (sensorValue.FrontSensor < 3200) { tempF = 5; }
   
   // Rear
-  if (sensorValue.FrontSensor < 400) { tempF = 100; }  
+  if (sensorValue.RearSensor < 400) { tempR = 100; }  
   else if (sensorValue.RearSensor < 810) { tempR = 40; }
   else if (sensorValue.RearSensor < 940) { tempR = 35; }
   else if (sensorValue.RearSensor < 1100) { tempR = 30; }
@@ -83,8 +83,8 @@ SensorPair calibratedValuesLeft(SensorPair sensorValue) {
 }
 //----------------------------------------------------------------
 SensorPair calibratedValuesRight(SensorPair sensorValue) {
-  uint16_t tempF = sensorValue.FrontSensor;
-  uint16_t tempR = sensorValue.RearSensor;
+  uint16_t tempF = 0;
+  uint16_t tempR = 0;
   // Front
   if (sensorValue.FrontSensor < 400) { tempF = 100; } 
   else if (sensorValue.FrontSensor < 930) { tempF = 40; }
@@ -105,7 +105,7 @@ SensorPair calibratedValuesRight(SensorPair sensorValue) {
   else if (sensorValue.FrontSensor < 3250) { tempF = 5; }
   
   // Rear
-  if (sensorValue.FrontSensor < 400) { tempF = 100; } 
+  if (sensorValue.RearSensor < 400) { tempR = 100; } 
   else if (sensorValue.RearSensor < 700) { tempR = 40; }
   else if (sensorValue.RearSensor < 825) { tempR = 35; }
   else if (sensorValue.RearSensor < 1100) { tempR = 30; }
