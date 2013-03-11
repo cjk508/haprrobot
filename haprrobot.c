@@ -161,8 +161,8 @@ int doTheDemo() {
 }
 
 void theremin() {
-  setNote();
   setVolume();
+  setNote();
 }
 
 void main(void) {
