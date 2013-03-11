@@ -109,8 +109,16 @@ SensorPair volumeValuesRight(SensorPair sensorValue) {
   return sensorValue;
 }
 
+void setNote() {
+  SensorPair noteSensor = getSensorValuesLeft();
+  noteSensor = noteValuesLeft(noteSensor);
+  cmdDoPlay(note[noteSensor]);
+}
 
-
-
+void setVolume() {
+  SensorPair volumeSensor = getSensorValuesRight();
+  volumeSensor = volumeValuesRight(volumeSensor);
+  cmdDoPlay(volume[volumeSensor]);
+}
 
 

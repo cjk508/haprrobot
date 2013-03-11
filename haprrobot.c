@@ -160,6 +160,11 @@ int doTheDemo() {
   }
 }
 
+void theremin() {
+  setNote();
+  setVolume();
+}
+
 void main(void) {
   initialise();
   _DBG_("Magic!");

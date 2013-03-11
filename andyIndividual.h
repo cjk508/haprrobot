@@ -96,3 +96,7 @@ volume[15] = "V15";
 SensorPair noteValuesLeft(SensorPair sensorValue);
 
 SensorPair volumeValuesRight(SensorPair sensorValue);
+
+void setNote();
+
+void setVolume();
