@@ -126,6 +126,8 @@ int doTheDemo() {
       }
       case 4: { // left wall ended, bear right
         turnRight();
+        delay(20); ///@todo need to add something in case we never reach the wall
+        forwards(15);
       }      
       default: {  // should never reach but if it does then track movement with mouse
         currentState = 2;
