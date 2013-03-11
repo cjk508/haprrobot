@@ -179,10 +179,16 @@ int32_t get_coord_y() {
 
 void add_to_x(int8_t x) {
 	coord_x += x * cos(theta); //x is multiplied by cos(theta) as direction the robot is facing can affect how far it actually moves along the x_axis
+  if (((coord_x % 50) >= 48) && ((coord_x %50) <= 2)) { ///@todo change to just % 50 if it works well
+    cmdDoPlay(">>c");
+  } 	
 }
 
 void add_to_y(int8_t y) {
 	coord_y += y * sin(theta);//y is multiplied by sin(theta) as direction the robot is facing can affect how far it actually moves along the y_axis
+  if (((coord_y % 50) >= 48) && ((coord_y %50) <= 2)) { ///@todo change to just % 50 if it works well
+    cmdDoPlay(">>c");
+  } 	
 }
 
 /** @todo Is this alright? Code taken from http://code.google.com/p/my-itoa/, for ease of use and lack of time

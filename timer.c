@@ -3,7 +3,6 @@
 #include "mouse.h"
 
 int motorState = 0;
-int lotsOfBlackTape = 0;
 
 void initTimer(LPC_TIM_TypeDef *TIMx, IRQn_Type IRQn, int time) {
 	TIM_TIMERCFG_Type TimerConf = {
