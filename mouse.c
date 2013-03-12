@@ -9,9 +9,8 @@
 
 const int r = 7;
 double theta;
-double coord_x;
-double coord_y;
-int actTheta;
+int32_t coord_x;
+int32_t coord_y;
 // when the mouse moves slow enough it can detect 1000 points per 10cm, so 10000 = 1m
 void mouseinitial()
 {
@@ -27,20 +26,20 @@ of debugging but it seems to have worked,*/
   mouse_poll();
 }
 
-void overflowProtection(int8_t x, int8_t t)
+void overflowProtection(int8_t y, int8_t t)
 {
-	if( x > 125 || x < -125) {
-		_DBG_("x has OVERFLOW");
-		struct motorPair XrightMotorValues = getSpeedRight();
-		struct motorPair XleftMotorValues = getSpeedLeft();
+	if( y > 125 || y < -125) {
+		_DBG_("y has OVERFLOW");
+		motorPair YrightMotorValues = getSpeedRight();
+		motorPair YleftMotorValues = getSpeedLeft();
 		brake();
 		delay(100000);
-		resume(XrightMotorValues, XleftMotorValues);
+		resume(YrightMotorValues, YleftMotorValues);
 	}
 	if( -125 > t || t > 125) {
 		_DBG_("t has OVERFLOW");
-		struct motorPair TrightMotorValues = getSpeedRight();
-		struct motorPair TleftMotorValues = getSpeedLeft();
+		motorPair TrightMotorValues = getSpeedRight();
+		motorPair TleftMotorValues = getSpeedLeft();
 		brake();
 		delay(100000);
 		resume(TrightMotorValues, TleftMotorValues);
@@ -53,20 +52,19 @@ double thetaOfArc(int32_t l, int32_t r) {
 }
 
 int32_t converterForCm(int32_t x) {
-	int32_t temp = (x/2000);
+	int32_t temp = 0;
 	if(x%100 > 49){
 		temp += 1;
+		int i = x%100;
+		x = x-i;
 	}
+	temp += (x/2000);
 	return temp;
 }
 
-double convertToDeg(int t) {
-	double temp = t * (180/M_PI);
+int32_t convertToDeg(int32_t t) {
+	int32_t temp = t * (180/M_PI);
 	return temp;
-}
-
-void clearVal(int x) {
-	x = 0;
 }
 
 void cb(uint8_t buttons, int8_t y, int8_t t) {
@@ -80,25 +78,26 @@ void cb(uint8_t buttons, int8_t y, int8_t t) {
 	static int32_t tempTCurve;
 	static int state;
 	static int prevState;
-	printCoords(coord_x, coord_y, t);
+	printCoords(coord_x, coord_y, theta);
 	//if there is a change in the t value only then the robot is spinning
 	if(t != 0 && y == 0) {
 		prevState = state;
 		state = 1;
 		overflowProtection(t, 0);
 		tempt += t;
-		if (prevState == 1 || tempt > 99){
+		if (tempt > 99){
 		  double spinVal = thetaOfArc(converterForCm(tempt), r); 
-		  theta = theta + spinVal; clearVal(tempt);}
+		  theta = theta + spinVal; tempt = 0;
+		}
 		if (prevState == 2){
 		  int32_t tempy2 = converterForCm(tempy);
 		  add_to_x(tempy2);
 		  add_to_y(tempy2);
-		  clearVal(tempy);
+		  tempy = 0;
 		}
 		if (prevState == 3){
 		  curve(converterForCm(tempYCurve), converterForCm(tempTCurve));
-		  clearVal(tempYCurve);
+		  tempYCurve = 0;
 		}
 	}
 	
@@ -110,17 +109,17 @@ void cb(uint8_t buttons, int8_t y, int8_t t) {
 		tempy += y;
 		if (prevState == 1){
 		  double spinVal = thetaOfArc(converterForCm(tempt), r);
-		  theta = theta + spinVal; clearVal(tempt);
+		  theta = theta + spinVal; tempt = 0;
 		}
-		if (prevState == 2 || tempy > 99){
+		if (tempy > 99){
 		  int32_t tempy2 = converterForCm(tempy);
 		  add_to_x(tempy2);
 		  add_to_y(tempy2);
-		  clearVal(tempy);
+		  tempy = 0;
 		}
 		if (prevState == 3){
 		  curve(converterForCm(tempYCurve), converterForCm(tempTCurve));
-		  clearVal(tempYCurve);
+		 tempYCurve = 0;
 		}
 	}
 	//If y and t are changing then the robot is moving in a curve
@@ -132,18 +131,18 @@ void cb(uint8_t buttons, int8_t y, int8_t t) {
 		tempTCurve += t;
 		if (prevState == 1){
 		  double spinVal = thetaOfArc(converterForCm(tempt), r);
-		  theta = theta + spinVal; clearVal(tempt);
+		  theta = theta + spinVal; tempt = 0;
 		}
 		if (prevState == 2){
 		  int32_t tempy2 = converterForCm(tempy);
 		  add_to_x(tempy2);
 		  add_to_y(tempy2);
-		  clearVal(tempy);
+		  tempy = 0;
 		}
-		if ((prevState == 3 || tempYCurve > 99) && tempTCurve > 99){ ///@todo please check your brackets
+		if (tempYCurve > 99 && tempTCurve > 99){ ///@todo please check your brackets
 		  curve(converterForCm(tempYCurve), converterForCm(tempTCurve));
-		  clearVal(tempYCurve);
-			clearVal(tempTCurve);
+		  tempYCurve = 0;
+			tempTCurve = 0;
 		}
 	}
 }
@@ -162,7 +161,6 @@ The Idea of this method is to work out how far the robot has moved with respect 
 	double x1 = hyp_1 * cos(th);// multiplies hyp_1 by the cosine of theta, to get an y value parrallel to the y axis of the overall coordinates
 	theta += th;// add t to theta so the angle the robot now faces is known
 	coord_x += (x2 - x1);// minus the value x1 (from the lower triangle) from x2 (from the upper triangle) together so the overall parrallel movement with respect to the x axis is known
-	_DBG_("Coord_x value "); _DBD32(coord_x);
 	coord_y += (y2 + y1);// add y1 and y2 together where the total is how far forward or backward the robot has moved with respect to the y axis
 }
 
@@ -178,12 +176,16 @@ void detach() {
 	printCoords(coord_x, coord_y, convertToDeg(theta));
 }
 
-double get_coord_x() {	
+int32_t get_coord_x() {	
 	return coord_x;
 }
 
-double get_coord_y() {
+int32_t get_coord_y() {
 	return coord_y;
+}
+
+int32_t get_theta() {
+	return theta;
 }
 
 void forwardsfor50(){
@@ -192,15 +194,13 @@ void forwardsfor50(){
 	}
 	int32_t temp = get_coord_x();
 	int32_t temp2 = get_coord_y();
-	printCoords(temp, temp2, 0); ///@todo pass theta here instead of 0
-	_DBG_("I've went 50");
+	int32_t temp3 = convertToDeg(get_theta());
+	printCoords(temp, temp2, temp3); 
+	_DBG_("I've went 50");	
 	brake();
 }
 
 void add_to_x(int8_t x) {
-	int32_t temp = cos(theta);
-	_DBG_("value of cos(theta)");
-	_DBD32(temp);
 	coord_x += x * sin(theta); //x is multiplied by sin(theta) as direction the robot is facing can affect how far it actually moves along the x_axis
   if ((((int)coord_x % 50) >= 48) && (((int)coord_x %50) <= 2)) { ///@todo change to just % 50 if it works well
     cmdDoPlay(">>c");
@@ -215,7 +215,7 @@ void add_to_y(int8_t y) {
   } 	
 }
 
-void printCoords(int32_t x, int32_t y, int32_t theta) {
-	_DBG_("The coordiante position of the Pololu robot is: ( ");_DBD32(x);_DBG_(" , ");_DBD32(y);_DBG_(" , ");_DBD32(theta);_DBG_(" )");
+void printCoords(int32_t x, int32_t y, int32_t t) {
+	_DBG_("The coordiante position of the Pololu robot is: ( ");_DBD32(x);_DBG_(" , ");_DBD32(y);_DBG_(" , ");_DBD32(t);_DBG_(" )");
 }
 

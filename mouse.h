@@ -109,7 +109,7 @@ void detach();
 * @return x_move
 * 
 */
-double give_x_move();
+int32_t get_coord_y();
 
 /**
 * Returns the value of y_move
@@ -118,7 +118,9 @@ double give_x_move();
 * @return y_move
 * 
 */
-double give_y_move();
+int32_t get_coord_x();
+
+int32_t get_theta();
 
 /**
 * Sets the value of x_move to the value of the param x
@@ -137,7 +139,6 @@ void add_to_x(int8_t x);
 * 
 */
 void add_to_y(int8_t y);
-
 
 /**
 * Translates an integer value to an ascii value 
