@@ -83,21 +83,23 @@ void cb(uint8_t buttons, int8_t y, int8_t t) {
 	if(t != 0 && y == 0) {
 		prevState = state;
 		state = 1;
-		overflowProtection(t, 0);
+		overflowProtection(0, t);
 		tempt += t;
-		if (tempt > 99){
-		  double spinVal = thetaOfArc(converterForCm(tempt), r); 
-		  theta = theta + spinVal; tempt = 0;
-		}
+		
 		if (prevState == 2){
 		  int32_t tempy2 = converterForCm(tempy);
 		  add_to_x(tempy2);
 		  add_to_y(tempy2);
 		  tempy = 0;
 		}
-		if (prevState == 3){
+		else if (prevState == 3){
 		  curve(converterForCm(tempYCurve), converterForCm(tempTCurve));
 		  tempYCurve = 0;
+		}
+		
+		if (tempt > 99){
+		  double spinVal = thetaOfArc(converterForCm(tempt), r); 
+		  theta = theta + spinVal; tempt = 0;
 		}
 	}
 	
@@ -107,19 +109,21 @@ void cb(uint8_t buttons, int8_t y, int8_t t) {
 		state = 2;
 		overflowProtection(y, 0);
 		tempy += y;
+		
 		if (prevState == 1){
 		  double spinVal = thetaOfArc(converterForCm(tempt), r);
 		  theta = theta + spinVal; tempt = 0;
 		}
+		else if (prevState == 3){
+		  curve(converterForCm(tempYCurve), converterForCm(tempTCurve));
+		  tempYCurve = 0;
+		}
+		
 		if (tempy > 99){
 		  int32_t tempy2 = converterForCm(tempy);
 		  add_to_x(tempy2);
 		  add_to_y(tempy2);
 		  tempy = 0;
-		}
-		if (prevState == 3){
-		  curve(converterForCm(tempYCurve), converterForCm(tempTCurve));
-		 tempYCurve = 0;
 		}
 	}
 	//If y and t are changing then the robot is moving in a curve
@@ -133,7 +137,7 @@ void cb(uint8_t buttons, int8_t y, int8_t t) {
 		  double spinVal = thetaOfArc(converterForCm(tempt), r);
 		  theta = theta + spinVal; tempt = 0;
 		}
-		if (prevState == 2){
+		else if (prevState == 2){
 		  int32_t tempy2 = converterForCm(tempy);
 		  add_to_x(tempy2);
 		  add_to_y(tempy2);
