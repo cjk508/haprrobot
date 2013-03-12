@@ -38,6 +38,7 @@
 #include "timer.h"
 #include "environment.h"
 #include "menu.h"
+#include "andyIndividual.h"
 
 // This is a file for your test functions
 #include "tests.c"
@@ -62,20 +63,22 @@ int abortMode = 0;
 void initialise() {
   debug_frmwrk_init();
   trackingState = 0;
+  lotsOfBlackTape = 0;
   courseType = 0;
   initSerial();
   serialTest();
   initSensors();
   // Even tho this is a test it needs to run so that the serial is set up properly
-  //initTimers();
+  initTimers();
   __enable_irq();
-  //mouseinitial();  
+	_DBG_("MOUSE");
+ // mouseinitial();  
 	_DBG_("I've completed"); 
 
 }
 
 void doATest() {
-  //cmdDoPlay("abcdefg>a");
+  cmdDoPlay("cdefgab>c");
  // forwards(25);
  //followLine();
  /* while(1) {
@@ -84,10 +87,11 @@ void doATest() {
  
 //  linefollowTest();    
 
-  motorCorrectTest();
+ motorCorrectTest();
 
-//  _DBG_("init mouse");
- // mouseinitial();
+ //_DBG_("init mouse");
+ //mouseinitial();
+ //forwardsfor50();
 }
 
 int doTheDemo() { 
@@ -98,7 +102,7 @@ int doTheDemo() {
   */
   int currentState = -1;
   
-  if(checkForLine()) {
+  if(checkForLine() && checkForWall() != 1) { ///@todo discuss whether it should follow the lines 
     if (checkForWall() == 2) {
       currentState = 3;
     }
@@ -139,7 +143,7 @@ int doTheDemo() {
       }
       case 3: {// Walls and lines on both sides
         dockBySensorsAndLine();
-        break;
+        return 0; // Finished! Robot has docked therefore do nothing else
       }
       case 4: { // left wall ended, bear right
         right();
@@ -150,13 +154,13 @@ int doTheDemo() {
         currentState = 2;
       }  
     }
-    return 1;
+    return 1; // state machine traversed properly
   }
   else {
     if(DBG_LEVEL == 1) {
       _DBG_("ARGH WE HAVE NO ENVIRONMENT");
     }
-    return 0;
+    return 0; // there's a problem
   }
 }
 
@@ -169,7 +173,16 @@ void main(void) {
   initialise();
   _DBG_("Magic!");
   
-  doATest();
+//  doATest();
+  /*
+  while(doTheDemo()) {
+  
+  }
+  */
+  
+  while(1) {
+    theremin();
+  }
   
   _DBG_("Done");
 }

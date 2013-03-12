@@ -914,7 +914,7 @@ Left Front:00719
 
 44cm:
 Left Front:00623
-Left Front:  else if (sensorValue.FrontSensor < 10) { tempF = 22; } 00604
+Left Front:00604
 Left Front:00590
 Left Front:00566
 Left Front:00560

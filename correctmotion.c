@@ -35,81 +35,79 @@ void debug_output(SensorPair sensor) {
 }
 
 void wallFollow(SensorPair sensor) { 
-  int difference = sensor.FrontSensor - sensor.RearSensor;
-  if (difference < 0){
-    difference = difference * (-1);
-  }
   
   if ((sensor.FrontSensor > WALL_DISTANCE) && (sensor.RearSensor > WALL_DISTANCE)) { // both sensors are over the desired distance
     if(sensor.RearSensor > sensor.FrontSensor) {
-      forwards(15); //keep on going straight until one of the sensors is at the desired distance.
-      debug_output(sensor);
+      forwards(20); //keep on going straight until one of the sensors is at the desired distance.
+//      debug_output(sensor);
     }
     else { //if we are either parallel or facing away from the wall
       if(sensorSide){
-        setRightMotorFw(15 + (sensor.FrontSensor - WALL_DISTANCE));
-        setLeftMotorFw(15);            
+        setRightMotorFw(20 + (sensor.FrontSensor - WALL_DISTANCE));
+        setLeftMotorFw(20);            
       }
       else {
-        setLeftMotorFw(15 + (sensor.FrontSensor - WALL_DISTANCE));    
-        setRightMotorFw(15);        
+        setLeftMotorFw(20 + (sensor.FrontSensor - WALL_DISTANCE));    
+        setRightMotorFw(20);        
       }    
     }
   }
   else if ((sensor.FrontSensor < WALL_DISTANCE) && (sensor.RearSensor < WALL_DISTANCE)) { // both sensors less closer to the wall than required
-    if((sensor.FrontSensor < WALL_DISTANCE) && (sensor.RearSensor > sensor.FrontSensor)) { //Front sensor is closest to the wall and under the desired distance
+    if (sensor.RearSensor > sensor.FrontSensor) { //Front sensor is closest to the wall and under the desired distance
       
       if(sensorSide){
         motorPair motorInfo = getSpeedLeft();
-        setLeftMotorFw(motorInfo.motor_speed + difference);
+        setLeftMotorFw(motorInfo.motor_speed + (WALL_DISTANCE - sensor.FrontSensor));
       }
       else {
         motorPair motorInfo = getSpeedRight();
-        setRightMotorFw(motorInfo.motor_speed + difference);      
+        setRightMotorFw(motorInfo.motor_speed + (WALL_DISTANCE - sensor.FrontSensor));      
       } 
-      debug_output(sensor);  
+//      debug_output(sensor);  
        
     }
-    else if((sensor.RearSensor < WALL_DISTANCE) && (sensor.RearSensor < sensor.FrontSensor)) {//Rear sensor is closest to the wall and under the desired distance
-      forwards(15);   
-      debug_output(sensor);  
+    else if(sensor.RearSensor < sensor.FrontSensor) {//Rear sensor is closest to the wall and under the desired distance
+      forwards(20);   
+//      debug_output(sensor);  
       
     }
   }
+  else if ((sensor.FrontSensor <= WALL_DISTANCE) && (sensor.RearSensor > WALL_DISTANCE)) { // both sensors less closer to the wall than required
+      if(sensorSide){
+        motorPair motorInfo = getSpeedLeft();
+        setLeftMotorFw(motorInfo.motor_speed + (WALL_DISTANCE - sensor.FrontSensor));
+      }
+      else {
+        motorPair motorInfo = getSpeedRight();
+        setRightMotorFw(motorInfo.motor_speed + (WALL_DISTANCE - sensor.FrontSensor));      
+      } 
+//      debug_output(sensor);        
+  }  
+  else if ((sensor.FrontSensor > WALL_DISTANCE) && (sensor.RearSensor <= WALL_DISTANCE)) { // both sensors less closer to the wall than required
+      if(sensorSide){
+        motorPair motorInfo = getSpeedRight();
+        setRightMotorFw(motorInfo.motor_speed + (sensor.FrontSensor - WALL_DISTANCE));   
+      }
+      else {
+        motorPair motorInfo = getSpeedLeft();
+        setLeftMotorFw(motorInfo.motor_speed + (sensor.FrontSensor - WALL_DISTANCE ));    
+      } 
+//      debug_output(sensor);        
+  }     
+  else if(sensor.RearSensor < sensor.FrontSensor) {//Rear sensor is closest to the wall and under the desired distance
+      forwards(20);   
+//      debug_output(sensor);  
+  }     
   else if ((sensor.FrontSensor == WALL_DISTANCE) && (sensor.RearSensor == WALL_DISTANCE)) {//if at the required distance carry on all is well
-    forwards(15);   
-  }
-  else if ((sensor.FrontSensor == 100) && (sensor.RearSensor < 30)) {
-    
-    if(sensorSide){ //if left then 
-      motorPair motorInfo = getSpeedRight();
-     /**
-      @todo how are we going to move away?! and then straighten up?!
-      setRightMotorFw(25);
-      setLeftMotorFw(15);*/
-    }
-    else {
-      motorPair motorInfo = getSpeedLeft();
-     /* setRightMotorFw(15);
-      setLeftMotorFw(25);     */
-    }    
-     
+    forwards(20);   
   }
   else {
     cmdDoPlay("a"); //error beep
-    forwards(15);
+    forwards(20);
     debug_output(sensor);
   }
 }
 
-/**
-* Reads in side sensor values, and will automatically adjust with the intention
-* of eventually moving parallel to the nearest object.
-* Will adjust speed one unit left or right per invokation - repeated use over
-* a period of a few seconds is best.
-*
-* @author Lloyd Wallis <lpw503@york.ac.uk>
-*/
 void correctForwardMotion() {
   //Get an initial value
   SensorPair left = getLeftSensorValues();
@@ -132,55 +130,3 @@ void correctForwardMotion() {
       wallFollow(right);
   }  
 }
-/*  if (sensorSide) {
-    if (left.FrontSensor > left.RearSensor) {
-    //If using left and moving away from an object, turn left (move closer a bit)
-      //Slow down left
-      setLeftMotorFw(getSpeedLeft().motor_speed-3);
-      if (DBG_LEVEL >= 2) { _DBG_("Turning Left"); _DBG("Set left up: "); _DBD32(getSpeedLeft().motor_speed); _DBG_(""); 
-        _DBG_("##################");
-        _DBG("Left Front:");_DBD16(left.FrontSensor);_DBG_("");
-        _DBG("Left Rear:");_DBD16(left.RearSensor);_DBG_("");
-        _DBG("Right Front:");_DBD16(right.FrontSensor);_DBG_("");
-        _DBG("Right Rear:");_DBD16(right.RearSensor);_DBG_("");
-      }
-    }
-    else if (left.FrontSensor < left.RearSensor) {
-    //If using left and moving toward an object, turn right (move away a bit)
-      //Speed up left
-      setLeftMotorFw(getSpeedLeft().motor_speed+3);
-      if (DBG_LEVEL >= 2) { _DBG_("Turning Right"); _DBG("Set left dn: "); _DBD32(getSpeedLeft().motor_speed); _DBG_(""); 
-        _DBG_("##################");
-        _DBG("Left Front:");_DBD16(left.FrontSensor);_DBG_("");
-        _DBG("Left Rear:");_DBD16(left.RearSensor);_DBG_("");
-        _DBG("Right Front:");_DBD16(right.FrontSensor);_DBG_("");
-        _DBG("Right Rear:");_DBD16(right.RearSensor);_DBG_("");
-      }
-    }
-  }
-  else if (!sensorSide) {
-    if (right.FrontSensor < right.RearSensor) {
-    //If using right and moving toward an object, turn left (move away a bit)
-      //Speed up right
-      setRightMotorFw(getSpeedRight().motor_speed+3);
-      if (DBG_LEVEL >= 2) { _DBG_("Turning Left"); _DBG("Set right up: "); _DBD32(getSpeedRight().motor_speed); _DBG_(""); 
-        _DBG_("##################");
-        _DBG("Left Front:");_DBD16(left.FrontSensor);_DBG_("");
-        _DBG("Left Rear:");_DBD16(left.RearSensor);_DBG_("");
-        _DBG("Right Front:");_DBD16(right.FrontSensor);_DBG_("");
-        _DBG("Right Rear:");_DBD16(right.RearSensor);_DBG_("");
-      }
-    }
-    else if (right.FrontSensor > right.RearSensor) {
-    //If using right and moving away from an object, turn right (move closer a bit)
-      //Slow down right
-      setRightMotorFw(getSpeedRight().motor_speed-3);
-      if (DBG_LEVEL >= 2) { _DBG_("Turning Right"); _DBG("Set right dn: "); _DBD32(getSpeedRight().motor_speed); _DBG_(""); 
-        _DBG_("##################");
-        _DBG("Left Front:");_DBD16(left.FrontSensor);_DBG_("");
-        _DBG("Left Rear:");_DBD16(left.RearSensor);_DBG_("");
-        _DBG("Right Front:");_DBD16(right.FrontSensor);_DBG_("");
-        _DBG("Right Rear:");_DBD16(right.RearSensor);_DBG_("");
-      }
-    }
-  }*/

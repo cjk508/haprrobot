@@ -9,8 +9,8 @@
 
 const int r = 7;
 double theta;
-int32_t coord_x;
-int32_t coord_y;
+double coord_x;
+double coord_y;
 int actTheta;
 // when the mouse moves slow enough it can detect 1000 points per 10cm, so 10000 = 1m
 void mouseinitial()
@@ -29,32 +29,34 @@ of debugging but it seems to have worked,*/
 
 void overflowProtection(int8_t x, int8_t t)
 {
-	if( x > 120 || x < -120) {
+	if( x > 125 || x < -125) {
 		_DBG_("x has OVERFLOW");
 		struct motorPair XrightMotorValues = getSpeedRight();
 		struct motorPair XleftMotorValues = getSpeedLeft();
 		brake();
-		delay(1);
+		delay(100000);
 		resume(XrightMotorValues, XleftMotorValues);
 	}
-	if( -12 > t || t > 120) {
+	if( -125 > t || t > 125) {
 		_DBG_("t has OVERFLOW");
 		struct motorPair TrightMotorValues = getSpeedRight();
 		struct motorPair TleftMotorValues = getSpeedLeft();
 		brake();
-		delay(1);
+		delay(100000);
 		resume(TrightMotorValues, TleftMotorValues);
 	}
 }
 
 double thetaOfArc(int32_t l, int32_t r) {
-	double th = l/r;
+	double th = (l/r);
 	return th;
 }
 
 int32_t converterForCm(int32_t x) {
-	int32_t temp = x/100;
-	if(x%100 > 49) temp += 1;
+	int32_t temp = (x/2000);
+	if(x%100 > 49){
+		temp += 1;
+	}
 	return temp;
 }
 
@@ -62,97 +64,99 @@ void clearVal(int x) {
 	x = 0;
 }
 
-void cb(uint8_t buttons, int8_t x, int8_t t) {
+void cb(uint8_t buttons, int8_t y, int8_t t) {
 /**
 * @todo put some form of overflow protection to make sure that we are getting fairly accurate results.
 */
 
 	static int32_t tempt;
-	static int32_t tempx;
-	static int32_t tempXCurve;
-	static int32_t tempTCurve;
+	static int32_t tempy;
+	static int32_t tempYCurve;
 	static int state;
 	static int prevState;
-	
+	printCoords(coord_x, coord_y);
 	//if there is a change in the t value only then the robot is spinning
-	if(t != 0 && x == 0) {
+	if(t != 0 && y == 0) {
 		prevState = state;
 		state = 1;
-		overflowProtection(x, 0);
+		overflowProtection(t, 0);
 		tempt += t;
-		if (prevState == 1 && tempt>100){
+		if (prevState == 1 || tempt > 99){
 		  double spinVal = thetaOfArc(converterForCm(tempt), r); 
 		  theta = theta + spinVal; clearVal(tempt);}
 		if (prevState == 2){
-		  converterForCm(tempx);
-		  add_to_x(tempx);
-		  add_to_y(tempx);
-		  clearVal(tempx);
+		  int32_t tempy2 = converterForCm(tempy);
+		  add_to_x(tempy2);
+		  add_to_y(tempy2);
+		  clearVal(tempy);
 		}
 		if (prevState == 3){
-		  curve(tempXCurve);
-		  clearVal(tempXCurve);
+		  curve(tempYCurve);
+		  clearVal(tempYCurve);
 		}
 	}
 	
-	//If there is a change in the x value only then the robot is moving forward
-	if(x != 0 && t == 0) {
+	//If there is a change in the y value only then the robot is moving forward
+	if(y != 0 && t == 0) {
 		prevState = state;
 		state = 2;
-		overflowProtection(x, 0);
-		tempx += x;
+		overflowProtection(y, 0);
+		tempy += y;
 		if (prevState == 1){
-		  int32_t spinVal = thetaOfArc(converterForCm(tempt), r);
+		  double spinVal = thetaOfArc(converterForCm(tempt), r);
 		  theta = theta + spinVal; clearVal(tempt);
 		}
-		if (prevState == 2 && tempx>100) {  
-		  converterForCm(tempx);
-		  add_to_x(tempx);
-		  add_to_y(tempx);
-		  clearVal(tempx);
+		if (prevState == 2 || tempy > 99){
+		  int32_t tempy2 = converterForCm(tempy);
+		  add_to_x(tempy2);
+		  add_to_y(tempy2);
+		  clearVal(tempy);
 		}
 		if (prevState == 3){
-		  curve(tempXCurve);
-		  clearVal(tempXCurve);
-	  }
+		  curve(tempYCurve);
+		  clearVal(tempYCurve);
+		}
 	}
-	//If x and t are changing then the robot is moving in a curve
-	if(t != 0 && x != 0) {
+	//If y and t are changing then the robot is moving in a curve
+	if(t != 0 && y != 0) {
 		prevState = state;
 		state = 3;
-		overflowProtection(x, t);
-		tempXCurve += x;
+		overflowProtection(y, t);
+		tempYCurve += y;
 		if (prevState == 1){
-		  int32_t spinVal = thetaOfArc(converterForCm(tempt), r);
+		  double spinVal = thetaOfArc(converterForCm(tempt), r);
 		  theta = theta + spinVal; clearVal(tempt);
 		}
 		if (prevState == 2){
-		  converterForCm(tempx);
-		  add_to_x(tempx);
-		  add_to_y(tempx);
-		  clearVal(tempx);
+		  int32_t tempy2 = converterForCm(tempy);
+		  add_to_x(tempy2);
+		  add_to_y(tempy2);
+		  clearVal(tempy);
 		}
-		if (prevState == 3 && tempXCurve > 100){
-		  curve(tempXCurve);
-		  clearVal(tempXCurve);
+		if (prevState == 3 || tempYCurve > 99){
+		  curve(tempYCurve);
+		  clearVal(tempYCurve);
 		}
 	}
 }
 
-void curve(int x) {
+
+void curve(int y) {
 /**
 The Idea of this method is to work out how far the robot has moved with respect to the x and y axis coordinates.
-*/int rad = converterForCm(x);
-	double th = thetaOfArc(converterForCm(x), rad); // gives us an angle theta, from the length of the arc traversed, x, and the constant, r, where r is the radius of a circle.
-	int hyp_2 = sin(th) * rad; // gets sin(th) and multiplies it by r to get the hypotenuse, hyp_2, of the upper triangle 
-	int x2 = hyp_2 * cos(th); // multiplies hyp_2 by the cosine of theta, to get an x value parrallel to the x axis of the overall coordinates
-	int y2 = hyp_2 * sin(th); // multiplies hyp_2 by the sine of theta, to get an y value parrallel to the y axis of the overall coordinates
-	int hyp_1 = rad - (cos(th) * rad); // gets cos(th) multplies it by r, then minusing r from the result of the multiplication to get the hypotenuse, hyp_1, of the lower triangle 
-	int x1 = hyp_1 * sin(th);// multiplies hyp_1 by the cosine of theta, to get an x value parrallel to the x axis of the overall coordinates
-	int y1 = hyp_1 * cos(th);// multiplies hyp_1 by the cosine of theta, to get an y value parrallel to the y axis of the overall coordinates
+*/
+	int rad = converterForCm(y);
+	double th = thetaOfArc(rad, rad); // gives us an angle theta, from the length of the arc traversed, y, and the constant, r, where r is the radius of a circle.
+	double hyp_2 = sin(th) * rad; // gets sin(th) and multiplies it by r to get the hypotenuse, hyp_2, of the upper triangle 
+	double y2 = hyp_2 * cos(th); // multiplies hyp_2 by the cosine of theta, to get an x value parrallel to the x axis of the overall coordinates
+	double x2 = hyp_2 * sin(th); // multiplies hyp_2 by the sine of theta, to get an y value parrallel to the y axis of the overall coordinates
+	double hyp_1 = rad - (cos(th) * rad); // gets cos(th) multplies it by r, then minusing r from the result of the multiplication to get the hypotenuse, hyp_1, of the lower triangle 
+	double y1 = hyp_1 * sin(th);// multiplies hyp_1 by the cosine of theta, to get an x value parrallel to the x axis of the overall coordinates
+	double x1 = hyp_1 * cos(th);// multiplies hyp_1 by the cosine of theta, to get an y value parrallel to the y axis of the overall coordinates
 	theta += th;// add t to theta so the angle the robot now faces is known
-	coord_x += (x1 + x2);// add the values of x1 and x2 together so the overall parrallel movement with respect to the x axis is known
-	coord_y += (y2 - y1);// minus y1 (from the lower triangle) from y2( from the upper triangle) where the difference is how far left or right the robot has moved with respect to the y axis
+	coord_x += (x2 - x1);// minus the value x1 (from the lower triangle) from x2 (from the upper triangle) together so the overall parrallel movement with respect to the x axis is known
+	_DBG_("Coord_x value "); _DBD32(coord_x);
+	coord_y += (y2 + y1);// add y1 and y2 together where the total is how far forward or backward the robot has moved with respect to the y axis
 }
 
 void attach() {
@@ -167,22 +171,41 @@ void detach() {
 	printCoords(coord_x, coord_y);
 }
 
-int32_t get_coord_x() {	
-	//Returns the value of x_move
+double get_coord_x() {	
 	return coord_x;
 }
 
-int32_t get_coord_y() {
-	//Returns the value of y_move
+double get_coord_y() {
 	return coord_y;
 }
 
+void forwardsfor50(){
+	while (coord_y<50){
+		forwards(15);
+	}
+	int32_t temp = get_coord_x();
+	int32_t temp2 = get_coord_y();
+	printCoords(temp, temp2);
+	_DBG_("I've went 50");
+	brake();
+}
+
 void add_to_x(int8_t x) {
-	coord_x += x * cos(theta); //x is multiplied by cos(theta) as direction the robot is facing can affect how far it actually moves along the x_axis
+	int32_t temp = cos(theta);
+	_DBG_("value of cos(theta)");
+	_DBD32(temp);
+	coord_x += x * sin(theta); //x is multiplied by sin(theta) as direction the robot is facing can affect how far it actually moves along the x_axis
+  if ((((int)coord_x % 50) >= 48) && (((int)coord_x %50) <= 2)) { ///@todo change to just % 50 if it works well
+    cmdDoPlay(">>c");
+  } 
 }
 
 void add_to_y(int8_t y) {
-	coord_y += y * sin(theta);//y is multiplied by sin(theta) as direction the robot is facing can affect how far it actually moves along the y_axis
+	coord_y += y * cos(theta);//y is multiplied by cos(theta) as direction the robot is facing can affect how far it actually moves along the y_axis
+
+  if ((((int)coord_y % 50) >= 48) && (((int)coord_y %50) <= 2)) { ///@todo change to just % 50 if it works well
+    cmdDoPlay(">>c");
+  } 	
 }
 
 /** @todo Is this alright? Code taken from http://code.google.com/p/my-itoa/, for ease of use and lack of time
@@ -227,6 +250,6 @@ int my_itoa(int val, char* buf)
 }
 
 void printCoords(int x, int y) {
-	_DBG_("The coordiante position of the Pololu robot is: ( ");_DBD(x);_DBG_(" , ");_DBD(y);_DBG_(" )");
+	_DBG_("The coordiante position of the Pololu robot is: ( ");_DBD32(x);_DBG_(" , ");_DBD32(y);_DBG_(" )");
 }
 

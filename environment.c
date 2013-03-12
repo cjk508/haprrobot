@@ -23,6 +23,22 @@ int checkForLine() {
   else
     return 0;
 }
+int checkForNoLine() {
+  uint16_t sensorPattern[5] = {0};
+  getRawSensors(sensorPattern);
+  int i;
+  int isThereALine = 0;
+  
+  for (i = 0; i<5; i++) {
+    if (sensorPattern[i] <= 1500)
+      isThereALine = 1;
+  }
+  if (isThereALine == 5) {
+    return 1;
+  }
+  else
+    return 0;
+}
 
 void dockBySensorsAndLine() {
   forwards(25);
@@ -83,7 +99,6 @@ int checkForStableSensors(int wallPosition) {
     if ((temp1.RearSensor < 100) || (temp1.FrontSensor < 100)) 
       return 0; // Wall is not in the right position don't write the new tracking position
   }
-  
   
   delay(2);
   	
@@ -149,7 +164,7 @@ void setCoords() {
       break;
     }  
     default: {
-      trackByMouse();
+      trackingState = 1;
     }              
   }
 
@@ -190,10 +205,8 @@ void trackByMouse() {
 */
 
   trackingPositionX = get_coord_x();
-  forwards(15);
-  if (((trackingPositionX % 50) >= 48) && ((trackingPositionX %50) <= 2)) { ///@todo change to just % 50 if it works well
-    cmdDoPlay(">>c");
-  }   
+  trackingPositionY = get_coord_y();  
+  setCoords();
 }
 
 
