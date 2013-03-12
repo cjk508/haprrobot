@@ -28,13 +28,15 @@ int checkForNoLine() {
   uint16_t sensorPattern[5] = {0};
   getRawSensors(sensorPattern);
   int i;
-  int isThereALine = 0;
+  int noLine = 0;
   
   for (i = 0; i<5; i++) {
-    if (sensorPattern[i] <= 1500)
-      isThereALine = 1;
+//    _DBG("Sensor ");_DBD(i);_DBG(" ");_DBD16(sensorPattern[i]);_DBG_("");
+    if (sensorPattern[i] <= 1500) {
+      noLine += 1;
+    }
   }
-  if (isThereALine == 5) {
+  if (noLine == 5) {
     return 1;
   }
   else

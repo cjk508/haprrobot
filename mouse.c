@@ -40,7 +40,7 @@ void overflowProtection(int8_t y, int8_t t)
 		motorPair YrightMotorValues = getSpeedRight();
 		motorPair YleftMotorValues = getSpeedLeft();
 		brake();
-		delay(100000);
+		delay(1000000);
 		resume(YrightMotorValues, YleftMotorValues);
 	}
 	if( -125 > t || t > 125) {
@@ -48,7 +48,7 @@ void overflowProtection(int8_t y, int8_t t)
 		motorPair TrightMotorValues = getSpeedRight();
 		motorPair TleftMotorValues = getSpeedLeft();
 		brake();
-		delay(100000);
+		delay(1000000);
 		resume(TrightMotorValues, TleftMotorValues);
 	}
 }
