@@ -103,19 +103,19 @@ void attach();
 void detach();
 
 /**
-* Returns the value of x_move
+* Returns the value of coord_y
 *
 * @author Jed Warwick-Mooney
-* @return x_move
+* @return coord_y
 * 
 */
 int32_t get_coord_y();
 
 /**
-* Returns the value of y_move
+* Returns the value of coord_x
 *
 * @author Jed Warwick-Mooney
-* @return y_move
+* @return coord_x
 * 
 */
 int32_t get_coord_x();

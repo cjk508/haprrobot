@@ -16,6 +16,9 @@ void mouseinitial()
 {
   _DBG_("I'm starting");
   mouse_init(cb, attach, detach);
+	coord_x =0;
+	coord_y =0;
+	theta =0;
   _DBG_("I've set up the mouse");
 }
 void myspecialpoll() {
@@ -58,7 +61,7 @@ int32_t converterForCm(int32_t x) {
 		int i = x%100;
 		x = x-i;
 	}
-	temp += (x/2000);
+	temp += (x/100);
 	return temp;
 }
 
@@ -169,9 +172,6 @@ The Idea of this method is to work out how far the robot has moved with respect 
 }
 
 void attach() {
-	coord_x =0;
-	coord_y =0;
-	theta =0;
 	_DBG_("I'm attached, YAY!");
 }
 
