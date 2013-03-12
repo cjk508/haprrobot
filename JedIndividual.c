@@ -1,3 +1,5 @@
+// Jed Individual
+
 #include "math.h"
 #include "mouse.h"
 #include <string.h>
