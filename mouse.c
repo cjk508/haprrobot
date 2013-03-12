@@ -169,9 +169,9 @@ The Idea of this method is to work out how far the robot has moved with respect 
 }
 
 void attach() {
-	clearVal(coord_x);
-	clearVal(coord_y);
-	clearVal(theta);
+	coord_x =0;
+	coord_y =0;
+	theta =0;
 	_DBG_("I'm attached, YAY!");
 }
 
