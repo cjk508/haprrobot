@@ -43,10 +43,9 @@ void initTimers();
 */
 void delay(int time);
 /**
-* Interrrupt handler for the mouse sensor.
-* Helps with tracking of the robots movement
-* from its original position
-*
+* Interrrupt handler for the mouse sensor. Should interrupt every 10ms
+* and runs method myspecialpoll()
+* @todo who wrote the if else statement - please explain it here
 * @author Jed Warwick-Mooney (Initial Coding)
 *
 */

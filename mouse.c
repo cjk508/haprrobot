@@ -74,9 +74,6 @@ int32_t convertToDeg(int32_t t) {
 }
 
 void cb(uint8_t buttons, int8_t y, int8_t t) {
-/**
-* @todo put some form of overflow protection to make sure that we are getting fairly accurate results.
-*/
 
 	static int32_t tempt;
 	static int32_t tempy;
@@ -223,6 +220,6 @@ void add_to_y(int8_t y) {
 }
 
 void printCoords(int32_t x, int32_t y, int32_t t) {
-	_DBG_("The coordiante position of the Pololu robot is: ( ");_DBD32(x);_DBG_(" , ");_DBD32(y);_DBG_(" , ");_DBD32(t);_DBG_(" )");
+	_DBG_("The coordinate position of the Pololu robot is: ( ");_DBD32(x);_DBG_(" , ");_DBD32(y);_DBG_(" , ");_DBD32(t);_DBG_(" )");
 }
 
