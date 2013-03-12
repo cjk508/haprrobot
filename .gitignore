@@ -2,4 +2,13 @@
 *.o
 bin/
 docs/
+<<<<<<< HEAD
 
+=======
+JedIndividual.h
+JedIndividual.c
+chrisIndependent.c
+chrisIndependent.h
+menu.c
+menu.h
+>>>>>>> master

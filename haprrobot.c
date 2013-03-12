@@ -37,7 +37,12 @@
 #include "correctmotion.h"
 #include "timer.h"
 #include "environment.h"
+<<<<<<< HEAD
 #include "chrisIndependent.h"
+=======
+
+
+>>>>>>> master
 // This is a file for your test functions
 #include "tests.c"
 /**
