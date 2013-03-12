@@ -4,7 +4,7 @@
  *
  *	@author	Andrew Durant (Initial Coding)
  *	@version: V1.0
- *	@date: 26 February 2013
+ *	@date: 12 March 2013
  */
 
 #ifndef UART_INC
@@ -14,6 +14,65 @@
 #include "lpc17xx_pinsel.h"
 #include "lpc_types.h"
 #include "lpc17xx.h"
+
+
+/*! \def SEND_SIGNATURE
+ *  \brief M3pi signature command 
+*/
+/*! \def SEND_RAW_SENSOR_VALUES
+ *  \brief M3pi PID raw sensor values command 
+*/
+/*! \def SEND_CAL_SENSOR_VALUES
+ *  \brief M3pi PID calibrated sensor values command 
+*/
+/*! \def SEND_TRIMPOT
+ *  \brief M3pi trimpot value command 
+*/
+/*! \def SEND_BATTERY_MILLIVOLTS
+ *  \brief M3pi battery level command 
+*/
+/*! \def DO_PLAY
+ *  \brief M3pi play() command 
+*/
+/*! \def PI_CALIBRATE
+ *  \brief M3pi PID calibration command 
+*/
+/*! \def LINE_SENSORS_RESET_CALIBRATION
+ *  \brief M3pi PID calibration reset command 
+*/
+/*! \def SEND_LINE_POSITION
+ *  \brief M3pi PID line position command 
+*/
+/*! \def DO_CLEAR
+ *  \brief M3pi clear LCD command  
+*/
+/*! \def DO_PRINT
+ *  \brief M3pi print to LCD command 
+*/
+/*! \def DO_LCD_GOTO_XY
+ *  \brief M3pi LCD postion command 
+*/
+/*! \def AUTO_CALIBRATE
+ *  \brief M3pi PID auto calibration command
+*/
+/*! \def SET_PID
+ *  \brief M3pi PID start command 
+*/
+/*! \def STOP_PID
+ *  \brief M3pi PID stop command 
+*/
+/*! \def M1_FORWARD
+ *  \brief M3pi M1 forwards command 
+*/
+/*! \def M1_BACKWARD
+ *  \brief M3pi M1 backwards command
+*/
+/*! \def M2_FORWARD
+ *  \brief M3pi M2 forwards command
+*/
+/*! \def M2_BACKWARD
+ *  \brief M3pi M2 backwards command
+*/
 
 // m3pi hex commands
 #define SEND_SIGNATURE 0x81
@@ -120,7 +179,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  */
 //uint32_t cmdCal();
 
-/*
+/**
  * Resets the calibration.
  * This should always be used when
  * connecting to a slave, in case the
@@ -132,7 +191,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  */
 uint32_t cmdRstCal();
 
-/*
+/**
  * Reads all five IR sensors using calibrated
  * values and estimates the position of a
  * black line under the robot. The value,
@@ -143,7 +202,7 @@ uint32_t cmdRstCal();
  * it is under sensor PC4 or farther to the right.
  *
  * @author Andrew Durant (Initial Coding)
- * @param address to write to @todo not sure at the moment (2)
+ * @param linePos pointer to address to write to
  * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdLinePos(uint8_t *linePos);
@@ -188,7 +247,7 @@ uint32_t cmdLcdPrint(char *buf);
  */
 uint32_t cmdAutoCal();
 
-/*
+/**
  * Sets up PID parameters and begins
  * line following. The first data byte
  * sets the maximum motor speed.
@@ -200,12 +259,12 @@ uint32_t cmdAutoCal();
  * described above, and D is the derivative of L.
  *
  * @author Andrew Durant (Initial Coding)
- * @param @todo not sure at the moment (5)
+ * @param data sets speed and parameters for PID
  * @return uint32_t status
  */
 uint32_t cmdPIDstart(uint8_t *data);
 
-/*
+/**
  * Stops PID line following, setting motor speeds to 0.
  *
  * @author Andrew Durant (Initial Coding)

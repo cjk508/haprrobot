@@ -20,6 +20,10 @@
 #include "timer.h"
 #include "environment.h"
 
+/*! \def DBG_LEVEL
+ *  \brief Sets level of debuging ouput.
+ *  Makes everything easier to switch on and off what is output for debuging
+*/
 #define DBG_LEVEL 1
 
 // Here be test functions!

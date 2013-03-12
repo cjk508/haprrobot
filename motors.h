@@ -10,17 +10,13 @@
  *	@version:	 V0.9
  *	@date:	01 March 2013
  */
-/* Motor library for m3pi
- * Jed Warwick-Mooney
- * Andrew Durant
- * 
- * Provides basic functions for each serial command that can be sent to the m3pi
- *
- */
 
 #ifndef MOTOR_INC
 #define MOTOR_INC
 
+/*! \def MAX_SPEED
+ *  \brief Sets the speed limit that speedCheck() uses
+*/
 #define MAX_SPEED 25
 
 int current_motor_speed_left;
