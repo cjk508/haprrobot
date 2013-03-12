@@ -6,6 +6,7 @@
 #include "timer.h"
 #include "mouse.h"
 #include "uart.h"
+#include "debug_frmwrk.h"
 
 int checkForLine() {
   uint16_t sensorPattern[5] = {0};
@@ -137,34 +138,39 @@ void setCoords() {
   switch(trackingState) {
     case 1: {
       if (checkForStableSensors(0)) {
-        differenceBetweenMouseAndPosition(2000, 0);
+        differenceBetweenMouseAndPosition(200, 0);
         trackingState = 2;
+        _DBG_("200,0");
       }
       break;
     }
     case 2: {
       if (checkForStableSensors(1)) {
-        differenceBetweenMouseAndPosition(4000, 0);
+        differenceBetweenMouseAndPosition(400, 0);
         trackingState = 3;
+        _DBG_("400,0");        
       }    
       break;
     }
     case 3: {
       if (checkForStableSensors(0)) {
-        differenceBetweenMouseAndPosition(6000, 2000);
+        differenceBetweenMouseAndPosition(600, 200);
         trackingState = 4;
+        _DBG_("600,200"); 
       }    
       break;
     }
     case 4: {
       if (checkForStableSensors(1)) {
-        differenceBetweenMouseAndPosition(8000, 2000);
+        differenceBetweenMouseAndPosition(800, 200);
         trackingState = 5;
+        _DBG_("800,200"); 
       }    
       break;
     }  
     default: {
       trackingState = 1;
+      _DBG_("State 1"); 
     }              
   }
 
@@ -198,7 +204,7 @@ void trackByMouse() {
       break;
     }    
     case 2: {
-//      trackDistance(500,-1000);
+//      trackDistance(500,-1000);#include "debug_frmwrk.h"
       break;
     }    
   }
