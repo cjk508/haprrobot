@@ -66,12 +66,13 @@ void checkMotion(int y, int t) {
 		delay(100000);
 		if(t > 0) {
 			cmdDoPlay("abab>a");
+			
 			right();
 			delay(100000);
 		}
 		else if(t < 0) {
 		  cmdDoPlay("abba>a");
-			int32_t temp = get_theta();
+			
 			left();
 			delay(100000);
 		}
