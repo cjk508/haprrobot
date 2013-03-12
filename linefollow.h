@@ -11,14 +11,14 @@
 /**
  *  This function should calibrate the line following sensors.
  *
- *  @author Christopher King <cjk508@york.ac.uk>
+ *  @author Christopher King <cjk508@york.ac.uk> (Initial Coding)
  */
 uint32_t calibrateSensors();
 //----------------------------------------------------------------
 /**
 *	returns the raw sensor values of the line sensors
 *
-* @author Christopher King <cjk508@york.ac.uk>
+* @author Christopher King <cjk508@york.ac.uk> (Initial Code)
 * @param sensorPattern This method returns the current values that the raw sensors are transmitting
 */
 void getRawSensors(uint16_t* sensorPattern);
@@ -26,7 +26,7 @@ void getRawSensors(uint16_t* sensorPattern);
 /**
 *	Main function which follows the line
 *
-* @author Christopher King <cjk508@york.ac.uk>
+* @author Christopher King <cjk508@york.ac.uk> (Initial Coding)
 */
 void followLine();
 

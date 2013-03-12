@@ -22,6 +22,7 @@ int lotsOfBlackTape;
 * Timer interupt initialisation abstraction.
 * Sets up a timer interupt from the given parameters
 *
+* @author @todo who wrote this?
 * @param TIMx the timer to setup
 * @param IRQn the interupt to fire
 * @param time the time in ms the interupt fires at
@@ -30,32 +31,25 @@ void initTimer(LPC_TIM_TypeDef *TIMx, IRQn_Type IRQn, int time);
 
 /**
 * Initialises the timers for the robot Timer1 and Timer2
-* @author Jed Warwick-Mooney
+* @author Jed Warwick-Mooney (Initial Coding)
 */
 void initTimers();
 /**
 * The timer over multiple interrupts
 *
-* @author Andrew Durant
+* @author Andrew Durant (Initial Coding)
+* @author Christopher King (Debug)
 * @param time The length of time you wish to delay by
 */
 void delay(int time);
-/**
-* The interrupt handler for the robots state machine
-*
-* @author Jed Warwick-Mooney
-*
-*/
-void TIMER0_IRQHandler();
-
 /**
 * Interrrupt handler for the mouse sensor.
 * Helps with tracking of the robots movement
 * from its original position
 *
-* @author Jed Warwick-Mooney
+* @author Jed Warwick-Mooney (Initial Coding)
 *
 */
-void TIMER2_IRQHandler();
+void TIMER0_IRQHandler();
 
 #endif

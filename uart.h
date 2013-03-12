@@ -2,7 +2,7 @@
  *	@file uart.h
  *	@brief	UART library for m3pi. Provides basic functions for each serial command that can be sent to the m3pi
  *
- *	@author	Andrew Durant
+ *	@author	Andrew Durant (Initial Coding)
  *	@version: V1.0
  *	@date: 12 March 2013
  */
@@ -102,7 +102,7 @@
  * and stops PID line following, if active,
  * so it is useful as an initialization command.
  *
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @param[out]  buf   address to write to
  * @return uint32_t status - 0 if ok, !0 if fail
  */
@@ -113,7 +113,7 @@ uint32_t cmdSig(unsigned char *buf);
  * raw values as a sequence of two-byte ints,
  * in the range 0-2000
  *
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @param[out] sens array size 5 (10 bytes) this is where is writes the values to
  * @return uint32_t status - 0 if ok, !0 if fail
  */
@@ -124,7 +124,7 @@ uint32_t cmdRawSens(uint16_t *sens);
  * calibrated values as a sequence of
  * two-byte ints, in the range 0-1000
  *
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @param[out] sens array size 5 (10 bytes) this is where is writes the values to
  * @return uint32_t status - 0 if ok, !0 if fail
  */
@@ -134,7 +134,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  * Sends the voltage output of the trimpot
  * as a two-byte int, in the range 0-1023
  *
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @param address to write to @todo not sure at the moment (2)
  * @return uint32_t status - 0 if ok, !0 if fail
  */
@@ -144,7 +144,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  * Sends the battery voltage of the 3pi in mV,
  * as a two-byte int
  *
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @param address to write to @todo not sure at the moment (2)
  * @return uint32_t status - 0 if ok, !0 if fail
  */
@@ -158,7 +158,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  * slave program knows how many more data
  * bytes to read.
  *
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @param address to write to @todo not sure at the moment (100 + first bit sends length)
  * @return uint32_t status - 0 if ok, !0 if fail
  */
@@ -173,7 +173,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  * multiple times, as the robot moves over
  * a range from white to black.
  *
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @param address to write to @todo not sure at the moment (10)
  * @return uint32_t status - 0 if ok, !0 if fail
  */
@@ -186,7 +186,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  * master reset without a slave reset,
  * for example in case of a power glitch.
  *
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdRstCal();
@@ -201,7 +201,7 @@ uint32_t cmdRstCal();
  * directly under sensor PC1, up to 4000 when
  * it is under sensor PC4 or farther to the right.
  *
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @param address to write to @todo not sure at the moment (2)
  * @return uint32_t status - 0 if ok, !0 if fail
  */
@@ -210,7 +210,7 @@ uint32_t cmdLinePos(uint8_t *linePos);
 /**
  * Clears the LCD screen on the 3pi.
  *
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdLcdClear();
@@ -221,7 +221,7 @@ uint32_t cmdLcdClear();
  * following string of characters,
  * as with the play command above.
  *
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @param[in] buf string of characters (8 + first bit is length)
  * @return uint32_t status - 0 if ok, !0 if fail
  */
@@ -231,7 +231,7 @@ uint32_t cmdLcdPrint(char *buf);
  * Moves the LCD cursor to x-y coordinates
  * given by the next two bytes.
  *
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @param xy coords (2)
  * @return uint32_t status
  */
@@ -242,7 +242,7 @@ uint32_t cmdLcdPrint(char *buf);
  * calibrating. For use when the robot
  * it positioned over a line.
  *
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdAutoCal();
@@ -258,7 +258,7 @@ uint32_t cmdAutoCal();
  * where L is the position of the line as
  * described above, and D is the derivative of L.
  *
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @param data sets speed and parameters for PID
  * @return uint32_t status
  */
@@ -267,7 +267,7 @@ uint32_t cmdPIDstart(uint8_t *data);
 /**
  * Stops PID line following, setting motor speeds to 0.
  *
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @return uint32_t status
  */
 uint32_t cmdPIDstop();
@@ -276,7 +276,7 @@ uint32_t cmdPIDstop();
  * Sets motor M1 turning forward with a speed of
  * 0 (off) up to 127 (full speed).
  *
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @param[in] speed motor speed 0-127
  * @return uint32_t status - 0 if ok, !0 if fail
  */
@@ -286,7 +286,7 @@ uint32_t cmdLeftMFw(int speed);
  * Sets motor M1 turning backward with a speed of
  * 0 (off) up to 127 (full reverse).
  *
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @param[in] speed motor speed 0-127
  * @return uint32_t status - 0 if ok, !0 if fail
  */
@@ -296,7 +296,7 @@ uint32_t cmdLeftMBw(int speed);
  * Sets motor M2 turning forward with a speed of
  * 0 (off) up to 127 (full speed).
  *
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @param[in] speed motor speed 0-127
  * @return uint32_t status - 0 if ok, !0 if fail
  */
@@ -306,7 +306,7 @@ uint32_t cmdRightMFw(int speed);
  * Sets motor M2 turning backward with a speed of
  * 0 (off) up to 127 (full reverse).
  *
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @param[in] speed motor speed 0-127
  * @return uint32_t status - 0 if ok, !0 if fail
  */
@@ -318,7 +318,7 @@ uint32_t cmdRightMBw(int speed);
  * http://www.pololu.com/docs/0J18/3 includes full
  * reference of accepted syntax for this command.
  *
- * @author Lloyd Wallis
+ * @author Lloyd Wallis (Initial Coding)
  * @param[in] seq Speaker playout sequence string
  */
 uint32_t cmdDoPlay(char *seq);
@@ -327,7 +327,7 @@ uint32_t cmdDoPlay(char *seq);
 /**
  * Read Serial Data
  * 
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @param[out] rxbuf buffer for received data to be placed into
  * @param[in] len the length of the data (number of chars in string)
  * @return uint32_t status - 0 if ok, !0 if fail
@@ -337,7 +337,7 @@ uint32_t serialRecv(uint8_t* rxbuf, uint32_t len);
 /**
  * Write Serial Data
  * 
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  * @param[in] txbuf string of data to write
  * @param[in] len the length of the data (number of chars in string)
  * @return uint32_t status - 0 if ok, !0 if fail
@@ -352,7 +352,7 @@ uint32_t serialSend(uint8_t* txbuf, uint32_t len);
  *  - 1 Stop bit
  *  - No parity
  *  
- * @author Andrew Durant
+ * @author Andrew Durant (Initial Coding)
  */
 void initSerial();
 
