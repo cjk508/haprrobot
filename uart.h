@@ -4,7 +4,7 @@
  *
  *	@author	Andrew Durant
  *	@version: V1.0
- *	@date: 26 February 2013
+ *	@date: 12 March 2013
  */
 
 #ifndef UART_INC
@@ -120,7 +120,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  */
 //uint32_t cmdCal();
 
-/*
+/**
  * Resets the calibration.
  * This should always be used when
  * connecting to a slave, in case the
@@ -132,7 +132,7 @@ uint32_t cmdCalSens(uint16_t *sens);
  */
 uint32_t cmdRstCal();
 
-/*
+/**
  * Reads all five IR sensors using calibrated
  * values and estimates the position of a
  * black line under the robot. The value,
@@ -188,7 +188,7 @@ uint32_t cmdLcdPrint(char *buf);
  */
 uint32_t cmdAutoCal();
 
-/*
+/**
  * Sets up PID parameters and begins
  * line following. The first data byte
  * sets the maximum motor speed.
@@ -200,12 +200,12 @@ uint32_t cmdAutoCal();
  * described above, and D is the derivative of L.
  *
  * @author Andrew Durant
- * @param @todo not sure at the moment (5)
+ * @param data sets speed and parameters for PID
  * @return uint32_t status
  */
 uint32_t cmdPIDstart(uint8_t *data);
 
-/*
+/**
  * Stops PID line following, setting motor speeds to 0.
  *
  * @author Andrew Durant
