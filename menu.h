@@ -1,9 +1,9 @@
 /**************************************************************************//**
  * @file     menu.h
  * @brief    Enables changing the state of the robot using a sensor-based input
- * @version: 20130311
+ * @version: 20130312
  * @author   Lloyd Wallis <lpw503@york.ac.uk>
- * @date:    11 March 2013
+ * @date:    12 March 2013
  ******************************************************************************/
 
 /**
