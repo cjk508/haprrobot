@@ -80,8 +80,9 @@ void cb(uint8_t buttons, int8_t y, int8_t t);
 * @author Jed Warwick-Mooney
 * @param  y integer indicating the forward/backward movement distance 
 * of the robot
+* @param  t ?
 */
-void curve(int y);
+void curve(int y, int t);
 
 /**
 * When USB mouse is attached to the integers 
@@ -153,7 +154,8 @@ int my_itoa(int val, char* buf) ;
 * @author Jed Warwick-Mooney
 * @param x integer of the x coordinate
 * @param y integer of the y coordinate
+* @param theta ?
 */
-void printCoords(int x, int y);
+void printCoords(int32_t x, int32_t y, int32_t theta);
 
 #endif

@@ -61,7 +61,7 @@ int32_t converterForCm(int32_t x) {
 }
 
 double convertToDeg(int t) {
-	double temp = t * (180/PI);
+	double temp = t * (180/M_PI);
 	return temp;
 }
 
@@ -80,7 +80,7 @@ void cb(uint8_t buttons, int8_t y, int8_t t) {
 	static int32_t tempTCurve;
 	static int state;
 	static int prevState;
-	printCoords(coord_x, coord_y);
+	printCoords(coord_x, coord_y, t);
 	//if there is a change in the t value only then the robot is spinning
 	if(t != 0 && y == 0) {
 		prevState = state;
@@ -97,7 +97,7 @@ void cb(uint8_t buttons, int8_t y, int8_t t) {
 		  clearVal(tempy);
 		}
 		if (prevState == 3){
-		  curve(tempYCurve);
+		  curve(converterForCm(tempYCurve), converterForCm(tempTCurve));
 		  clearVal(tempYCurve);
 		}
 	}
@@ -119,7 +119,7 @@ void cb(uint8_t buttons, int8_t y, int8_t t) {
 		  clearVal(tempy);
 		}
 		if (prevState == 3){
-		  curve(tempYCurve);
+		  curve(converterForCm(tempYCurve), converterForCm(tempTCurve));
 		  clearVal(tempYCurve);
 		}
 	}
@@ -140,7 +140,7 @@ void cb(uint8_t buttons, int8_t y, int8_t t) {
 		  add_to_y(tempy2);
 		  clearVal(tempy);
 		}
-		if (prevState == 3 || tempYCurve > 99 && tempTCurve > 99){
+		if ((prevState == 3 || tempYCurve > 99) && tempTCurve > 99){ ///@todo please check your brackets
 		  curve(converterForCm(tempYCurve), converterForCm(tempTCurve));
 		  clearVal(tempYCurve);
 			clearVal(tempTCurve);
@@ -192,7 +192,7 @@ void forwardsfor50(){
 	}
 	int32_t temp = get_coord_x();
 	int32_t temp2 = get_coord_y();
-	printCoords(temp, temp2);
+	printCoords(temp, temp2, 0); ///@todo pass theta here instead of 0
 	_DBG_("I've went 50");
 	brake();
 }
