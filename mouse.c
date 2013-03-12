@@ -15,6 +15,9 @@ int32_t coord_y;
 void mouseinitial()
 {
   _DBG_("I'm starting");
+  coord_x =0;
+	coord_y =0;
+	theta =0;
   mouse_init(cb, attach, detach);
   _DBG_("I've set up the mouse");
 }
@@ -169,9 +172,6 @@ The Idea of this method is to work out how far the robot has moved with respect 
 }
 
 void attach() {
-	coord_x =0;
-	coord_y =0;
-	theta =0;
 	_DBG_("I'm attached, YAY!");
 }
 

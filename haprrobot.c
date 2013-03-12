@@ -86,9 +86,9 @@ void doATest() {
  
  while(1) {
    trackByMouse();
-   int i = 0;
-   while (i < 3000000) {i++;}
-   }
+   /*int i = 0;
+   while (i < 3000000) {i++;}*/
+ }
  
 //  linefollowTest();    
 
