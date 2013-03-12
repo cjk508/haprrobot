@@ -100,7 +100,7 @@ uint32_t cmdDoPlay(char *seq) {
   if (len > 99) {return 0;}
   ret = serialSend(&sig, 1);
   ret = serialSend(&len, 1);
-  ret = serialSend(seq, (uint32_t)len);
+  ret = serialSend((uint8_t*)seq, (uint32_t)len);
   return ret;
 }
 
