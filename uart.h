@@ -202,7 +202,7 @@ uint32_t cmdRstCal();
  * it is under sensor PC4 or farther to the right.
  *
  * @author Andrew Durant (Initial Coding)
- * @param address to write to @todo not sure at the moment (2)
+ * @param linePos pointer to address to write to
  * @return uint32_t status - 0 if ok, !0 if fail
  */
 uint32_t cmdLinePos(uint8_t *linePos);
