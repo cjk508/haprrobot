@@ -15,6 +15,9 @@ int32_t coord_y;
 void mouseinitial()
 {
   _DBG_("I'm starting");
+  coord_x =0;
+	coord_y =0;
+	theta =0;
   mouse_init(cb, attach, detach);
 	coord_x =0;
 	coord_y =0;
