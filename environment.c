@@ -6,6 +6,7 @@
 #include "timer.h"
 #include "mouse.h"
 #include "uart.h"
+#include "debug_frmwrk.h"
 
 int checkForLine() {
   uint16_t sensorPattern[5] = {0};
