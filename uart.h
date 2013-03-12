@@ -15,6 +15,65 @@
 #include "lpc_types.h"
 #include "lpc17xx.h"
 
+
+/*! \def SEND_SIGNATURE
+ *  \brief M3pi signature command 
+*/
+/*! \def SEND_RAW_SENSOR_VALUES
+ *  \brief M3pi PID raw sensor values command 
+*/
+/*! \def SEND_CAL_SENSOR_VALUES
+ *  \brief M3pi PID calibrated sensor values command 
+*/
+/*! \def SEND_TRIMPOT
+ *  \brief M3pi trimpot value command 
+*/
+/*! \def SEND_BATTERY_MILLIVOLTS
+ *  \brief M3pi battery level command 
+*/
+/*! \def DO_PLAY
+ *  \brief M3pi play() command 
+*/
+/*! \def PI_CALIBRATE
+ *  \brief M3pi PID calibration command 
+*/
+/*! \def LINE_SENSORS_RESET_CALIBRATION
+ *  \brief M3pi PID calibration reset command 
+*/
+/*! \def SEND_LINE_POSITION
+ *  \brief M3pi PID line position command 
+*/
+/*! \def DO_CLEAR
+ *  \brief M3pi clear LCD command  
+*/
+/*! \def DO_PRINT
+ *  \brief M3pi print to LCD command 
+*/
+/*! \def DO_LCD_GOTO_XY
+ *  \brief M3pi LCD postion command 
+*/
+/*! \def AUTO_CALIBRATE
+ *  \brief M3pi PID auto calibration command
+*/
+/*! \def SET_PID
+ *  \brief M3pi PID start command 
+*/
+/*! \def STOP_PID
+ *  \brief M3pi PID stop command 
+*/
+/*! \def M1_FORWARD
+ *  \brief M3pi M1 forwards command 
+*/
+/*! \def M1_BACKWARD
+ *  \brief M3pi M1 backwards command
+*/
+/*! \def M2_FORWARD
+ *  \brief M3pi M2 forwards command
+*/
+/*! \def M2_BACKWARD
+ *  \brief M3pi M2 backwards command
+*/
+
 // m3pi hex commands
 #define SEND_SIGNATURE 0x81
 #define SEND_RAW_SENSOR_VALUES 0x86
