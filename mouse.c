@@ -6,6 +6,7 @@
 #include "KeyboardHost.h"
 #include <stdlib.h>
 #include "motors.h"
+#include "JedIndividual.h"
 
 const int r = 7;
 double theta;
@@ -85,6 +86,7 @@ void cb(uint8_t buttons, int8_t y, int8_t t) {
 	static int state;
 	static int prevState;
 	printCoords(coord_x, coord_y, theta);
+	checkMotion(y, t);
 	//if there is a change in the t value only then the robot is spinning
 	if(t != 0 && y == 0) {
 		prevState = state;
@@ -223,6 +225,7 @@ void add_to_y(int8_t y) {
 }
 
 void printCoords(int32_t x, int32_t y, int32_t t) {
+	totalDistanceMoved(x, y);
 	_DBG_("The coordiante position of the Pololu robot is: ( ");_DBD32(x);_DBG_(" , ");_DBD32(y);_DBG_(" , ");_DBD32(t);_DBG_(" )");
 }
 

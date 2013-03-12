@@ -37,7 +37,7 @@ char* integerToAscii(double toPrint);
 * @param i integer representing the current motion of the robot
 *
 */
-void recordMotion(int i);
+void recordMotion(motorPair RMV, motorPair LMV);
 /**
 * Uses the values of the mouse and robotMotion to see if the 
 * robot is moving in the correct motion and corrects if otherwise
