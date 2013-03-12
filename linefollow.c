@@ -3,6 +3,7 @@
 #include "debug_frmwrk.h" 
 #include "linefollow.h"
 #include "environment.h"
+#include "timer.h"
 
 #define DBG_LEVEL 1
 //----------------------------------------------------------------
@@ -39,12 +40,16 @@ void followLine()
   
   uint8_t sequence[] = {35, 45 , 35, 35 ,45}; 
   cmdPIDstart(sequence);	
-  
+  delay(10);
   if (DBG_LEVEL == 1)  
     _DBG_("START MOVING"); 
   while(!checkForNoLine()) {
     
   }
-  cmdPIDstop(); 
+  if (DBG_LEVEL == 1)
+    _DBG_("STOP MOVING"); 
+  cmdPIDstop();
+  if (DBG_LEVEL == 1)
+    _DBG_("STOPPED MOVING"); 
 }
 //----------------------------------------------------------------
