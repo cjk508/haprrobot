@@ -31,10 +31,19 @@ int abortMode;
  */
 void initialise();
 
+/**
+ * Runs though test functions for testing the robot
+ */
 void doATest();
 
+/**
+ * Our big function to demonstrate everything. This controls the robot and tells it what to do to accomplish the demonstration
+ */
 int doTheDemo();
 
+/**
+ * Standard main function this is what is actually first called to start the robot working
+ */
 void main(void);
 
 
