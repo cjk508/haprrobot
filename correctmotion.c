@@ -3,9 +3,13 @@
 #include "sensors.h"
 #include "uart.h"
 #include "debug_frmwrk.h"
-// DBG Levels
-// 1 - Basic
-// 2 - Verbose
+
+/*! \def DBG_LEVEL
+ *  \brief Sets level of debuging ouput.
+ *  Makes everything easier to switch on and off what is output for debuging
+ *  1- Basic
+ *  2- Verbose
+*/
 #define DBG_LEVEL 2
 
 #define WALL_DISTANCE 15

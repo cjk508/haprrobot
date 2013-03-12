@@ -5,6 +5,12 @@
 #include "environment.h"
 #include "timer.h"
 
+/*! \def DBG_LEVEL
+ *  \brief Sets level of debuging ouput.
+ *  Makes everything easier to switch on and off what is output for debuging
+ *  1- Basic
+ *  2- Verbose
+*/
 #define DBG_LEVEL 1
 //----------------------------------------------------------------
 uint32_t calibrateSensors()
