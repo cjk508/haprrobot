@@ -1,7 +1,7 @@
 #include "andyIndividual.h"
 
 #include "uart.h"
-#include "sensors.h"
+
 
 #include "string.h"
 #include "debug_frmwrk.h"
@@ -110,15 +110,15 @@ SensorPair volumeValuesRight(SensorPair sensorValue) {
 }
 
 void setNote() {
-  SensorPair noteSensor = getSensorValuesLeft();
+  SensorPair noteSensor = getLeftSensorValues();
   noteSensor = noteValuesLeft(noteSensor);
-  cmdDoPlay(note[noteSensor]);
+  cmdDoPlay((char*)note[noteSensor.FrontSensor]);
 }
 
 void setVolume() {
-  SensorPair volumeSensor = getSensorValuesRight();
+  SensorPair volumeSensor = getRightSensorValues();
   volumeSensor = volumeValuesRight(volumeSensor);
-  cmdDoPlay(volume[volumeSensor]);
+  cmdDoPlay((char*)volume[volumeSensor.FrontSensor]);
 }
 
 
