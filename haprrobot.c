@@ -72,7 +72,7 @@ void initialise() {
   initTimers();
   __enable_irq();
 	_DBG_("MOUSE");
- // mouseinitial();  
+ 	mouseinitial();  
 	_DBG_("I've completed"); 
 
 }
@@ -85,13 +85,19 @@ void doATest() {
     sensorsTest();
   }*/
  
+ while(1) {
+   trackByMouse();
+   int i = 0;
+   while (i < 3000000) {i++;}
+   }
+ 
 //  linefollowTest();    
 
- motorCorrectTest();
+ //motorCorrectTest();
 
- //_DBG_("init mouse");
+// _DBG_("init mouse");
  //mouseinitial();
- //forwardsfor50();
+// forwardsfor50();
 }
 
 int doTheDemo() { 
