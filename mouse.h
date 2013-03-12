@@ -150,7 +150,8 @@ void add_to_y(int8_t y);
 * @author Jed Warwick-Mooney (Initial Coding)
 * @param x integer of the x coordinate
 * @param y integer of the y coordinate
-* @param theta @todo describe this
+* @param theta
+* @todo describe this
 */
 void printCoords(int32_t x, int32_t y, int32_t theta);
 
