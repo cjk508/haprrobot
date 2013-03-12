@@ -49,7 +49,7 @@ void overflowProtection(int8_t y, int8_t t)
 double thetaOfArc(int32_t l, int32_t r) {
 	double th = (l/r);
 	return th;
-}
+}s is actually a commercial for Ice Cream... I am so freaked out right now
 
 int32_t converterForCm(int32_t x) {
 	int32_t temp = 0;
