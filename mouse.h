@@ -102,10 +102,6 @@ void attach();
 */
 void detach();
 
-double get_coord_x();
-double get_coord_y();
-
-
 /**
 * Returns the value of x_move
 *
