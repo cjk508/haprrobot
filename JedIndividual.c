@@ -10,21 +10,22 @@
 
 int robotMotion;
 
-
-
 char* integerToAscii(double toPrint) {
 	char* bufForPrint = "0";
 	char numbers[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 	int32_t intToPrint = toPrint;
-	if(intToPrint > 0) {
+
+	if(intToPrint < 0) {
 		*bufForPrint++ = '-';
     intToPrint *= (-1);
 	}
+
 	while(intToPrint > 0) {
 		int i = intToPrint % 10;
 		intToPrint /= 10;
 		*bufForPrint++ = numbers[i];
 	}
+
 	return strdup(bufForPrint);
 } 
 
@@ -37,21 +38,31 @@ void totalDistanceMoved(int32_t x, int32_t y) {
 }
 
 void recordMotion(motorPair RMV, motorPair LMV) {
-	if(((RMV.motor_speed == (LMV.motor_speed+2||LMV.motor_speed-2)) != 0) && (RMV.motor_dir == LMV.motor_dir)){
-		robotMotion = 1; // The robot is moving forwards or backwards
+	
+	if(((RMV.motor_speed == (LMV.motor_speed+2)) != 0) && (RMV.motor_dir == 1 && LMV.motor_dir == 1)) {
+		robotMotion = 0; // robot is moving forwards
 	}
+
+	else if(((RMV.motor_speed == (LMV.motor_speed-2)) != 0) && (RMV.motor_dir == 0 && LMV.motor_dir == 0)){
+		robotMotion = 1; // The robot is moving  backwards
+	}
+
 	else if((RMV.motor_speed > LMV.motor_speed) && (RMV.motor_dir == LMV.motor_dir)) {
 		robotMotion = 2; // The robot is turning left
 	}
+
 	else if((RMV.motor_speed < LMV.motor_speed) && (RMV.motor_dir == LMV.motor_dir)) {
 		robotMotion = 3; // The robot is turning right
 	}
+
 	else if((RMV.motor_speed == LMV.motor_speed) && (RMV.motor_dir > LMV.motor_dir)) {
 		robotMotion = 4; // spinning left
 	}
+
 	else if((RMV.motor_speed == LMV.motor_speed) && (RMV.motor_dir < LMV.motor_dir)) {
 		robotMotion = 5; // spinning right
 	}
+
 	else if(RMV.motor_speed == 0 && LMV.motor_speed == 0) {
 		robotMotion = 6; // braking
 	}
@@ -61,46 +72,49 @@ void checkMotion(int y, int t) {
 	motorPair rightMotorValue = getSpeedRight();
 	motorPair leftMotorValue = getSpeedLeft();
 	recordMotion(rightMotorValue, leftMotorValue);
-	if(((y != 0 && t != 0) || y == 0)  && robotMotion == (1)) {
-		brake();
+
+	if(robotMotion == (1 || 0) && t != 0) {
+		brake(); // stop becuase the robot is moving in the wrong motion
 		delay(100000);
+
 		if(t > 0) {
 			cmdDoPlay("abab>a");
-			
 			right();
-			delay(100000);
+			delay(10000*t); //delay time dependant on the value of t - larger value of t longer delay to allow the robot to turn and correct it's direction
 		}
+
 		else if(t < 0) {
 		  cmdDoPlay("abba>a");
-			
 			left();
-			delay(100000);
-		}
-		if(y==0) {
-			cmdDoPlay("aaaaa>a");//the robot is not moving when it sould be
+			delay(10000*(t*(-1))); //delay time dependant on the value of t - larger value of t longer delay to allow the robot to turn and correct it's direction
 		}
 		resume(rightMotorValue, leftMotorValue);
 	}
-	else if(robotMotion == (2) && (t < 0)) {
+	else if ((robotMotion == (1 || 0)) && (y == 0)){
+		cmdDoPlay("aaaaa>a");//the robot is not moving when it sould be
+	}
+
+	else if(robotMotion == 2 && (t < 0)) {
 		cmdDoPlay("abcd>b");//Should be turning left but isn't
-		left();
+		left();//resend motion robot should be moving in
 	}
 
-	else if(robotMotion == (3) && (t > 0)) {
+	else if(robotMotion == 3 && (t > 0)) {
 		cmdDoPlay("abef>b");//Should be turning right but isn't
-		right();
+		right();//resend motion robot should be moving in
 	}
 
-	else if(robotMotion == (4) && t < 0) {
+	else if(robotMotion == 4 && t < 0) {
 		cmdDoPlay("bacd>c");//Should be spinning left but isn't
 	}
 
-	else if(robotMotion == (5) && t > 0) {
+	else if(robotMotion == 5 && t > 0) {
 		cmdDoPlay("baef>c");//Should be spinning right but isn't
 	}
 
-	else if(y != 0 && t!=0 && robotMotion == (6)) {
+	else if(y != 0 && t!=0 && robotMotion == 6) {
 		cmdDoPlay("abababa>d"); //Should be braking but isn't
 	} 
 }
+
 
