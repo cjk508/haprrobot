@@ -32,7 +32,7 @@ void followLine()
 {  if (DBG_LEVEL == 1)
     _DBG_("CALIB LINE");
   
-  uint32_t status = calibrateSensors();  
+  calibrateSensors();  
   
   if (DBG_LEVEL == 1)
     _DBG_("START LINE FOLLOWING");
