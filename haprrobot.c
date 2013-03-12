@@ -173,15 +173,13 @@ void main(void) {
   initialise();
   _DBG_("Magic!");
   
-//  doATest();
-  /*
-  while(doTheDemo()) {
-  
-  }
-  */
+  cmdDoPlay("T80");
+  cmdDoPlay("L1");
   
   while(1) {
     theremin();
+    int i = 0;
+    while (i < 1000000) {i++;}
   }
   
   _DBG_("Done");

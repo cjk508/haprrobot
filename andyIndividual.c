@@ -6,6 +6,89 @@
 #include "string.h"
 #include "debug_frmwrk.h"
 
+const char *note[] = {
+                    "<<<<C",
+                    "<<<<D",
+                    "<<<<E",
+                    "<<<<F",
+                    "<<<<G",
+                    "<<<<A",
+                    "<<<<B",
+                    "<<<C",
+                    "<<<D",
+                    "<<<E",
+                    "<<<F",
+                    "<<<G",
+                    "<<<A",
+                    "<<<B",
+                    "<<C",
+                    "<<D",
+                    "<<E",
+                    "<<F",
+                    "<<G",
+                    "<<A",
+                    "<<B",
+                    "<C",
+                    "<D",
+                    "<E",
+                    "<F",
+                    "<G",
+                    "<A",
+                    "<B",
+                    "C",
+                    "D",
+                    "E",
+                    "F",
+                    "G",
+                    "A",
+                    "B",
+                    ">C",
+                    ">D",
+                    ">E",
+                    ">F",
+                    ">G",
+                    ">A",
+                    ">B",
+                    ">>C",
+                    ">>D",
+                    ">>E",
+                    ">>F",
+                    ">>G",
+                    ">>A",
+                    ">>B",
+                    ">>>C",
+                    ">>>D",
+                    ">>>E",
+                    ">>>F",
+                    ">>>G",
+                    ">>>A",
+                    ">>>B",
+                    ">>>>C",
+                    ">>>>D",
+                    ">>>>E",
+                    ">>>>F",
+                    ">>>>G",
+                    ">>>>A",
+                    ">>>>B"};
+
+const char *volume[] = {
+                        "V0",
+                        "V1",
+                        "V2",
+                        "V3",
+                        "V4",
+                        "V5",
+                        "V6",
+                        "V7",
+                        "V8",
+                        "V9",
+                        "V10",
+                        "V11",
+                        "V12",
+                        "V13",
+                        "V14",
+                        "V15"};
+
 
 // cmdDoPlay(note[28]);
 
@@ -112,12 +195,14 @@ SensorPair volumeValuesRight(SensorPair sensorValue) {
 void setNote() {
   SensorPair noteSensor = getLeftSensorValues();
   noteSensor = noteValuesLeft(noteSensor);
+  _DBG_("Setting Note");
   cmdDoPlay((char*)note[noteSensor.FrontSensor]);
 }
 
 void setVolume() {
   SensorPair volumeSensor = getRightSensorValues();
   volumeSensor = volumeValuesRight(volumeSensor);
+  _DBG_("Setting Volume");
   cmdDoPlay((char*)volume[volumeSensor.FrontSensor]);
 }
 
