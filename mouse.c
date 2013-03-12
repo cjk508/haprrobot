@@ -60,6 +60,11 @@ int32_t converterForCm(int32_t x) {
 	return temp;
 }
 
+double convertToDeg(int t) {
+	double temp = t * (180/PI);
+	return temp;
+}
+
 void clearVal(int x) {
 	x = 0;
 }
@@ -148,7 +153,7 @@ void curve(int y, int t) {
 /**
 The Idea of this method is to work out how far the robot has moved with respect to the x and y axis coordinates.
 */double th = (t/y); // gives us an angle theta, from the length of the arc traversed, y, and the constant, r, where r is the radius of a circle.
-	double rad = (y/th);	
+	double rad = (y/th);	//divides y by theta to get the radius of the circle that the arc is part of.
 	double hyp_2 = sin(th) * rad; // gets sin(th) and multiplies it by r to get the hypotenuse, hyp_2, of the upper triangle 
 	double y2 = hyp_2 * cos(th); // multiplies hyp_2 by the cosine of theta, to get an x value parrallel to the x axis of the overall coordinates
 	double x2 = hyp_2 * sin(th); // multiplies hyp_2 by the sine of theta, to get an y value parrallel to the y axis of the overall coordinates
@@ -170,7 +175,7 @@ void attach() {
 
 void detach() {
 	_DBG_("I'm detached, BOO!");
-	printCoords(coord_x, coord_y);
+	printCoords(coord_x, coord_y, convertToDeg(theta));
 }
 
 double get_coord_x() {	
@@ -210,48 +215,7 @@ void add_to_y(int8_t y) {
   } 	
 }
 
-/** @todo Is this alright? Code taken from http://code.google.com/p/my-itoa/, for ease of use and lack of time
-*   @todo If not using in group project remove. Pop in indivual side if you want to use it.
-*/
-int my_itoa(int val, char* buf)
-{
-    const unsigned int radix = 10; // sets the base of the output
-
-    char* p;
-    unsigned int a;        //every digit
-    int len;
-    char* b;            //start of the digit char
-    char temp;
-    unsigned int u;
-    p = buf;
-    if (val < 0)
-    {
-        *p++ = '-';
-        val = 0 - val;
-    }
-    u = (unsigned int)val;
-    b = p;
-    while (u > 0)
-    {
-        a = u % radix;
-        u /= radix;
-        *p++ = a + '0';
-    } 
-    len = (int)(p - buf);
-    *p-- = 0;
-    //swap
-    while (b < p)
-    {
-        temp = *p;
-        *p = *b;
-        *b = temp;
-        --p;
-        ++b;
-    }
-    return len;
-}
-
-void printCoords(int x, int y) {
-	_DBG_("The coordiante position of the Pololu robot is: ( ");_DBD32(x);_DBG_(" , ");_DBD32(y);_DBG_(" )");
+void printCoords(int32_t x, int32_t y, int32_t theta) {
+	_DBG_("The coordiante position of the Pololu robot is: ( ");_DBD32(x);_DBG_(" , ");_DBD32(y);_DBG_(" , ");_DBD32(theta);_DBG_(" )");
 }
 
