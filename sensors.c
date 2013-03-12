@@ -237,13 +237,13 @@ void EINT3_IRQHandler() {
     //Nothing in the way, actually
     frontIRQ_triggered = 0;
     /**
-    * @todo Restore previous motion
-    */
-    forwards(25);
-    /**
     * Disables the IRQ handler for the ADC inputs.
     * Part of Lloyd's personal project
     */
     NVIC_DisableIRQ(ADC_IRQn);
+    /**
+    * @todo Restore previous motion
+    */
+    forwards(25);
   }
 }

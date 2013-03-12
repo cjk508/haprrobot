@@ -6,4 +6,5 @@ JedIndividual.h
 JedIndividual.c
 chrisIndependent.c
 chrisIndependent.h
-
+menu.c
+menu.h
