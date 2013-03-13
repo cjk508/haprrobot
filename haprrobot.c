@@ -204,7 +204,7 @@ void fullDemo() {
 			case 1:
 				setSensorSide(1);
 				while(get_coord_x() < 400) {
-					correct72 users hForwardMotion();
+					correctForwardMotion();
 				}
 				robotState = 2;
 				break;

@@ -36,7 +36,7 @@ void overflowProtection(int8_t y, int8_t t)
 		motorPair YrightMotorValues = getSpeedRight();
 		motorPair YleftMotorValues = getSpeedLeft();
 		brake();
-		delay(100);
+		delay(10);
 		resume(YrightMotorValues, YleftMotorValues);
 	}
 	if( -125 > t || t > 125) {
@@ -44,7 +44,7 @@ void overflowProtection(int8_t y, int8_t t)
 		motorPair TrightMotorValues = getSpeedRight();
 		motorPair TleftMotorValues = getSpeedLeft();
 		brake();
-		delay(100);
+		delay(10);
 		resume(TrightMotorValues, TleftMotorValues);
 	}
 }
@@ -78,6 +78,8 @@ void cb(uint8_t buttons, int8_t y, int8_t t) {
 	static int32_t tempTCurve;
 	static int state;
 	static int prevState;
+	_DBD32(t);
+	_DBD32(y);
 	//if there is a change in the t value only then the robot is spinning
 	if(t != 0 && y == 0) {
 		prevState = state;
@@ -209,6 +211,7 @@ void printCoords(int32_t x, int32_t y, int32_t t) {
 
 void mouseDemo() {
 	mouseinitial();
+	_DBG_("Intialised mouse");
 	int sta = 0;
 	while(sta != 4) {
 		switch(sta) {
