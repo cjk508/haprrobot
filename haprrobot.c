@@ -185,8 +185,8 @@ void main(void) {
   initialise();
   _DBG_("Magic!");
   
-  doTheDemo();
-  
+ // doTheDemo();
+  mouseDemo();
   _DBG_("Done");
 }
 
@@ -204,7 +204,7 @@ void fullDemo() {
 			case 1:
 				setSensorSide(1);
 				while(get_coord_x() < 400) {
-					correctForwardMotion();
+					correct72 users hForwardMotion();
 				}
 				robotState = 2;
 				break;

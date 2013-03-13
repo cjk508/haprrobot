@@ -208,6 +208,7 @@ void printCoords(int32_t x, int32_t y, int32_t t) {
 }
 
 void mouseDemo() {
+	mouseinitial();
 	int sta = 0;
 	while(sta != 4) {
 		switch(sta) {
