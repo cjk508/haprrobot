@@ -205,6 +205,7 @@ void main(void) {
   
   while(1) {
     doTheDemo();
+    delay(200);
   }
    
   /*int i =0;
