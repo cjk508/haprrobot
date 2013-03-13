@@ -172,16 +172,6 @@ void main(void) {
   _DBG_("Done");
 }
 
-void trackMovement(int distance) {
-  /// @todo Take current value
-  
-  // Start moving
-  forwards(20);
-  
-  /// @todo Take value & check against distance
-  correctForwardMotion()
-}
-
 void fullDemo() {
 	int robotState = 0;
 	uint16_t sensorPattern[5] = {0};	
