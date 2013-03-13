@@ -65,10 +65,10 @@ int checkForWall() {
       sensorSideFound++;
     }
   }
-  if (rightSensors.FrontSensor < 40 || rightSensors.RearSensor < 40) {
+  if (rightSensors.FrontSensor < 35 || rightSensors.RearSensor < 35) {
     delay(200);
     SensorPair rightSensors = calibratedValuesRight(getRightSensorValues());  
-    if (rightSensors.FrontSensor < 40 || rightSensors.RearSensor < 40) {
+    if (rightSensors.FrontSensor < 35 || rightSensors.RearSensor < 35) {
       setSensorSide(2);
       sensorSideFound++;
     }
@@ -76,7 +76,7 @@ int checkForWall() {
   if (leftSensors.FrontSensor >= 40 && leftSensors.RearSensor < 40) {
     sensorSideFound = 3;
   }   
-  if (rightSensors.FrontSensor >= 40 && rightSensors.RearSensor < 40) {
+  if (rightSensors.FrontSensor >= 35 && rightSensors.RearSensor < 35) {
     sensorSideFound = 4;
   }       
   if (sensorSide != 1 && sensorSide != 2)
