@@ -27,6 +27,9 @@ void initTimers() {
 
 void delay(int time) {
   int i = timerCounter;
+  while (i - timerCounter == time) {
+  }
+  
   while (timerCounter - i < time) {
   }
 }
@@ -35,14 +38,7 @@ void TIMER0_IRQHandler() {
 	 if(TIM_GetIntStatus(LPC_TIM0, TIM_MR0_INT) == SET)
     {
 	    myspecialpoll();
-	    
-	    /**
-	    * This if else statement is here to act as a counter for each time the timer ticks
-	    */
-	    if(timerCounter <350)
-  	    timerCounter +=1;
-  	  else
-  	    timerCounter = 0;
+ 	    timerCounter +=1;
     }
     TIM_ClearIntPending(LPC_TIM0, TIM_MR0_INT);
 }
