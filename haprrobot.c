@@ -259,7 +259,7 @@ void trackMovement(int distance) {
   forwards(20);
   
   /// @todo Take value & check against distance
-  
+  correctForwardMotion()
 }
 
 void findAWall() {
@@ -286,7 +286,60 @@ void followToDock() {
   /// @todo use functions from line following, lineFollow() until dock.
 }*/
 
-
+void fullDemo() {
+	int robotState = 0;
+	uint16_t sensorPattern[5] = {0};	
+	while(robotState != 6) {
+		switch(robotState) {
+			case 0:
+				while(get_coord_x() < 200) {
+					forwards(20);
+				}
+				robotState = 1;
+				break;
+			case 1:
+				setSensorSide(1);
+				while(get_coord_x() < 400) {
+					correctForwardMotion();
+				}
+				robotState = 2;
+				break;
+			case 2:
+				while(convertToDeg(get_theta()) > -90) {
+					spinLeft();
+				}
+				while(get_coord_y() < 120) {
+					forwards(20);
+				}
+				while(convertToDeg(get_theta()) < 0) {
+					spinRight();
+				}
+				while(get_coord_x() < 600) {
+					forwards(20);
+				}
+				robotState = 3;
+				break;
+			case 3:
+				setSensorSide(0);
+				while(get_coord_x() < 800) {
+					correctForwardMotion();
+				}
+				robotState = 4;
+				break;
+			case 4:
+				forwards(20);		
+				while(sensorPattern[3]<2000){
+					getRawSensors(sensorPattern);
+				}
+				robotState = 5;
+				break;
+			case 5:
+				followLine();
+				robotState = 6;
+				break;
+		}
+	}
+}
 
 
 
