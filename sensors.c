@@ -5,15 +5,14 @@
 #include "uart.h"
 //----------------------------------------------------------------
 //constants
-const uint16_t DESIRED_DISTANCE = 1500;
-const uint16_t VERY_CLOSE = 2700;
-const uint16_t NO_WALL = 0; // 2500;
+#define NO_WALL 0
 const unsigned long frontSensor = 1<<17; //this was 17 on robot 5
 //Variables
 int analogSensorPins[] = {23, 24, 25, 30}; // FL, BL, BR, FR
-//int analogSensorPins[] = {25, 26, 23, 24}; // FL, BL, BR, FR
 uint32_t currentReadings[] = {0,0,0,0,0}; // initialised readings
 int frontIRQ_triggered = 0;
+motorPair frontIRQLM;
+motorPair frontIRQRM;
 //----------------------------------------------------------------
 SensorPair roundingValues(SensorPair sensorValue)
 {
@@ -43,7 +42,7 @@ SensorPair calibratedValuesLeft(SensorPair sensorValue) {
   else if (sensorValue.FrontSensor < 1350) { tempF = 25; }
   else if (sensorValue.FrontSensor < 1480) { tempF = 24; }  
   else if (sensorValue.FrontSensor < 1480) { tempF = 23; }  
-  else if (sensorValue.FrontSensor < 1520) { tempF = 22; }   //? said 10 dunno why
+  else if (sensorValue.FrontSensor < 1520) { tempF = 22; } 
   else if (sensorValue.FrontSensor < 1560) { tempF = 21; }
   else if (sensorValue.FrontSensor < 1580) { tempF = 20; }
   else if (sensorValue.FrontSensor < 1680) { tempF = 19; }
@@ -172,7 +171,7 @@ SensorPair getRightSensorValues()
 
   if ((returnValue.FrontSensor > NO_WALL) && (returnValue.RearSensor > NO_WALL)) {
     // returns the SensorPair
-	  return returnValue; // roundingValues(returnValue);
+	  return returnValue; 
 	}
 	if (returnValue.FrontSensor < NO_WALL) {
 	  returnValue.FrontSensor = 0;
@@ -180,7 +179,7 @@ SensorPair getRightSensorValues()
 	if (returnValue.RearSensor < NO_WALL) {
 	  returnValue.RearSensor = 0;
   }
-	return returnValue; // roundingValues(returnValue);
+	return returnValue;
 }
 //----------------------------------------------------------------
 int getFrontSensorValue()
@@ -227,13 +226,12 @@ void EINT3_IRQHandler() {
   if (getFrontSensorValue() && isMovingForward()) {
     //Something in the way
     brake();
+    frontIRQLM = getSpeedLeft();
+    frontIRQRM = getSpeedRight();
     frontIRQ_triggered = 1;
   } else if (getFrontSensorValue() == 0 && frontIRQ_triggered) {
     //Nothing in the way, actually
+    resume(frontIRQLM, frontIRQRM); //resumes motors from the last brake.
     frontIRQ_triggered = 0;
-    /**
-    * @todo Restore previous motion
-    */
-    forwards(25);
   }
 }

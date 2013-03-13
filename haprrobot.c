@@ -8,9 +8,9 @@
 *	@author Jed Warwick-Mooney
 *	@author Lloyd Wallis
 *
-*	@date 03 March 2013
+*	@date 13 March 2013
 *
-*/							     
+*/
 
 // Central include files
 #include "debug_frmwrk.h"
@@ -26,9 +26,12 @@
 
 #include "lpc17xx.h"
 
-// DBG Levels
-// 1 - Basic
-// 2 - Verbose
+/*! \def DBG_LEVEL
+ *  \brief Sets level of debuging ouput.
+ *  Makes everything easier to switch on and off what is output for debuging
+ *  1- Basic
+ *  2- Verbose
+*/
 #define DBG_LEVEL 1
 
 #include "uart.h"
@@ -47,15 +50,7 @@
 *        1 is long course, bears right after left wall to find the right wall.
 */
 int courseType;
-/**
-* Enables tools to override the next state
-*/
-int stateOverride = -1;
-/**
-* Enables interrupts to request the state machine to abort current operation
-* and reevaluate transitions
-*/
-int abortMode = 0;
+
 /**
  * Runs all the initialisations that are needed
  * Please put them in here.
@@ -63,7 +58,7 @@ int abortMode = 0;
 void initialise() {
   debug_frmwrk_init();
   trackingState = 0;
-  lotsOfBlackTape = 0;
+  timerCounter = 0;
   courseType = 0;
   initSerial();
   serialTest();
@@ -71,9 +66,13 @@ void initialise() {
   // Even tho this is a test it needs to run so that the serial is set up properly
   initTimers();
   __enable_irq();
-	_DBG_("MOUSE");
+  if (DBG_LEVEL >= 1) {
+	  _DBG_("MOUSE");
+  }
  	mouseinitial();  
-	_DBG_("I've completed"); 
+  if (DBG_LEVEL >= 1) {
+	  _DBG_("I've completed"); 
+	}
 
 }
 
@@ -87,9 +86,9 @@ void doATest() {
  
  while(1) {
    trackByMouse();
-   int i = 0;
-   while (i < 3000000) {i++;}
-   }
+   /*int i = 0;
+   while (i < 3000000) {i++;}*/
+ }
  
 //  linefollowTest();    
 
@@ -112,8 +111,9 @@ int doTheDemo() {
     if (checkForWall() == 2) {
       currentState = 3;
     }
-    else
+    else {
       currentState = 0;
+    }
   }
   else if(checkForWall() == 1 || checkForWall() == 2) {
     currentState = 1;
@@ -125,36 +125,52 @@ int doTheDemo() {
     currentState = 2;
   }
   
-  //Part of Lloyd's Personal Project
-  if (stateOverride != -1) {
-    currentState = stateOverride;
-  }
-  abortMode = 0;
   
   //Run a series of commands based on the chosen state
   if (currentState > -1) { // should never be -1 but if it is we have some problems
     switch (currentState) {
       
       case 0: { // Woop I've found a line
-        followLine(); ///@todo how do I know when to stop... where all the line gone?
+       // if (DBG_LEVEL == 1) {
+          _DBG_("Found a line... follow it");
+       // }*/
+        cmdDoPlay("a");
+        followLine();
         break;
       }
       case 1: { //Wall found... follow it
+       // if (DBG_LEVEL == 1) {
+          _DBG_("Found a wall... follow it");
+        //}
         correctForwardMotion(); //looped by state machine
+        cmdDoPlay("bb");
         break;
       }
       case 2: {// No Wall found track movement with mouse
-        trackByMouse();
+        //trackByMouse();
+      //  if (DBG_LEVEL == 1) {
+          _DBG_("Found a nothing... go forwards");
+        //}*/
+        cmdDoPlay("ccc");
+        forwards(20);
         break;
       }
       case 3: {// Walls and lines on both sides
+        //if (DBG_LEVEL == 1) {
+          _DBG_("Found a line and a wall, its my lucky day");
+        //}*/
+        cmdDoPlay("dddd");
         dockBySensorsAndLine();
         return 0; // Finished! Robot has docked therefore do nothing else
       }
       case 4: { // left wall ended, bear right
+        //if (DBG_LEVEL == 1) {
+          _DBG_("Lost a wall on my left.... run away!!!!!");
+        //}*/
+        cmdDoPlay("eeeee");
         right();
         delay(20); ///@todo need to add something in case we never reach the wall
-        forwards(15);
+        forwards(20);
       }      
       default: {  // should never reach but if it does then track movement with mouse
         currentState = 2;
@@ -163,9 +179,9 @@ int doTheDemo() {
     return 1; // state machine traversed properly
   }
   else {
-    if(DBG_LEVEL == 1) {
+    /*if(DBG_LEVEL == 1) {
       _DBG_("ARGH WE HAVE NO ENVIRONMENT");
-    }
+    }*/
     return 0; // there's a problem
   }
 }

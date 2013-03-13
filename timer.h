@@ -16,12 +16,23 @@
 
 #include "motors.h"
 #include "mouse.h"
-
-int lotsOfBlackTape;
 /**
-* Timer interupt initialisation abstraction.
+ * Initially was used as a counter to state when the line following
+ * realised there was a blob of black tape. However as this became unnecessary
+ * it has remained as 'lotsOfBlackTape' purely because we have't renamedit.
+ *
+ * It now is used as a counter for the delay function to count how many times
+ * Timer0 has ticked.
+ */
+int timerCounter;
+/**
+* Timer interrupt initialisation abstraction.
 * Sets up a timer interupt from the given parameters
+* Allows multiple timers to be created easily, however timer1 
+* throws an error and timer2 doesn't work...
 *
+* @author Andrew Durant (Initial Coding)
+* @author Jed Warwick-Mooney (Revision - removed timer 2)
 * @param TIMx the timer to setup
 * @param IRQn the interupt to fire
 * @param time the time in ms the interupt fires at
@@ -29,33 +40,25 @@ int lotsOfBlackTape;
 void initTimer(LPC_TIM_TypeDef *TIMx, IRQn_Type IRQn, int time);
 
 /**
-* Initialises the timers for the robot Timer1 and Timer2
-* @author Jed Warwick-Mooney
+* Initialises the timers for the robot Timer1
+* @author Jed Warwick-Mooney (Initial Coding)
 */
 void initTimers();
 /**
 * The timer over multiple interrupts
 *
-* @author Andrew Durant
+* @author Andrew Durant (Initial Coding)
+* @author Christopher King (Debug and revision changed to actually work)
 * @param time The length of time you wish to delay by
 */
 void delay(int time);
 /**
-* The interrupt handler for the robots state machine
-*
-* @author Jed Warwick-Mooney
+* Interrrupt handler for the mouse sensor. Should interrupt every 10ms
+* and runs method myspecialpoll()
+* @author Jed Warwick-Mooney (Initial Coding)
+* @author Christopher King (added the timerCounter for a delay function to work)
 *
 */
 void TIMER0_IRQHandler();
-
-/**
-* Interrrupt handler for the mouse sensor.
-* Helps with tracking of the robots movement
-* from its original position
-*
-* @author Jed Warwick-Mooney
-*
-*/
-void TIMER2_IRQHandler();
 
 #endif

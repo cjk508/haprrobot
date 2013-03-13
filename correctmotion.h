@@ -12,19 +12,21 @@
 #ifndef CORRECT_INC
 #define CORRECT_INC					      
 #include "sensors.h"
+/// side the sensor is on 1 = left, 0 = right
+int sensorSide; 
 /**
 * Gets the side that the sensor should use
 *
-* @author Christopher King
-* @author Andrew Durant
+* @author Christopher King (initial)
+* @author Andrew Durant (debug)
 * @return returns the sensor side
 */
 int getSensorSide();
 /**
 * Sets the side that the sensor should use
 *
-* @author Christopher King
-* @author Andrew Durant
+* @author Christopher King (initial)
+* @author Andrew Durant (debug)
 * @param setSide The sensor side to set
 */
 void setSensorSide(int setSide);
@@ -44,7 +46,8 @@ void wallFollow(SensorPair sensor);
 /**
 * Outputs the values of the sensor that is passed
 *
-* @author Christopher King
+* @author Lloyd Wallis (intial)
+* @author Christopher King (debug and moved to new function)
 * @param sensor The sensor that will be debugged
 */
 void debug_output(SensorPair sensor);
