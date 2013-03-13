@@ -134,7 +134,7 @@ int doTheDemo() {
   cmdDoPlay(">ff");
   _DBG_("State 3");
   right();
-  delay(2000);
+  delay(1000);
   _DBG_("State 3.1");
   forwards(20);
   
