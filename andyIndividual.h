@@ -12,12 +12,36 @@
 
 #include "sensors.h"
 
+/**
+ * Converts sensor readings into note values
+ *
+ * @author Andrew Durant
+ * @param sensorValue takes in raw sensor values 
+ * @return SensorPair a reference for a play command
+ */
 SensorPair noteValuesLeft(SensorPair sensorValue);
 
+/**
+ * Converts sensor readings into volume values
+ *
+ * @author Andrew Durant
+ * @param sensorValue takes in raw sensor values 
+ * @return SensorPair a reference for a play command
+ */
 SensorPair volumeValuesRight(SensorPair sensorValue);
 
+/**
+ * Read sensor values, convert and send play command for notes
+ *
+ * @author Andrew Durant
+ */
 void setNote();
 
+/**
+ * Read sensor values, convert and send play command for volume
+ *
+ * @author Andrew Durant
+ */
 void setVolume();
 
 #endif
