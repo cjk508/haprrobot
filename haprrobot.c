@@ -131,42 +131,42 @@ int doTheDemo() {
     switch (currentState) {
       
       case 0: { // Woop I've found a line
-       // if (DBG_LEVEL == 1) {
+        if (DBG_LEVEL == 1) {
           _DBG_("Found a line... follow it");
-       // }*/
+        }
         cmdDoPlay("a");
         followLine();
         break;
       }
       case 1: { //Wall found... follow it
-       // if (DBG_LEVEL == 1) {
+        if (DBG_LEVEL == 1) {
           _DBG_("Found a wall... follow it");
-        //}
+        }
         correctForwardMotion(); //looped by state machine
         cmdDoPlay("bb");
         break;
       }
       case 2: {// No Wall found track movement with mouse
-        //trackByMouse();
-      //  if (DBG_LEVEL == 1) {
+        trackByMouse();
+        if (DBG_LEVEL == 1) {
           _DBG_("Found a nothing... go forwards");
-        //}*/
+        }
         cmdDoPlay("ccc");
         forwards(20);
         break;
       }
       case 3: {// Walls and lines on both sides
-        //if (DBG_LEVEL == 1) {
+        if (DBG_LEVEL == 1) {
           _DBG_("Found a line and a wall, its my lucky day");
-        //}*/
+        }
         cmdDoPlay("dddd");
         dockBySensorsAndLine();
         return 0; // Finished! Robot has docked therefore do nothing else
       }
       case 4: { // left wall ended, bear right
-        //if (DBG_LEVEL == 1) {
+        if (DBG_LEVEL == 1) {
           _DBG_("Lost a wall on my left.... run away!!!!!");
-        //}*/
+        }
         cmdDoPlay("eeeee");
         right();
         delay(20); ///@todo need to add something in case we never reach the wall
@@ -179,9 +179,9 @@ int doTheDemo() {
     return 1; // state machine traversed properly
   }
   else {
-    /*if(DBG_LEVEL == 1) {
+    if(DBG_LEVEL == 1) {
       _DBG_("ARGH WE HAVE NO ENVIRONMENT");
-    }*/
+    }
     return 0; // there's a problem
   }
 }

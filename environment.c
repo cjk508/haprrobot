@@ -226,11 +226,11 @@ void trackByMouse() {
       break;
     }    
   }
-
+*/
 
   trackingPositionX = get_coord_x();
   trackingPositionY = get_coord_y();  
-  setCoords();*/
+  setCoords();
 }
 
 
