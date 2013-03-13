@@ -33,16 +33,19 @@ void initialise();
 
 /**
  * Runs though test functions for testing the robot
+ * @todo describe this more
  */
 void doATest();
 
 /**
  * Our big function to demonstrate everything. This controls the robot and tells it what to do to accomplish the demonstration
+ * @todo describe this more
  */
 int doTheDemo();
 
 /**
  * Standard main function this is what is actually first called to start the robot working
+ * @todo describe this more
  */
 void main(void);
 
