@@ -81,11 +81,9 @@ void linefollowTest(){
 void motorCorrectTest() {
   forwards(20);
   _DBG_("Moving");
-  setSensorSide(1);
-  _DBG_("Using Left");
-  //checkForWall();
   while (1) 
   {
+    checkForWall();
     correctForwardMotion();
     delay(2);
   }

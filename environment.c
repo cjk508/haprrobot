@@ -45,30 +45,39 @@ int checkForNoLine() {
 
 void dockBySensorsAndLine() {
   forwards(25);
-  delay(20);
+  delay(200);
   brake();
 }
 
 int checkForWall() {
+  setSensorSide(1);
   SensorPair leftSensors = calibratedValuesLeft(getLeftSensorValues());
   SensorPair rightSensors = calibratedValuesRight(getRightSensorValues());  
   int sensorSideFound = 0;
-  if (leftSensors.FrontSensor < 100 || leftSensors.RearSensor < 100) {
-    setSensorSide(1);
-    sensorSideFound++;
+  if (leftSensors.FrontSensor < 40 || leftSensors.RearSensor < 40) {
+    delay(200);
+    SensorPair leftSensors = calibratedValuesLeft(getLeftSensorValues());
+    if (leftSensors.FrontSensor < 40 || leftSensors.RearSensor < 40) {
+      setSensorSide(1);
+      sensorSideFound++;
+    }
   }
-  if (rightSensors.FrontSensor < 100 || rightSensors.RearSensor < 100) {
-    setSensorSide(0);  
-    sensorSideFound++;
+  if (rightSensors.FrontSensor < 40 || rightSensors.RearSensor < 40) {
+    delay(200);
+    SensorPair rightSensors = calibratedValuesRight(getRightSensorValues());  
+    if (rightSensors.FrontSensor < 40 || rightSensors.RearSensor < 40) {
+      setSensorSide(0);
+      sensorSideFound++;
+    }
   }
-  if (leftSensors.FrontSensor == 100 && leftSensors.RearSensor < 100) {
-    setSensorSide(1);  
+  if (leftSensors.FrontSensor >= 40 && leftSensors.RearSensor < 40) {
     sensorSideFound = 3;
   }   
-  if (rightSensors.FrontSensor == 100 && rightSensors.RearSensor < 100) {
-    setSensorSide(0);  
+  if (rightSensors.FrontSensor >= 40 && rightSensors.RearSensor < 40) {
     sensorSideFound = 4;
   }       
+  if (sensorSide != 1 && sensorSide != 0)
+    setSensorSide(-1);
   return sensorSideFound;
 }
 
