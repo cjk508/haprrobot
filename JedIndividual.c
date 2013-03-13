@@ -29,7 +29,7 @@ char* integerToAscii(double toPrint) {
 	return strdup(bufForPrint);
 } 
 
-void totalDistanceMoved(int32_t x, int32_t y) {
+void distanceMoved(int32_t x, int32_t y) {
 	double d = ((x^2) + (y^2)); //pythagarus theorem used to work out overall distance moved from orignal start point
 	d = sqrt(d);
 	_DBG_("The total distance moved by the Pololu robot is: ");

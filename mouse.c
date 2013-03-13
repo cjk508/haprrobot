@@ -222,7 +222,7 @@ void add_to_y(int8_t y) {
 }
 
 void printCoords(int32_t x, int32_t y, int32_t t) {
-	totalDistanceMoved(x, y);
+	distanceMoved(x, y);
 	_DBG_("The coordinate position of the Pololu robot is: ( ");_DBD32(x);_DBG_(" , ");_DBD32(y);_DBG_(" , ");_DBD32(t);_DBG_(" )");
 
 }

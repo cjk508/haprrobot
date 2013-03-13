@@ -59,4 +59,4 @@ void recordMotion(motorPair RMV, motorPair LMV);
 */
 void checkMotion(int y, int t);
 
-#endif JEDINDIVIDUAL
+#endif
