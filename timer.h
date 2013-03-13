@@ -16,12 +16,20 @@
 
 #include "motors.h"
 #include "mouse.h"
-
+/**
+ * Initially was used as a counter to state when the line following
+ * realised there was a blob of black tape. However as this became unnecessary
+ * it has remained as 'lotsOfBlackTape' purely because we have't renamedit.
+ *
+ * It now is used as a coutner for the delay function to count how many times
+ * Timer0 has ticked.
+ */
 int lotsOfBlackTape;
 /**
 * Timer interupt initialisation abstraction.
 * Sets up a timer interupt from the given parameters
 *
+* @author @todo who wrote this?
 * @param TIMx the timer to setup
 * @param IRQn the interupt to fire
 * @param time the time in ms the interupt fires at
@@ -30,32 +38,24 @@ void initTimer(LPC_TIM_TypeDef *TIMx, IRQn_Type IRQn, int time);
 
 /**
 * Initialises the timers for the robot Timer1 and Timer2
-* @author Jed Warwick-Mooney
+* @author Jed Warwick-Mooney (Initial Coding)
 */
 void initTimers();
 /**
 * The timer over multiple interrupts
 *
-* @author Andrew Durant
+* @author Andrew Durant (Initial Coding)
+* @author Christopher King (Debug)
 * @param time The length of time you wish to delay by
 */
 void delay(int time);
 /**
-* The interrupt handler for the robots state machine
-*
-* @author Jed Warwick-Mooney
+* Interrrupt handler for the mouse sensor. Should interrupt every 10ms
+* and runs method myspecialpoll()
+* @todo who wrote the if else statement - please explain it here
+* @author Jed Warwick-Mooney (Initial Coding)
 *
 */
 void TIMER0_IRQHandler();
-
-/**
-* Interrrupt handler for the mouse sensor.
-* Helps with tracking of the robots movement
-* from its original position
-*
-* @author Jed Warwick-Mooney
-*
-*/
-void TIMER2_IRQHandler();
 
 #endif

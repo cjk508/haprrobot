@@ -3,6 +3,7 @@
 bin/
 docs/
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 JedIndividual.h
@@ -11,4 +12,6 @@ chrisIndependent.c
 chrisIndependent.h
 menu.c
 menu.h
+>>>>>>> master
+=======
 >>>>>>> master

@@ -10,7 +10,7 @@
 *
 *	@date 03 March 2013
 *
-*/							     
+*/
 
 // Central include files
 #include "debug_frmwrk.h"
@@ -26,9 +26,12 @@
 
 #include "lpc17xx.h"
 
-// DBG Levels
-// 1 - Basic
-// 2 - Verbose
+/*! \def DBG_LEVEL
+ *  \brief Sets level of debuging ouput.
+ *  Makes everything easier to switch on and off what is output for debuging
+ *  1- Basic
+ *  2- Verbose
+*/
 #define DBG_LEVEL 1
 
 #include "uart.h"
@@ -115,8 +118,9 @@ int doTheDemo() {
     if (checkForWall() == 2) {
       currentState = 3;
     }
-    else
+    else {
       currentState = 0;
+    }
   }
   else if(checkForWall() == 1 || checkForWall() == 2) {
     currentState = 1;
@@ -139,25 +143,31 @@ int doTheDemo() {
     switch (currentState) {
       
       case 0: { // Woop I've found a line
+        _DBG_("Found a line... follow it");
         followLine(); ///@todo how do I know when to stop... where all the line gone?
         break;
       }
       case 1: { //Wall found... follow it
+        _DBG_("Found a wall... follow it");
         correctForwardMotion(); //looped by state machine
         break;
       }
       case 2: {// No Wall found track movement with mouse
-        trackByMouse();
+        //trackByMouse();
+        _DBG_("Found a nothing... go forwards");
+        forwards(20);
         break;
       }
       case 3: {// Walls and lines on both sides
+        _DBG_("Found a line and a wall, its my lucky day");
         dockBySensorsAndLine();
         return 0; // Finished! Robot has docked therefore do nothing else
       }
       case 4: { // left wall ended, bear right
+        _DBG_("Lost a wall on my left.... run away!!!!!");
         right();
         delay(20); ///@todo need to add something in case we never reach the wall
-        forwards(15);
+        forwards(20);
       }      
       default: {  // should never reach but if it does then track movement with mouse
         currentState = 2;
@@ -177,7 +187,11 @@ void main(void) {
   initialise();
   _DBG_("Magic!");
   
-  doATest();
+  while(1) {
+  
+    doTheDemo();
+  
+  }
   /*
   while(doTheDemo()) {
   

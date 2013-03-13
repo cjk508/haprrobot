@@ -19,6 +19,9 @@ void mouseinitial()
 	coord_y =0;
 	theta =0;
   mouse_init(cb, attach, detach);
+	coord_x =0;
+	coord_y =0;
+	theta =0;
   _DBG_("I've set up the mouse");
 }
 void myspecialpoll() {
@@ -36,7 +39,7 @@ void overflowProtection(int8_t y, int8_t t)
 		motorPair YrightMotorValues = getSpeedRight();
 		motorPair YleftMotorValues = getSpeedLeft();
 		brake();
-		delay(100000);
+		delay(1000000);
 		resume(YrightMotorValues, YleftMotorValues);
 	}
 	if( -125 > t || t > 125) {
@@ -44,7 +47,7 @@ void overflowProtection(int8_t y, int8_t t)
 		motorPair TrightMotorValues = getSpeedRight();
 		motorPair TleftMotorValues = getSpeedLeft();
 		brake();
-		delay(100000);
+		delay(1000000);
 		resume(TrightMotorValues, TleftMotorValues);
 	}
 }
@@ -61,7 +64,7 @@ int32_t converterForCm(int32_t x) {
 		int i = x%100;
 		x = x-i;
 	}
-	temp += (x/2000);
+	temp += (x/100);
 	return temp;
 }
 
@@ -71,9 +74,6 @@ int32_t convertToDeg(int32_t t) {
 }
 
 void cb(uint8_t buttons, int8_t y, int8_t t) {
-/**
-* @todo put some form of overflow protection to make sure that we are getting fairly accurate results.
-*/
 
 	static int32_t tempt;
 	static int32_t tempy;
@@ -220,6 +220,6 @@ void add_to_y(int8_t y) {
 }
 
 void printCoords(int32_t x, int32_t y, int32_t t) {
-	_DBG_("The coordiante position of the Pololu robot is: ( ");_DBD32(x);_DBG_(" , ");_DBD32(y);_DBG_(" , ");_DBD32(t);_DBG_(" )");
+	_DBG_("The coordinate position of the Pololu robot is: ( ");_DBD32(x);_DBG_(" , ");_DBD32(y);_DBG_(" , ");_DBD32(t);_DBG_(" )");
 }
 
