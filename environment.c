@@ -78,7 +78,7 @@ void setTrackingPosition(int x, int y) {
 }
 
 int checkForStableSensors(int wallPosition) {
-  SensorPair temp1;
+ /* SensorPair temp1;
   SensorPair temp2;
   
   if (getSensorSide()) {
@@ -133,10 +133,12 @@ int checkForStableSensors(int wallPosition) {
   else {
       return 0; // Sensors were not stable don't write the new tracking position
   }
+*/
+return 2; 
 }
 
 void setCoords() {
-
+/*
   switch(trackingState) {
     case 1: {
       if (checkForStableSensors(0)) {
@@ -175,11 +177,11 @@ void setCoords() {
       _DBG_("State 1"); 
     }              
   }
-
+*/
 }
 
 void differenceBetweenMouseAndPosition(int x, int y) {
-  int diffX = x - trackingPositionX;
+ /* int diffX = x - trackingPositionX;
   int diffY = y - trackingPositionY;  
   
   if (diffY<0)
@@ -191,26 +193,40 @@ void differenceBetweenMouseAndPosition(int x, int y) {
     cmdDoPlay("aa");  //There's been a large difference in the tracking distance. 
   }
   trackingPositionX = x;
-  trackingPositionY = y;
+  trackingPositionY = y;*/
+}
+
+void trackDistance(int y, int x) {
+  int initialX = get_coord_x();
+  int initialY = get_coord_y();  
+  
+  while ((get_coord_x() < initialX + x) && (get_coord_y() < initialY + y)) {
+    
+  }
+  motorPair LM = getSpeedLeft();
+  motorPair RM = getSpeedRight();  
+  brake();
+  cmdDoPlay("gg");
+  resume(LM, RM);
 }
 
 void trackByMouse() {
-  
-/*  switch (trackingPosition) {
+  int trackingPosition = 0;
+  switch (trackingPosition) {
     case 0: {
-//      trackDistance(2000,0);
+      trackDistance(200,0);
       break;
     }
     case 1: {
-//      trackDistance(2000,2000);
+      trackDistance(100,00);
       break;
     }    
     case 2: {
-//      trackDistance(500,-1000);#include "debug_frmwrk.h"
+      trackDistance(500,-1000);
       break;
     }    
   }
-*/
+
 
   trackingPositionX = get_coord_x();
   trackingPositionY = get_coord_y();  
