@@ -12,6 +12,8 @@
 #ifndef CORRECT_INC
 #define CORRECT_INC					      
 #include "sensors.h"
+/// side the sensor is on 1 = left, 0 = right
+int sensorSide; 
 /**
 * Gets the side that the sensor should use
 *

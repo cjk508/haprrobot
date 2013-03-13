@@ -10,11 +10,9 @@
  *  1- Basic
  *  2- Verbose
 */
-#define DBG_LEVEL 2
+#define DBG_LEVEL 1
 
 #define WALL_DISTANCE 15
-
-int sensorSide; //1 = left, 0 = right
 
 int getSensorSide() {
   return sensorSide;

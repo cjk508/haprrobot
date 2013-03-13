@@ -69,7 +69,7 @@ int abortMode = 0;
 void initialise() {
   debug_frmwrk_init();
   trackingState = 0;
-  lotsOfBlackTape = 0;
+  timerCounter = 0;
   courseType = 0;
   initSerial();
   serialTest();
@@ -77,9 +77,13 @@ void initialise() {
   // Even tho this is a test it needs to run so that the serial is set up properly
   initTimers();
   __enable_irq();
-	_DBG_("MOUSE");
+  if (DBG_LEVEL >= 1) {
+	  _DBG_("MOUSE");
+  }
  	mouseinitial();  
-	_DBG_("I've completed"); 
+  if (DBG_LEVEL >= 1) {
+	  _DBG_("I've completed"); 
+	}
 
 }
 
@@ -143,28 +147,43 @@ int doTheDemo() {
     switch (currentState) {
       
       case 0: { // Woop I've found a line
-        _DBG_("Found a line... follow it");
-        followLine(); ///@todo how do I know when to stop... where all the line gone?
+       // if (DBG_LEVEL == 1) {
+          _DBG_("Found a line... follow it");
+       // }*/
+        cmdDoPlay("a");
+        followLine();
         break;
       }
       case 1: { //Wall found... follow it
-        _DBG_("Found a wall... follow it");
+       // if (DBG_LEVEL == 1) {
+          _DBG_("Found a wall... follow it");
+        //}
         correctForwardMotion(); //looped by state machine
+        cmdDoPlay("bb");
         break;
       }
       case 2: {// No Wall found track movement with mouse
         //trackByMouse();
-        _DBG_("Found a nothing... go forwards");
+      //  if (DBG_LEVEL == 1) {
+          _DBG_("Found a nothing... go forwards");
+        //}*/
+        cmdDoPlay("ccc");
         forwards(20);
         break;
       }
       case 3: {// Walls and lines on both sides
-        _DBG_("Found a line and a wall, its my lucky day");
+        //if (DBG_LEVEL == 1) {
+          _DBG_("Found a line and a wall, its my lucky day");
+        //}*/
+        cmdDoPlay("dddd");
         dockBySensorsAndLine();
         return 0; // Finished! Robot has docked therefore do nothing else
       }
       case 4: { // left wall ended, bear right
-        _DBG_("Lost a wall on my left.... run away!!!!!");
+        //if (DBG_LEVEL == 1) {
+          _DBG_("Lost a wall on my left.... run away!!!!!");
+        //}*/
+        cmdDoPlay("eeeee");
         right();
         delay(20); ///@todo need to add something in case we never reach the wall
         forwards(20);
@@ -176,9 +195,9 @@ int doTheDemo() {
     return 1; // state machine traversed properly
   }
   else {
-    if(DBG_LEVEL == 1) {
+    /*if(DBG_LEVEL == 1) {
       _DBG_("ARGH WE HAVE NO ENVIRONMENT");
-    }
+    }*/
     return 0; // there's a problem
   }
 }
@@ -188,16 +207,15 @@ void main(void) {
   _DBG_("Magic!");
   
   while(1) {
-  
     doTheDemo();
-  
   }
-  /*
-  while(doTheDemo()) {
-  
-  }
-  */
-  
+   
+  /*int i =0;
+  while (i < 5){
+    _DBG_("HI");
+    i += 1;
+    delay(50);
+  }*/
   _DBG_("Done");
 }
 

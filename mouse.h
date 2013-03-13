@@ -11,6 +11,22 @@
 
 #include "KeyboardHost.h"
 /**
+* The disance between the robots pivot point and the mouse sensor in centimeters
+*/
+const int r;
+/**
+* The angle the robot is facing in radiens
+*/
+double theta;
+/**
+* The coordinate value of x along the x axis
+*/
+int32_t coord_x;
+/**
+* The coordinate value of y along the y axis
+*/
+int32_t coord_y;
+/**
 * Intialiases the mouse by linking the cb, attach, detach methods together and calling mouse_init
 *
 * @author Jed Warwick-Mooney (Initial Coding)
@@ -72,7 +88,7 @@ int32_t convertToDeg(int32_t t);
 * 1 - only t is changing, meaning the robot is moving on the spot i.e. spinning
 * 2 - only y in changing, meaning the robot is moving in forwards/backwards direction
 * 3 - both y and t are changing, meaning the robot is moving in curve
-* Once the conditon the integers match to is determined, the static int state is set to
+* Once the conditon the integers match to, is determined, the static int "state" is set to
 * the corresponding integer of the state, with prevState being set to state before state
 * is set. overflowProtection() is called to make sure overflows are flagged/controlled.
 * depending on the state the mehtod has entered y and t are added to their respected static temp
