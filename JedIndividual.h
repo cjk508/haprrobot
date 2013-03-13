@@ -1,6 +1,8 @@
 /*********************************************************************//**
 *	@file JedIndividual.h
-*	@brief Individual part for Jed Warwick-Mooney
+*	@brief This file should allow the robot to print the total distance it 
+* has moved from it's start position. It should also allow correction of 
+* the robots motion using the mouse
 *
 *	@author	Jed Warwick-Mooney
 *	@version: V0.1
