@@ -7,12 +7,12 @@
  *
  * @author Christopher King <cjk508@york.ac.uk>
  */
-void runAway(void) ;
+void runAway(void);
 /**
  * Waits for a predefined length of time
  * @author Christopher King <cjk508@york.ac.uk>
  * @return true or false as to whether it has waited for the required length of time or not
  */
-int waitForAWhile(void;
+int waitForAWhile(void);
 
 #endif

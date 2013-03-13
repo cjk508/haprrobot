@@ -32,7 +32,6 @@
  *  1- Basic
  *  2- Verbose
 */
-#define DBG_LEVEL 1
 
 #include "uart.h"
 #include "sensors.h"
@@ -42,7 +41,10 @@
 #include "environment.h"
 #include "frontrun.h"
 
+
 // This is a file for your test functions
+#include "tests.c"
+#define DBG_LEVEL 1
 /**
 * @brief 0 short course goes straight on to dock 
 *        1 is long course, bears right after left wall to find the right wall.
