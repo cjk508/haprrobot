@@ -39,7 +39,7 @@ void overflowProtection(int8_t y, int8_t t)
 		motorPair YrightMotorValues = getSpeedRight();
 		motorPair YleftMotorValues = getSpeedLeft();
 		brake();
-		delay(1000000);
+		delay(100);
 		resume(YrightMotorValues, YleftMotorValues);
 	}
 	if( -125 > t || t > 125) {
@@ -47,7 +47,7 @@ void overflowProtection(int8_t y, int8_t t)
 		motorPair TrightMotorValues = getSpeedRight();
 		motorPair TleftMotorValues = getSpeedLeft();
 		brake();
-		delay(1000000);
+		delay(100);
 		resume(TrightMotorValues, TleftMotorValues);
 	}
 }
@@ -101,8 +101,8 @@ void cb(uint8_t buttons, int8_t y, int8_t t) {
 		}
 		
 		if (tempt > 99){
-		  double spinVal = thetaOfArc(converterForCm(tempt), r); 
-		  theta = theta + spinVal; tempt = 0;
+		  double angleSpun = thetaOfArc(converterForCm(tempt), r); 
+		  theta = theta + angleSpun; tempt = 0;
 		}
 	}
 	
