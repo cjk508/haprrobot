@@ -3,6 +3,7 @@
 #include "motors.h"
 #include "debug_frmwrk.h"
 #include "uart.h"
+#include "frontrun.h"
 //----------------------------------------------------------------
 //constants
 const uint16_t DESIRED_DISTANCE = 1500;
@@ -228,12 +229,9 @@ void EINT3_IRQHandler() {
     //Something in the way
     brake();
     frontIRQ_triggered = 1;
+    runAway();
   } else if (getFrontSensorValue() == 0 && frontIRQ_triggered) {
     //Nothing in the way, actually
     frontIRQ_triggered = 0;
-    /**
-    * @todo Restore previous motion
-    */
-    forwards(25);
   }
 }

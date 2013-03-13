@@ -34,11 +34,7 @@ LDFLAGS+=-L$(CMSIS)/lib -lDriversLPC17xxgnu -lBSP -lCDL -lnxpUSBlib
 
 EXECNAME	= bin/haprrobot
 
-<<<<<<< HEAD
-OBJ		= haprrobot.o uart.o motors.o sensors.o correctmotion.o timer.o mouse.o linefollow.o environment.o KeyboardHost.o menu.o chrisIndependent.o
-=======
-OBJ		= haprrobot.o uart.o motors.o sensors.o correctmotion.o timer.o mouse.o linefollow.o environment.o KeyboardHost.o
->>>>>>> master
+OBJ		= haprrobot.o uart.o motors.o sensors.o correctmotion.o timer.o mouse.o linefollow.o environment.o KeyboardHost.o frontrun.o
 
 all: 	haprrobot
 	@echo "Build finished"
