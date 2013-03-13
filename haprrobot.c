@@ -146,10 +146,21 @@ int doTheDemo() {
   //Track right wall
   cmdDoPlay(">gg");
   _DBG_("State 4");
-  while (checkForWall() != 4) {
+  wallState = -1;
+  while (wallState != 4 && wallState != 0) {
+    wallState = checkForWall();
     correctForwardMotion();
-    delay(10);
   }
+  
+  //Find the line
+  cmdDoPlay(">aa");
+  _DBG_("State 5");
+  forwards(20);
+  brake();
+/*  while(!checkForLine()) {
+    
+  }
+  linefollow(); */
 }
 
 void main(void) {
