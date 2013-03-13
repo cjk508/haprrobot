@@ -43,7 +43,6 @@
 #include "frontrun.h"
 
 // This is a file for your test functions
-#include "tests.c"
 /**
 * @brief 0 short course goes straight on to dock 
 *        1 is long course, bears right after left wall to find the right wall.
