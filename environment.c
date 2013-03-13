@@ -50,9 +50,12 @@ void dockBySensorsAndLine() {
 }
 
 int checkForWall() {
-  setSensorSide(1);
   SensorPair leftSensors = calibratedValuesLeft(getLeftSensorValues());
-  SensorPair rightSensors = calibratedValuesRight(getRightSensorValues());  
+  SensorPair rightSensors = calibratedValuesRight(getRightSensorValues());
+  _DBG("LF: ");_DBD(leftSensors.FrontSensor);_DBG_("");
+  _DBG("LR: ");_DBD(leftSensors.RearSensor);_DBG_("");
+  _DBG("RF: ");_DBD(rightSensors.FrontSensor);_DBG_("");
+  _DBG("RR: ");_DBD(rightSensors.RearSensor);_DBG_("");
   int sensorSideFound = 0;
   if (leftSensors.FrontSensor < 40 || leftSensors.RearSensor < 40) {
     delay(200);
