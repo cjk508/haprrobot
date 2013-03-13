@@ -70,7 +70,7 @@ void wallFollow(SensorPair sensor) {
     }
     else if(sensor.RearSensor < sensor.FrontSensor) {//Rear sensor is closest to the wall and under the desired distance
       forwards(20);   
-//      debug_output(sensor);  
+//      debug_output(sensor);
       
     }
   }
@@ -104,7 +104,7 @@ void wallFollow(SensorPair sensor) {
     forwards(20);   
   }
   else {
-    cmdDoPlay("a"); //error beep
+    cmdDoPlay(">>>a"); //error beep
     forwards(20);
     debug_output(sensor);
   }
@@ -124,11 +124,15 @@ void correctForwardMotion() {
   * Now measured in cm meaning that larger value is, as per normal, further away
   */
   if (sensorSide) {
-    if (left.FrontSensor < 100) //if i can see a wall then follow it
+    if (left.FrontSensor < 100) { //if i can see a wall then follow it
       wallFollow(left);
+      cmdDoPlay("<c");
+    }
   }
   else {
-    if (right.FrontSensor < 100) 
+    if (right.FrontSensor < 100) {
       wallFollow(right);
+      cmdDoPlay("<d");
+    }
   }  
 }
