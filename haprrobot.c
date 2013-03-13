@@ -141,6 +141,7 @@ int doTheDemo() {
   //Wait until right wall is trackable
   while (sensorSide != 0) {
     checkForWall();
+    _DBD(sensorSide);_DBG_(" sens");
   }
   
   //Track right wall
@@ -206,7 +207,7 @@ void fullDemo() {
 				robotState = 3;
 				break;
 			case 3:
-				setSensorSide(0);
+				setSensorSide(2);
 				while(get_coord_x() < 800) {
 					correctForwardMotion();
 				}

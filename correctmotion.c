@@ -25,11 +25,11 @@ void setSensorSide(int setSide) {
 void debug_output(SensorPair sensor) {
   if (DBG_LEVEL >= 2) {
     _DBG_("##################");
-    if(sensorSide) {
+    if(sensorSide == 1) {
         _DBG("Left Front:");_DBD16(sensor.FrontSensor);_DBG_("");
         _DBG("Left Rear:");_DBD16(sensor.RearSensor);_DBG_("");
      }
-     else {
+     else if (sensorSide == 2) {
       _DBG("Right Front:");_DBD16(sensor.FrontSensor);_DBG_("");
       _DBG("Right Rear:");_DBD16(sensor.RearSensor);_DBG_("");
     }
@@ -44,11 +44,11 @@ void wallFollow(SensorPair sensor) {
 //      debug_output(sensor);
     }
     else { //if we are either parallel or facing away from the wall
-      if(sensorSide){
+      if (sensorSide == 1) {
         setRightMotorFw(20 + (sensor.FrontSensor - WALL_DISTANCE));
         setLeftMotorFw(20);            
       }
-      else {
+      else if (sensorSide == 2) {
         setLeftMotorFw(20 + (sensor.FrontSensor - WALL_DISTANCE));    
         setRightMotorFw(20);        
       }    
@@ -57,11 +57,11 @@ void wallFollow(SensorPair sensor) {
   else if ((sensor.FrontSensor < WALL_DISTANCE) && (sensor.RearSensor < WALL_DISTANCE)) { // both sensors less closer to the wall than required
     if (sensor.RearSensor > sensor.FrontSensor) { //Front sensor is closest to the wall and under the desired distance
       
-      if(sensorSide){
+      if (sensorSide == 1) {
         motorPair motorInfo = getSpeedLeft();
         setLeftMotorFw(motorInfo.motor_speed + (WALL_DISTANCE - sensor.FrontSensor));
       }
-      else {
+      else if (sensorSide == 2) {
         motorPair motorInfo = getSpeedRight();
         setRightMotorFw(motorInfo.motor_speed + (WALL_DISTANCE - sensor.FrontSensor));      
       } 
@@ -75,22 +75,22 @@ void wallFollow(SensorPair sensor) {
     }
   }
   else if ((sensor.FrontSensor <= WALL_DISTANCE) && (sensor.RearSensor > WALL_DISTANCE)) { // both sensors less closer to the wall than required
-      if(sensorSide){
+      if (sensorSide == 1) {
         motorPair motorInfo = getSpeedLeft();
         setLeftMotorFw(motorInfo.motor_speed + (WALL_DISTANCE - sensor.FrontSensor));
       }
-      else {
+      else if (sensorSide == 2) {
         motorPair motorInfo = getSpeedRight();
         setRightMotorFw(motorInfo.motor_speed + (WALL_DISTANCE - sensor.FrontSensor));      
       } 
 //      debug_output(sensor);        
   }  
   else if ((sensor.FrontSensor > WALL_DISTANCE) && (sensor.RearSensor <= WALL_DISTANCE)) { // both sensors less closer to the wall than required
-      if(sensorSide){
+      if (sensorSide == 1) {
         motorPair motorInfo = getSpeedRight();
         setRightMotorFw(motorInfo.motor_speed + (sensor.FrontSensor - WALL_DISTANCE));   
       }
-      else {
+      else if (sensorSide == 2) {
         motorPair motorInfo = getSpeedLeft();
         setLeftMotorFw(motorInfo.motor_speed + (sensor.FrontSensor - WALL_DISTANCE ));    
       } 
@@ -123,13 +123,13 @@ void correctForwardMotion() {
   *
   * Now measured in cm meaning that larger value is, as per normal, further away
   */
-  if (sensorSide) {
+  if (sensorSide == 1) {
     if (left.FrontSensor < 100) { //if i can see a wall then follow it
       wallFollow(left);
       cmdDoPlay("<c");
     }
   }
-  else {
+  else if (sensorSide == 2) {
     if (right.FrontSensor < 100) {
       wallFollow(right);
       cmdDoPlay("<d");
