@@ -33,7 +33,7 @@
  *
  * @author Andrew Durant
  */
-void serialTest() {
+void serialTest(void) {
   if (DBG_LEVEL >= 1) {
     _DBG_("Init Serial");
   }
