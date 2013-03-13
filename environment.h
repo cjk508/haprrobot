@@ -13,9 +13,17 @@
 
 #ifndef ENVIRO_INC
 #define ENVIRO_INC
-
+/**
+* contains the current X postion, starts at 0
+*/
 int trackingPositionX;
+/**
+* contains the current Y postion, starts at 0
+*/
 int trackingPositionY;
+/**
+* where in the course the robot is
+*/
 int trackingState;
 /**
 * Checks to see if there is a line underneath the robot using the raw sensors

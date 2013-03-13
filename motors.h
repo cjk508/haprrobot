@@ -19,10 +19,22 @@
 */
 #define MAX_SPEED 25
 
+/**
+ * The current speed of the left motor
+ */
 int current_motor_speed_left;
+/**
+ * The current speed of the right motor
+ */
 int current_motor_speed_right;
 
+/**
+ * The current direction of the left motor (1 forwards, 0 backwards)
+ */
 int current_motor_dir_left;
+/**
+ * The current direction of the right motor (1 forwards, 0 backwards)
+ */
 int current_motor_dir_right;
 
 /**
@@ -36,7 +48,13 @@ int current_motor_dir_right;
 * @author Jed Warwick-Mooney 
 */
 typedef struct motorPair{
+/**
+ * the speed of the motor
+ */
 	int motor_speed;
+/**
+ * The direction that the motor is travelling in
+ */
 	int motor_dir;
 }motorPair;
 
