@@ -26,8 +26,8 @@ void initTimers() {
 }
 
 void delay(int time) {
-  int i = lotsOfBlackTape;
-  while (i - lotsOfBlackTape == time) {
+  int i = timerCounter;
+  while (timerCounter - i < time) {
   }
 }
 
@@ -35,10 +35,14 @@ void TIMER0_IRQHandler() {
 	 if(TIM_GetIntStatus(LPC_TIM0, TIM_MR0_INT) == SET)
     {
 	    myspecialpoll();
-	    if(lotsOfBlackTape <350)
-  	    lotsOfBlackTape +=1;
+	    
+	    /**
+	    * This if else statement is here to act as a counter for each time the timer ticks
+	    */
+	    if(timerCounter <350)
+  	    timerCounter +=1;
   	  else
-  	    lotsOfBlackTape = 0;
+  	    timerCounter = 0;
     }
     TIM_ClearIntPending(LPC_TIM0, TIM_MR0_INT);
 }

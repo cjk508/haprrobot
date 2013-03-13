@@ -10,7 +10,7 @@
  *  1- Basic
  *  2- Verbose
 */
-#define DBG_LEVEL 2
+#define DBG_LEVEL 1
 
 #define WALL_DISTANCE 15
 
