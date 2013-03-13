@@ -50,8 +50,9 @@ char* integerToAscii(double toPrint);
 void recordMotion(motorPair RMV, motorPair LMV);
 /**
 * Uses the values of the mouse and robotMotion to see if the 
-* robot is moving in the correct motion it thinks it's moving in
-* and notifies the user using sound if something is not right.
+* robot is moving in the correct motion it thinks it is moving in.
+* If not the robot brakes and notifies the user using sound if
+* something is not right.
 * 
 * @author Jed Warwick-Mooney
 *	@param y mouse y value
