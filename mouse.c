@@ -81,7 +81,6 @@ void cb(uint8_t buttons, int8_t y, int8_t t) {
 	static int32_t tempTCurve;
 	static int state;
 	static int prevState;
-	printCoords(coord_x, coord_y, theta);
 	//if there is a change in the t value only then the robot is spinning
 	if(t != 0 && y == 0) {
 		prevState = state;
@@ -190,18 +189,6 @@ int32_t get_coord_y() {
 
 int32_t get_theta() {
 	return theta;
-}
-
-void forwardsfor50(){
-	while (coord_y<50){
-		forwards(15);
-	}
-	int32_t temp = get_coord_x();
-	int32_t temp2 = get_coord_y();
-	int32_t temp3 = convertToDeg(get_theta());
-	printCoords(temp, temp2, temp3); 
-	_DBG_("I've went 50");	
-	brake();
 }
 
 void add_to_x(int8_t x) {
