@@ -48,7 +48,13 @@ int current_motor_dir_right;
 * @author Jed Warwick-Mooney 
 */
 typedef struct motorPair{
+/**
+ * the speed of the motor
+ */
 	int motor_speed;
+/**
+ * The direction that the motor is travelling in
+ */
 	int motor_dir;
 }motorPair;
 
