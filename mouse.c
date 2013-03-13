@@ -148,7 +148,7 @@ void cb(uint8_t buttons, int8_t y, int8_t t) {
 		  add_to_y(tempy2);
 		  tempy = 0;
 		}
-		if (tempYCurve > 99 && tempTCurve > 99){ ///@todo please check your brackets
+		if (tempYCurve > 99 && tempTCurve > 99){
 		  curve(converterForCm(tempYCurve), converterForCm(tempTCurve));
 		  tempYCurve = 0;
 			tempTCurve = 0;
@@ -223,7 +223,7 @@ void add_to_y(int8_t y) {
 
 void printCoords(int32_t x, int32_t y, int32_t t) {
 	totalDistanceMoved(x, y);
-	_DBG_("The coordiante position of the Pololu robot is: ( ");_DBD32(x);_DBG_(" , ");_DBD32(y);_DBG_(" , ");_DBD32(t);_DBG_(" )");
+	_DBG_("The coordinate position of the Pololu robot is: ( ");_DBD32(x);_DBG_(" , ");_DBD32(y);_DBG_(" , ");_DBD32(t);_DBG_(" )");
 
 }
 

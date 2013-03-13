@@ -1,12 +1,13 @@
 /*********************************************************************//**
-*	@file JedInduvidual.h
-*	@brief	 Induvidual part for Jed Warwick-Mooney
+*	@file JedIndividual.h
+*	@brief Individual part for Jed Warwick-Mooney
 *
 *	@author	Jed Warwick-Mooney
 *	@version: V0.1
 *	@date:	12 March 2013
 ************************************************************************/
-
+#ifndef JEDINDIVIDUAL
+#define JEDINDIVIDUAL
 /**
 * Works out the distance the robot has moved 
 * from it's orignal starting position 
@@ -57,3 +58,5 @@ void recordMotion(motorPair RMV, motorPair LMV);
 *	@param t mouse t value
 */
 void checkMotion(int y, int t);
+
+#endif JEDINDIVIDUAL
