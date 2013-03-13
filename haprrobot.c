@@ -156,7 +156,7 @@ int doTheDemo() {
   cmdDoPlay(">aa");
   _DBG_("State 5");
   forwards(20);
-  brake() /*
+  brake(); /*
   while(!checkForLine()) {
     
   }
