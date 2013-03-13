@@ -33,7 +33,7 @@ void distanceMoved(int32_t x, int32_t y) {
 	double d = ((x^2) + (y^2)); //pythagarus theorem used to work out overall distance moved from orignal start point
 	d = sqrt(d);
 	_DBG_("The total distance moved by the Pololu robot is: ");
-	_DBD(d); _DBG_("");
+	_DBD((int)d); _DBG_("");
 	cmdLcdPrint(integerToAscii(d));
 	cmdDoPlay(">a<<a");
 }
