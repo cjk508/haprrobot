@@ -48,7 +48,7 @@
 * @brief 0 short course goes straight on to dock 
 *        1 is long course, bears right after left wall to find the right wall.
 */
-int courseType;
+int courseType = 0;
 /**
 * Enables tools to override the next state
 */
@@ -130,38 +130,55 @@ int doTheDemo() {
     correctForwardMotion();
   }
   
-  //Bear right to head for other wall
-  cmdDoPlay(">ff");
-  _DBG_("State 3");
-  right();
-  delay(1000);
-  _DBG_("State 3.1");
-  forwards(20);
-  
-  //Wait until right wall is trackable
-  while (sensorSide != 2) {
-    checkForWall();
-    _DBD(sensorSide);_DBG_(" sens");
+  if (courseType == 0) {
+    cmdDoPlay(">aa");
+    _DBG_("State 5");
+    while(!checkForLine()) {
+      
+    }
+    followLine();
+    while(!checkForNoLine()) {
+      
+    }
+    brake();
   }
-  
-  //Track right wall
-  cmdDoPlay(">gg");
-  _DBG_("State 4");
-  wallState = -1;
-  while (wallState != 4 && wallState != 0) {
-    wallState = checkForWall();
-    correctForwardMotion();
-  }
-  
-  //Find the line
-  cmdDoPlay(">aa");
-  _DBG_("State 5");
-  forwards(20);
-  brake(); /*
-  while(!checkForLine()) {
+  else {
+    //Bear right to head for other wall
+    cmdDoPlay(">ff");
+    _DBG_("State 3");
+    right();
+    delay(1000);
+    _DBG_("State 3.1");
+    forwards(20);
     
+    //Wait until right wall is trackable
+    while (sensorSide != 2) {
+      checkForWall();
+      _DBD(sensorSide);_DBG_(" sens");
+    }
+    
+    //Track right wall
+    cmdDoPlay(">gg");
+    _DBG_("State 4");
+    wallState = -1;
+    while (wallState != 4 && wallState != 0) {
+      wallState = checkForWall();
+      correctForwardMotion();
+    }
+    
+    //Find the line
+    cmdDoPlay(">aa");
+    _DBG_("State 5");
+    forwards(20);
+    while(!checkForLine()) {
+      
+    }
+    followLine();
+    while(!checkForNoLine()) {
+      
+    }
+    brake();
   }
-  followLine(); */
 }
 
 void main(void) {
