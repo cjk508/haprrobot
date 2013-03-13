@@ -13,7 +13,7 @@
 /**
 * The disance between the robots pivot point and the mouse sensor in centimeters
 */
-const int r = 7;
+const int r;
 /**
 * The angle the robot is facing in radiens
 */
