@@ -169,14 +169,6 @@ void main(void) {
   
   doTheDemo();
   
-  updateMouse();
-  
-  trackMovement(100); /// @todo check this value
-  
-  findALine();
-  
-  followToDock();
-
   _DBG_("Done");
 }
 
@@ -188,30 +180,6 @@ void trackMovement(int distance) {
   
   /// @todo Take value & check against distance
   correctForwardMotion()
-}
-
-void findAWall() {
-  /// @todo needs to be able to deal with not being near the wall
-  /// @todo needs to recognise that the wall might be directly in front.
-}
-
-void followWall() {
-  /// @todo correct motion allong wall until no more wall then get out! 
-}
-
-void updateMouse() {
-  /// @todo should take in location values
-  /// @todo move into mouse.c
-  /// @todo set location values because we know where we are
-}
-
-void findALine() {
-  /// @todo move to line follow
-  /// @todo implement this
-}
-
-void followToDock() {
-  /// @todo use functions from line following, lineFollow() until dock.
 }
 
 void fullDemo() {
