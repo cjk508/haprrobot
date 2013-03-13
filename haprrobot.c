@@ -181,7 +181,7 @@ int doTheDemo() {
         //}*/
         cmdDoPlay("eeeee");
         right();
-        delay(20); ///@todo need to add something in case we never reach the wall
+        delay(200); ///@todo need to add something in case we never reach the wall
         forwards(20);
       }      
       default: {  // should never reach but if it does then track movement with mouse
@@ -215,81 +215,3 @@ void main(void) {
   }*/
   _DBG_("Done");
 }
-
-
-
-
-
-  /*
-  // wait for initialisation
-  delay(100);
-  
-  // Track distance
-  trackMovement(200);
-  
-  findAWall();
-  
-  updateMouse();
-  
-  followWall();
-  
-  updateMouse();
-  
-  int dist = 0;
-  
-  // dist is based on where we are from the wall, and how far we need to go to the next wall. total is 2m dist should be less.
-  trackMovement(dist);
-  
-  findAWall();
-  
-  followWall();
-  
-  updateMouse();
-  
-  trackMovement(100); /// @todo check this value
-  
-  findALine();
-  
-  followToDock();
-
-void trackMovement(int distance) {
-  /// @todo Take current value
-  
-  // Start moving
-  forwards(20);
-  
-  /// @todo Take value & check against distance
-  
-}
-
-void findAWall() {
-  /// @todo needs to be able to deal with not being near the wall
-  /// @todo needs to recognise that the wall might be directly in front.
-}
-
-void followWall() {
-  /// @todo correct motion allong wall until no more wall then get out! 
-}
-
-void updateMouse() {
-  /// @todo should take in location values
-  /// @todo move into mouse.c
-  /// @todo set location values because we know where we are
-}
-
-void findALine() {
-  /// @todo move to line follow
-  /// @todo implement this
-}
-
-void followToDock() {
-  /// @todo use functions from line following, lineFollow() until dock.
-}*/
-
-
-
-
-
-
-
-

@@ -54,6 +54,7 @@ void followLine(){
   
   while(!checkForNoLine()) {
     delay(10);
+    if (abortMode) return;
   }
   
   if (DBG_LEVEL == 1)

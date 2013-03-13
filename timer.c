@@ -27,10 +27,9 @@ void initTimers() {
 
 void delay(int time) {
   int i = timerCounter;
-  while (i - timerCounter == time) {
-  }
   
   while (timerCounter - i < time) {
+    if (abortMode) return;
   }
 }
 
