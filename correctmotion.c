@@ -104,7 +104,7 @@ void wallFollow(SensorPair sensor) {
     forwards(20);   
   }
   else {
-    cmdDoPlay("a"); //error beep
+    cmdDoPlay(">>>a"); //error beep
     forwards(20);
     debug_output(sensor);
   }
@@ -126,13 +126,13 @@ void correctForwardMotion() {
   if (sensorSide) {
     if (left.FrontSensor < 100) { //if i can see a wall then follow it
       wallFollow(left);
-      cmdDoPlay("bb");
+      cmdDoPlay("<c");
     }
   }
   else {
     if (right.FrontSensor < 100) {
       wallFollow(right);
-      cmdDoPlay("dd");
+      cmdDoPlay("<d");
     }
   }  
 }
