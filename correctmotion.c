@@ -14,8 +14,6 @@
 
 #define WALL_DISTANCE 15
 
-int sensorSide; //1 = left, 0 = right
-
 int getSensorSide() {
   return sensorSide;
 }

@@ -113,21 +113,13 @@ int getFrontSensorValue();
 void initSensors();
 //----------------------------------------------------------------
 /**
-* This method is called whenever there is a change in the ADC values
-* it is then converted and sent to a dummy USB terminal. This is here purely for testing,
-* it will not be part of the final program.
-*
-* @author Christopher King <cjk508@york.ac.uk> (Initial Coding)
-*/
-void ADC_IRQHandler();
-//----------------------------------------------------------------
-/**
 * This interrupt is called whenever the value of the front sensor
 * changes. The front sensor reports either "nothing there" or "something there"
 * This will slow down and stop the robot if something is in the way
 * Or start moving again if previously stopped
 *
 * @author Lloyd Wallis <lpw503@york.ac.uk> (Initial Coding)
+* @author Christopher King (revision - added resume on brake so motors will have same values)
 */
 void EINT0_IRQHandler();
 #endif

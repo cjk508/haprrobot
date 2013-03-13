@@ -211,14 +211,14 @@ void trackDistance(int y, int x) {
 }
 
 void trackByMouse() {
-  int trackingPosition = 0;
+ /* int trackingPosition = 0;
   switch (trackingPosition) {
     case 0: {
       trackDistance(200,0);
       break;
     }
     case 1: {
-      trackDistance(100,00);
+      trackDistance(100,0);
       break;
     }    
     case 2: {
@@ -230,7 +230,7 @@ void trackByMouse() {
 
   trackingPositionX = get_coord_x();
   trackingPositionY = get_coord_y();  
-  setCoords();
+  setCoords();*/
 }
 
 

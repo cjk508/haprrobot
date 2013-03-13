@@ -42,7 +42,7 @@ SensorPair calibratedValuesLeft(SensorPair sensorValue) {
   else if (sensorValue.FrontSensor < 1350) { tempF = 25; }
   else if (sensorValue.FrontSensor < 1480) { tempF = 24; }  
   else if (sensorValue.FrontSensor < 1480) { tempF = 23; }  
-  else if (sensorValue.FrontSensor < 1520) { tempF = 22; }   //? said 10 dunno why
+  else if (sensorValue.FrontSensor < 1520) { tempF = 22; } 
   else if (sensorValue.FrontSensor < 1560) { tempF = 21; }
   else if (sensorValue.FrontSensor < 1580) { tempF = 20; }
   else if (sensorValue.FrontSensor < 1680) { tempF = 19; }
@@ -171,7 +171,7 @@ SensorPair getRightSensorValues()
 
   if ((returnValue.FrontSensor > NO_WALL) && (returnValue.RearSensor > NO_WALL)) {
     // returns the SensorPair
-	  return returnValue; // roundingValues(returnValue);
+	  return returnValue; 
 	}
 	if (returnValue.FrontSensor < NO_WALL) {
 	  returnValue.FrontSensor = 0;
@@ -179,7 +179,7 @@ SensorPair getRightSensorValues()
 	if (returnValue.RearSensor < NO_WALL) {
 	  returnValue.RearSensor = 0;
   }
-	return returnValue; // roundingValues(returnValue);
+	return returnValue;
 }
 //----------------------------------------------------------------
 int getFrontSensorValue()
