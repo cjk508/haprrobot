@@ -40,6 +40,7 @@
 #include "correctmotion.h"
 #include "timer.h"
 #include "environment.h"
+#include "menu.h"
 
 
 // This is a file for your test functions
@@ -202,16 +203,5 @@ void main(void) {
   initialise();
   _DBG_("Magic!");
   
-  while(1) {
-    doTheDemo();
-    delay(200);
-  }
-   
-  /*int i =0;
-  while (i < 5){
-    _DBG_("HI");
-    i += 1;
-    delay(50);
-  }*/
-  _DBG_("Done");
+  waitForInitialInputThenGo();
 }

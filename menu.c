@@ -3,6 +3,8 @@
 #include "uart.h"
 #include "sensors.h"
 #include "timer.h"
+#include "debug_frmwrk.h"
+#include "lpc17xx_nvic.h"
 
 void ADC_IRQHandler(void) {
   //Disable further interrupts for now
@@ -65,9 +67,9 @@ void ADC_IRQHandler(void) {
 void waitForInitialInputThenGo(void) {
   //Initialise ADC IRQ Handlers
   NVIC_EnableIRQ(ADC_IRQn);
-  
   //5s of beep, then wait
   cmdDoPlay("bRbRbRbRb");
+  
   int i;
   for (i = 0; i < 10; i++) {
     //If an option has been triggered, start
@@ -75,5 +77,5 @@ void waitForInitialInputThenGo(void) {
     if (abortMode) break;
   }
   NVIC_DisableIRQ(ADC_IRQn);
-  doTheDemo();
+  while (1 == 1) {doTheDemo();delay(200);}
 }

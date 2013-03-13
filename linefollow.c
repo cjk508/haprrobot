@@ -4,6 +4,7 @@
 #include "linefollow.h"
 #include "environment.h"
 #include "timer.h"
+#include "haprrobot.h"
 
 /*! \def DBG_LEVEL
  *  \brief Sets level of debuging ouput.

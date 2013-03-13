@@ -1,6 +1,7 @@
 #include "debug_frmwrk.h"
 #include "timer.h"
 #include "mouse.h"
+#include "haprrobot.h"
 
 int motorState = 0;
 
