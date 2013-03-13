@@ -31,7 +31,13 @@ int frontIRQ_triggered;
 * @author Christopher King <cjk508@york.ac.uk> (Initial Coding)
 */
 typedef struct SensorPair {
+  /**
+   * contains the value of the front sensor. Normally this will now be given in cm
+   */
   uint16_t FrontSensor;
+  /**
+   * contains the value of the rear sensor, normally this will now be given in cm.
+   */
   uint16_t RearSensor;
   }SensorPair;
 //----------------------------------------------------------------

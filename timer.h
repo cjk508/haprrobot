@@ -16,7 +16,14 @@
 
 #include "motors.h"
 #include "mouse.h"
-
+/**
+ * Initially was used as a counter to state when the line following
+ * realised there was a blob of black tape. However as this became unnecessary
+ * it has remained as 'lotsOfBlackTape' purely because we have't renamedit.
+ *
+ * It now is used as a coutner for the delay function to count how many times
+ * Timer0 has ticked.
+ */
 int lotsOfBlackTape;
 /**
 * Timer interupt initialisation abstraction.
