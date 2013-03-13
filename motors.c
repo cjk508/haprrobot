@@ -4,9 +4,12 @@
 #include "uart.h"
 #include "debug_frmwrk.h" 
 
-// DBG Levels
-// 1 - Verbose
-// 2 - No movement
+/*! \def DBG_LEVEL
+ *  \brief Sets level of debuging ouput.
+ *  Makes everything easier to switch on and off what is output for debuging
+ *  1- Verbose
+ *  2- No Movement
+*/
 #define DBG_LEVEL 1
 
 motorPair getSpeedLeft() {

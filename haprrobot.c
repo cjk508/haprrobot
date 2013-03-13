@@ -10,7 +10,7 @@
 *
 *	@date 03 March 2013
 *
-*/							     
+*/
 
 // Central include files
 #include "debug_frmwrk.h"
@@ -26,9 +26,12 @@
 
 #include "lpc17xx.h"
 
-// DBG Levels
-// 1 - Basic
-// 2 - Verbose
+/*! \def DBG_LEVEL
+ *  \brief Sets level of debuging ouput.
+ *  Makes everything easier to switch on and off what is output for debuging
+ *  1- Basic
+ *  2- Verbose
+*/
 #define DBG_LEVEL 1
 
 #include "uart.h"
@@ -62,7 +65,7 @@ int abortMode = 0;
 void initialise() {
   debug_frmwrk_init();
   trackingState = 0;
-  lotsOfBlackTape = 0;
+  timerCounter = 0;
   courseType = 0;
   initSerial();
   serialTest();
@@ -70,9 +73,13 @@ void initialise() {
   // Even tho this is a test it needs to run so that the serial is set up properly
   initTimers();
   __enable_irq();
-	_DBG_("MOUSE");
- // mouseinitial();  
-	_DBG_("I've completed"); 
+  if (DBG_LEVEL >= 1) {
+	  _DBG_("MOUSE");
+  }
+ 	mouseinitial();  
+  if (DBG_LEVEL >= 1) {
+	  _DBG_("I've completed"); 
+	}
 
 }
 
@@ -84,13 +91,19 @@ void doATest() {
     sensorsTest();
   }*/
  
+ while(1) {
+   trackByMouse();
+   /*int i = 0;
+   while (i < 3000000) {i++;}*/
+ }
+ 
 //  linefollowTest();    
 
- motorCorrectTest();
+ //motorCorrectTest();
 
- //_DBG_("init mouse");
+// _DBG_("init mouse");
  //mouseinitial();
- //forwardsfor50();
+// forwardsfor50();
 }
 
 int doTheDemo() { 
@@ -105,8 +118,9 @@ int doTheDemo() {
     if (checkForWall() == 2) {
       currentState = 3;
     }
-    else
+    else {
       currentState = 0;
+    }
   }
   else if(checkForWall() == 1 || checkForWall() == 2) {
     currentState = 1;
@@ -129,25 +143,46 @@ int doTheDemo() {
     switch (currentState) {
       
       case 0: { // Woop I've found a line
-        followLine(); ///@todo how do I know when to stop... where all the line gone?
+       // if (DBG_LEVEL == 1) {
+          _DBG_("Found a line... follow it");
+       // }*/
+        cmdDoPlay("a");
+        followLine();
         break;
       }
       case 1: { //Wall found... follow it
+       // if (DBG_LEVEL == 1) {
+          _DBG_("Found a wall... follow it");
+        //}
         correctForwardMotion(); //looped by state machine
+        cmdDoPlay("bb");
         break;
       }
       case 2: {// No Wall found track movement with mouse
-        trackByMouse();
+        //trackByMouse();
+      //  if (DBG_LEVEL == 1) {
+          _DBG_("Found a nothing... go forwards");
+        //}*/
+        cmdDoPlay("ccc");
+        forwards(20);
         break;
       }
       case 3: {// Walls and lines on both sides
+        //if (DBG_LEVEL == 1) {
+          _DBG_("Found a line and a wall, its my lucky day");
+        //}*/
+        cmdDoPlay("dddd");
         dockBySensorsAndLine();
         return 0; // Finished! Robot has docked therefore do nothing else
       }
       case 4: { // left wall ended, bear right
+        //if (DBG_LEVEL == 1) {
+          _DBG_("Lost a wall on my left.... run away!!!!!");
+        //}*/
+        cmdDoPlay("eeeee");
         right();
         delay(20); ///@todo need to add something in case we never reach the wall
-        forwards(15);
+        forwards(20);
       }      
       default: {  // should never reach but if it does then track movement with mouse
         currentState = 2;
@@ -156,9 +191,9 @@ int doTheDemo() {
     return 1; // state machine traversed properly
   }
   else {
-    if(DBG_LEVEL == 1) {
+    /*if(DBG_LEVEL == 1) {
       _DBG_("ARGH WE HAVE NO ENVIRONMENT");
-    }
+    }*/
     return 0; // there's a problem
   }
 }
@@ -167,13 +202,17 @@ void main(void) {
   initialise();
   _DBG_("Magic!");
   
-  doATest();
-  /*
-  while(doTheDemo()) {
-  
+  while(1) {
+    doTheDemo();
+    delay(200);
   }
-  */
-  
+   
+  /*int i =0;
+  while (i < 5){
+    _DBG_("HI");
+    i += 1;
+    delay(50);
+  }*/
   _DBG_("Done");
 }
 
