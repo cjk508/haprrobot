@@ -35,6 +35,7 @@ void distanceMoved(int32_t x, int32_t y) {
 	_DBG_("The total distance moved by the Pololu robot is: ");
 	_DBD(d); _DBG_("");
 	cmdLcdPrint(integerToAscii(d));
+	cmdDoPlay(">a<<a");
 }
 
 void recordMotion(motorPair RMV, motorPair LMV) {
@@ -77,16 +78,16 @@ void checkMotion(int y, int t) {
 		brake(); // stop becuase the robot is moving in the wrong motion
 		if(t > 0) {
 			cmdDoPlay("abab>a");
-			delay(100000);
+			delay(500);
 			right();
-			delay(10000*t); //delay time dependant on the value of t - larger value of t longer delay to allow the robot to turn and correct it's direction
+			delay(50*t); //delay time dependant on the value of t - larger value of t longer delay to allow the robot to turn and correct it's direction
 		}
 
 		else if(t < 0) {
 		  cmdDoPlay("abba>a");
-			delay(100000);
+			delay(500);
 			left();
-			delay(10000*(t*(-1))); //delay time dependant on the value of t - larger value of t longer delay to allow the robot to turn and correct it's direction
+			delay(50*(t*(-1))); //delay time dependant on the value of t - larger value of t longer delay to allow the robot to turn and correct it's direction
 		}
 		resume(rightMotorValue, leftMotorValue);
 	}
@@ -98,33 +99,33 @@ void checkMotion(int y, int t) {
 	else if(robotMotion == 2 && (t < 0)) {
 		brake();
 		cmdDoPlay("abcd>b");//Should be turning left but isn't
-		delay(100000);
+		delay(500);
 		left();//resend motion robot should be moving in
 	}
 
 	else if(robotMotion == 3 && (t > 0)) {
 		brake();
 		cmdDoPlay("abef>b");//Should be turning right but isn't
-		delay(100000);
+		delay(500);
 		right();//resend motion robot should be moving in
 	}
 
 	else if(robotMotion == 4 && t < 0) {
 		brake();
 		cmdDoPlay("bacd>c");//Should be spinning left but isn't
-		delay(100000);
+		delay(500);
 	}
 
 	else if(robotMotion == 5 && t > 0) {
 		brake();
 		cmdDoPlay("baef>c");//Should be spinning right but isn't
-		delay(100000);
+		delay(500);
 	}
 
 	else if(y != 0 && t!=0 && robotMotion == 6) {
 		brake();
 		cmdDoPlay("abababa>d"); //Should be braking but isn't
-		delay(100000);
+		delay(500);
 	} 
 }
 
