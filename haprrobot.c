@@ -156,11 +156,11 @@ int doTheDemo() {
   cmdDoPlay(">aa");
   _DBG_("State 5");
   forwards(20);
-  brake();
-/*  while(!checkForLine()) {
+  brake() /*
+  while(!checkForLine()) {
     
   }
-  linefollow(); */
+  followLine(); */
 }
 
 void main(void) {
