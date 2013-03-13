@@ -139,7 +139,7 @@ int doTheDemo() {
   forwards(20);
   
   //Wait until right wall is trackable
-  while (sensorSide != 0) {
+  while (sensorSide != 2) {
     checkForWall();
     _DBD(sensorSide);_DBG_(" sens");
   }
