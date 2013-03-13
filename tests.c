@@ -34,7 +34,9 @@
  * @author Andrew Durant
  */
 void serialTest() {
-  if (DBG_LEVEL >= 1) _DBG_("Init Serial");
+  if (DBG_LEVEL >= 1) {
+    _DBG_("Init Serial");
+  }
 //  initSerial(); 
   unsigned char buf[6];
   cmdSig(buf);
