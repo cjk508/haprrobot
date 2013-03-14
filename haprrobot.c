@@ -185,8 +185,8 @@ void main(void) {
   initialise();
   _DBG_("Magic!");
   
- // doTheDemo();
-  mouseDemo();
+  doTheDemo();
+  
   _DBG_("Done");
 }
 
