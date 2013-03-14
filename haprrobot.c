@@ -208,7 +208,7 @@ void main(void) {
     else if (getMode() == 1) {
       playPopcorn();
       int i = 0;
-      while (i < 3000000) {i++;}
+      while (i < 30000000) {i++;}
     }
   }
   
