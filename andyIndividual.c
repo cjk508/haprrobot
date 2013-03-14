@@ -193,6 +193,10 @@ SensorPair volumeValuesRight(SensorPair sensorValue) {
   return sensorValue;
 }
 
+int getMode() {
+  return pMode;
+}
+
 void setMode(int mode) {
   pMode = mode;
 }

@@ -30,6 +30,13 @@ SensorPair noteValuesLeft(SensorPair sensorValue);
  */
 SensorPair volumeValuesRight(SensorPair sensorValue);
 
+/**
+ * gets the playout mode (theremin or popcorn)
+ *
+ * @author Andrew Durant
+ * @return the mode to (0 or 1)
+ */
+int getMode();
 
 /**
  * sets the playout mode (theremin or popcorn)
