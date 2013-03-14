@@ -3,6 +3,7 @@
 #include "motors.h"
 #include "debug_frmwrk.h"
 #include "uart.h"
+#include "andyIndividual.h"
 //----------------------------------------------------------------
 //constants
 #define NO_WALL 0
@@ -223,15 +224,13 @@ void initSensors()
 //----------------------------------------------------------------
 void EINT3_IRQHandler() {
   //Check if this is "something in the way" or "nothing in the way, actually"
-  if (getFrontSensorValue() && isMovingForward()) {
+  if (getFrontSensorValue()) {
     //Something in the way
-    frontIRQLM = getSpeedLeft();
-    frontIRQRM = getSpeedRight();
-    brake();
+    setMode(1);
     frontIRQ_triggered = 1;
   } else if (getFrontSensorValue() == 0 && frontIRQ_triggered) {
     //Nothing in the way, actually
     frontIRQ_triggered = 0;
-    resume(frontIRQLM, frontIRQRM); //resumes motors from the last brake.
+    setMode(0);
   }
 }

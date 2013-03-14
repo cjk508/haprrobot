@@ -89,8 +89,9 @@ const char *volume[] = {
                         "V14",
                         "V15"};
 
-
-// cmdDoPlay(note[28]);
+/// Mode 0 = theremin
+/// Mode 1 = popcorn
+int pMode = 0;
 
 SensorPair noteValuesLeft(SensorPair sensorValue) {
   uint16_t tempF = 0;
@@ -192,6 +193,10 @@ SensorPair volumeValuesRight(SensorPair sensorValue) {
   return sensorValue;
 }
 
+void setMode(int mode) {
+  pMode = mode;
+}
+
 void setNote() {
   SensorPair noteSensor = getLeftSensorValues();
   noteSensor = noteValuesLeft(noteSensor);
@@ -206,4 +211,9 @@ void setVolume() {
   cmdDoPlay((char*)volume[volumeSensor.FrontSensor]);
 }
 
-
+void playPopcorn() {
+  cmdDoPlay("MS");
+  cmdDoPlay("T100");
+  cmdDoPlay("V15");
+  cmdDoPlay(">CA#>CGD#GC>CA#>CGD#GC>C>D>D#>D>D#>C>D>C>DA#>CA#>CG#>C>CA>CGD#GC");
+}

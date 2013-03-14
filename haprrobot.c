@@ -193,13 +193,23 @@ void main(void) {
   initialise();
   _DBG_("Magic!");
   
-  cmdDoPlay("T80");
-  cmdDoPlay("L1");
-  
   while(1) {
-    theremin();
-    int i = 0;
-    while (i < 1000000) {i++;}
+    if (mode == 0) {
+      cmdDoPlay("ML");
+      cmdDoPlay("T80");
+      cmdDoPlay("L1");
+      
+      while(pMode == 0) {
+        theremin();
+        int i = 0;
+        while (i < 500000) {i++;}
+      }
+    }
+    else if (pMode == 1) {
+      playPopcorn();
+      int i = 0;
+      while (i < 3000000) {i++;}
+    }
   }
   
   _DBG_("Done");

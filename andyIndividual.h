@@ -30,6 +30,15 @@ SensorPair noteValuesLeft(SensorPair sensorValue);
  */
 SensorPair volumeValuesRight(SensorPair sensorValue);
 
+
+/**
+ * sets the playout mode (theremin or popcorn)
+ *
+ * @author Andrew Durant
+ * @param mode the mode to set (0 or 1)
+ */
+void setMode(int mode);
+
 /**
  * Read sensor values, convert and send play command for notes
  *
@@ -43,5 +52,12 @@ void setNote();
  * @author Andrew Durant
  */
 void setVolume();
+
+/**
+ * Play popcorn once
+ *
+ * @author Andrew Durant
+ */
+void playPopcorn();
 
 #endif
