@@ -49,7 +49,17 @@
 * @brief 0 short course goes straight on to dock 
 *        1 is long course, bears right after left wall to find the right wall.
 */
-int courseType;
+
+int courseType = 0;
+/**
+* Enables tools to override the next state
+*/
+int stateOverride = -1;
+/**
+* Enables interrupts to request the state machine to abort current operation
+* and reevaluate transitions
+*/
+int abortMode = 0;
 
 /**
  * Runs all the initialisations that are needed
@@ -57,6 +67,7 @@ int courseType;
  */
 void initialise() {
   debug_frmwrk_init();
+  setSensorSide(-1);
   trackingState = 0;
   timerCounter = 0;
   courseType = 0;
@@ -65,7 +76,7 @@ void initialise() {
   initSensors();
   // Even tho this is a test it needs to run so that the serial is set up properly
   initTimers();
-  __enable_irq();
+  //__enable_irq();
   if (DBG_LEVEL >= 1) {
 	  _DBG_("MOUSE");
   }
@@ -99,90 +110,77 @@ void doATest() {
 // forwardsfor50();
 }
 
-int doTheDemo() { 
-  /**
-   * @todo create checks for the current environment setup. This should include line and wall checks	
-   * @todo create state machine that will set the state based on the priority of the input.
-   * @todo make sure that the front sensor always interrupts
-  */
-  int currentState = -1;
+int doTheDemo() {
+
+  cmdDoPlay(">cc");
+  _DBG_("State 0");
+  forwards(20);
   
-  if(checkForLine() && checkForWall() != 1) { ///@todo discuss whether it should follow the lines 
-    if (checkForWall() == 2) {
-      currentState = 3;
-    }
-    else {
-      currentState = 0;
-    }
+  cmdDoPlay(">dd");
+  _DBG_("State 1");
+  while (sensorSide != 1) {
+    //Forwards until we find a left wall
+    checkForWall();
+    _DBD(sensorSide);_DBG_(" sens");
   }
-  else if(checkForWall() == 1 || checkForWall() == 2) {
-    currentState = 1;
-  }
-  else if(checkForWall() == 3 && courseType) {
-    currentState = 4;
-  }    
-  else {
-    currentState = 2;
+
+  cmdDoPlay(">ee");
+  _DBG_("State 2");
+  //Follow wall until it's ended
+  int wallState = -1;
+  while (wallState != 3 && wallState != 0) {
+    wallState = checkForWall();
+    correctForwardMotion();
   }
   
-  
-  //Run a series of commands based on the chosen state
-  if (currentState > -1) { // should never be -1 but if it is we have some problems
-    switch (currentState) {
+  if (courseType == 0) {
+    cmdDoPlay(">aa");
+    _DBG_("State 5");
+    while(!checkForLine()) {
       
-      case 0: { // Woop I've found a line
-        if (DBG_LEVEL == 1) {
-          _DBG_("Found a line... follow it");
-        }
-        cmdDoPlay("a");
-        followLine();
-        break;
-      }
-      case 1: { //Wall found... follow it
-        if (DBG_LEVEL == 1) {
-          _DBG_("Found a wall... follow it");
-        }
-        correctForwardMotion(); //looped by state machine
-        cmdDoPlay("bb");
-        break;
-      }
-      case 2: {// No Wall found track movement with mouse
-        trackByMouse();
-        if (DBG_LEVEL == 1) {
-          _DBG_("Found a nothing... go forwards");
-        }
-        cmdDoPlay("ccc");
-        forwards(20);
-        break;
-      }
-      case 3: {// Walls and lines on both sides
-        if (DBG_LEVEL == 1) {
-          _DBG_("Found a line and a wall, its my lucky day");
-        }
-        cmdDoPlay("dddd");
-        dockBySensorsAndLine();
-        return 0; // Finished! Robot has docked therefore do nothing else
-      }
-      case 4: { // left wall ended, bear right
-        if (DBG_LEVEL == 1) {
-          _DBG_("Lost a wall on my left.... run away!!!!!");
-        }
-        cmdDoPlay("eeeee");
-        right();
-        delay(20); ///@todo need to add something in case we never reach the wall
-        forwards(20);
-      }      
-      default: {  // should never reach but if it does then track movement with mouse
-        currentState = 2;
-      }  
     }
-    return 1; // state machine traversed properly
+    followLine();
+    while(!checkForNoLine()) {
+      
+    }
+    brake();
   }
   else {
-    if(DBG_LEVEL == 1) {
-      _DBG_("ARGH WE HAVE NO ENVIRONMENT");
+    //Bear right to head for other wall
+    cmdDoPlay(">ff");
+    _DBG_("State 3");
+    right();
+    delay(1000);
+    _DBG_("State 3.1");
+    forwards(20);
+    
+    //Wait until right wall is trackable
+    while (sensorSide != 2) {
+      checkForWall();
+      _DBD(sensorSide);_DBG_(" sens");
     }
-    return 0; // there's a problem
+    
+    //Track right wall
+    cmdDoPlay(">gg");
+    _DBG_("State 4");
+    wallState = -1;
+    while (wallState != 4 && wallState != 0) {
+      wallState = checkForWall();
+      correctForwardMotion();
+    }
+    
+    //Find the line
+    cmdDoPlay(">aa");
+    _DBG_("State 5");
+    forwards(20);
+    while(!checkForLine()) {
+      
+    }
+    followLine();
+    while(!checkForNoLine()) {
+      
+    }
+    brake();
   }
 }
 
@@ -207,80 +205,57 @@ void main(void) {
   _DBG_("Done");
 }
 
-
-
-
-
-  /*
-  // wait for initialisation
-  delay(100);
-  
-  // Track distance
-  trackMovement(200);
-  
-  findAWall();
-  
-  updateMouse();
-  
-  followWall();
-  
-  updateMouse();
-  
-  int dist = 0;
-  
-  // dist is based on where we are from the wall, and how far we need to go to the next wall. total is 2m dist should be less.
-  trackMovement(dist);
-  
-  findAWall();
-  
-  followWall();
-  
-  updateMouse();
-  
-  trackMovement(100); /// @todo check this value
-  
-  findALine();
-  
-  followToDock();
-
-void trackMovement(int distance) {
-  /// @todo Take current value
-  
-  // Start moving
-  forwards(20);
-  
-  /// @todo Take value & check against distance
-  
+void fullDemo() {
+	int robotState = 0;
+	uint16_t sensorPattern[5] = {0};	
+	while(robotState != 6) {
+		switch(robotState) {
+			case 0:
+				while(get_coord_x() < 200) {
+					forwards(20);
+				}
+				robotState = 1;
+				break;
+			case 1:
+				setSensorSide(1);
+				while(get_coord_x() < 400) {
+					correctForwardMotion();
+				}
+				robotState = 2;
+				break;
+			case 2:
+				while(convertToDeg(get_theta()) > -90) {
+					spinLeft();
+				}
+				while(get_coord_y() < 120) {
+					forwards(20);
+				}
+				while(convertToDeg(get_theta()) < 0) {
+					spinRight();
+				}
+				while(get_coord_x() < 600) {
+					forwards(20);
+				}
+				robotState = 3;
+				break;
+			case 3:
+				setSensorSide(2);
+				while(get_coord_x() < 800) {
+					correctForwardMotion();
+				}
+				robotState = 4;
+				break;
+			case 4:
+				forwards(20);		
+				while(sensorPattern[3]<2000){
+					getRawSensors(sensorPattern);
+				}
+				robotState = 5;
+				break;
+			case 5:
+				followLine();
+				robotState = 6;
+				break;
+		}
+	}
 }
-
-void findAWall() {
-  /// @todo needs to be able to deal with not being near the wall
-  /// @todo needs to recognise that the wall might be directly in front.
-}
-
-void followWall() {
-  /// @todo correct motion allong wall until no more wall then get out! 
-}
-
-void updateMouse() {
-  /// @todo should take in location values
-  /// @todo move into mouse.c
-  /// @todo set location values because we know where we are
-}
-
-void findALine() {
-  /// @todo move to line follow
-  /// @todo implement this
-}
-
-void followToDock() {
-  /// @todo use functions from line following, lineFollow() until dock.
-}*/
-
-
-
-
-
-
-
-
