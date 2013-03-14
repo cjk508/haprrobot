@@ -110,7 +110,7 @@ void doATest() {
 // forwardsfor50();
 }
 
-int doTheDemo() {
+void doTheDemo() {
 
   cmdDoPlay(">cc");
   _DBG_("State 0");
