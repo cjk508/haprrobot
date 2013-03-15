@@ -45,7 +45,7 @@ void setLeftMotorFw(int speed) {
 	/*if (DBG_LEVEL >= 1) {
 	  _DBG("Left MotorF: ");_DBD32(current_motor_speed_left);_DBG_("");
 	}*/
-cmdLeftMFw(current_motor_speed_left);
+  cmdLeftMFw(current_motor_speed_left);
 }
 void setLeftMotorBw(int speed) {
   if (frontIRQ_triggered) return;
@@ -121,17 +121,13 @@ void spinRight() {
 void resume(motorPair lm, motorPair rm) {
 	if(lm.motor_dir == 1 ) {
 		setLeftMotorFw(lm.motor_speed);
-	}
-	else if (lm.motor_dir == 0 )
-	{
+	} else {
 		setLeftMotorBw(lm.motor_speed);
 	}
 	
 	if(rm.motor_dir == 1 ) {
 		setRightMotorFw(rm.motor_speed);
-	}
-	else if (rm.motor_dir == 0 )
-	{
+	} else {
 		setRightMotorBw(rm.motor_speed);
 	}
 }

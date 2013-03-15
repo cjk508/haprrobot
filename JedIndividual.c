@@ -78,54 +78,55 @@ void checkMotion(int y, int t) {
 		brake(); // stop becuase the robot is moving in the wrong motion
 		if(t > 0) {
 			cmdDoPlay("abab>a");
-			delay(500);
+			delay(5);
 			right();
-			delay(50*t); //delay time dependant on the value of t - larger value of t longer delay to allow the robot to turn and correct it's direction
+			delay(15); //delay time dependant on the value of t - larger value of t longer delay to allow the robot to turn and correct it's direction
 		}
 
 		else if(t < 0) {
 		  cmdDoPlay("abba>a");
-			delay(500);
+			delay(5);
 			left();
-			delay(50*(t*(-1))); //delay time dependant on the value of t - larger value of t longer delay to allow the robot to turn and correct it's direction
+			delay(15); //delay time dependant on the value of t - larger value of t longer delay to allow the robot to turn and correct it's direction
 		}
 		resume(rightMotorValue, leftMotorValue);
 	}
 	else if ((robotMotion == (1 || 0)) && (y == 0)){
 		brake();
+		delay(5);
 		cmdDoPlay("aaaaa>a");//the robot is not moving when it sould be
 	}
 
 	else if(robotMotion == 2 && (t < 0)) {
 		brake();
 		cmdDoPlay("abcd>b");//Should be turning left but isn't
-		delay(500);
+		delay(5);
 		left();//resend motion robot should be moving in
 	}
 
 	else if(robotMotion == 3 && (t > 0)) {
 		brake();
 		cmdDoPlay("abef>b");//Should be turning right but isn't
-		delay(500);
+		delay(5);
 		right();//resend motion robot should be moving in
 	}
 
 	else if(robotMotion == 4 && t < 0) {
 		brake();
 		cmdDoPlay("bacd>c");//Should be spinning left but isn't
-		delay(500);
+		delay(5);
 	}
 
 	else if(robotMotion == 5 && t > 0) {
 		brake();
 		cmdDoPlay("baef>c");//Should be spinning right but isn't
-		delay(500);
+		delay(5);
 	}
 
 	else if(y != 0 && t!=0 && robotMotion == 6) {
 		brake();
 		cmdDoPlay("abababa>d"); //Should be braking but isn't
-		delay(500);
+		delay(5);
 	} 
 }
 

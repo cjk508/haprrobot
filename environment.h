@@ -78,7 +78,7 @@ void setTrackingPosition(int x, int y);
 *
 * @param wallPosition  where should the wall be? 0 = wall infront of FS, 1 = wall infront of RS, anything else = no wall
 * @return 1 or 0 depending on whether Sensors are stable (1) or they aren't (0)
-
+*/
 int checkForStableSensors(int wallPosition);
 /**
 * State machine that contains the next set coordinates. This then checks that the
@@ -86,7 +86,7 @@ int checkForStableSensors(int wallPosition);
 *
 * @author Christopher King (Initial Coding)
 * @author Lloyd Wallis (Debug)
-
+*/
 void setCoords() ;
 /**
 * Checks the difference between the mouse and the real position. If it differs

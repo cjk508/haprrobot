@@ -41,7 +41,7 @@ void doATest();
  * Our big function to demonstrate everything. This controls the robot and tells it what to do to accomplish the demonstration
  * @todo describe this more
  */
-int doTheDemo();
+void doTheDemo();
 
 /**
  * Standard main function this is what is actually first called to start the robot working
@@ -49,10 +49,11 @@ int doTheDemo();
  */
 void main(void);
 
+void doShortCourse(int state);
+void doLongCourse(int state);
 
+int checkForWall(int wallSide);
 
+void lineFollow(void);
 
-
-
-
-
+void stopLineFollow(void);

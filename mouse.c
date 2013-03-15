@@ -16,9 +16,6 @@ int32_t coord_y;
 void mouseinitial()
 {
   _DBG_("I'm starting");
-  coord_x =0;
-	coord_y =0;
-	theta =0;
   mouse_init(cb, attach, detach);
 	coord_x =0;
 	coord_y =0;
@@ -40,7 +37,7 @@ void overflowProtection(int8_t y, int8_t t)
 		motorPair YrightMotorValues = getSpeedRight();
 		motorPair YleftMotorValues = getSpeedLeft();
 		brake();
-		delay(100);
+		delay(10);
 		resume(YrightMotorValues, YleftMotorValues);
 	}
 	if( -125 > t || t > 125) {
@@ -48,7 +45,7 @@ void overflowProtection(int8_t y, int8_t t)
 		motorPair TrightMotorValues = getSpeedRight();
 		motorPair TleftMotorValues = getSpeedLeft();
 		brake();
-		delay(100);
+		delay(10);
 		resume(TrightMotorValues, TleftMotorValues);
 	}
 }
@@ -211,5 +208,40 @@ void add_to_y(int8_t y) {
 void printCoords(int32_t x, int32_t y, int32_t t) {
 	_DBG_("The coordinate position of the Pololu robot is: ( ");_DBD32(x);_DBG_(" , ");_DBD32(y);_DBG_(" , ");_DBD32(t);_DBG_(" )");
 distanceMoved(x, y);
+}
+
+void mouseDemo() {
+	mouseinitial();
+	_DBG_("Intialised mouse");
+	int sta = 0;
+	while(sta != 4) {
+		switch(sta) {
+		
+		case 0: 
+				while (coord_x<200) {
+					forwards(20);
+				}
+				sta = 1;
+				break;
+		case 1:
+				while (convertToDeg(theta) > -90) {
+					spinLeft();
+				}
+				sta = 2;
+				break;
+		case 2:
+				while (coord_y<100) {
+					forwards(20);
+				}
+				sta = 3;
+				break;
+		case 3:
+				while (convertToDeg(theta) < 90 ) {
+					spinRight();
+				}
+				sta = 4;
+				break;
+		}		
+	}
 }
 
