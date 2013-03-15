@@ -16,9 +16,9 @@ int checkForLine() {
   
   for (i = 0; i<5; i++) {
     if (sensorPattern[i] == 2000)
-      isThereALine = 1;
+      isThereALine += 1;
   }
-  if (isThereALine) {
+  if (isThereALine>=2) {
     return 1;
   }
   else

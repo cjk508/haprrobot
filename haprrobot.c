@@ -244,3 +244,165 @@ void fullDemo() {
 		}
 	}
 }
+int wallFound(int wallSide) {
+  SensorPair leftSensors = calibratedValuesLeft(getLeftSensorValues());
+  SensorPair rightSensors = calibratedValuesRight(getRightSensorValues());
+  _DBG("LF: ");_DBD(leftSensors.FrontSensor);_DBG_("");
+  _DBG("LR: ");_DBD(leftSensors.RearSensor);_DBG_("");
+  _DBG("RF: ");_DBD(rightSensors.FrontSensor);_DBG_("");
+  _DBG("RR: ");_DBD(rightSensors.RearSensor);_DBG_("");
+  if(wallSide == 1) {
+	if (leftSensors.FrontSensor <35 || leftSensors.RearSensor <35) {
+		delay(200);
+		if (leftSensors.FrontSensor <35 || leftSensors.RearSensor <35) {
+			setSensorSide(1);
+			return 1;
+		}
+	}
+  }
+  if(wallSide == 2) {
+	if (rightSensors.FrontSensor <35 || rightSensors.RearSensor <35) {
+		delay(200);
+		if (rightSensors.FrontSensor <35 || rightSensors.RearSensor <35) {
+			setSensorSide(2);
+			return 1;
+		}
+	}
+  }  
+  if(wallSide == 3) {
+	if ((rightSensors.FrontSensor <35 || rightSensors.RearSensor <35) && (leftSensors.FrontSensor <35 || leftSensors.RearSensor <35)) {
+		delay(200);
+		if ((rightSensors.FrontSensor <35 || rightSensors.RearSensor <35) && (leftSensors.FrontSensor <35 || leftSensors.RearSensor <35)) {
+		 setSensorSide(3);
+		 return 1;
+		}
+	}
+  } 
+  setSensorSide(-1);
+  return 0;
+}
+
+void stopLineFollow() {
+  cmdPIDstop();
+} 
+void lineFollow(){
+
+ if (DBG_LEVEL == 1)
+    _DBG_("CALIB LINE");
+  
+  calibrateSensors();  
+  
+  if (DBG_LEVEL == 1)
+    _DBG_("START LINE FOLLOWING");
+  
+  uint8_t sequence[] = {35, 45 , 35, 35 ,45}; 
+  cmdPIDstart(sequence);	
+}
+
+void doShortCourse(int state) {
+
+	int nextState = 0;
+	switch (state) {
+		case 0: { //move 2 metres to the wall
+			forwards(20);
+			while (!wallFound(1)) {
+			}
+			nextState = 1;
+			break;
+		}
+		case 1: { //found a wall follow it
+			setSensorSide(1);//follow left wall
+			while (wallFound(1)) {
+				correctForwardMotion();
+			}			
+			nextState = 2;
+			break;
+		}
+		case 2: { //wall ended find a line
+			forwards(20);
+			while (!checkForLine()) {
+			}
+			nextState = 3;
+			break;
+		}	
+		case 3: { //line found follow it
+			lineFollow();
+			nextState = 4;
+			break;
+		}		
+		case 4: { // docked please stop.
+			while(wallFound(3)) {
+			}
+			stopLineFollow();
+			nextState = 7;
+			break;
+		}
+	}
+	if (nextState != 7){
+		doShortCourse(nextState);
+	}
+}
+void doLongCourse(int state) {
+
+	int nextState = 0;
+	switch (state) {
+		case 0: { //move 2 metres to the wall
+			forwards(20);
+			while (!wallFound(1)) {
+			}
+			nextState = 1;
+			break;
+		}
+		case 1: { //found a wall follow it
+			setSensorSide(1);//follow left wall
+			while (wallFound(1)) {
+				correctForwardMotion();
+			}			
+			nextState = 2;
+			break;
+		}
+		case 2: { //turn away from the wall and run to the right hand side
+			right();
+			delay(150);
+			nextState = 3;
+			break;
+		}
+		case 3:{
+			forwards(20);
+			while(!wallFound(2)) {
+			}
+			nextState = 4;
+			break;
+		}
+		case 4 :{
+			setSensorSide(2);
+			while(wallFound(2)){
+				correctForwardMotion();
+			}
+			nextState = 5;
+			break;
+		}
+		case 5: { //wall ended find a line
+			forwards(20);
+			while (!checkForLine()) {
+			}
+			nextState = 6;
+			break;
+		}	
+		case 6: { //line found follow it
+			lineFollow();
+			nextState = 7;
+			break;
+		}		
+		case 7: { // docked please stop.
+			while(wallFound(3)) {
+			}
+			stopLineFollow();
+			nextState = 8;
+			break;
+		}
+	}
+	if (nextState != 8){
+		doShortCourse(nextState);
+	}
+}

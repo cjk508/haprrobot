@@ -49,10 +49,10 @@ void doTheDemo();
  */
 void main(void);
 
+void doShortCourse(int state);
 
+int checkForWall(int wallSide);
 
+void lineFollow(void);
 
-
-
-
-
+void stopLineFollow(void);
