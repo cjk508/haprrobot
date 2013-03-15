@@ -340,7 +340,7 @@ void doLongCourse(int state) {
 		}
 	}
 	if (nextState != 8){
-		doShortCourse(nextState);
+		doLongCourse(nextState);
 	}
 }
 
