@@ -13,6 +13,6 @@ void runAway(void);
  * @author Christopher King <cjk508@york.ac.uk>
  * @return true or false as to whether it has waited for the required length of time or not
  */
-int waitForAWhile(void);
+void waitForAWhile(void);
 
 #endif
