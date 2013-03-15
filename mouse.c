@@ -15,9 +15,6 @@ int32_t coord_y;
 void mouseinitial()
 {
   _DBG_("I'm starting");
-  coord_x =0;
-	coord_y =0;
-	theta =0;
   mouse_init(cb, attach, detach);
 	coord_x =0;
 	coord_y =0;
@@ -39,7 +36,7 @@ void overflowProtection(int8_t y, int8_t t)
 		motorPair YrightMotorValues = getSpeedRight();
 		motorPair YleftMotorValues = getSpeedLeft();
 		brake();
-		delay(100);
+		delay(10);
 		resume(YrightMotorValues, YleftMotorValues);
 	}
 	if( -125 > t || t > 125) {
@@ -47,7 +44,7 @@ void overflowProtection(int8_t y, int8_t t)
 		motorPair TrightMotorValues = getSpeedRight();
 		motorPair TleftMotorValues = getSpeedLeft();
 		brake();
-		delay(100);
+		delay(10);
 		resume(TrightMotorValues, TleftMotorValues);
 	}
 }
@@ -81,7 +78,8 @@ void cb(uint8_t buttons, int8_t y, int8_t t) {
 	static int32_t tempTCurve;
 	static int state;
 	static int prevState;
-	printCoords(coord_x, coord_y, theta);
+	_DBD32(t);
+	_DBD32(y);
 	//if there is a change in the t value only then the robot is spinning
 	if(t != 0 && y == 0) {
 		prevState = state;
@@ -192,18 +190,6 @@ int32_t get_theta() {
 	return theta;
 }
 
-void forwardsfor50(){
-	while (coord_y<50){
-		forwards(15);
-	}
-	int32_t temp = get_coord_x();
-	int32_t temp2 = get_coord_y();
-	int32_t temp3 = convertToDeg(get_theta());
-	printCoords(temp, temp2, temp3); 
-	_DBG_("I've went 50");	
-	brake();
-}
-
 void add_to_x(int8_t x) {
 	coord_x += x * sin(theta); //x is multiplied by sin(theta) as direction the robot is facing can affect how far it actually moves along the x_axis
   if ((((int)coord_x % 50) >= 48) && (((int)coord_x %50) <= 2)) { ///@todo change to just % 50 if it works well
@@ -221,5 +207,40 @@ void add_to_y(int8_t y) {
 
 void printCoords(int32_t x, int32_t y, int32_t t) {
 	_DBG_("The coordinate position of the Pololu robot is: ( ");_DBD32(x);_DBG_(" , ");_DBD32(y);_DBG_(" , ");_DBD32(t);_DBG_(" )");
+}
+
+void mouseDemo() {
+	mouseinitial();
+	_DBG_("Intialised mouse");
+	int sta = 0;
+	while(sta != 4) {
+		switch(sta) {
+		
+		case 0: 
+				while (coord_x<200) {
+					forwards(20);
+				}
+				sta = 1;
+				break;
+		case 1:
+				while (convertToDeg(theta) > -90) {
+					spinLeft();
+				}
+				sta = 2;
+				break;
+		case 2:
+				while (coord_y<100) {
+					forwards(20);
+				}
+				sta = 3;
+				break;
+		case 3:
+				while (convertToDeg(theta) < 90 ) {
+					spinRight();
+				}
+				sta = 4;
+				break;
+		}		
+	}
 }
 

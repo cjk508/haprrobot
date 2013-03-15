@@ -226,14 +226,14 @@ void EINT3_IRQHandler() {
   //Check if this is "something in the way" or "nothing in the way, actually"
   if (getFrontSensorValue() && isMovingForward()) {
     //Something in the way
-    brake();
     frontIRQLM = getSpeedLeft();
     frontIRQRM = getSpeedRight();
+    brake();
     frontIRQ_triggered = 1;
     runAway();
   } else if (getFrontSensorValue() == 0 && frontIRQ_triggered) {
     //Nothing in the way, actually
-    resume(frontIRQLM, frontIRQRM); //resumes motors from the last brake.
     frontIRQ_triggered = 0;
+    resume(frontIRQLM, frontIRQRM); //resumes motors from the last brake.
   }
 }
