@@ -50,6 +50,7 @@ void doTheDemo();
 void main(void);
 
 void doShortCourse(int state);
+void doLongCourse(int state);
 
 int checkForWall(int wallSide);
 
