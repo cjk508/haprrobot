@@ -2,13 +2,13 @@
 #include "sensors.h"
 #include "timer.h"
 #include "uart.h"
-#include "debug_frmwrk.h" 
+#include "debug_frmwrk.h"
 
 /*! \def DBG_LEVEL
- *  \brief Sets level of debuging ouput.
- *  Makes everything easier to switch on and off what is output for debuging
- *  1- Verbose
- *  2- No Movement
+*  \brief Sets level of debuging ouput.
+*  Makes everything easier to switch on and off what is output for debuging
+*  1- Verbose
+*  2- No Movement
 */
 #define DBG_LEVEL 1
 
@@ -17,7 +17,7 @@ motorPair getSpeedLeft() {
 	motorValues.motor_speed = current_motor_speed_left;
 	motorValues.motor_dir = current_motor_dir_left;
 
-  return motorValues;
+	return motorValues;
 }
 
 motorPair getSpeedRight() {
@@ -25,55 +25,55 @@ motorPair getSpeedRight() {
 	motorValues.motor_speed = current_motor_speed_right;
 	motorValues.motor_dir = current_motor_dir_right;
 
-  return motorValues;
+	return motorValues;
 }
 
 int isMovingForward() {
-  return (current_motor_dir_left && current_motor_dir_right)
-        && (current_motor_speed_left != 0 && current_motor_speed_right != 0);
+	return (current_motor_dir_left && current_motor_dir_right)
+	&& (current_motor_speed_left != 0 && current_motor_speed_right != 0);
 }
 
 int speedCheck(int speed) {
-  speed = (speed < 0) ? 0 : speed;
+	speed = (speed < 0) ? 0 : speed;
 	return (speed > MAX_SPEED) ? MAX_SPEED : speed;
 }
 
 void setLeftMotorFw(int speed) {
-  if (frontIRQ_triggered) return;
-  current_motor_dir_left = 1;
+	if (frontIRQ_triggered) return;
+	current_motor_dir_left = 1;
 	current_motor_speed_left = speedCheck(speed);
 	/*if (DBG_LEVEL >= 1) {
-	  _DBG("Left MotorF: ");_DBD32(current_motor_speed_left);_DBG_("");
-	}*/
-  cmdLeftMFw(current_motor_speed_left);
+	_DBG("Left MotorF: ");_DBD32(current_motor_speed_left);_DBG_("");
+}*/
+cmdLeftMFw(current_motor_speed_left);
 }
 void setLeftMotorBw(int speed) {
-  if (frontIRQ_triggered) return;
-  current_motor_dir_left = 0;
+	if (frontIRQ_triggered) return;
+	current_motor_dir_left = 0;
 	current_motor_speed_left = speedCheck(speed);
-/*	if (DBG_LEVEL >= 1) {
-	  _DBG("Left MotorB: ");_DBD32(current_motor_speed_left);_DBG_("");
-  }*/
-  cmdLeftMBw(current_motor_speed_left);
+	/*	if (DBG_LEVEL >= 1) {
+	_DBG("Left MotorB: ");_DBD32(current_motor_speed_left);_DBG_("");
+}*/
+cmdLeftMBw(current_motor_speed_left);
 }
 
 void setRightMotorFw(int speed) {
-  if (frontIRQ_triggered) return;
-  current_motor_dir_right = 1;
+	if (frontIRQ_triggered) return;
+	current_motor_dir_right = 1;
 	current_motor_speed_right = speedCheck(speed);
 	/*if (DBG_LEVEL >= 1) {
-		_DBG("Right MotorF: ");_DBD32(current_motor_speed_right);_DBG_("");
-  }*/
-  cmdRightMFw(current_motor_speed_right);
+	_DBG("Right MotorF: ");_DBD32(current_motor_speed_right);_DBG_("");
+}*/
+cmdRightMFw(current_motor_speed_right);
 }
 void setRightMotorBw(int speed) {
-  if (frontIRQ_triggered) return;
-  current_motor_dir_right = 0;
+	if (frontIRQ_triggered) return;
+	current_motor_dir_right = 0;
 	current_motor_speed_right = speedCheck(speed);
 	/*if (DBG_LEVEL >= 1) {
-		_DBG("Right MotorB: ");_DBD32(current_motor_speed_right);_DBG_("");
-	}*/
-  cmdRightMBw(current_motor_speed_right);
+	_DBG("Right MotorB: ");_DBD32(current_motor_speed_right);_DBG_("");
+}*/
+cmdRightMBw(current_motor_speed_right);
 }
 
 void setMotorsFw(int lm, int rm) {
@@ -90,7 +90,7 @@ void forwards(int s) {
 }
 
 void backwards(int s) {
-  s = s * (-1);
+	s = s * (-1);
 	setMotorsBw(s, s+2);
 }
 
@@ -105,7 +105,7 @@ void left() {
 }
 
 void brake() {
-  setMotorsFw(0, 0);
+	setMotorsFw(0, 0);
 }
 
 void spinLeft() {
@@ -124,11 +124,10 @@ void resume(motorPair lm, motorPair rm) {
 	} else {
 		setLeftMotorBw(lm.motor_speed);
 	}
-	
+
 	if(rm.motor_dir == 1 ) {
 		setRightMotorFw(rm.motor_speed);
 	} else {
 		setRightMotorBw(rm.motor_speed);
 	}
 }
-

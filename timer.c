@@ -6,16 +6,18 @@ int motorState = 0;
 
 void initTimer(LPC_TIM_TypeDef *TIMx, IRQn_Type IRQn, int time) {
 	TIM_TIMERCFG_Type TimerConf = {
-	.PrescaleOption = TIM_PRESCALE_USVAL, 
-	.PrescaleValue = time};
+		.PrescaleOption = TIM_PRESCALE_USVAL,
+		.PrescaleValue = time
+	};
 	TIM_Init(TIMx, TIM_TIMER_MODE, &TimerConf);
 	TIM_MATCHCFG_Type MatchConf = {
-	.MatchChannel = 0,
-	.IntOnMatch = ENABLE,
-	.ResetOnMatch = ENABLE,
-	.MatchValue = 1};
+		.MatchChannel = 0,
+		.IntOnMatch = ENABLE,
+		.ResetOnMatch = ENABLE,
+		.MatchValue = 1
+	};
 	TIM_ConfigMatch(TIMx,&MatchConf);
-  NVIC_SetPriority(TIMER0_IRQn, ((0x01<<3)|0x01));
+	NVIC_SetPriority(TIMER0_IRQn, ((0x01<<3)|0x01));
 	NVIC_EnableIRQ(IRQn);
 	TIM_Cmd(TIMx, ENABLE);
 }
@@ -26,22 +28,19 @@ void initTimers() {
 }
 
 void delay(int time) {
-  int i = timerCounter;
-  while (i - timerCounter == time) {
-  }
-  
-  while (timerCounter - i < time) {
-  }
+	int i = timerCounter;
+	while (i - timerCounter == time) {
+	}
+
+	while (timerCounter - i < time) {
+	}
 }
 
 void TIMER0_IRQHandler() {
-	 if(TIM_GetIntStatus(LPC_TIM0, TIM_MR0_INT) == SET)
-    {
-	    myspecialpoll();
- 	    timerCounter +=1;
-    }
-    TIM_ClearIntPending(LPC_TIM0, TIM_MR0_INT);
+	if(TIM_GetIntStatus(LPC_TIM0, TIM_MR0_INT) == SET)
+	{
+		myspecialpoll();
+		timerCounter +=1;
+	}
+	TIM_ClearIntPending(LPC_TIM0, TIM_MR0_INT);
 }
-
-
-
